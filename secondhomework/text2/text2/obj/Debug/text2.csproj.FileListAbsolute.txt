@@ -1,0 +1,6 @@
+E:\vs example\Visual Studio 2015\Projects\text2\text2\bin\Debug\text2.exe.config
+E:\vs example\Visual Studio 2015\Projects\text2\text2\bin\Debug\text2.exe
+E:\vs example\Visual Studio 2015\Projects\text2\text2\bin\Debug\text2.pdb
+E:\vs example\Visual Studio 2015\Projects\text2\text2\obj\Debug\text2.exe
+E:\vs example\Visual Studio 2015\Projects\text2\text2\obj\Debug\text2.pdb
+E:\vs example\Visual Studio 2015\Projects\text2\text2\obj\Debug\text2.csprojResolveAssemblyReference.cache
