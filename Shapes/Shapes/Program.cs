@@ -153,9 +153,9 @@ namespace Shapes
             while (i < 10)
             {
                 rd = ran.Next(0, 3);
-                a = ran.Next();
-                b = ran.Next();
-                c = ran.Next();
+                a = 100 * ran.NextDouble();
+                b = 100 * ran.NextDouble();
+                c = 100 * ran.NextDouble();
                 string shapeType = strArr[rd];
                 shape shape1 = shapeFactory.GetShape(shapeType, a, b, c);
                 if (shape1.getarea() != -1)
