@@ -1,0 +1,6 @@
+E:\vs example\Visual Studio 2015\Projects\Shapes\Shapes\bin\Debug\Shapes.exe.config
+E:\vs example\Visual Studio 2015\Projects\Shapes\Shapes\bin\Debug\Shapes.exe
+E:\vs example\Visual Studio 2015\Projects\Shapes\Shapes\bin\Debug\Shapes.pdb
+E:\vs example\Visual Studio 2015\Projects\Shapes\Shapes\obj\Debug\Shapes.csprojResolveAssemblyReference.cache
+E:\vs example\Visual Studio 2015\Projects\Shapes\Shapes\obj\Debug\Shapes.exe
+E:\vs example\Visual Studio 2015\Projects\Shapes\Shapes\obj\Debug\Shapes.pdb
