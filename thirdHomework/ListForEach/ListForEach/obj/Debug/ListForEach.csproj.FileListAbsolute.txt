@@ -1,0 +1,1 @@
+E:\vs example\Visual Studio 2015\Projects\ListForEach\ListForEach\bin\Debug\ListForEach.exe.config

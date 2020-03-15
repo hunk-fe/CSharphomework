@@ -1,0 +1,6 @@
+E:\vs example\Visual Studio 2015\Projects\alarmclock\alarmclock\bin\Debug\alarmclock.exe.config
+E:\vs example\Visual Studio 2015\Projects\alarmclock\alarmclock\bin\Debug\alarmclock.exe
+E:\vs example\Visual Studio 2015\Projects\alarmclock\alarmclock\bin\Debug\alarmclock.pdb
+E:\vs example\Visual Studio 2015\Projects\alarmclock\alarmclock\obj\Debug\alarmclock.csprojResolveAssemblyReference.cache
+E:\vs example\Visual Studio 2015\Projects\alarmclock\alarmclock\obj\Debug\alarmclock.exe
+E:\vs example\Visual Studio 2015\Projects\alarmclock\alarmclock\obj\Debug\alarmclock.pdb
