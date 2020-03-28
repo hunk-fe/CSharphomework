@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ArrayOfOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Order>
+    <orderNum>1</orderNum>
+    <client>1</client>
+    <address>1</address>
+    <orderTime>2020-03-28T11:43:22.8234964+08:00</orderTime>
+    <orderItemList>
+      <OrderItem>
+        <tradeNum>1</tradeNum>
+        <tradeName>APPLE</tradeName>
+        <tradeUnitPrice>7.2</tradeUnitPrice>
+      </OrderItem>
+    </orderItemList>
+  </Order>
+</ArrayOfOrder>
