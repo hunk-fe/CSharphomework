@@ -14,9 +14,9 @@ namespace orderManage
         public List<Order> orderList = new List<Order>();
         int orderAmount = 0;
 
-        public bool AddOrder(string client, string address)
+        public bool AddOrder(int orderNum,string client, string address)
         {
-            Order order = new Order(client, address);
+            Order order = new Order(orderNum,client, address);
             bool isRepeat = false;
             foreach (Order od in orderList)
             {
@@ -68,7 +68,55 @@ namespace orderManage
             int index = FindIndexByName(client);
             orderList[index].client = after_name;
             orderList[index].address = after_address;
+        }
 
+        public List<Order> QueryOrdersByGoodsName(string tradeName)
+        {
+            var query = orderList
+                    .Where(order => order.orderItemList.Exists(item => item.tradeName == tradeName))
+                    .OrderBy(o => o.sumPrice);
+            return query.ToList();
+        }
+
+        public List<Order> QueryOrdersByCustomerName(string clientName)
+        {
+            return orderList
+                .Where(order => order.client == clientName)
+                .OrderBy(o => o.sumPrice)
+                .ToList();
+        }
+
+        public void Sort()
+        {
+            orderList.Sort();
+        }
+
+        public void Sort(Func<Order, Order, int> func)
+        {
+            orderList.Sort((o1, o2) => func(o1, o2));
+        }
+
+        public void Export(String fileName)
+        {
+            XmlSerializer xs = new XmlSerializer(typeof(List<Order>));
+            using (FileStream fs = new FileStream(fileName, FileMode.Create))
+            {
+                xs.Serialize(fs, orderList);
+            }
+        }
+
+        public Order GetOrder(int OrderNum)
+        {
+            return orderList.Where(o => o.orderNum == OrderNum).FirstOrDefault();
+        }
+
+        public void UpdateOrder(Order newOrder)
+        {
+            Order oldOrder = GetOrder(newOrder.orderNum);
+            if (oldOrder == null)
+                throw new ApplicationException($"Update Error：the order with id {newOrder.orderNum} does not exist!");
+            orderList.Remove(oldOrder);
+            orderList.Add(newOrder);
         }
 
         enum IndexMethod

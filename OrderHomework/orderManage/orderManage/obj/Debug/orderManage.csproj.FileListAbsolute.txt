@@ -3,3 +3,4 @@ E:\vs example\Visual Studio 2015\Projects\orderManage\orderManage\bin\Debug\orde
 E:\vs example\Visual Studio 2015\Projects\orderManage\orderManage\bin\Debug\orderManage.pdb
 E:\vs example\Visual Studio 2015\Projects\orderManage\orderManage\obj\Debug\orderManage.exe
 E:\vs example\Visual Studio 2015\Projects\orderManage\orderManage\obj\Debug\orderManage.pdb
+E:\vs example\Visual Studio 2015\Projects\orderManage\orderManage\obj\Debug\orderManage.csprojResolveAssemblyReference.cache

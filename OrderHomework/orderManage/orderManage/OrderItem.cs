@@ -8,11 +8,17 @@ namespace orderManage
 {
     public class OrderItem
     {
-        public int tradeNum;
-        public string tradeName;
-        public double tradeUnitPrice;
+        public int tradeNum { get; set; }
+        public string tradeName { get; set; }
+        public double tradeUnitPrice { get; set; }
 
-
+        public double tradeSumPrice
+        {
+            get
+            {
+                return tradeNum * tradeUnitPrice;
+            }
+        }
         public OrderItem()
         {
             tradeNum = 0;

@@ -9,10 +9,10 @@ namespace orderManage
 {
     public class Order
     {
-        public int orderNum;
-        public string client;
-        public string address;
-        public DateTime orderTime;
+        public int orderNum { get; set; }
+        public string client { get; set; }
+        public string address { get; set; }
+        public DateTime orderTime { get; set; }
         public double sumPrice
         {
             get
@@ -27,6 +27,10 @@ namespace orderManage
         }
 
         public List<OrderItem> orderItemList = new List<OrderItem>();
+        public List<OrderItem> OrderItemList
+        {
+            get { return orderItemList; }
+        }
 
         public bool AddOrderItem(string Name,int Num,double unitprice)
         {
@@ -60,12 +64,12 @@ namespace orderManage
             this.address = null;
             orderTime = DateTime.Now;
         }
-        public Order(string client, string address)
+        public Order(int orderNum,string client, string address)
         {
             this.client = client;
             this.address = address;
             orderTime = DateTime.Now;
-            orderNum++;
+            this.orderNum = orderNum;
         }
 
         public override bool Equals(object obj)

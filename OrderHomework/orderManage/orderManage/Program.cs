@@ -39,7 +39,7 @@ namespace orderManage
                     string client_name = Console.ReadLine();
                     Console.WriteLine("Please enter the number " + (i + 1) + " customer's address.");
                     string client_address = Console.ReadLine();
-                    OrderService.AddOrder(client_name, client_address);
+                    OrderService.AddOrder(i+1,client_name, client_address);
 
 
                     Console.WriteLine("Hi!" + client_name);
