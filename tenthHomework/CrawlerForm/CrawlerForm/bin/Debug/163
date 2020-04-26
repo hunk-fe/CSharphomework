@@ -1,0 +1,433 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta property="og:description" content="背景 By 鲁迅 By 高尔基 说明： 1. Kernel版本：4.14 2. ARM64处理器，Contex A53，双核 3. 使用工具：Source Insight 3.5， Visio 1. " />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>【原创】Linux RCU原理剖析（二）-渐入佳境 - LoyenWang - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/red_autumnal_leaves/bundle-red_autumnal_leaves.min.css?v=XYaHoXnfxIDko8oNhF5m3BYALnsNSBprp32AE1eRULc" />
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/LoyenWang/custom.css?v=kitdjwsm3EhelhV3nk0aV9OpNmA=" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/red_autumnal_leaves/bundle-red_autumnal_leaves-mobile.min.css?v=ADiCwO2hOTdd5yYidcx7eob7ix2VJI4o_TXjEycTHjs" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/LoyenWang/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/LoyenWang/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/LoyenWang/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 534603;
+        var currentBlogApp = 'LoyenWang';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'red_autumnal_leaves';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/LoyenWang/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/LoyenWang/">LoyenWang</a>
+</h1>
+<h2>
+天道酬勤
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/LoyenWang/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/LoyenWang">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/LoyenWang/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			
+			<span id="stats_post_count">随笔 - 
+31&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+7</span>
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/LoyenWang/p/12770878.html">【原创】Linux RCU原理剖析（二）-渐入佳境</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+    <h1 id="背景">背景</h1>
+<ul>
+<li><code>Read the fucking source code!</code>  --By 鲁迅</li>
+<li><code>A picture is worth a thousand words.</code> --By 高尔基</li>
+</ul>
+<p>说明：</p>
+<ol>
+<li>Kernel版本：4.14</li>
+<li>ARM64处理器，Contex-A53，双核</li>
+<li>使用工具：Source Insight 3.5， Visio</li>
+</ol>
+<h1 id="1-概述">1. 概述</h1>
+<p>我会假设你已经看过了<a href="https://www.cnblogs.com/LoyenWang/p/12681494.html">《Linux RCU原理剖析（一）-初窥门径》</a></p>
+<p>本文将进一步去探索下<code>RCU</code>背后的机制。</p>
+<h1 id="2-基础概念">2. 基础概念</h1>
+<h2 id="21-grace-period">2.1 <code>Grace Period</code></h2>
+<p>继续贴出<code>《Linux RCU原理剖析（一）-初窥门径》</code>中的图片：</p>
+<p><img src="https://img2020.cnblogs.com/blog/1771657/202004/1771657-20200424230614089-1709672846.png" alt=""></p>
+<ul>
+<li>中间的黄色部分代表的就是<code>Grace Period</code>，中文叫做宽限期，从<code>Removal</code>到<code>Reclamation</code>，中间就隔了一个宽限期；</li>
+<li>只有当宽限期结束后，才会触发回收的工作，宽限期的结束代表着Reader都已经退出了临界区，因此回收工作也就是安全的操作了；</li>
+<li>宽限期是否结束，与处理器的执行状态检测有关，也就是检测静止状态<code>Quiescent Status</code>；</li>
+<li>RCU的性能与可扩展性依赖于它是否能有效的检测出静止状态(<code>Quiescent Status</code>)，并且判断宽限期是否结束。</li>
+</ul>
+<p>来一张图：</p>
+<p><img src="https://img2020.cnblogs.com/blog/1771657/202004/1771657-20200424230703923-1063202934.png" alt=""></p>
+<h2 id="22-quiescent-status">2.2 <code>Quiescent Status</code></h2>
+<p><code>Quiescent Status</code>，用于描述处理器的执行状态。当某个CPU正在访问RCU保护的临界区时，认为是活动的状态，而当它离开了临界区后，则认为它是静止的状态。当所有的CPU都至少经历过一次QS后，宽限期将结束并触发回收工作。</p>
+<p><img src="https://img2020.cnblogs.com/blog/1771657/202004/1771657-20200424230751096-891760571.png" alt=""></p>
+<ul>
+<li>在时钟tick中检测CPU处于<code>用户模式</code>或者<code>idle模式</code>，则表明CPU离开了临界区；</li>
+<li>在不支持抢占的RCU实现中，检测到CPU有context切换，就能表明CPU离开了临界区；</li>
+</ul>
+<h1 id="3-数据结构">3. 数据结构</h1>
+<ul>
+<li>RCU实际是一个大型的状态机，它的数据结构维护着状态，可以让RCU读者快速执行，同时也可以高效和灵活的处理RCU写者请求的宽限期。</li>
+<li>RCU的性能和可扩展性依赖于采用什么机制来探测宽限期的结束；</li>
+<li>RCU使用位图<code>cpumask</code>去记录CPU经历静止状态，在经典RCU(<code>Classic RCU</code>)实现中，由于使用了全局的<code>cpumask</code>位图，当CPU数量很大时锁争用会带来很大开销（GP开始时设置对应位，GP结束时清除对应位），因此也促成了<code>Tree RCU</code>的诞生；</li>
+<li><code>Tree RCU</code>以树形分层来组织CPU，将CPU分组，本小组的CPU争用同一个锁，当本小组的某个CPU经历了一个静止状态QS后，将其对应的位从位图清除，如果该小组最后一个CPU经历完静止状态QS后，表明该小组全部经历了CPU的QS状态，那么将上一层对应该组的位从位图清除；</li>
+<li>RCU有几个关键的数据结构：<code>struct rcu_state</code>，<code>struct rcu_node</code>，<code>struct rcu_data</code>；</li>
+</ul>
+<p>图来了：</p>
+<p><img src="https://img2020.cnblogs.com/blog/1771657/202004/1771657-20200424230837140-51438798.png" alt=""></p>
+<ul>
+<li><code>struct rcu_state</code>：用于描述RCU的全局状态，它负责组织树状层级结构，系统中支持不同类型的RCU状态：<code>rcu_sched_state</code>， <code>rcu_bh_state</code>，<code>rcu_preempt_state</code>；</li>
+<li><code>struct rcu_node</code>：<code>Tree RCU</code>中的组织节点；</li>
+<li><code>struct rcu_data</code>：用于描述处理器的RCU状态，每个CPU都维护一个数据，它归属于某一个<code>struct rcu_node</code>，<code>struct rcu_data</code>检测静止状态并进行处理，对应的CPU进行RCU回调，<code>__percpu</code>的定义也减少了同步的开销；</li>
+</ul>
+<p>看到这种描述，如果还是在懵逼的状态，那么再来一张拓扑图，让真相更白一点：</p>
+<p><img src="https://img2020.cnblogs.com/blog/1771657/202004/1771657-20200424230923040-1330204338.png" alt=""></p>
+<ul>
+<li>层状树形结构由<code>struct rcu_node</code>来组成，这些节点在<code>struct rcu_state</code>结构中是放置在数组中的，由于<code>struct rcu_node</code>结构有父节点指针，因此可以构造树形；</li>
+<li>CPU分组后，对锁的争用就会大大减少，比如<code>CPU0/CPU1</code>就不需要和<code>CPU6/CPU7</code>去争用锁了，逐级以淘汰赛的形式向上；</li>
+</ul>
+<blockquote>
+<p><strong><code>关键点来了：Tree RCU使用rcu_node节点来构造层级结构，进而管理静止状态Quiescent State和宽限期Grace Period，静止状态信息QS是从每个CPU的rcu_data往上传递到根节点的，而宽限期GP信息是通过根节点从上往下传递的，当每个CPU经历过一次QS状态后，宽限期结束</code></strong></p>
+</blockquote>
+<p>关键字段还是有必要介绍一下的，否则岂不是耍流氓？</p>
+<pre><code class="language-c">struct rcu_state {
+	struct rcu_node node[NUM_RCU_NODES];        // rcu_node节点数组，组织成层级树状
+	struct rcu_node *level[RCU_NUM_LVLS + 1];   //指向每层的首个rcu_node节点，数组加1是为了消除编译告警
+	struct rcu_data __percpu *rda;		                //指向每个CPU的rcu_data实例
+	call_rcu_func_t call;			                        //指向特定RCU类型的call_rcu函数：call_rcu_sched, call_rcu_bh等
+	int ncpus;				                                // 处理器数量
+    
+   	unsigned long gpnum;			                //当前宽限期编号，gpnum &gt; completed，表明正处在宽限期内
+	unsigned long completed;		                //上一个结束的宽限期编号，如果与gpnum相等，表明RCU空闲 
+    ...
+        unsigned long gp_max;                                   //最长的宽限期时间，jiffies        
+    ...
+}
+
+/*
+ * Definition for node within the RCU grace-period-detection hierarchy.
+ */
+struct rcu_node {
+    	raw_spinlock_t __private lock;	        //保护本节点的自旋锁
+     	unsigned long gpnum;			        //本节点宽限期编号，等于或小于根节点的gpnum
+        unsigned long completed;		        //本节点上一个结束的宽限期编号，等于或小于根节点的completed
+        unsigned long qsmask;                       //QS状态位图，某位为1，代表对应的成员没有经历QS状态
+        unsigned long qsmaskinit;                //正常宽限期开始时，QS状态的初始值
+    ...    
+	int	grplo;		//该分组的CPU最小编号
+	int	grphi;		//该分组的CPU最大编号
+	u8	grpnum;		//该分组在上一层分组里的编号
+	u8	level;		//在树中的层级，Root为0
+    ...
+    
+        struct rcu_node *parent; //指向父节点
+}
+
+/* Per-CPU data for read-copy update. */
+struct rcu_data {
+	unsigned long	completed;	    //本CPU看到的已结束的宽限期编号
+	unsigned long	gpnum;		    //本CPU看到的最高宽限期编号
+	union rcu_noqs cpu_no_qs;       //记录本CPU是否经历QS状态
+	bool core_need_qs;		        //RCU需要本CPU上报QS状态
+	unsigned long grpmask;		//本CPU在分组的位图中的掩码
+	struct rcu_segcblist;		        //回调函数链表，用于存放call_rcu注册的延后执行的回调函数
+    ...
+}
+</code></pre>
+<h1 id="4-rcu更新接口">4. RCU更新接口</h1>
+<p>从<a href="https://www.cnblogs.com/LoyenWang/p/12681494.html">《Linux RCU原理剖析（一）-初窥门径》</a>的示例中，我们看到了RCU的写端调用了<code>synchronize_rcu/call_rcu</code>两种类型的接口，事实上Linux内核提供了三种不同类型的RCU，因此也对应了相应形式的接口。</p>
+<p>来张图：</p>
+<p><img src="https://img2020.cnblogs.com/blog/1771657/202004/1771657-20200424231037032-1917858077.png" alt=""></p>
+<ul>
+<li><code>RCU</code>写者，可以通过两种方式来等待宽限期的结束，一种是调用同步接口等待宽限期结束，一种是异步接口等待宽限期结束后再进行回调处理，分别如上图的左右两侧所示；</li>
+<li>从图中的接口调用来看，同步接口中实际会去调用异步接口，只是同步接口中增加了一个<code>wait_for_completion</code>睡眠等待操作，并且会将<code>wakeme_after_rcu</code>回调函数传递给异步接口，当宽限期结束后，在异步接口中回调了<code>wakeme_after_rcu</code>进行唤醒处理；</li>
+<li>目前内核中提供了三种RCU：
+<ol>
+<li>可抢占RCU：<code>rcu_read_lock/rcu_read_unlock</code>来界定区域，在读端临界区可以被其他进程抢占；</li>
+<li>不可抢占RCU<code>(RCU-sched)</code>：<code>rcu_read_lock_sched/rcu_read_unlock_sched</code>来界定区域，在读端临界区不允许其他进程抢占；</li>
+<li>关下半部RCU<code>(RCU-bh)</code>：<code>rcu_read_lock_bh/rcu_read_unlock_bh</code>来界定区域，在读端临界区禁止软中断；</li>
+</ol>
+</li>
+<li>从图中可以看出来，不管是同步还是异步接口，最终都是调到<code>__call_rcu</code>接口，它是接口实现的关键，所以接下来分析下这个函数了；</li>
+</ul>
+<h1 id="5-__call_rcu">5. <code>__call_rcu</code></h1>
+<p>函数的调用流程如下：</p>
+<p><img src="https://img2020.cnblogs.com/blog/1771657/202004/1771657-20200424231114207-1997704645.png" alt=""></p>
+<ul>
+<li><code>__call_rcu</code>函数，第一个功能是注册回调函数，而回调的函数的维护是在<code>rcu_data</code>结构中的<code>struct rcu_segcblist cblist</code>字段中；</li>
+<li><code>rcu_accelerate_cbs/rcu_advance_cbs</code>，实现中都是通过操作<code>struct rcu_segcblist</code>结构，来完成回调函数的移动处理等；</li>
+<li><code>__call_rcu</code>函数第二个功能是判断是否需要开启新的宽限期GP；</li>
+</ul>
+<p>链表的维护关系如下图所示：</p>
+<p><img src="https://img2020.cnblogs.com/blog/1771657/202004/1771657-20200424231140227-545648142.png" alt=""></p>
+<ul>
+<li>实际的设计比较巧妙，通过一个链表来链接所有的回调函数节点，同时维护一个二级指针数组，用于将该链表进行分段，分别维护不同阶段的回调函数，回调函数的移动方向如图所示，关于回调函数节点的处理都围绕着这个图来展开；</li>
+</ul>
+<p>那么通过<code>__call_rcu</code>注册的这些回调函数在哪里调用呢？答案是在<code>RCU_SOFTIRQ</code>软中断中：</p>
+<p><img src="https://img2020.cnblogs.com/blog/1771657/202004/1771657-20200424231211961-405526075.png" alt=""></p>
+<ul>
+<li>当<code>invoke_rcu_core</code>时，在该函数中调用<code>raise_softirq</code>接口，从而触发软中断回调函数<code>rcu_process_callbacks</code>的执行；</li>
+<li>涉及到与宽限期GP相关的操作，在<code>rcu_process_callbacks</code>中会调用<code>rcu_gp_kthread_wake</code>唤醒内核线程，最终会在<code>rcu_gp_kthread</code>线程中执行；</li>
+<li>涉及到RCU注册的回调函数执行的操作，都在<code>rcu_do_batch</code>函数中执行，其中有两种执行方式：1）如果不支持优先级继承的话，直接调用即可；2）支持优先级继承，在把回调的工作放置在<code>rcu_cpu_kthread</code>内核线程中，其中内核为每个CPU都创建了一个<code>rcu_cpu_kthread</code>内核线程；</li>
+</ul>
+<h1 id="6-宽限期开始与结束">6. 宽限期开始与结束</h1>
+<p>既然涉及到宽限期GP的操作，都放到了<code>rcu_gp_kthread</code>内核线程中了，那么来看看这个内核线程的逻辑操作吧：</p>
+<p><img src="https://img2020.cnblogs.com/blog/1771657/202004/1771657-20200424231238950-269295968.png" alt=""></p>
+<ul>
+<li>内核分别为<code>rcu_preempt_state, rcu_bh_state, rcu_sched_state</code>创建了内核线程<code>rcu_gp_kthread</code>；</li>
+<li><code>rcu_gp_kthread</code>内核线程主要完成三个工作：1）创建新的宽限期GP；2）等待强制静止状态，设置超时，提前唤醒说明所有处理器经过了静止状态；3）宽限期结束处理。其中，前边两个操作都是通过睡眠等待在某个条件上。</li>
+</ul>
+<h1 id="7-静止状态检测及报告">7. 静止状态检测及报告</h1>
+<p>很显然，对这种状态的检测通常都是周期性的进行，放置在时钟中断处理中就是情理之中了：</p>
+<p><img src="https://img2020.cnblogs.com/blog/1771657/202004/1771657-20200424231305329-888937109.png" alt=""></p>
+<ul>
+<li><code>rcu_sched/rcu_bh</code>类型的RCU中，当检测CPU处于用户模式或处于<code>idle</code>线程中，说明当前CPU已经离开了临界区，经历了一个QS静止状态，对于<code>rcu_bh</code>的RCU，如果没有出去<code>softirq</code>上下文中，也表明CPU经历了QS静止状态；</li>
+<li>在<code>rcu_pending</code>满足条件的情况下，触发软中断的执行，<code>rcu_process_callbacks</code>将会被调用；</li>
+<li>在<code>rcu_process_callbacks</code>回调函数中，对宽限期进行判断，并对静止状态逐级上报，如果整个树状结构都经历了静止状态，那就表明了宽限期的结束，从而唤醒内核线程去处理；</li>
+<li>顺便提一句，在<code>rcu_pending</code>函数中，<code>rcu_pending-&gt;__rcu_pending-&gt;check_cpu_stall-&gt;print_cpu_stall</code>的流程中，会去判断是否有CPU stall的问题，这个在内核中有文档专门来描述，不再分析了；</li>
+</ul>
+<h1 id="8-状态机变换">8. 状态机变换</h1>
+<p>如果要观察整个状态机的变化，跟踪一下<code>trace_rcu_grace_period</code>接口的记录就能发现：</p>
+<pre><code class="language-c">/*
+ * Tracepoint for grace-period events.  Takes a string identifying the
+ * RCU flavor, the grace-period number, and a string identifying the
+ * grace-period-related event as follows:
+ *
+ *	&quot;AccReadyCB&quot;: CPU acclerates new callbacks to RCU_NEXT_READY_TAIL.
+ *	&quot;AccWaitCB&quot;: CPU accelerates new callbacks to RCU_WAIT_TAIL.
+ *	&quot;newreq&quot;: Request a new grace period.
+ *	&quot;start&quot;: Start a grace period.
+ *	&quot;cpustart&quot;: CPU first notices a grace-period start.
+ *	&quot;cpuqs&quot;: CPU passes through a quiescent state.
+ *	&quot;cpuonl&quot;: CPU comes online.
+ *	&quot;cpuofl&quot;: CPU goes offline.
+ *	&quot;reqwait&quot;: GP kthread sleeps waiting for grace-period request.
+ *	&quot;reqwaitsig&quot;: GP kthread awakened by signal from reqwait state.
+ *	&quot;fqswait&quot;: GP kthread waiting until time to force quiescent states.
+ *	&quot;fqsstart&quot;: GP kthread starts forcing quiescent states.
+ *	&quot;fqsend&quot;: GP kthread done forcing quiescent states.
+ *	&quot;fqswaitsig&quot;: GP kthread awakened by signal from fqswait state.
+ *	&quot;end&quot;: End a grace period.
+ *	&quot;cpuend&quot;: CPU first notices a grace-period end.
+ */
+</code></pre>
+<p>大体流程如下：</p>
+<p><img src="https://img2020.cnblogs.com/blog/1771657/202004/1771657-20200424231324436-1739791125.png" alt=""></p>
+<h1 id="9-总结">9. 总结</h1>
+<ul>
+<li>本文提纲挈领的捋了一下RCU的大体流程，主要涉及到RCU状态机的轮转，从开启宽限期GP，到宽限期GP的初始化、静止状态QS的检测、宽限期结束、回调函数的调用等，而这部分主要涉及到软中断<code>RCU_SOFTIRQ</code>和内核线程<code>rcu_gp_kthread</code>的动态运行及交互等；</li>
+<li>内部的状态组织是通过<code>rcu_state, rcu_node, rcu_data</code>组织成树状结构来维护，此外回调函数是通过<code>rcu_data</code>中的分段链表来批处理，至于这些结构中相关字段的处理（比如<code>gpnum, completed</code>字段的设置来判断宽限期阶段等），以及链表的节点移动等，都没有进一步去分析跟进了；</li>
+<li>RCU的实现机制很复杂，很多其他内容都还未涉及到，比如SRCU（可睡眠RCU）、可抢占RCU，中断/NMI对RCU的处理等，只能说是蜻蜓点水了；</li>
+<li>在阅读代码过程中，经常会发现一些巧妙的设计，有时会有顿悟的感觉，这也是其中的乐趣之一了；</li>
+</ul>
+<p><code>渐入佳境篇</code>就此打住，是否还会有<code>登堂入室篇</code>呢？想啥呢，歇歇吧。</p>
+<h1 id="参考">参考</h1>
+<p><code>Verification of the Tree-Based Hierarchical Read-Copy Update in the Linux Kernel</code><br>
+<a href="https://www.kernel.org/doc/Documentation/RCU/">Documentation/RCU</a><br>
+<a href="https://lwn.net/Articles/262464/">What is RCU, Fundamentally?</a><br>
+<a href="https://lwn.net/Articles/263130/">What is RCU? Part 2: Usage</a><br>
+<a href="https://lwn.net/Articles/264090/">RCU part 3: the RCU API</a><br>
+<a href="http://www2.rdrop.com/users/paulmck/RCU/">Introduction to RCU</a></p>
+<p>欢迎关注公众号：<br>
+<img src="https://img2020.cnblogs.com/blog/1771657/202004/1771657-20200424231437164-1063626282.jpg" alt=""></p>
+
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-04-24 23:18</span>&nbsp;
+<a href="https://www.cnblogs.com/LoyenWang/">LoyenWang</a>&nbsp;
+阅读(<span id="post_view_count">...</span>)&nbsp;
+评论(<span id="post_comment_count">...</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12770878" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(12770878);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/9.12.0/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 534603, cb_blogApp = 'LoyenWang', cb_blogUserGuid = '4737dbf0-e514-4b64-ef59-08d7188de755';
+    var cb_entryId = 12770878, cb_entryCreatedDate = '2020-04-24 23:18', cb_postType = 1; 
+    loadViewCount(cb_entryId);
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot("/1090369/C1", [300, 250], "div-gpt-ad-1546353474406-0").addService(googletag.pubads());
+            googletag.defineSlot("/1090369/C2", [468, 60], "div-gpt-ad-1539008685004-0").addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;"></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;">
+            <script>
+                if (new Date() >= new Date(2018, 9, 13)) {
+                    googletag.cmd.push(function () { googletag.display("div-gpt-ad-1539008685004-0"); });
+                }
+            </script>
+        </div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div>
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 LoyenWang
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

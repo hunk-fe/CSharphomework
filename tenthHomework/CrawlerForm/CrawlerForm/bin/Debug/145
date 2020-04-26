@@ -1,0 +1,501 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>sigua心底的小声音 - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/simplememory/bundle-simplememory.min.css?v=OL4qeo1LNGlN1rKIhv5UctANvt0M6Nx6kLzr_ffx3Xk" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/SimpleMemory/bundle-SimpleMemory-mobile.min.css" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/siguamatrix/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/siguamatrix/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/siguamatrix/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 549464;
+        var currentBlogApp = 'siguamatrix';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'SimpleMemory';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/siguamatrix/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/siguamatrix/">sigua心底的小声音</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/siguamatrix/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/sigua%E5%BF%83%E5%BA%95%E7%9A%84%E5%B0%8F%E5%A3%B0%E9%9F%B3">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/siguamatrix/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			
+			<span id="stats_post_count">随笔 - 
+11&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+9</span>
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<!--done-->
+
+
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/siguamatrix/archive/2020/04/25.html">2020年4月25日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/siguamatrix/p/12771779.html">
+    【斯坦福算法分析和设计02】渐进分析
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：目录 1. The Gist 1.1 为什么要学它(Motivation) 1.2 High level idea 1.3 4个例子 2. Big-Oh Notation 2.1 文本定义 2.2 图形定义 2.3 数学定义 3. 2个例子 3.1 k阶多项式是O(n^k) 3.2 k阶多项式不是O            <a href="https://www.cnblogs.com/siguamatrix/p/12771779.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-25 10:19 sigua心底的小声音 阅读 (59) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12771779" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/siguamatrix/archive/2020/04/05.html">2020年4月5日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/siguamatrix/p/12639090.html">
+    吴恩达DeepLearning.ai的Sequence model作业Dinosaurus Island
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：目录 1 问题设置 1.1 数据集和预处理 1.2 概览整个模型 2. 创建模型模块 2.1 在优化循环中梯度裁剪 2.2 采样 3. 构建语言模型 3.1 梯度下降 3.2 训练模型 4. 结论 本文是DeepLearning.ai的第五门课作业: Character level language            <a href="https://www.cnblogs.com/siguamatrix/p/12639090.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-05 21:11 sigua心底的小声音 阅读 (149) 评论 (3)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12639090" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/siguamatrix/archive/2020/03/21.html">2020年3月21日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/siguamatrix/p/12543113.html">
+    手把手构建LSTM的向前传播(Building a LSTM step by step)
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：本篇是在之前两篇基础上接着写的: 吴恩达deepLearning.ai循环神经网络RNN学习笔记(理论篇) 从头构建循环神经网络RNN的向前传播(rnn in pure python) 也可以不看，如果以下有看不懂的，再回过头来看上面两篇也行。 ​ 前言 目录 阀门和状态描述 LSTM cell L            <a href="https://www.cnblogs.com/siguamatrix/p/12543113.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-03-21 22:52 sigua心底的小声音 阅读 (91) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12543113" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/siguamatrix/archive/2020/03/19.html">2020年3月19日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/siguamatrix/p/12523600.html">
+    用纯Python实现循环神经网络RNN向前传播过程(吴恩达DeepLearning.ai作业)
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：Google TensorFlow程序员点赞的文章！ 前言 目录: - 向量表示以及它的维度 - rnn cell - rnn 向前传播 重点关注: - 如何把数据向量化的，它们的维度是怎么来的 - 一共其实就是两步:&#160;单个单元的rnn计算，拉通来的rnn计算 ​ 在看本文前，可以先看看这篇文章回忆            <a href="https://www.cnblogs.com/siguamatrix/p/12523600.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-03-19 12:53 sigua心底的小声音 阅读 (202) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12523600" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/siguamatrix/archive/2020/01/15.html">2020年1月15日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/siguamatrix/p/12197246.html">
+    斯坦福算法分析和设计_2. 排序算法MergeSort
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：Motivate MergeSort是个相对古老的算法了，为什么现在我们还要讨论这么古老的东西呢？有几个原因: 它虽然年龄很大了，但是在实践中一直被沿用，仍然是很多程序库中的标准算法之一。 实现它的本质是分治思想，是一个理解分治算法思想的好例子，好起点。 本文会使用“递归树”来对它进行运行时间分析，            <a href="https://www.cnblogs.com/siguamatrix/p/12197246.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-01-15 16:06 sigua心底的小声音 阅读 (242) 评论 (2)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12197246" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/siguamatrix/archive/2020/01/14.html">2020年1月14日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/siguamatrix/p/12190738.html">
+    斯坦福算法设计和分析_3. 分治算法
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：​本文预计阅读时间4分钟，在读的过程中你需要带着以下问题: 分治算法的基本步骤 逆序对计数是如何使用分治算法来解决问题的 为什么MergeSort排序法可以自然的算出逆序对数目 分值策略一般步骤 把输入划分成更小的子问题。 递归的治理子问题。 把子问题的解决方案组合到一起，形成原始问题的解决方案。             <a href="https://www.cnblogs.com/siguamatrix/p/12190738.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-01-14 18:09 sigua心底的小声音 阅读 (219) 评论 (3)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12190738" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/siguamatrix/archive/2019/12/28.html">2019年12月28日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/siguamatrix/p/12110175.html">
+    如何阅读论文
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：本文翻译: How to Read a Paper - Stanford University 摘要 ​我们花费大量时间阅读论文，但是如何读论文这种技能却很少被教，导致会有些人因为不正确的方式浪费的很多时间和精力。本文概述了一种实用且有效的【三遍】方法用于阅读论文，它可以防止过早的陷入细节中。 三遍            <a href="https://www.cnblogs.com/siguamatrix/p/12110175.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2019-12-28 00:19 sigua心底的小声音 阅读 (92) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12110175" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/siguamatrix/archive/2019/12/08.html">2019年12月8日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/siguamatrix/p/12007286.html">
+    我的算法学习之路
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：【我走过的弯路】 我不是科班毕业的学生，带我的leader说要打好计算机基础，算法是一个基础。一般就会网上一搜‘如何学好算法’，这么一搜就会有很多的答案: 人们说，算法导论/segdewick的算法好; 人们说，初学者不要看算法导论很难; 人们说，小白先看算法图解; 人们说，清华大学的邓俊辉老师的网            <a href="https://www.cnblogs.com/siguamatrix/p/12007286.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2019-12-08 21:16 sigua心底的小声音 阅读 (102) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12007286" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/siguamatrix/archive/2019/12/07.html">2019年12月7日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/siguamatrix/p/12003622.html">
+    LeetCode-7.reverse-integer 【翻转字符串】【数学】
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：PS: 第一次写文章好累啊，没想到这么短的文章写完这么累，大家给我点反馈，多给我留言啊。 &#128073;题目描述: 给定32位带符号的整数，将数字反转。 比如: 123 -&gt; 321 | -234 -&gt; -432 值的取值范围在: [−2^31, 2^31&#160;− 1] &#128073;解题思路: 基本过程: 1.&#160;pop             <a href="https://www.cnblogs.com/siguamatrix/p/12003622.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2019-12-07 22:02 sigua心底的小声音 阅读 (32) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12003622" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/siguamatrix/archive/2019/10/22.html">2019年10月22日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/siguamatrix/p/11719277.html">
+    为什么我要写博客
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：我想被认识 我想让一个陌生人能够快速的对我的关注点有个大致的认识，再决定是否要和我交流，了解我的背景以怎么样的方式交流。 我的外在形象是个活泼阳光可爱行政小妹的形象(初认识人都是这样的评价)，但是平时关注的信息源是很直男的，在知乎和微博上关注的人绝大多数是技术见解比较深刻，从业经验久的人。也有一些技            <a href="https://www.cnblogs.com/siguamatrix/p/11719277.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2019-10-22 13:33 sigua心底的小声音 阅读 (117) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=11719277" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+
+<div class="topicListFooter">
+    <div id="nav_next_page">
+        
+    <a href="https://www.cnblogs.com/siguamatrix/default.html?page=2">
+        下一页
+    </a>
+
+    </div>    
+</div>
+
+
+
+
+
+
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 sigua心底的小声音
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

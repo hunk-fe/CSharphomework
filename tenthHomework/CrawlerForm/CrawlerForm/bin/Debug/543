@@ -1,0 +1,296 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta property="og:description" content="前言: 很多朋友在学习Java的过程中呢会有一些自己比较不擅长的知识点，想来系统的全面的去学习一个单独的知识。 我觉得电子书是再好不过的学习教材了，全面且围绕着一个知识点来讲解。 所以今天给大家来分享" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>推荐豆瓣10本高分Java技术电子书，总有一本适合你.是你想学的 - 不断前进666 - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/codinglife/bundle-codinglife.min.css?v=hlpQ1CJDwwJXDxv2HNauUmW3NjyWzoMaw1uER19SLT0" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/codinglife/bundle-codinglife-mobile.min.css?v=XjHfryC9ctsatIZz1dHn7TsRIqmwz9c3aj_6SCfHSDM" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/look-look/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/look-look/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/look-look/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 554347;
+        var currentBlogApp = 'look-look';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'CodingLife';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/look-look/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/look-look/">look_look</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li>
+</li>
+<li>
+
+</li>
+<li>
+
+
+</li>
+<li>
+</li>
+<li>
+
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			
+			<span id="stats_post_count">随笔 - 
+175&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+10</span>
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/look-look/p/12772579.html">推荐豆瓣10本高分Java技术电子书，总有一本适合你.是你想学的</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+    <h1 id="前言">前言:</h1>
+<p>很多朋友在学习Java的过程中呢会有一些自己比较不擅长的知识点，想来系统的全面的去学习一个单独的知识。</p>
+<p>我觉得电子书是再好不过的学习教材了，全面且围绕着一个知识点来讲解。</p>
+<p>所以今天给大家来分享一些电子书籍，这么多总有一本是你需要的，有你需要的电子书的话看到最后，文末有领取方式。</p>
+<p><img src="https://img2020.cnblogs.com/other/1843904/202004/1843904-20200425123829382-10862938.png" alt=""></p>
+<p>《深入理解Java虚拟机：JVM高级特性与最佳实践》</p>
+<p>全书共分为五大部分。</p>
+<p>第一部分从宏观的角度介绍了整个Java技术体系的过去，现在和未来，以及如何独立地编译一个OpenJDK7，这对理解后面的内容很有帮助。</p>
+<p>第二部分讲解了JVM的自动内存管理，包括虛拟机内存区域的划分原理以及各种内存溢出异常产生的原因:常见的垃圾收集算法以及垃圾收集2的特点和工作原理;常见的虚拟机的监控与调试工具的原理和使用方法。</p>
+<p>第三部分分析了虛拟机的执行子系统，包括Class的文件结构以及如何存储和访问Class中的数据:虛拟机的类创建机制以及类加载器的工作原理和它对虚拟机的意义:虚拟机字节码的执行引擎以及它在实行代码时涉及的内存结构。</p>
+<p>第四部分讲解了程序的编译与代码的优化，阐述了泛型、自动装箱拆箱、条件编译等语法糖的原理;讲解了虚拟机的热点探测方法、HotSpot 的即时编译器、编译触发条件，以及如何从虛拟机外部观察和分析JT编译的数据和结果。</p>
+<p>第五部分探讨了Java实现高效井发的原理，包括JVM内存模型的结构和操作:原子性、可见性和有序性在Java内存模型中的体现:先行发生原则的规则和使用:线程在Java语言中的实现原理:虛拟机实現高效并发所做的-系列锁优化措施。</p>
+<p>本书适合所有Java程序员、系统调优师和系统架构师阅读.</p>
+<p><img src="https://img2020.cnblogs.com/other/1843904/202004/1843904-20200425123829590-811969743.jpg" alt=""></p>
+<h2 id=""></h2>
+<p>Docker实战</p>
+<p>本书被分成3个部分。</p>
+<p>第1部分介绍Docker和容器的特点。</p>
+<p>帮助你理解如何安装和卸载Docker中发布的软件。你将学习如何运行、管理，并在不同的容器结构连接不同类型的软件。第一部分 介绍每一个Docker用户需要的基本技能。</p>
+<p>第2部分介绍Docker的封装和软件的分发，涵盖了不同大小Docker镜像的底层机制，以及对不同的封装和分发方法所进行的调查。这一部分还包括对Docker Distribution项目的的深入分析。.</p>
+<p>第3部分介绍多容器项目和多主机环境，覆盖了Docker Compose、Machine 和Swarm项目。这部分内容会指导构建和部署多个真实的实例，规模接近于大型的服务器软件。</p>
+<p><img src="https://img2020.cnblogs.com/other/1843904/202004/1843904-20200425123829723-729511276.jpg" alt=""></p>
+<h2 id="-2"></h2>
+<p>Java并发编程的艺术</p>
+<p>本书结合JDK的源码介绍了Java并发框架、线程池的实现原理，帮助读者做到知其所以然。</p>
+<p>本书对原理的剖析不仅仅局限于Java层面，而是深入到JVM，甚至CPU层面来进行讲解，帮助读者从更底层看并发技术。</p>
+<p>本书结合线上应用，给出了一些并发编程实战技巧，以及线上处理并发问题的步骤和思路</p>
+<p><img src="https://img2020.cnblogs.com/other/1843904/202004/1843904-20200425123829851-717645321.jpg" alt=""></p>
+<h2 id="-3"></h2>
+<p>Kafka技术内幕：图文详解Kafka源码设计与实现</p>
+<p>Apache Kafka (简称Kafka )最早是由LinkcedIn开源出来的分布式消息系统，现在是Apache旗下的一个子项目，并且已经成为开源领域应用最广泛的消息系统之一。</p>
+<p>Kafka社区 也非常活跃，从0.9版本开始，Kafka的标语已经从“一个高吞吐量，分布式的消息系统”改为“一个分布式的流平台”。</p>
+<p>本书主要以0.10版本的Kafka源码为基础，并通过图文详解的方式分析Kafka内部组件的实现细节。</p>
+<p>对于Kafka流处理的一些新特性，本书也会分析0.11版本的相关源码。本书各章的主要内容如下。</p>
+<p><img src="https://img2020.cnblogs.com/other/1843904/202004/1843904-20200425123829998-1722702935.jpg" alt=""></p>
+<p>Nginx实战</p>
+<p>Nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP代理服务器。 Nginx是一款轻量级的Web服务器/反向代理服务器以及电子邮件代理服务器，并在一个BSD-like协议下发行。</p>
+<p>由俄罗斯的程序设计师lgor Sysoev所开发，供俄国大型的入口网站及搜索引擎Rambler使用。</p>
+<p>其特点是占有内存少，并发能力强，事实上nginx的并发能力确实在同类型的网页服务器中表现较好。</p>
+<p><img src="https://img2020.cnblogs.com/other/1843904/202004/1843904-20200425123830152-151448670.jpg" alt=""></p>
+<p>Redis高性能缓存</p>
+<p>Redis（Remote Dictionary Server）是一个开源的（BSD许可）使用ANSI C语言编写的，内存中的数据结构存储系统(key-value)，它可以用作数据库、缓存和消息中间件，它使用字典结构存储数据，它支持多种类型的数据结构，如 字符串（strings）， 散列（hashes）， 列表（lists）， 集合（sets）， 有序集合（sorted sets） ， bitmaps， hyperloglogs 和地理空间（geospatial） 索引半径查询。 Redis 内置了 复制（replication），LUA脚本（Lua scripting）， LRU驱动事件（LRU eviction），事务（transactions） 和不同级别的 磁盘持久化（persistence）， 并通过 Redis哨兵（Sentinel）和自动 分区（Cluster）提供高可用性（high availability）。 并提供多种语言的API。</p>
+<p>从2010年3月15日起，Redis的开发工作由VMware主持。从2013年5月开始，Redis的开发由Pivotal赞助.</p>
+<p><img src="https://img2020.cnblogs.com/other/1843904/202004/1843904-20200425123830332-801528151.jpg" alt=""></p>
+<p>spring boot全教程</p>
+<p><img src="https://img2020.cnblogs.com/other/1843904/202004/1843904-20200425123830459-210032474.jpg" alt=""></p>
+<p>SPRING技术内幕：深入解析SPRING架构与设计原理</p>
+<p>本书探讨了Spring框架的设计原理、架构和运行机制。</p>
+<p>作为在Java领域最为成功的开源软件之一，Spring在Java EE开发中，使用者众多。</p>
+<p>本书以Spring的源代码为依托，结合Spring的设计思路，从内部实现的角度，对Spring的实现进行了翔实的分析，希望能够通过这种分析，使读者在开发者的层面掌握Spring,为开发Spring应用提供更扎实的框架基础。</p>
+<p><img src="https://img2020.cnblogs.com/other/1843904/202004/1843904-20200425123830649-1726485213.jpg" alt=""></p>
+<p>高性能MySQL</p>
+<p>第1章是非常基础的一章，在更深人地学习之前建议先熟悉一下这部分内容。</p>
+<p>在有效地使用MySQL之前应当理解它是如何组织的。</p>
+<p>本章解释了MySQL的架构及其存储引擎的关键设计。</p>
+<p>如果读者还不太熟悉关系数据库和事务的基础知识，本章也可以带来一-点帮助。</p>
+<p>如果之前已经对其他关系数据库如Oracle比较熟悉，本章也可以帮助读者了解MySQL的入门知识。</p>
+<p>本章还包括了一-点MySQL的历史景:MySQL随着时间的演进、最近的公司所有权更替，以及我们认为比较重要的内容。</p>
+<p><img src="https://img2020.cnblogs.com/other/1843904/202004/1843904-20200425123830789-1817520084.jpg" alt=""></p>
+<p>深入浅出MySQL</p>
+<p><img src="https://img2020.cnblogs.com/other/1843904/202004/1843904-20200425123830927-1181313510.jpg" alt=""></p>
+<p><strong>上面的这些面试题都整理成了PDF文档，希望能帮助到你面试前的复习并找到一个好的工作，相对来说也节省了你在网上搜索资料的时间来学习！！！</strong></p>
+<p><strong>附欢迎关注我的公种号：it资源之家 ，扫描下面二维码即可领取更多一线大厂Java面试题资料！</strong></p>
+<p><img src="https://img2020.cnblogs.com/other/1843904/202004/1843904-20200425123831063-1755515018.png" alt=""></p>
+<h2 id="最后">最后</h2>
+<p><strong>欢迎大家评论区一起交流，相互提升；整理资料不易，如果喜欢文章记得点个赞哈，感谢大家支持！！！</strong></p>
+
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-04-25 12:39</span>&nbsp;
+<a href="https://www.cnblogs.com/look-look/">不断前进666</a>&nbsp;
+阅读(<span id="post_view_count">...</span>)&nbsp;
+评论(<span id="post_comment_count">...</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12772579" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(12772579);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/9.12.0/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 554347, cb_blogApp = 'look-look', cb_blogUserGuid = '9b0f7858-db06-418d-98eb-08d753a8c051';
+    var cb_entryId = 12772579, cb_entryCreatedDate = '2020-04-25 12:39', cb_postType = 1; 
+    loadViewCount(cb_entryId);
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot("/1090369/C1", [300, 250], "div-gpt-ad-1546353474406-0").addService(googletag.pubads());
+            googletag.defineSlot("/1090369/C2", [468, 60], "div-gpt-ad-1539008685004-0").addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;"></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;">
+            <script>
+                if (new Date() >= new Date(2018, 9, 13)) {
+                    googletag.cmd.push(function () { googletag.display("div-gpt-ad-1539008685004-0"); });
+                }
+            </script>
+        </div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div>
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 不断前进666
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

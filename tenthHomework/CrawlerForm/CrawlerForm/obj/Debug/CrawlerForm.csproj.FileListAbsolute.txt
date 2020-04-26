@@ -1,0 +1,31 @@
+C:\Users\jiaxy\source\repos\SimpleCrawler\CrawlerForm\bin\Debug\CrawlerForm.exe.config
+C:\Users\jiaxy\source\repos\SimpleCrawler\CrawlerForm\bin\Debug\CrawlerForm.exe
+C:\Users\jiaxy\source\repos\SimpleCrawler\CrawlerForm\bin\Debug\CrawlerForm.pdb
+C:\Users\jiaxy\source\repos\SimpleCrawler\CrawlerForm\obj\Debug\CrawlerForm.csprojAssemblyReference.cache
+C:\Users\jiaxy\source\repos\SimpleCrawler\CrawlerForm\obj\Debug\CrawlerForm.Form1.resources
+C:\Users\jiaxy\source\repos\SimpleCrawler\CrawlerForm\obj\Debug\CrawlerForm.Properties.Resources.resources
+C:\Users\jiaxy\source\repos\SimpleCrawler\CrawlerForm\obj\Debug\CrawlerForm.csproj.GenerateResource.cache
+C:\Users\jiaxy\source\repos\SimpleCrawler\CrawlerForm\obj\Debug\CrawlerForm.csproj.CoreCompileInputs.cache
+C:\Users\jiaxy\source\repos\SimpleCrawler\CrawlerForm\obj\Debug\CrawlerForm.exe
+C:\Users\jiaxy\source\repos\SimpleCrawler\CrawlerForm\obj\Debug\CrawlerForm.pdb
+D:\VS Try\CrawlerForm\bin\Debug\CrawlerForm.exe.config
+D:\VS Try\CrawlerForm\obj\Debug\CrawlerForm.exe
+D:\VS Try\CrawlerForm\obj\Debug\CrawlerForm.pdb
+D:\VS Try\CrawlerForm\bin\Debug\CrawlerForm.exe
+D:\VS Try\CrawlerForm\bin\Debug\CrawlerForm.pdb
+D:\VS Try\CrawlerForm\obj\Debug\CrawlerForm.csprojResolveAssemblyReference.cache
+D:\VS Try\CrawlerForm\obj\Debug\CrawlerForm.Form1.resources
+D:\VS Try\CrawlerForm\obj\Debug\CrawlerForm.Properties.Resources.resources
+D:\VS Try\CrawlerForm\obj\Debug\CrawlerForm.csproj.GenerateResource.Cache
+D:\VS Try\CrawlerForm\CrawlerForm\bin\Debug\CrawlerForm.exe.config
+D:\VS Try\CrawlerForm\CrawlerForm\obj\Debug\CrawlerForm.exe
+D:\VS Try\CrawlerForm\CrawlerForm\obj\Debug\CrawlerForm.pdb
+D:\VS Try\CrawlerForm\CrawlerForm\bin\Debug\CrawlerForm.exe
+D:\VS Try\CrawlerForm\CrawlerForm\bin\Debug\CrawlerForm.pdb
+D:\VS Try\CrawlerForm\CrawlerForm\obj\Debug\CrawlerForm.csprojResolveAssemblyReference.cache
+D:\VS Try\CrawlerForm\CrawlerForm\obj\Debug\CrawlerForm.Form1.resources
+D:\VS Try\CrawlerForm\CrawlerForm\obj\Debug\CrawlerForm.Properties.Resources.resources
+D:\VS Try\CrawlerForm\CrawlerForm\obj\Debug\CrawlerForm.csproj.GenerateResource.Cache
+C:\Users\dell\Desktop\CSharpHomework-master\CrawlerForm\CrawlerForm\bin\Debug\CrawlerForm.exe.config
+C:\Users\dell\Desktop\CSharpHomework-master\CrawlerForm\CrawlerForm\obj\Debug\CrawlerForm.exe
+C:\Users\dell\Desktop\CSharpHomework-master\CrawlerForm\CrawlerForm\obj\Debug\CrawlerForm.pdb

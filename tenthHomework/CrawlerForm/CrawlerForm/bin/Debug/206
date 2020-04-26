@@ -1,0 +1,298 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta property="og:description" content="官网文档地址： &amp;quot;django admin和manage.py&amp;quot; 金句： 所有的天赋，都来自于你对你喜欢的某种事物的模仿与学习，否则你就不会有这种天赋。 开篇话： 我们在Djang" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>django-admin和manage.py用法 - Bigyoungs - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/coffee/bundle-coffee.min.css?v=pdMIVgsH8kXt-vOWnlL0N20TlHt3UyP9HzGgocfsP4s" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/coffee/bundle-coffee-mobile.min.css?v=na9bpAY4yh7uEWCcrXj3vfJM3VBse8YtU6-5fUUQPz0" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/bigyoung/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/bigyoung/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/bigyoung/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 433267;
+        var currentBlogApp = 'bigyoung';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'coffee';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a href="https://www.cnblogs.com/bigyoung/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/bigyoung/">Bigyoungs</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="navigator">
+			
+<ul id="navList">
+	<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+	<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/bigyoung/">
+首页</a>
+</li>
+	<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+	<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/Bigyoungs">
+联系</a></li>
+	<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+	<li>
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/bigyoung/rss/">
+订阅</a>
+	
+<a id="blog_nav_rss_image" href="https://www.cnblogs.com/bigyoung/rss/">
+    <img src="/skins/coffee/images/xml.gif" alt="订阅" />
+</a></li>
+</ul>
+
+
+
+			<div class="blogStats">
+				
+				<!--done-->
+随笔- 
+10&nbsp;
+文章- 
+0&nbsp;
+评论- 
+0&nbsp;
+
+
+
+				
+			</div><!--end: blogStats -->
+		</div><!--end: navigator 博客导航栏 -->
+		<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class = "postTitle">
+			
+<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/bigyoung/p/12770832.html">django-admin和manage.py用法</a>
+
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			
+<div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+    <p>官网文档地址：<a href="https://docs.djangoproject.com/zh-hans/2.2/ref/django-admin/">django-admin和manage.py</a></p>
+<pre><code>金句：
+所有的天赋，都来自于你对你喜欢的某种事物的模仿与学习，否则你就不会有这种天赋。
+</code></pre>
+<h3 id="开篇话：">开篇话：</h3>
+<p>我们在Django开发过程中，命令行执行最多的应该就是<code>python manage.py &lt;command&gt;</code>，今天聊聊manage.py这个命令。</p>
+<h3 id="记录要点：">记录要点：</h3>
+<ol>
+<li>
+<p><code>django-admin</code>和<code>manage.py</code> 能做同样的事情</p>
+<p>像我们常用的<code>python manage.py runserver</code>，用<code>django-admin</code>也可以操作：<code>django-admim runserver</code></p>
+<p><em>注意：</em><br>
+<code>django-admin</code>需要提前提前配置好<code>DJANGO_SETTINGS_MODULE</code>环境变量，或者执行时指定settings：<code>django-admin runserver --settings=mysite.settings </code><br>
+推荐使用manage.py 因为它更好使用，不需要配置东西。</p>
+</li>
+<li>
+<p><strong>diffsettings</strong></p>
+<p>列出当前settings.py内容跟默认创建的settings.py有哪些改变，未出现在默认设置中的设置后跟&quot;###&quot;。</p>
+</li>
+<li>
+<p><strong>fulsh</strong><br>
+Linux 下我们经常调侃，如果解决不了遇到的问题了，那就试试：<code>rm -rf /</code><strong>（玩笑话，请勿实操）</strong><br>
+django 也有类型的命令：<code>python manage.py flush</code>，默认删除default数据库，如果setting.py中配置多个数据库，可以指定：<code>python manage.py flush --database DATABASE</code></p>
+</li>
+<li>
+<p><strong>showmigrations</strong></p>
+<p><code>showmigrations [app_label [app_label ...]]</code> 显示项目中的所有迁移。<br>
+如果有过个数据库，可以增加参数：<code>--database DATABASE</code><br>
+输出效果如下：</p>
+<pre><code> admin
+ [X] 0001_initial
+ [X] 0002_logentry_remove_auto_add
+ [ ] 0003_logentry_add_action_flag_choices
+</code></pre>
+</li>
+<li>
+<p><strong>startapp</strong></p>
+<p>一般我们创建一个app是这么操作的：<code>python manage.py startapp appname</code> 。<br>
+如果app2、3个时，我们可以直接这么操作。但是知道自己的项目下要有很多app，我们可以提前在项目目录下创建一个python package，然后在创建时，直接指定路径：<code>python manage.py startapp appname [filepath]</code>，避免有的后期再移动。</p>
+</li>
+<li>
+<p><strong>test</strong></p>
+<p>常用命令：python manage.py test <appname><br>
+如果我们要保留测试数据时，我们可以带上参数<code>--keepdb, -k</code>，这样测试数据会保留。<br>
+后期还会针对test出一篇文章，敬请期待。</p>
+</li>
+<li>
+<p><strong>collectstatic</strong></p>
+<p>django的admin管理后台的样式在DEBUG设置为True时，会导致页面样式丢失，这时就需要用到这个命令了。</p>
+<p>我还写了一篇如何配置collectstatic，可以看我的这篇文章。</p>
+</li>
+</ol>
+<blockquote>
+<p>本文首发于<a href="http://bigyoung.cn">BigYoung小站</a></p>
+</blockquote>
+
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+		</div>
+		<div class="postDesc">posted @ 
+<span id="post-date">2020-04-24 23:10</span>&nbsp;
+<a href="https://www.cnblogs.com/bigyoung/">Bigyoungs</a>&nbsp;
+阅读(<span id="post_view_count">...</span>)&nbsp;
+评论(<span id="post_comment_count">...</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12770832" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(12770832);return false;">收藏</a></div>
+	</div>
+	
+	
+</div><!--end: topics 文章、评论容器-->
+<script src="https://common.cnblogs.com/highlight/9.12.0/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 433267, cb_blogApp = 'bigyoung', cb_blogUserGuid = '0f6d0fa5-104a-4da4-c1dc-08d5bb338547';
+    var cb_entryId = 12770832, cb_entryCreatedDate = '2020-04-24 23:10', cb_postType = 1; 
+    loadViewCount(cb_entryId);
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot("/1090369/C1", [300, 250], "div-gpt-ad-1546353474406-0").addService(googletag.pubads());
+            googletag.defineSlot("/1090369/C2", [468, 60], "div-gpt-ad-1539008685004-0").addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;"></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;">
+            <script>
+                if (new Date() >= new Date(2018, 9, 13)) {
+                    googletag.cmd.push(function () { googletag.display("div-gpt-ad-1539008685004-0"); });
+                }
+            </script>
+        </div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div></div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script></div>
+			
+			<DIV id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</DIV>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 Bigyoungs
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

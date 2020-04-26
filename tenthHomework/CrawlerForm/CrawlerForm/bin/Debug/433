@@ -1,0 +1,378 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta property="og:description" content="Vue.js介绍 基本概念 1. Vue.js 是目前最火的一个前端框架 React是最流行的一个前端框架 React除了开发网站，还可以开发手机原生App， Vue语法也是可以用于进行手机App开发" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>vue-cli学习笔记 vue-cli学习笔记 MVC、MVP、MVVM - joker_dj - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/joker-dj/custom.css?v=ln2L4oIwivvq3md&#x2B;uviyJzxZ&#x2B;/I=" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/SimpleMemory/bundle-SimpleMemory-mobile.min.css" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/joker-dj/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/joker-dj/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/joker-dj/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 589604;
+        var currentBlogApp = 'joker-dj';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'SimpleMemory';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    <div id="page_begin_html">
+        <!-- Loading 底层遮罩 -->
+<div id='loading'></div>
+    </div>
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/joker-dj/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/joker-dj/">joker_dj</a>
+</h1>
+<h2>
+joker_dj
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/joker-dj/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+</li>
+<li>
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/joker-dj/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			
+			<span id="stats_post_count">随笔 - 
+35&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+5</span>
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/joker-dj/p/12772368.html">vue-cli学习笔记 vue-cli学习笔记 MVC、MVP、MVVM</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+    <h1 id="vuejs介绍">Vue.js介绍</h1>
+<p><strong>基本概念</strong></p>
+<blockquote>
+<ol>
+<li>Vue.js 是目前最火的一个前端框架<br>
+React是最流行的一个前端框架 	React除了开发网站，还可以开发手机原生App， Vue语法也是可以用于进行手机App开发的，需要借助于Weex</li>
+<li>Vue.js 是前端的主流框架之一，和Angular.js、React.js 一起，并称为前端三大主流框架</li>
+<li>Vue.js 是一套构建用户界面的框架，只关注视图层，它不仅易于上手，还便于与第三方库或已有项目整合 Vue有丰富的配套三方类库，可以整合起来做大型项目的开发</li>
+</ol>
+</blockquote>
+<p><strong>官网</strong><br>
+<a href="https://vuejs.org/">English Site</a></p>
+<p><a href="https://cn.vuejs.org/">中文网站</a></p>
+<p><strong>介绍</strong></p>
+<ol>
+<li>Vue.js是一个渐进式框架，动态构建用户界面</li>
+<li>作者：尤雨溪 华裔 前Google 工程师</li>
+</ol>
+<p><strong>特点</strong></p>
+<blockquote>
+<ol>
+<li>Vue.js 是基于MVVM架构</li>
+<li>编码简洁, 体积小, 运行效率高, 适合移动/PC 端开发</li>
+<li>它本身只关注 UI, 可以轻松引入 vue 插件或其它第三库开发项目</li>
+<li>参考了React的组件化和虚拟DOM技术，借鉴了angular的模板和数据绑定技术</li>
+</ol>
+</blockquote>
+<p><strong>Vue的生态</strong></p>
+<ol>
+<li>Vue.js  关注UI层面</li>
+<li>工具 DevTools  vue-cli: vue 脚手架  vue-loader</li>
+<li>核心插件 vue-router: 路由,vuex: 状态管理,vue服务器端渲染,vue-resource(axios): ajax 请求</li>
+</ol>
+<h2 id="mvc、mvp、mvvm">MVC、MVP、MVVM</h2>
+<h3 id="1-mvc">1. MVC</h3>
+<p><strong>概念</strong><br>
+1. M是指业务模型，V是指用户界面，C则是控制器</p>
+<pre><code>&gt; 1. M即model模型,  数据层，负责数据的处理和获取的数据接口层
+&gt; 2. V即View视图,  视图层, 是指用户看到并与之交互的界面。比如由html元素3. 组成的网页界面，或者软件的客户端界面
+&gt; 4. C即controller控制器, 控制器层，它是 Model 和 View 之间的胶水或者说是中间人
+</code></pre>
+<ol start="2">
+<li>MVC各个部分之间通信的方式</li>
+</ol>
+<blockquote>
+<ol>
+<li>Models： 数据层，负责数据的处理和获取的数据接口层</li>
+<li>Views： 展示层(GUI)，对于web来说所有以.html开头的文件基本都属于这层</li>
+<li>Controller： 控制器层，它是 Model 和 View 之间的胶水或者说是中间人 	当用户对 View 有操作时它负责去修改相应 Model 	当 Model 的值发生变化时它负责去更新对应 View</li>
+<li>理论上：所有通信都是单向的<br>
+M和View应该是完全隔离的，由C作为中间人来负责二者的交互<br>
+同时三者是完全独立分开的，这样可以保证M和V的可测试性和复用性<br>
+由于C都是为特别的应用场景下的M和V做中介者，所以很难复用；而且V和M有时候也会存在耦合<br>
+V和M很多时候会存在耦合，view会依赖于Model</li>
+</ol>
+</blockquote>
+<h5 id="好处">好处</h5>
+<blockquote>
+<ol>
+<li>耦合性低</li>
+<li>重用性高</li>
+<li>拓展性好</li>
+<li>可维护性高</li>
+</ol>
+</blockquote>
+<ol start="3">
+<li>MVC并不适用于前端</li>
+</ol>
+<blockquote>
+<ol>
+<li>前端的View其实已经具备了独立处理用户事件的能力，当每个事件都流经Controller时，这层会变得十分臃肿</li>
+<li>MVC中View和Controller一般是一一对应的，捆绑起来表示一个组件，视图与控制器间的过于紧密的连接让Controller和View都变得无法复用</li>
+</ol>
+</blockquote>
+<h3 id="2-mvp">2. MVP</h3>
+<p><strong>概念</strong></p>
+<blockquote>
+<ol>
+<li>MVP（Model-View-Presenter）是MVC模式的改良，由IBM的子公司Taligent提出</li>
+<li>和MVC的相同之处在于：Controller/Presenter负责业务逻辑，Model管理数据，View负责显示</li>
+</ol>
+</blockquote>
+<p><strong>特点</strong></p>
+<blockquote>
+<ol>
+<li>在MVC里，View是可以直接访问Model的，但MVP中的View并不能直接使用Model，而是通过为Presenter提供接口，让Presenter去更新Model，再通过观察者模式更新View</li>
+<li>与MVC相比，MVP模式通过解耦View和Model，完全分离视图和模型，使职责划分更加清晰</li>
+<li>View不依赖Model，可以将View抽离出来做成组件，它只需要提供一系列接口提供给上层操作</li>
+</ol>
+</blockquote>
+<ol start="3">
+<li>存在问题</li>
+</ol>
+<blockquote>
+<ol>
+<li>Presenter作为View和Model之间的“中间人”，除了基本的业务逻辑外，还有大量代码需要对从View到Model和从Model到View的数据进行“手动同步”，这样Presenter显得很重，维护起来会比较困难</li>
+<li>而且由于没有数据绑定，如果Presenter对视图渲染的需求增多，一旦视图需求发生改变，Presenter也需要改动</li>
+</ol>
+</blockquote>
+<h3 id="3-mvvm">3. MVVM</h3>
+<p><strong>概念</strong></p>
+<blockquote>
+<ol>
+<li>MVVM（Model-View-ViewModel）最早由微软提出</li>
+<li>ViewModel指 &quot;Model of View&quot;——视图的模型</li>
+</ol>
+</blockquote>
+<p><strong>特点</strong></p>
+<blockquote>
+<ol>
+<li>MVVM把View和Model的同步逻辑自动化了</li>
+<li>以前Presenter负责的View和Model同步不再手动地进行操作，而是交给框架所提供的数据绑定功能进行负责，只需要告诉它View显示的数据对应的是Model哪一部分即可</li>
+<li>通过ViewModel进行数据绑定，当Model发生变化，ViewModel就会自动更新；ViewModel变化，Model也会更新</li>
+</ol>
+</blockquote>
+<h3 id="总结">总结</h3>
+<blockquote>
+<ol>
+<li>整体上看，MVVM比MVC/MVP精简了很多，不仅仅简化了业务与界面的依赖，还解决了数据频繁更新的问题 	jQuery操作DOM就很频繁</li>
+<li>在MVVM中，View不知道Model的存在，ViewModel和Model也察觉不到View，这种低耦合模式可以使开发过程更加容易，提高应用的可重用性</li>
+<li>MVVM更适合视图更多的前端项目进行工程化开发</li>
+</ol>
+</blockquote>
+
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-04-25 12:24</span>&nbsp;
+<a href="https://www.cnblogs.com/joker-dj/">joker_dj</a>&nbsp;
+阅读(<span id="post_view_count">...</span>)&nbsp;
+评论(<span id="post_comment_count">...</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12772368" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(12772368);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/9.12.0/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 589604, cb_blogApp = 'joker-dj', cb_blogUserGuid = 'f86ad4d7-e81f-48cd-8228-08d7cc05c0c2';
+    var cb_entryId = 12772368, cb_entryCreatedDate = '2020-04-25 12:24', cb_postType = 1; 
+    loadViewCount(cb_entryId);
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot("/1090369/C1", [300, 250], "div-gpt-ad-1546353474406-0").addService(googletag.pubads());
+            googletag.defineSlot("/1090369/C2", [468, 60], "div-gpt-ad-1539008685004-0").addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;"></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;">
+            <script>
+                if (new Date() >= new Date(2018, 9, 13)) {
+                    googletag.cmd.push(function () { googletag.display("div-gpt-ad-1539008685004-0"); });
+                }
+            </script>
+        </div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div>
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 joker_dj
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    <div id="page_end_html">
+        <!-- 滚动进度 -->
+<div id="bottomProgressBar"></div>
+
+<!-- 音乐播放器 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.0/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.0/dist/APlayer.min.js"></script>
+<!--data-id="911814137"  后面的数字是网易云歌单后面的数字-->
+<div id="aplayer" class="aplayer" data-id="2219149623" data-lrctype="0" data-server="2219149623" data-type="playlist" data-fixed="true" data-listfolded="true"></div>
+<script src="https://unpkg.com/meting@1.2/dist/Meting.min.js"></script>
+
+<div id="cnzzProtocol"  style="display: none;">
+    <span class="id_cnzz_stat_icon" id='cnzz_stat_icon_1278813392'></span>
+    <script src='https://s19.cnzz.com/z_stat.php?id=1278813392&online=1&show=line' type='text/javascript'></script>
+</div>
+
+<!-- 右下角菜单 -->
+<div id="rightMenu"></div>
+    </div>
+</body>
+</html>

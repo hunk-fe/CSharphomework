@@ -1,0 +1,402 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="never" />
+    <meta property="og:description" content="一. 概述 本文的内容源自其他博客的总结，属于笔者的读书笔记，结构如下： HTTP 的请求报文 GET 方法的特点 POST 方法的特点 GET 和 POST 的区别 二. HTTP 的请求报文 首先" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>[Java网络安全系列面试题] GET 和 POST 的区别在哪里？ - Coder编程 - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/coder-programming/custom.css?v=/z6lCqNJX2ypeQd4y3dKU&#x2B;7COKs=" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/blacklowkey/bundle-blacklowkey-mobile.min.css?v=cYvlxMu_nd6MVfg-vi7YqOC6FaZ7VHFsDM166vO_ekA" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/coder-programming/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/coder-programming/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/coder-programming/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 500324;
+        var currentBlogApp = 'coder-programming';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'BlackLowKey';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/coder-programming/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/coder-programming/">Coder编程</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+</li>
+<li>
+
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			
+			<span id="stats_post_count">随笔 - 
+59&nbsp; </span>
+<span id="stats_article_count">文章 - 
+6&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+12</span>
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/coder-programming/p/12772114.html">[Java网络安全系列面试题] GET 和 POST 的区别在哪里？</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+    <p><img src="https://upload-images.jianshu.io/upload_images/7326374-e991dc90ec15060b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="[Java网络安全系列面试题] GET 和 POST 的区别在哪里？"></p>
+<h2 id="一-概述">一. 概述</h2>
+<p>本文的内容源自其他博客的总结，属于笔者的读书笔记，结构如下：</p>
+<ul>
+<li>HTTP 的请求报文</li>
+<li>GET 方法的特点</li>
+<li>POST 方法的特点</li>
+<li>GET 和 POST 的区别</li>
+</ul>
+<h2 id="二-http-的请求报文">二. HTTP 的请求报文</h2>
+<p>首先我们要解决的第一个问题是：GET 和 POST 是什么？</p>
+<blockquote>
+<p>GET 和 POST 其实都是 HTTP 的请求方法。除了这 2 个请求方法之外，HTTP 还有 <strong>HEAD</strong> 、<strong>PUT</strong> 、<strong>DELETE</strong>、<strong>TRACE</strong>、<strong>CONNECT</strong>、<strong>OPTIONS</strong> 这 6 个请求方法。所以HTTP 的请求方法共计有 8 种，它们的描述如下所示：</p>
+</blockquote>
+<p>表格数据来源：菜鸟教程</p>
+<table>
+<thead>
+<tr>
+<th>请求方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>请求指定的页面信息，并返回实体主体。</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改。</td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td>类似于get请求，只不过返回的响应中没有具体的内容，用于获取报头。</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>从客户端向服务器传送的数据取代指定的文档的内容。</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>请求服务器删除指定的页面。</td>
+</tr>
+<tr>
+<td>TRACE</td>
+<td>回显服务器收到的请求，主要用于测试或诊断。</td>
+</tr>
+<tr>
+<td>CONNECT</td>
+<td>HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。</td>
+</tr>
+<tr>
+<td>OPTIONS</td>
+<td>允许客户端查看服务器的性能。</td>
+</tr>
+</tbody>
+</table>
+<p>接下来我们解决第二个问题：请求方法如何使用？</p>
+<p>要解决这个问题，我们首先需要了解 HTTP 的请求报文结构：<br>
+<img src="https://upload-images.jianshu.io/upload_images/7326374-269cd0469541c158.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="HTTP 的请求报文结构"></p>
+<p>可以看到 HTTP 的请求报文由三部分构成：</p>
+<ul>
+<li>
+<p><strong>请求行</strong>：由请求方法（Method）、URL 字段和 HTTP 的协议版本组成，注意其中的空格、回车符和换行符均不可省略，所以我们的请求方法实际上就是位于请求行中的了。</p>
+</li>
+<li>
+<p><strong>请求头部</strong>：位于请求行之后，个数可以为 0~若干个，每个请求头部都包含一个头部字段名和一个值，它们之间用冒号 &quot;:&quot; 分隔，在最后用回车符和换行符表示结束。</p>
+</li>
+<li>
+<p><strong>请求数据</strong>：如果请求方法为 <strong>GET</strong>，那么请求数据为空。它主要是在 <strong>POST</strong> 中进行使用，适用于需要填表单（FORM）的场景。<br>
+我们通过一个实际的例子来看看 <strong>HTTP</strong> 的 <strong>GET</strong> 请求报文是什么样的，我们这里以访问 <code>https://api.github.com/search/users?q=JakeWharton</code> 为例，通过抓包我们得到的请求报文如下所示：</p>
+</li>
+</ul>
+<pre><code>GET /search/users?q=JakeWharton HTTP/1.1
+Host: api.github.com
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9
+Cookie: _octo=GH1.1.1623908978.1549006668; _ga=GA1.2.548087391.1549006688; logged_in=yes; dotcom_user=GoMarck; _gid=GA1.2.17634150.1554639136; _gat=1
+</code></pre>
+<p>我们重点看到请求行：</p>
+<pre><code>GET /search/users?q=JakeWharton HTTP/1.1
+</code></pre>
+<p>可以看到请求方法用的是 <strong>GET <strong>请求，</strong>URL</strong>为<code> /search/users?q=JakeWharton</code>，协议为 <strong>HTTP1.1</strong>。</p>
+<p>请求行下面部分全都是请求头部，我们可以看到 <strong>host</strong> 为 <code>api.github.com</code>，连接方式为长连接等信息。值得注意的是我们这个例子中是不存在请求数据的。</p>
+<p>接下来我们在来看一下 <strong>POST</strong> 请求的报文（该例子源自其他博客）：</p>
+<pre><code>POST / HTTP/1.1
+Host: www.wrox.com
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.6)
+Gecko/20050225 Firefox/1.0.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 40
+Connection: Keep-Alive
+
+name=Professional%20Ajax&amp;publisher=Wiley
+</code></pre>
+<p>可以看到请求行中请求方法为 <strong>POST</strong>，<strong>URL</strong> 为空，协议版本也是 <strong>HTTP1.1</strong> 。它和上面 <strong>GET</strong> 方法例子不一样的地方在于它的请求参数是位于请求数据中的，可以看到 name=Professional%20Ajax&amp;publisher=Wiley 就是它的请求数据。并且我们要注意到在请求数据和请求头之间是空出一行的，这是必不可少的。</p>
+<h2 id="三-get-方法的特点">三. GET 方法的特点</h2>
+<ol>
+<li>
+<p>前面的例子：<code>https://api.github.com/search/users?q=JakeWharton</code> 就是一个非常典型的 **GET **请求的表现形式，即请求的数据会附在 <strong>URL</strong> 之后（放在请求行中），以 <strong>?</strong> 分割 <strong>URL</strong> 和传输数据，多个参数用 <strong>&amp;</strong> 连接。</p>
+</li>
+<li>
+<p>除此之外，根据 <strong>HTTP</strong> 规范，<strong>GET</strong> 用于信息获取，而且应该是安全和幂等的 。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>安全性</strong>: 指的是非修改信息，即该操作用于获取信息而非修改信息。换句话说，<strong>GET</strong> 请求一般不应产生副作用，也就是说，它仅仅是获取资源信息，就像数据库查询一样，不会修改，增加数据，不会影响资源的状态。<br>
+<strong>幂等性</strong>(Idempotence):  则指的是无论调用这个<strong>URL</strong> 多少次，都不会有不同的结果的 <strong>HTTP</strong> 方法。而在实际过程中，这个规定没有那么严格。例如在一个新闻应用中，新闻站点的头版不断更新，虽然第二次请求会返回不同的一批新闻，该操作仍然被认为是安全的和幂等的，因为它总是返回当前的新闻。</p>
+</blockquote>
+<ol start="3">
+<li><strong>GET</strong> 是会被浏览器主动缓存的，如果下一次传输的数据相同，那么就会返回缓存中的内容，以求更快地展示数据。</li>
+<li><strong>GET</strong> 方法的 <strong>URL</strong> 一般都具有长度限制，但是需要注意的是 <strong>HTTP</strong> 协议中并未规定 <strong>GET</strong> 请求的长度。<font color="red"> 这个长度限制主要是由浏览器和 Web 服务器所决定的，并且各个浏览器对长度的限制也各不相同</font> 。</li>
+<li><strong>GET</strong> 方法只产生一个 <strong>TCP</strong> 数据包，浏览器会把请求头和请求数据一并发送出去，服务器响应 200 ok(返回数据)。</li>
+</ol>
+<h2 id="四-post-方法的特点">四. POST 方法的特点</h2>
+<ol>
+<li>
+<p>根据 <strong>HTTP</strong> 规范，<strong>POST</strong> 表示可能修改变服务器上的资源的请求。例如我们在刷知乎的时候对某篇文章进行点赞，就是提交的 <strong>POST</strong> 请求，因为它改变了服务器中的数据（该篇文章的点赞数）。</p>
+</li>
+<li>
+<p><strong>POST</strong> 方法因为有可能修改服务器上的资源，所以它是不符合安全和幂等性的。</p>
+</li>
+<li>
+<p>从前面关于 <strong>POST</strong> 的请求报文也可以看出，<strong>POST</strong> 是将请求信息放置在请求数据中的，这也是 <strong>POST</strong> 和 <strong>GET</strong> 的一点不那么重要的区别。有一些博客的说法是 <strong>GET</strong> 请求的请求信息是放置在 <strong>URL</strong> 的而 <strong>POST</strong> 是放置在请求数据中的所以 <strong>POST</strong> 比 <strong>GET</strong> 更安全。其实这种说法很有问题，随便抓下包 <strong>POST</strong> 中的请求报文就暴露无疑了，这又何来安全之说？</p>
+</li>
+<li>
+<p>因为 <strong>POST</strong> 方法的请求信息是放置在请求数据中的，所以它的请求信息是没有长度限制的。</p>
+</li>
+<li>
+<p><strong>POST</strong> 方法会产生两个 <strong>TCP</strong> 数据包，浏览器会先将请求头发送给服务器，待服务器响应<code>100 continue</code>，浏览器再发送请求数据，服务器响应<code>200 ok</code>(返回数据)。这么看起来 <strong>GET</strong> 请求的传输会比 <strong>POST</strong> 快上一些（因为<strong>GET</strong> 方法只发送一个 <strong>TCP</strong> 数据包），但是实际上在网络良好的情况下它们的传输速度基本相同。</p>
+</li>
+</ol>
+<h2 id="五-get-和-post-的区别">五. GET 和 POST 的区别</h2>
+<p>上面说了那么多 <strong>GET</strong> 方法和 <strong>POST</strong> 方法各自的特点，它们在外在的表现上似乎是有着诸多的不同，但是实际上，<strong>它们的本质是一样的，并无区别</strong>！！！</p>
+<p>这似乎有些不可思议，但是我们重新回想一下 <strong>GET</strong> 和 <strong>POST</strong> 是什么？它们是 <strong>HTTP</strong> 请求协议的请求方法，而 <strong>HTTP</strong> 又是基于<strong>TCP/IP</strong>的关于数据如何在万维网中如何通信的协议，所以 <strong>GET/POST</strong> 实际上都是 <strong>TCP</strong> 链接。</p>
+<p>也就是说，<strong>GET</strong> 和 <strong>POST</strong> 所做的事其实是一样的，如果你给 <strong>GET</strong> 加上请求数据，给 <strong>POST</strong> 加上 <strong>URL</strong> 参数，这在技术上是完全可行的，事实上确实有一些人为了贪图方便在更新资源时用了<strong>GET</strong>，因为用<strong>POST</strong>必须要到<strong>FORM</strong>（表单），这样会麻烦一点（<strong>但是强烈不建议这样子做</strong>！！！）。</p>
+<p><strong>既然 GET 和 POST 的底层都是 TCP，那么为什么 HTTP 还要特别将它们区分出来呢？</strong></p>
+<p>其实可以想象一下，如果我们直接使用 TCP 进行数据的传输，那么无论是单纯获取资源的请求还是修改服务器资源的请求在外观上看起来都是 TCP 链接，这样就非常不利于进行管理。所以在 HTTP 协议中，就会对这些不同的请求设置不同的类别进行管理，例如单纯获取资源的请求就规定为 GET、修改服务器资源的请求就规定为 POST，并且也对它们的请求报文的格式做出了相应的要求（例如请求参数 GET 位于 URL 而 POST 则位于请求数据中）。</p>
+<p>当然，如果我们想将 GET 的请求参数放置在请求数据中或者将 POST 的请求数据放置在 URL 中，这是完全可以的，虽然这样子做并不符合 HTTP 的规范。但是这样子做是否能得到我们期望的响应数据呢？答案是未必，这取决于服务器的行为。</p>
+<p>以 GET 方法在请求数据中放置请求参数为例，有些服务器会将请求数据中的参数读出，在这种情况下我们依然能获得我们期望的响应数据；而有些服务器则会选择直接忽略，这种情况下我们就无法获取期望的响应数据了。</p>
+<p>所以，对于 GET 和 POST 的区别，总结来说就是：<strong>它们的本质都是 TCP 链接，并无区别。但是由于 HTTP 的规定以及浏览器/服务器的限制，导致它们在应用过程中可能会有所不同。</strong></p>
+<h2 id="推荐">推荐</h2>
+<ul>
+<li>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzIwMTg3NzYyOA==&amp;mid=2247484198&amp;idx=1&amp;sn=9c9d8c2dffe005e0cf76f13af815209a&amp;chksm=96e67235a191fb235caac777b002e2b0b519a4d540341352518a3c6939c03f164adb1cd3d659&amp;token=1610544259&amp;lang=zh_CN#rd">400道——大厂Java选择题</a></p>
+</li>
+<li>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzIwMTg3NzYyOA==&amp;mid=2247484207&amp;idx=1&amp;sn=72bc31c8b141013fdb3ba4cf77c20326&amp;chksm=96e6723ca191fb2a5f17a9918b006b6b3d4341d166c4aaf497ad2d7bcff2d4ef03b4e40bd4dd&amp;token=1394220820&amp;lang=zh_CN#rd">[Java网络系列面试题]常见web攻击有哪些？</a></p>
+</li>
+<li>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzIwMTg3NzYyOA==&amp;mid=2247483919&amp;idx=1&amp;sn=f4a2caf39f739015cad4c80d89755b7f&amp;chksm=96e6731ca191fa0a390d17ada5a20209991362a72952ca7d4de70982ec3f399e458fdeeab822&amp;token=981501366&amp;lang=zh_CN#rd">HR面试都会问什么问题（下）</a></p>
+</li>
+</ul>
+<h2 id="文末">文末</h2>
+<blockquote>
+<p>欢迎关注个人微信公众号：<strong>Coder编程</strong><br>
+欢迎关注<strong>Coder编程</strong>公众号，主要分享数据结构与算法、Java相关知识体系、框架知识及原理、Spring全家桶、微服务项目实战、DevOps实践之路、每日一篇互联网大厂面试或笔试题以及PMP项目管理知识等。更多精彩内容正在路上~<br>
+新建了一个qq群：315211365，欢迎大家进群交流一起学习。谢谢了！也可以介绍给身边有需要的朋友。</p>
+</blockquote>
+<blockquote>
+<p>文章收录至<br>
+Github: <a href="https://github.com/CoderMerlin/coder-programming">https://github.com/CoderMerlin/coder-programming</a><br>
+Gitee: <a href="https://gitee.com/573059382/coder-programming">https://gitee.com/573059382/coder-programming</a><br>
+欢迎<strong>关注</strong>并star~<br>
+<img src="https://upload-images.jianshu.io/upload_images/7326374-f34fe8227b81d3e9?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="微信公众号"></p>
+</blockquote>
+
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-04-25 11:27</span>&nbsp;
+<a href="https://www.cnblogs.com/coder-programming/">Coder编程</a>&nbsp;
+阅读(<span id="post_view_count">...</span>)&nbsp;
+评论(<span id="post_comment_count">...</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12772114" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(12772114);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/9.12.0/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 500324, cb_blogApp = 'coder-programming', cb_blogUserGuid = '6402562d-6676-4172-edc3-08d6a695d280';
+    var cb_entryId = 12772114, cb_entryCreatedDate = '2020-04-25 11:27', cb_postType = 1; 
+    loadViewCount(cb_entryId);
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot("/1090369/C1", [300, 250], "div-gpt-ad-1546353474406-0").addService(googletag.pubads());
+            googletag.defineSlot("/1090369/C2", [468, 60], "div-gpt-ad-1539008685004-0").addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;"></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;">
+            <script>
+                if (new Date() >= new Date(2018, 9, 13)) {
+                    googletag.cmd.push(function () { googletag.display("div-gpt-ad-1539008685004-0"); });
+                }
+            </script>
+        </div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div>
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 Coder编程
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

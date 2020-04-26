@@ -1,0 +1,1181 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>豌豆花下猫 - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/codinglife/bundle-codinglife.min.css?v=hlpQ1CJDwwJXDxv2HNauUmW3NjyWzoMaw1uER19SLT0" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/codinglife/bundle-codinglife-mobile.min.css?v=XjHfryC9ctsatIZz1dHn7TsRIqmwz9c3aj_6SCfHSDM" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/pythonista/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/pythonista/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/pythonista/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 485203;
+        var currentBlogApp = 'pythonista';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'CodingLife';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/pythonista/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/pythonista/">豌豆花下猫</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/pythonista/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E8%B1%8C%E8%B1%86%E8%8A%B1%E4%B8%8B%E7%8C%AB">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/pythonista/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			
+			<span id="stats_post_count">随笔 - 
+84&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+30</span>
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<!--done-->
+
+
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2020/04/25.html">2020年4月25日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/12771926.html">
+[置顶]    Python 如何移除旧的版本特性，如何迎接新的特性？
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：2020 年 4 月 20 日，Python 2 的最后一个版本 2.7.18 发布了，这意味着 Python 2 是真正的 EOL（end of life）了，一个时代终于落幕了。 Python 2.0 版本是在 2000 年发布的，至今正好到 20 周年（差半年），一代版本竟然持续了这么长时间。            <a href="https://www.cnblogs.com/pythonista/p/12771926.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-25 10:51 豌豆花下猫 阅读 (69) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12771926" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2020/04/21.html">2020年4月21日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/12747427.html">
+[置顶]    Python 3.9 性能优化：更快的 list()、dict() 和 range() 等内置类型
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：Python 的 3.9.0 版本正在开发中，计划在 2020 10 05 发布 final 版本。 官方在 &quot;changelog&quot; 中披露了很多细节，其中有一项“vectorcall”特性是最容易被接受的，本文打算带大家先来一探究竟。 事实上，早在 Python 3.8 版本中就已部分地实现了 v            <a href="https://www.cnblogs.com/pythonista/p/12747427.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-21 20:03 豌豆花下猫 阅读 (71) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12747427" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2020/04/19.html">2020年4月19日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/12731600.html">
+[置顶]    不使用 if-elif 语句，如何优雅地判断某个数字所属的等级？
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：偶然看到了 stackoverflow 上的一个问题，还挺有启发，故分享一下。 题目大意是：有从 A 到 F 的 5 个等级，现要判断某个数值（从 0 到 1 之间）所属的等级。举例，如数值 = 0.9，则属于 A；若数值 = 0.8，则属于 B；以此类推。 若使用 if elif 语句，可能会写成            <a href="https://www.cnblogs.com/pythonista/p/12731600.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-19 15:03 豌豆花下猫 阅读 (260) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12731600" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2020/04/11.html">2020年4月11日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/12680806.html">
+[置顶]    官宣！Python 开发者大会（PyCon US）提供在线订阅啦！
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：今年一开年，我们就遇到了一个天大的“黑天鹅”事件，如今它已蔓延成为了一个全球性事件，而且似乎还要持续一段挺长的时间。 各行各业的人们都受到了牵连，各种计划和安排也要被迫作出调整。今年的 PyCon US 原计划于 4 月 15 日在匹茨堡（一座美国城市）举行，受到疫情影响，无奈取消！ 然而，官方很快            <a href="https://www.cnblogs.com/pythonista/p/12680806.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-11 16:43 豌豆花下猫 阅读 (44) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12680806" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2020/04/09.html">2020年4月9日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/12670052.html">
+[置顶]    学编程这么久，还傻傻分不清什么是方法（method），什么是函数（function）？
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：在编程语言中有两个很基础的概念，即方法（method）和函数（function）。如果达到了编程初级/入门级水平，那么你肯定在心中已有了初步的答案。 也许在你心中已有答案了 除去入参、返回值、匿名函数之类的正确的形式内容之外，你也许会说“函数就是定义在类外面的，而方法就是定义在类里面的，跟类绑定的”            <a href="https://www.cnblogs.com/pythonista/p/12670052.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-09 22:21 豌豆花下猫 阅读 (134) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12670052" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2020/03/14.html">2020年3月14日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/12493266.html">
+[置顶]    Fabric 源码学习：如何实现批量管理远程服务器？
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：前不久，我写了一篇《 &quot;Fabric教程&quot; 》，简单来说，它是一个用 Python 开发的轻量级的远程系统管理工具，在远程登录服务器、执行 Shell 命令、批量管理服务器、远程部署等场景中，十分好用。 Fabric 2 是其最新的大版本，跟早前的 Fabric 1 有挺大的不同，更加好用了，但是没            <a href="https://www.cnblogs.com/pythonista/p/12493266.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-03-14 17:48 豌豆花下猫 阅读 (178) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12493266" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2020/01/28.html">2020年1月28日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/12239112.html">
+[置顶]    你可能不知道的 Python 技巧
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：英文 | &quot;Python Tips and Trick, You Haven&#39;t Already Seen&quot; 原作 | Martin Heinz ( &quot;https://martinheinz.dev&quot; ) 译者 | 豌豆花下猫 声明 ：本文获得原作者授权翻译，转载请保留原文出处，请勿用于商业或非法用            <a href="https://www.cnblogs.com/pythonista/p/12239112.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-01-28 22:16 豌豆花下猫 阅读 (411) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12239112" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2019/12/22.html">2019年12月22日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/12079623.html">
+[置顶]    Python 进阶之源码分析：如何将一个类方法变为多个方法？
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：前一篇文章《 &quot;Python 中如何实现参数化测试？&quot; 》中，我提到了在 Python 中实现参数化测试的几个库，并留下一个问题： 它们是如何做到把一个方法变成多个方法，并且将每个方法与相应的参数绑定起来的呢？ 我们再提炼一下，原问题等于是： 在一个类中，如何使用装饰器把一个类方法变成多个类方法（或            <a href="https://www.cnblogs.com/pythonista/p/12079623.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2019-12-22 13:42 豌豆花下猫 阅读 (149) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12079623" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2019/12/09.html">2019年12月9日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/12013811.html">
+[置顶]    Python 中如何实现参数化测试？
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：Python 中如何实现参数化测试？ 之前，我曾转过一个单元测试框架系列的文章，里面介绍了 unittest、nose/nose2 与 pytest 这三个最受人欢迎的 Python 测试框架。 本文想针对测试中一种很常见的测试场景，即参数化测试，继续聊聊关于测试的话题，并尝试将这几个测试框架串联起            <a href="https://www.cnblogs.com/pythonista/p/12013811.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2019-12-09 22:18 豌豆花下猫 阅读 (463) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12013811" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2019/09/10.html">2019年9月10日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/11503117.html">
+[置顶]    Python 的整数与 Numpy 的数据溢出
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：某位 A 同学发了我一张截图，问为何结果中出现了负数？ 看了图，我第一感觉就是数据溢出了。数据超出能表示的最大值，就会出现奇奇怪怪的结果。 然后，他继续发了张图，内容是 print(100000\ 208378)，就是直接打印上图的 E[0]\ G[0]，结果是 20837800000，这是个正确的            <a href="https://www.cnblogs.com/pythonista/p/11503117.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2019-09-10 21:37 豌豆花下猫 阅读 (562) 评论 (5)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=11503117" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2019/08/31.html">2019年8月31日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/11439240.html">
+[置顶]    Python 内存分配时的小秘密
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：Python 中的 模块极为基础而重要，它主要提供了一些给解释器使用（或由它维护）的变量，以及一些与解释器强交互的函数。 本文将会频繁地使用该模块的 方法，因此，我先简要介绍一下： 该方法用于获取一个对象的字节大小（bytes） 它只计算直接占用的内存，而不计算对象内所引用对象的内存 这里有个直观的            <a href="https://www.cnblogs.com/pythonista/p/11439240.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2019-08-31 15:38 豌豆花下猫 阅读 (415) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=11439240" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2019/08/25.html">2019年8月25日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/11407546.html">
+[置顶]    如何美观地打印 Python 对象？这个标准库可以简单实现
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：前不久，我写了一篇文章回顾 Python 中 &quot;print 的发展历史&quot; ，提到了两条发展线索： 明线：早期的 print 语句带有 C 和 Shell 的影子，是个应用程序级的 statement，在最初十几年里，经历过 PEP 214 和 PEP 259 的改进；再到 2009 年的大版本 3.            <a href="https://www.cnblogs.com/pythonista/p/11407546.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2019-08-25 12:35 豌豆花下猫 阅读 (256) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=11407546" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2019/08/10.html">2019年8月10日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/11332689.html">
+[置顶]    Python 之父的解析器系列之三：生成一个 PEG 解析器
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：原题 | Generating a PEG Parser 作者 | Guido van Rossum（Python之父） 译者 | 豌豆花下猫（“Python猫”公众号作者） 声明 | 本翻译是出于交流学习的目的，基于 &quot;CC BY NC SA 4.0&quot; 授权协议。为便于阅读，内容略有改动。 首发地            <a href="https://www.cnblogs.com/pythonista/p/11332689.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2019-08-10 19:31 豌豆花下猫 阅读 (152) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=11332689" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2019/08/03.html">2019年8月3日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/11296229.html">
+[置顶]    Python 之父再发文：构建一个 PEG 解析器
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：花下猫语： Python 之父在 Medium 上开了博客，现在写了两篇文章，本文是第二篇的译文。前一篇的译文 &quot;在此&quot; ，宣布了将要用 PEG 解析器来替换当前的 pgen 解析器。 本文主要介绍了构建一个 PEG 解析器的大体思路，并介绍了一些基本的语法规则。根据 Python 之父的描述，这个            <a href="https://www.cnblogs.com/pythonista/p/11296229.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2019-08-03 20:42 豌豆花下猫 阅读 (326) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=11296229" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2019/07/29.html">2019年7月29日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/11266380.html">
+[置顶]    Python 之父撰文回忆：为什么要创造 pgen 解析器？
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：花下猫语： 近日，Python 之父在 Medium 上开通了博客，并发布了一篇关于 PEG 解析器的文章（参见我翻的 &quot;全文译文&quot; ）。据我所知，他有自己的博客，为什么还会跑去 Medium 上写文呢？好奇之下，我就打开了他的老博客。 最后一篇文章写于 2018 年 5 月，好巧不巧，写的竟是 p            <a href="https://www.cnblogs.com/pythonista/p/11266380.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2019-07-29 20:44 豌豆花下猫 阅读 (154) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=11266380" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2019/07/27.html">2019年7月27日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/11256098.html">
+[置顶]    Python之父新发文，将替换现有解析器
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：花下猫语： Guido van Rossum 是 Python 的创造者，虽然他现在放弃了“终身仁慈独裁者”的职位，但却成为了指导委员会的五位成员之一，其一举一动依然备受瞩目。近日，他开通了 Medium 账号，并发表了第一篇文章，透露出要替换 Python 的核心部件（解析器）的想法。这篇文章分析            <a href="https://www.cnblogs.com/pythonista/p/11256098.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2019-07-27 17:57 豌豆花下猫 阅读 (424) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=11256098" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2019/07/15.html">2019年7月15日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/11191473.html">
+[置顶]    小型的编程项目有哪些值得推荐？这本神书写了 22 个，个个了不得
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：本文原创并首发于公众号【 Python猫 】，未经授权，请勿转载。 原文地址：https://mp.weixin.qq.com/s/ObDK4Mt8adL4 De354rMuQ 今天，猫哥要推荐一本非常著名的开源书籍：《500 Lines or Less》。 在开始正题之前，先介绍一下它所属的系列。            <a href="https://www.cnblogs.com/pythonista/p/11191473.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2019-07-15 20:59 豌豆花下猫 阅读 (1248) 评论 (2)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=11191473" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2019/07/12.html">2019年7月12日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/11178705.html">
+[置顶]    对比 C++ 和 Python，谈谈指针与引用
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：花下猫语：本文是学习群内 樱雨楼 小姐姐的投稿。之前已发布过她的一篇作品《 &quot;当谈论迭代器时，我谈些什么？&quot; 》，大受好评。本文依然是对比 C++ 与 Python，来探讨编程语言中极其重要的概念。祝大家读有所获，学有所成！ 樱雨楼 | 原创作者 豌豆花下猫 | 编辑润色 本文原创并首发于公众号【             <a href="https://www.cnblogs.com/pythonista/p/11178705.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2019-07-12 22:11 豌豆花下猫 阅读 (1176) 评论 (2)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=11178705" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2019/06/30.html">2019年6月30日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/11109015.html">
+[置顶]    编程语言之问：何时该借用，何时该创造？
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：本文原创并首发于公众号【 Python猫 】，未经授权，请勿转载。 原文地址：https://mp.weixin.qq.com/s/OypPwnJ2vX2vJtZRkVa Ug 6 月 22 日，Python 之父 Guido 发了一条推特，说了 Python 的一则历史故事，他说 elif 是从             <a href="https://www.cnblogs.com/pythonista/p/11109015.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2019-06-30 11:01 豌豆花下猫 阅读 (369) 评论 (2)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=11109015" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2019/06/26.html">2019年6月26日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/11094501.html">
+[置顶]    当谈论迭代器时，我谈些什么？
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：花下猫语：之前说过，我对于编程语言跟其它学科的融合非常感兴趣，但我还说漏了一点，就是我对于 Python 跟其它编程语言的对比学习，也很感兴趣。所以，我一直希望能聚集一些有其它语言基础的同学，一起讨论共通的语言特性间的话题。不同语言的碰撞，常常能带给人更高维的视角，也能触及到语言的根基，这个过程是极            <a href="https://www.cnblogs.com/pythonista/p/11094501.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2019-06-26 23:15 豌豆花下猫 阅读 (239) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=11094501" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2020/04/25.html">2020年4月25日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/12771926.html">
+    Python 如何移除旧的版本特性，如何迎接新的特性？
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：2020 年 4 月 20 日，Python 2 的最后一个版本 2.7.18 发布了，这意味着 Python 2 是真正的 EOL（end of life）了，一个时代终于落幕了。 Python 2.0 版本是在 2000 年发布的，至今正好到 20 周年（差半年），一代版本竟然持续了这么长时间。            <a href="https://www.cnblogs.com/pythonista/p/12771926.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-25 10:51 豌豆花下猫 阅读 (69) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12771926" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2020/04/21.html">2020年4月21日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/12747427.html">
+    Python 3.9 性能优化：更快的 list()、dict() 和 range() 等内置类型
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：Python 的 3.9.0 版本正在开发中，计划在 2020 10 05 发布 final 版本。 官方在 &quot;changelog&quot; 中披露了很多细节，其中有一项“vectorcall”特性是最容易被接受的，本文打算带大家先来一探究竟。 事实上，早在 Python 3.8 版本中就已部分地实现了 v            <a href="https://www.cnblogs.com/pythonista/p/12747427.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-21 20:03 豌豆花下猫 阅读 (71) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12747427" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2020/04/19.html">2020年4月19日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/12731600.html">
+    不使用 if-elif 语句，如何优雅地判断某个数字所属的等级？
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：偶然看到了 stackoverflow 上的一个问题，还挺有启发，故分享一下。 题目大意是：有从 A 到 F 的 5 个等级，现要判断某个数值（从 0 到 1 之间）所属的等级。举例，如数值 = 0.9，则属于 A；若数值 = 0.8，则属于 B；以此类推。 若使用 if elif 语句，可能会写成            <a href="https://www.cnblogs.com/pythonista/p/12731600.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-19 15:03 豌豆花下猫 阅读 (260) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12731600" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2020/04/11.html">2020年4月11日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/12680806.html">
+    官宣！Python 开发者大会（PyCon US）提供在线订阅啦！
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：今年一开年，我们就遇到了一个天大的“黑天鹅”事件，如今它已蔓延成为了一个全球性事件，而且似乎还要持续一段挺长的时间。 各行各业的人们都受到了牵连，各种计划和安排也要被迫作出调整。今年的 PyCon US 原计划于 4 月 15 日在匹茨堡（一座美国城市）举行，受到疫情影响，无奈取消！ 然而，官方很快            <a href="https://www.cnblogs.com/pythonista/p/12680806.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-11 16:43 豌豆花下猫 阅读 (44) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12680806" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2020/04/09.html">2020年4月9日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/12670052.html">
+    学编程这么久，还傻傻分不清什么是方法（method），什么是函数（function）？
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：在编程语言中有两个很基础的概念，即方法（method）和函数（function）。如果达到了编程初级/入门级水平，那么你肯定在心中已有了初步的答案。 也许在你心中已有答案了 除去入参、返回值、匿名函数之类的正确的形式内容之外，你也许会说“函数就是定义在类外面的，而方法就是定义在类里面的，跟类绑定的”            <a href="https://www.cnblogs.com/pythonista/p/12670052.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-09 22:21 豌豆花下猫 阅读 (134) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12670052" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2020/03/20.html">2020年3月20日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/12533284.html">
+    Python 3.9 新特性：任意表达式可作为装饰器！
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一个月前（2月20日），一则新的 PEP 没有受到任何阻碍就被官方采纳了，这么快的速度，似乎并不多见。 然而，更为高效率的是，仅在半个月内，它的实现就被合入了代码仓。也就是说，我们最快有望在 3 天后（3月23日）发布的 3.9.0 alpha 5 版本中看到它！ Python 3.9 的发布计划：            <a href="https://www.cnblogs.com/pythonista/p/12533284.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-03-20 17:48 豌豆花下猫 阅读 (246) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12533284" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2020/03/17.html">2020年3月17日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/12514005.html">
+    Python 小技巧：如何实现操作系统兼容性打包？
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：有一个这样的问题：现要用 setuptools 把一个项目打包成 whl 文件，然后 pip install 在 Windows/Linux 两种操作系统上，但是该项目中有一些依赖库只有 Windows 上才有（例如 pywinauto、pywingui、pywinrm），那么问题是，如何实现打包文            <a href="https://www.cnblogs.com/pythonista/p/12514005.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-03-17 22:25 豌豆花下猫 阅读 (151) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12514005" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2020/03/14.html">2020年3月14日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/12493266.html">
+    Fabric 源码学习：如何实现批量管理远程服务器？
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：前不久，我写了一篇《 &quot;Fabric教程&quot; 》，简单来说，它是一个用 Python 开发的轻量级的远程系统管理工具，在远程登录服务器、执行 Shell 命令、批量管理服务器、远程部署等场景中，十分好用。 Fabric 2 是其最新的大版本，跟早前的 Fabric 1 有挺大的不同，更加好用了，但是没            <a href="https://www.cnblogs.com/pythonista/p/12493266.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-03-14 17:48 豌豆花下猫 阅读 (178) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12493266" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2020/03/02.html">2020年3月2日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/12397045.html">
+    Python在计算内存时应该注意的问题？
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：我之前的 &quot;一篇文章&quot; ，带大家揭晓了 Python 在给内置对象分配内存时的 5 个奇怪而有趣的小秘密。文中使用了 来计算内存，但是用这个方法计算时，可能会出现意料不到的问题。 文档中关于这个方法的介绍有两层意思： 该方法用于获取一个对象的字节大小（bytes） 它只计算直接占用的内存，而不计算对            <a href="https://www.cnblogs.com/pythonista/p/12397045.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-03-02 17:55 豌豆花下猫 阅读 (107) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12397045" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/pythonista/archive/2020/02/18.html">2020年2月18日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/pythonista/p/12326819.html">
+    如何高效地远程部署？自动化运维利器 Fabric 教程
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：关于 Python 自动化的话题，在 &quot;上一篇文章&quot; 中，我介绍了 Invoke 库，它是 Fabric 的最重要组件之一。Fabric 也是一个被广泛应用的自动化工具库，是不得不提的自动化运维利器，所以，本文将来介绍一下它。 Fabric 主要用在应用部署与系统管理等任务的自动化，简单轻量级，提供            <a href="https://www.cnblogs.com/pythonista/p/12326819.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-02-18 16:39 豌豆花下猫 阅读 (198) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12326819" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+
+<div class="topicListFooter">
+    <div id="nav_next_page">
+        
+    <a href="https://www.cnblogs.com/pythonista/default.html?page=2">
+        下一页
+    </a>
+
+    </div>    
+</div>
+
+
+
+
+
+
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 豌豆花下猫
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

@@ -1,0 +1,1249 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta property="og:description" content="完整版教程下载地址：http://www.armbbs.cn/forum.php?mod=viewthread&amp;amp;tid=94547 第14章 DSP统计函数-最大值，最小值，平均值和功率 本期" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>【STM32H7的DSP教程】第14章   DSP统计函数-最大值，最小值，平均值和功率 - 安富莱电子 - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/codinglife/bundle-codinglife.min.css?v=hlpQ1CJDwwJXDxv2HNauUmW3NjyWzoMaw1uER19SLT0" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/codinglife/bundle-codinglife-mobile.min.css?v=XjHfryC9ctsatIZz1dHn7TsRIqmwz9c3aj_6SCfHSDM" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/armfly/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/armfly/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/armfly/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 437537;
+        var currentBlogApp = 'armfly';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'CodingLife';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/armfly/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/armfly/">安富莱电子</a>
+</h1>
+<h2>
+分享嵌入式实战技术，希望能够在实际项目中帮到大家
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/armfly/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E5%AE%89%E5%AF%8C%E8%8E%B1%E7%94%B5%E5%AD%90">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/armfly/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			
+			<span id="stats_post_count">随笔 - 
+270&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+34</span>
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/armfly/p/12772839.html">【STM32H7的DSP教程】第14章   DSP统计函数-最大值，最小值，平均值和功率</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body ">
+    <p><strong><span style="color: #ff0000;">完整版教程下载地址：<a href="http://www.armbbs.cn/forum.php?mod=viewthread&amp;tid=94547" rel="nofollow">http://www.armbbs.cn/forum.php?mod=viewthread&amp;tid=94547</a></span></strong></p>
+<h1>第14章&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DSP统计函数-最大值，最小值，平均值和功率</h1>
+<p>本期教程主要讲解统计函数中的最大值，最小值，平均值和功率的计算。</p>
+<p>14.1 初学者重要提示</p>
+<p>14.2 DSP基础运算指令</p>
+<p>14.3 最大值（Maximum）</p>
+<p>14.4 最小值（Minimum）</p>
+<p>14.5 平均值（Mean）</p>
+<p>14.6 功率（Power）</p>
+<p>14.7 实验例程说明（MDK）</p>
+<p>14.8 实验例程说明（IAR）</p>
+<p>14.9 总结</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>14.1 初学者重要提示</h2>
+<ol>
+<li>&nbsp; 特别注意本章13.5.2小节的问题，定点数求解平方根。</li>
+<li>&nbsp; 本章13.6小节给出了Matlab2018a手动加载数据的方法。如果要看Matlab2012，参考第1版DSP教程：<a href="http://www.armbbs.cn/forum.php?mod=viewthread&amp;tid=3886&amp;extra=page%3D1">http://www.armbbs.cn/forum.php?mod=viewthread&amp;tid=3886</a> 。</li>
+</ol>
+<h2>14.2 DSP基础运算指令</h2>
+<p>本章没有用到DSP指令。</p>
+<h2>14.3 最大值（Maximum）</h2>
+<p align="left">这部分函数用于计算数组中的最大值，并返回数组中的最大值和最大值在数组中的位置。</p>
+<h3>14.3.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 函数arm_max_f32</h3>
+<p><strong>函数原型：</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> arm_max_f32(
+  </span><span style="color: #0000ff;">const</span> float32_t *<span style="color: #000000;"> pSrc,
+  uint32_t blockSize,
+  float32_t </span>*<span style="color: #000000;"> pResult,
+  uint32_t </span>* pIndex)</pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>函数描述：</strong></p>
+<p>这个函数用于求32位浮点数的最大值。</p>
+<p><strong>函数参数：</strong></p>
+<ul>
+<li>&nbsp; 第1个参数源数据地址。</li>
+<li>&nbsp; 第2个参数是源数据个数。</li>
+<li>&nbsp; 第3个参数是求解出来的最大值。</li>
+<li>&nbsp; 第4个参数是求解出来的最大值在源数据中的位置。</li>
+</ul>
+<h3>14.3.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 函数arm_max_q31</h3>
+<p><strong>函数原型：</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> arm_max_q31(
+  </span><span style="color: #0000ff;">const</span> q31_t *<span style="color: #000000;"> pSrc,
+        uint32_t blockSize,
+        q31_t </span>*<span style="color: #000000;"> pResult,
+        uint32_t </span>* pIndex)</pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>函数描述：</strong></p>
+<p>用于求32位定点数的最大值。</p>
+<p><strong>函数参数：</strong></p>
+<ul>
+<li>&nbsp; 第1个参数源数据地址。</li>
+<li>&nbsp; 第2个参数是源数据个数。</li>
+<li>&nbsp; 第3个参数是求解出来的最大值。</li>
+<li>&nbsp; 第4个参数是求解出来的最大值在源数据中的位置。</li>
+</ul>
+<h3>14.3.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 函数arm_max_q15</h3>
+<p><strong>函数原型：</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> arm_max_q15(
+  </span><span style="color: #0000ff;">const</span> q15_t *<span style="color: #000000;"> pSrc,
+        uint32_t blockSize,
+        q15_t </span>*<span style="color: #000000;"> pResult,
+        uint32_t </span>* pIndex)</pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>函数描述：</strong></p>
+<p>用于求16位定点数的最大值。</p>
+<p><strong>函数参数：</strong></p>
+<ul>
+<li>&nbsp; 第1个参数源数据地址。</li>
+<li>&nbsp; 第2个参数是源数据个数。</li>
+<li>&nbsp; 第3个参数是求解出来的最大值。</li>
+<li>&nbsp; 第4个参数是求解出来的最大值在源数据中的位置。</li>
+</ul>
+<h3>14.3.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 函数arm_max_q7</h3>
+<p><strong>函数原型：</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> arm_max_q7(
+  </span><span style="color: #0000ff;">const</span> q7_t *<span style="color: #000000;"> pSrc,
+        uint32_t blockSize,
+        q7_t </span>*<span style="color: #000000;"> pResult,
+        uint32_t </span>* pIndex)</pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>函数描述：</strong></p>
+<p>用于求8位定点数的最大值。</p>
+<p><strong>函数参数：</strong></p>
+<ul>
+<li>&nbsp; 第1个参数源数据地址。</li>
+<li>&nbsp; 第2个参数是源数据个数。</li>
+<li>&nbsp; 第3个参数是求解出来的最大值。</li>
+<li>&nbsp; 第4个参数是求解出来的最大值在源数据。</li>
+</ul>
+<h3>14.3.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 使用举例</h3>
+<p><strong>程序设计：</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #008000;">/*</span><span style="color: #008000;">
+*********************************************************************************************************
+*    函 数 名: DSP_Max
+*    功能说明: 求最大值
+*    形    参: 无
+*    返 回 值: 无
+*********************************************************************************************************
+</span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> DSP_Max(<span style="color: #0000ff;">void</span><span style="color: #000000;">)
+{
+    float32_t pSrc[</span><span style="color: #800080;">10</span>] = {<span style="color: #800080;">0.6948f</span>, <span style="color: #800080;">0.3171f</span>, <span style="color: #800080;">0.9502f</span>, <span style="color: #800080;">0.0344f</span>, <span style="color: #800080;">0.4387f</span>, <span style="color: #800080;">0.3816f</span>, <span style="color: #800080;">0.7655f</span>, <span style="color: #800080;">0.7952f</span>, <span style="color: #800080;">0.1869f</span><span style="color: #000000;">,
+                            </span><span style="color: #800080;">0.4898f</span><span style="color: #000000;">};
+    float32_t pResult;
+    uint32_t pIndex;
+    
+    q31_t pSrc1[</span><span style="color: #800080;">10</span><span style="color: #000000;">];
+    q31_t pResult1;
+    
+    q15_t pSrc2[</span><span style="color: #800080;">10</span><span style="color: #000000;">];
+    q15_t pResult2;
+    
+    q7_t pSrc3[</span><span style="color: #800080;">10</span><span style="color: #000000;">];
+    q7_t pResult3;
+    
+    arm_max_f32(pSrc, </span><span style="color: #800080;">10</span>, &amp;pResult, &amp;<span style="color: #000000;">pIndex);
+    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">arm_max_f32 : pResult = %f  pIndex = %d\r\n</span><span style="color: #800000;">"</span><span style="color: #000000;">, pResult, pIndex);
+    
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;">***************************************************************</span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">for</span>(pIndex = <span style="color: #800080;">0</span>; pIndex &lt; <span style="color: #800080;">10</span>; pIndex++<span style="color: #000000;">)
+    {
+         pSrc1[pIndex] </span>=<span style="color: #000000;"> rand();
+    }
+    arm_max_q31(pSrc1, </span><span style="color: #800080;">10</span>, &amp;pResult1, &amp;<span style="color: #000000;">pIndex);
+    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">arm_max_q31 : pResult = %d  pIndex = %d\r\n</span><span style="color: #800000;">"</span><span style="color: #000000;">, pResult1, pIndex);
+    
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;">***************************************************************</span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">for</span>(pIndex = <span style="color: #800080;">0</span>; pIndex &lt; <span style="color: #800080;">10</span>; pIndex++<span style="color: #000000;">)
+    {
+         pSrc2[pIndex] </span>= rand()%<span style="color: #800080;">32768</span><span style="color: #000000;">;
+    }
+    arm_max_q15(pSrc2, </span><span style="color: #800080;">10</span>, &amp;pResult2, &amp;<span style="color: #000000;">pIndex);
+    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">arm_max_q15 : pResult = %d  pIndex = %d\r\n</span><span style="color: #800000;">"</span><span style="color: #000000;">, pResult2, pIndex);
+    
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;">***************************************************************</span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">for</span>(pIndex = <span style="color: #800080;">0</span>; pIndex &lt; <span style="color: #800080;">10</span>; pIndex++<span style="color: #000000;">)
+    {
+         pSrc3[pIndex] </span>= rand()%<span style="color: #800080;">128</span><span style="color: #000000;">;
+    }
+    arm_max_q7(pSrc3, </span><span style="color: #800080;">10</span>, &amp;pResult3, &amp;<span style="color: #000000;">pIndex);
+    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">arm_max_q7 : pResult = %d  pIndex = %d\r\n</span><span style="color: #800000;">"</span><span style="color: #000000;">, pResult3, pIndex);
+    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">******************************************************************\r\n</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+}</span></pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>实验现象：</strong></p>
+<p align="center"><img src="https://img2020.cnblogs.com/blog/1379107/202004/1379107-20200425135457701-862135465.png" alt="">&nbsp;</p>
+<h2>14.4 最小值（Minimum）</h2>
+<p align="left">这部分函数用于计算数组中的最小值，并返回数组中的最小值和最小值在数组中的位置。</p>
+<h3>14.4.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 函数arm_min_f32</h3>
+<p><strong>函数原型：</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> arm_min_f32(
+  </span><span style="color: #0000ff;">const</span> float32_t *<span style="color: #000000;"> pSrc,
+        uint32_t blockSize,
+        float32_t </span>*<span style="color: #000000;"> pResult,
+        uint32_t </span>* pIndex)</pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>函数描述：</strong></p>
+<p>这个函数用于求32位浮点数的最小值。</p>
+<p><strong>函数参数：</strong></p>
+<ul>
+<li>&nbsp; 第1个参数源数据地址。</li>
+<li>&nbsp; 第2个参数是源数据个数。</li>
+<li>&nbsp; 第3个参数是求解出来的最小值。</li>
+<li>&nbsp; 第4个参数是求解出来的最小值在源数据中的位置。</li>
+</ul>
+<h3>14.4.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 函数arm_min_q31</h3>
+<p><strong>函数原型：</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> arm_min_q31(
+  </span><span style="color: #0000ff;">const</span> q31_t *<span style="color: #000000;"> pSrc,
+        uint32_t blockSize,
+        q31_t </span>*<span style="color: #000000;"> pResult,
+        uint32_t </span>* pIndex)</pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>函数描述：</strong></p>
+<p>用于求32位定点数的最小值。</p>
+<p><strong>函数参数：</strong></p>
+<ul>
+<li>&nbsp; 第1个参数源数据地址。</li>
+<li>&nbsp; 第2个参数是源数据个数。</li>
+<li>&nbsp; 第3个参数是求解出来的最小值。</li>
+<li>&nbsp; 第4个参数是求解出来的最小值在源数据中的位置。</li>
+</ul>
+<h3>14.4.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 函数arm_min_q15</h3>
+<p><strong>函数原型：</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> arm_min_q15(
+  </span><span style="color: #0000ff;">const</span> q15_t *<span style="color: #000000;"> pSrc,
+        uint32_t blockSize,
+        q15_t </span>*<span style="color: #000000;"> pResult,
+        uint32_t </span>* pIndex)</pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>函数描述：</strong></p>
+<p>用于求16位定点数的最小值。</p>
+<p><strong>函数参数：</strong></p>
+<ul>
+<li>&nbsp; 第1个参数源数据地址。</li>
+<li>&nbsp; 第2个参数是源数据个数。</li>
+<li>&nbsp; 第3个参数是求解出来的最小值。</li>
+<li>&nbsp;第4个参数是求解出来的最小值在源数据中的位置。</li>
+</ul>
+<h3>14.4.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 函数arm_min_q7</h3>
+<p><strong>函数原型：</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> arm_min_q7(
+  </span><span style="color: #0000ff;">const</span> q7_t *<span style="color: #000000;"> pSrc,
+        uint32_t blockSize,
+        q7_t </span>*<span style="color: #000000;"> pResult,
+        uint32_t </span>* pIndex)</pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>函数描述：</strong></p>
+<p>用于求8位定点数的最小值。</p>
+<p><strong>函数参数：</strong></p>
+<ul>
+<li>&nbsp; 第1个参数源数据地址。</li>
+<li>&nbsp; 第2个参数是源数据个数。</li>
+<li>&nbsp; 第3个参数是求解出来的最小值。</li>
+<li>&nbsp; 第4个参数是求解出来的最小值在源数据中的位置。</li>
+</ul>
+<h3>14.4.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 使用举例</h3>
+<p><strong>程序设计：</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #008000;">/*</span><span style="color: #008000;">
+*********************************************************************************************************
+*    函 数 名: DSP_Min
+*    功能说明: 求最小值
+*    形    参: 无
+*    返 回 值: 无
+*********************************************************************************************************
+</span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> DSP_Min(<span style="color: #0000ff;">void</span><span style="color: #000000;">)
+{
+    float32_t pSrc[</span><span style="color: #800080;">10</span>] = {<span style="color: #800080;">0.6948f</span>, <span style="color: #800080;">0.3171f</span>, <span style="color: #800080;">0.9502f</span>, <span style="color: #800080;">0.0344f</span>, <span style="color: #800080;">0.4387f</span>, <span style="color: #800080;">0.3816f</span>, <span style="color: #800080;">0.7655f</span>, <span style="color: #800080;">0.7952f</span>, <span style="color: #800080;">0.1869f</span><span style="color: #000000;">,
+                           </span><span style="color: #800080;">0.4898f</span><span style="color: #000000;">};
+    float32_t pResult;
+    uint32_t pIndex;
+    
+    q31_t pSrc1[</span><span style="color: #800080;">10</span><span style="color: #000000;">];
+    q31_t pResult1;
+    
+    q15_t pSrc2[</span><span style="color: #800080;">10</span><span style="color: #000000;">];
+    q15_t pResult2;
+    
+    q7_t pSrc3[</span><span style="color: #800080;">10</span><span style="color: #000000;">];
+    q7_t pResult3;
+    
+    arm_min_f32(pSrc, </span><span style="color: #800080;">10</span>, &amp;pResult, &amp;<span style="color: #000000;">pIndex);
+    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">arm_min_f32 : pResult = %f  pIndex = %d\r\n</span><span style="color: #800000;">"</span><span style="color: #000000;">, pResult, pIndex);
+    
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;">***************************************************************</span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">for</span>(pIndex = <span style="color: #800080;">0</span>; pIndex &lt; <span style="color: #800080;">10</span>; pIndex++<span style="color: #000000;">)
+    {
+         pSrc1[pIndex] </span>=<span style="color: #000000;"> rand();
+    }
+    arm_min_q31(pSrc1, </span><span style="color: #800080;">10</span>, &amp;pResult1, &amp;<span style="color: #000000;">pIndex);
+    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">arm_min_q31 : pResult = %d  pIndex = %d\r\n</span><span style="color: #800000;">"</span><span style="color: #000000;">, pResult1, pIndex);
+    
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;">***************************************************************</span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">for</span>(pIndex = <span style="color: #800080;">0</span>; pIndex &lt; <span style="color: #800080;">10</span>; pIndex++<span style="color: #000000;">)
+    {
+         pSrc2[pIndex] </span>= rand()%<span style="color: #800080;">32768</span><span style="color: #000000;">;
+    }
+    arm_min_q15(pSrc2, </span><span style="color: #800080;">10</span>, &amp;pResult2, &amp;<span style="color: #000000;">pIndex);
+    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">arm_min_q15 : pResult = %d  pIndex = %d\r\n</span><span style="color: #800000;">"</span><span style="color: #000000;">, pResult2, pIndex);
+    
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;">***************************************************************</span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">for</span>(pIndex = <span style="color: #800080;">0</span>; pIndex &lt; <span style="color: #800080;">10</span>; pIndex++<span style="color: #000000;">)
+    {
+         pSrc3[pIndex] </span>= rand()%<span style="color: #800080;">128</span><span style="color: #000000;">;
+    }
+    arm_min_q7(pSrc3, </span><span style="color: #800080;">10</span>, &amp;pResult3, &amp;<span style="color: #000000;">pIndex);
+    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">arm_min_q7 : pResult = %d  pIndex = %d\r\n</span><span style="color: #800000;">"</span><span style="color: #000000;">, pResult3, pIndex);
+    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">******************************************************************\r\n</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+}</span></pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>实验现象：</strong></p>
+<p align="center"><img src="https://img2020.cnblogs.com/blog/1379107/202004/1379107-20200425135507834-1544723810.png" alt="">&nbsp;</p>
+<h2>14.5 平均值（Mean）</h2>
+<p>这部分函数用于计算数组的平均值，公式描述如下：</p>
+<p>Result = (pSrc[0] + pSrc[1] + pSrc[2] + ... + pSrc[blockSize-1]) / blockSize。</p>
+<h3>14.5.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 函数arm_mean_f32</h3>
+<p><strong>函数原型：</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> arm_mean_f32(
+  </span><span style="color: #0000ff;">const</span> float32_t *<span style="color: #000000;"> pSrc,
+        uint32_t blockSize,
+        float32_t </span>* pResult)</pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>函数描述：</strong></p>
+<p>用于求解32位浮点数的平均值。</p>
+<p><strong>函数形参：</strong></p>
+<ul>
+<li>&nbsp; 第1个参数是源数据地址。</li>
+<li>&nbsp; 第2个参数是源数据个数。</li>
+<li>&nbsp; 第3个参数是数据结果。</li>
+</ul>
+<h3>14.5.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 函数arm_mean_q31</h3>
+<p><strong>函数原型：</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> arm_mean_q31(
+  </span><span style="color: #0000ff;">const</span> q31_t *<span style="color: #000000;"> pSrc,
+        uint32_t blockSize,
+        q31_t </span>* pResult)</pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>函数描述：</strong></p>
+<p>用于求32位定点数的平均值。</p>
+<p><strong>函数参数：</strong></p>
+<ul>
+<li>&nbsp; 第1个参数是源数据地址。</li>
+<li>&nbsp; 第2个参数是源数据个数。</li>
+<li>&nbsp; 第3个参数是数据结果。</li>
+</ul>
+<p align="left"><strong>注意事项：</strong></p>
+<p>求平均前的数据之和是赋值给了64位累加器，然后再求平均。</p>
+<h3>14.5.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 函数arm_mean_q15</h3>
+<p><strong>函数原型：</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> arm_mean_q15(
+  </span><span style="color: #0000ff;">const</span> q15_t *<span style="color: #000000;"> pSrc,
+        uint32_t blockSize,
+        q15_t </span>* pResult)</pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>函数描述：</strong></p>
+<p>用于求16位定点数的平均值。</p>
+<p><strong>函数参数：</strong></p>
+<ul>
+<li>&nbsp; 第1个参数是源数据地址。</li>
+<li>&nbsp; 第2个参数是源数据个数。</li>
+<li>&nbsp; 第3个参数是数据结果。</li>
+</ul>
+<p align="left"><strong>注意事项：</strong></p>
+<p>求平均前的数据之和是赋值给了32位累加器，然后再求平均。</p>
+<h3>14.5.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 函数arm_mean_q7</h3>
+<p><strong>函数原型：</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> arm_mean_q7(
+  </span><span style="color: #0000ff;">const</span> q7_t *<span style="color: #000000;"> pSrc,
+        uint32_t blockSize,
+        q7_t </span>* pResult)</pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>函数描述：</strong></p>
+<p>用于求8位定点数的平均值。</p>
+<p><strong>函数参数：</strong></p>
+<ul>
+<li>&nbsp; 第1个参数是源数据地址。</li>
+<li>&nbsp; 第2个参数是源数据个数。</li>
+<li>&nbsp; 第3个参数是数据结果。</li>
+</ul>
+<p align="left"><strong>注意事项：</strong></p>
+<ul>
+<li>&nbsp; 求平均前的数据之和是赋值给了16位累加器，然后再求平均。</li>
+</ul>
+<h3>14.5.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 使用举例</h3>
+<p><strong>程序设计：</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #008000;">/*</span><span style="color: #008000;">
+*********************************************************************************************************
+*    函 数 名: DSP_Mean
+*    功能说明: 求平均
+*    形    参: 无
+*    返 回 值: 无
+*********************************************************************************************************
+</span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> DSP_Mean(<span style="color: #0000ff;">void</span><span style="color: #000000;">)
+{
+    float32_t pSrc[</span><span style="color: #800080;">10</span>] = {<span style="color: #800080;">0.6948f</span>, <span style="color: #800080;">0.3171f</span>, <span style="color: #800080;">0.9502f</span>, <span style="color: #800080;">0.0344f</span>, <span style="color: #800080;">0.4387f</span>, <span style="color: #800080;">0.3816f</span>, <span style="color: #800080;">0.7655f</span>, <span style="color: #800080;">0.7952f</span>, <span style="color: #800080;">0.1869f</span><span style="color: #000000;">,
+                   </span><span style="color: #800080;">0.4898f</span><span style="color: #000000;">};
+    float32_t pResult;
+    uint32_t pIndex;
+    
+    q31_t pSrc1[</span><span style="color: #800080;">10</span><span style="color: #000000;">];
+    q31_t pResult1;
+    
+    q15_t pSrc2[</span><span style="color: #800080;">10</span><span style="color: #000000;">];
+    q15_t pResult2;
+    
+    q7_t pSrc3[</span><span style="color: #800080;">10</span><span style="color: #000000;">];
+    q7_t pResult3;
+    
+    arm_mean_f32(pSrc, </span><span style="color: #800080;">10</span>, &amp;<span style="color: #000000;">pResult);
+    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">arm_mean_f32 : pResult = %f\r\n</span><span style="color: #800000;">"</span><span style="color: #000000;">, pResult);
+    
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;">***************************************************************</span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">for</span>(pIndex = <span style="color: #800080;">0</span>; pIndex &lt; <span style="color: #800080;">10</span>; pIndex++<span style="color: #000000;">)
+    {
+         pSrc1[pIndex] </span>=<span style="color: #000000;"> rand();
+    }
+    arm_mean_q31(pSrc1, </span><span style="color: #800080;">10</span>, &amp;<span style="color: #000000;">pResult1);
+    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">arm_mean_q31 : pResult = %d\r\n</span><span style="color: #800000;">"</span><span style="color: #000000;">, pResult1);
+    
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;">***************************************************************</span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">for</span>(pIndex = <span style="color: #800080;">0</span>; pIndex &lt; <span style="color: #800080;">10</span>; pIndex++<span style="color: #000000;">)
+    {
+         pSrc2[pIndex] </span>= rand()%<span style="color: #800080;">32768</span><span style="color: #000000;">;
+    }
+    arm_mean_q15(pSrc2, </span><span style="color: #800080;">10</span>, &amp;<span style="color: #000000;">pResult2);
+    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">arm_mean_q15 : pResult = %d\r\n</span><span style="color: #800000;">"</span><span style="color: #000000;">, pResult2);
+    
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;">***************************************************************</span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">for</span>(pIndex = <span style="color: #800080;">0</span>; pIndex &lt; <span style="color: #800080;">10</span>; pIndex++<span style="color: #000000;">)
+    {
+         pSrc3[pIndex] </span>= rand()%<span style="color: #800080;">128</span><span style="color: #000000;">;
+    }
+    arm_mean_q7(pSrc3, </span><span style="color: #800080;">10</span>, &amp;<span style="color: #000000;">pResult3);
+    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">arm_mean_q7 : pResult = %d\r\n</span><span style="color: #800000;">"</span><span style="color: #000000;">, pResult3);
+    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">******************************************************************\r\n</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+}</span></pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>实验现象：</strong></p>
+<p align="center"><img src="https://img2020.cnblogs.com/blog/1379107/202004/1379107-20200425135516436-1582353897.png" alt="">&nbsp;</p>
+<h2>14.6 功率（Power）</h2>
+<p>这部分函数用于计算数组的功率。公式描述如下：</p>
+<p>Result = pSrc[0] * pSrc[0] + pSrc[1] * pSrc[1] + pSrc[2] * pSrc[2] + ... + pSrc[blockSize-1] * pSrc[blockSize-1];</p>
+<h3>14.6.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 函数arm_power_f32</h3>
+<p><strong>函数原型：</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> arm_power_f32(
+  </span><span style="color: #0000ff;">const</span> float32_t *<span style="color: #000000;"> pSrc,
+        uint32_t blockSize,
+        float32_t </span>* pResult)</pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>函数描述：</strong></p>
+<p>用于求32位浮点数的功率值。</p>
+<p><strong>函数形参：</strong></p>
+<ul>
+<li>&nbsp; 第1个参数是源数据地址。</li>
+<li>&nbsp; 第2个参数是源数据个数。</li>
+<li>&nbsp; 第3个参数是数据结果。</li>
+</ul>
+<h3>14.6.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 函数arm_power_q31</h3>
+<p><strong>函数原型：</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> arm_power_q31(
+  </span><span style="color: #0000ff;">const</span> q31_t *<span style="color: #000000;"> pSrc,
+        uint32_t blockSize,
+        q63_t </span>* pResult)</pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>函数描述：</strong></p>
+<p>用于求32位定点数的功率值。</p>
+<p><strong>函数参数：</strong></p>
+<ul>
+<li>&nbsp; 第1个参数是源数据地址。</li>
+<li>&nbsp; 第2个参数是源数据个数。</li>
+<li>&nbsp; 第3个参数是数据结果。</li>
+</ul>
+<p align="left"><strong>注意事项：</strong></p>
+<p>输入参数是1.31格式，两个数据的乘积就是1.31*1.31 = 2.62格式，这里将此结果右移14位，也就是将低14位数据截取掉，最终的输出做64位饱和运算，结果是16.48格式。</p>
+<h3>14.6.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 函数arm_power_q15</h3>
+<p><strong>函数原型：</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> arm_power_q15(
+  </span><span style="color: #0000ff;">const</span> q15_t *<span style="color: #000000;"> pSrc,
+        uint32_t blockSize,
+        q63_t </span>* pResult)</pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>函数描述：</strong></p>
+<p>用于求16位定点数的功率值。</p>
+<p><strong>函数参数：</strong></p>
+<ul>
+<li>&nbsp; 第1个参数是源数据地址。</li>
+<li>&nbsp; 第2个参数是源数据个数。</li>
+<li>&nbsp; 第3个参数是数据结果。</li>
+</ul>
+<p align="left"><strong>注意事项：</strong></p>
+<p>输入参数是1.15格式，两个数据的乘积就是1.15*1.15 = 2.30格式，最终的输出做64位饱和运算，结果是34.30格式。</p>
+<h3>14.6.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 函数arm_power_q7</h3>
+<p><strong>函数原型：</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> arm_min_q7(
+  </span><span style="color: #0000ff;">const</span> q7_t *<span style="color: #000000;"> pSrc,
+        uint32_t blockSize,
+        q7_t </span>*<span style="color: #000000;"> pResult,
+        uint32_t </span>* pIndex)</pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>函数描述：</strong></p>
+<p>用于求8位定点数的功率值。</p>
+<p><strong>函数参数：</strong></p>
+<ul>
+<li>&nbsp; 第1个参数是源数据地址。</li>
+<li>&nbsp; 第2个参数是源数据个数。</li>
+<li>&nbsp; 第3个参数是数据结果。</li>
+</ul>
+<p align="left"><strong>注意事项：</strong></p>
+<p>输入参数是1.7格式，两个数据的乘积就是1.7*1.7 = 2.14格式，最终的输出做32位饱和运算，结果是18.14格式。</p>
+<h3>14.6.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 使用举例</h3>
+<p><strong>程序设计：</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #008000;">/*</span><span style="color: #008000;">
+*********************************************************************************************************
+*    函 数 名: DSP_Power
+*    功能说明: 求功率
+*    形    参: 无
+*    返 回 值: 无
+*********************************************************************************************************
+</span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> DSP_Power(<span style="color: #0000ff;">void</span><span style="color: #000000;">)
+{
+    float32_t pSrc[</span><span style="color: #800080;">10</span>] = {<span style="color: #800080;">0.6948f</span>, <span style="color: #800080;">0.3171f</span>, <span style="color: #800080;">0.9502f</span>, <span style="color: #800080;">0.0344f</span>, <span style="color: #800080;">0.4387f</span>, <span style="color: #800080;">0.3816f</span>, <span style="color: #800080;">0.7655f</span>, <span style="color: #800080;">0.7952f</span>, <span style="color: #800080;">0.1869f</span><span style="color: #000000;">,
+                           </span><span style="color: #800080;">0.4898f</span><span style="color: #000000;">};
+    float32_t pResult;
+    uint32_t pIndex;
+    
+    q31_t pSrc1[</span><span style="color: #800080;">10</span><span style="color: #000000;">];
+    q63_t pResult1;
+    
+    q15_t pSrc2[</span><span style="color: #800080;">10</span><span style="color: #000000;">];
+    q63_t pResult2;
+    
+    q7_t pSrc3[</span><span style="color: #800080;">10</span><span style="color: #000000;">];
+    q31_t pResult3;
+    
+    arm_power_f32(pSrc, </span><span style="color: #800080;">10</span>, &amp;<span style="color: #000000;">pResult);
+    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">arm_power_f32 : pResult = %f\r\n</span><span style="color: #800000;">"</span><span style="color: #000000;">, pResult);
+    
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;">***************************************************************</span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">for</span>(pIndex = <span style="color: #800080;">0</span>; pIndex &lt; <span style="color: #800080;">10</span>; pIndex++<span style="color: #000000;">)
+    {
+         pSrc1[pIndex] </span>=<span style="color: #000000;"> rand();
+    }
+    arm_power_q31(pSrc1, </span><span style="color: #800080;">10</span>, &amp;<span style="color: #000000;">pResult1);
+    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">arm_power_q31 : pResult = %lld\r\n</span><span style="color: #800000;">"</span><span style="color: #000000;">, pResult1);
+    
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;">***************************************************************</span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">for</span>(pIndex = <span style="color: #800080;">0</span>; pIndex &lt; <span style="color: #800080;">10</span>; pIndex++<span style="color: #000000;">)
+    {
+         pSrc2[pIndex] </span>= rand()%<span style="color: #800080;">32768</span><span style="color: #000000;">;
+    }
+    arm_power_q15(pSrc2, </span><span style="color: #800080;">10</span>, &amp;<span style="color: #000000;">pResult2);
+    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">arm_power_q15 : pResult = %lld\r\n</span><span style="color: #800000;">"</span><span style="color: #000000;">, pResult2);
+    
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;">***************************************************************</span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">for</span>(pIndex = <span style="color: #800080;">0</span>; pIndex &lt; <span style="color: #800080;">10</span>; pIndex++<span style="color: #000000;">)
+    {
+         pSrc3[pIndex] </span>= rand()%<span style="color: #800080;">128</span><span style="color: #000000;">;
+    }
+    arm_power_q7(pSrc3, </span><span style="color: #800080;">10</span>, &amp;<span style="color: #000000;">pResult3);
+    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">arm_power_q7 : pResult = %d\r\n</span><span style="color: #800000;">"</span><span style="color: #000000;">, pResult3);
+    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">******************************************************************\r\n</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+}</span></pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>实验现象：</strong></p>
+<p align="center"><img src="https://img2020.cnblogs.com/blog/1379107/202004/1379107-20200425135525260-572937831.png" alt="">&nbsp;</p>
+<h2>14.7 实验例程说明（MDK）</h2>
+<p><strong>配套例子：</strong></p>
+<p>V7-209_DSP统计运算（最大值，最小值，平均值和功率）</p>
+<p><strong>实验目的：</strong></p>
+<ol>
+<li>学习DSP快速运算（三角函数和平方根）</li>
+</ol>
+<p><strong>实验内容：</strong></p>
+<ol>
+<li>启动一个自动重装软件定时器，每100ms翻转一次LED2。</li>
+<li>按下按键K1, DSP求最大值。</li>
+<li>按下按键K2, DSP求最小值。</li>
+<li>按下按键K3, DSP求平均值。</li>
+<li>按下摇杆OK键, DSP求功率。</li>
+</ol>
+<p><strong>使用AC6注意事项</strong></p>
+<p>特别注意附件章节C的问题</p>
+<p><strong>上电后串口打印的信息：</strong></p>
+<p>波特率 115200，数据位 8，奇偶校验位无，停止位 1。</p>
+<p>详见本章的3.5&nbsp; 4.5，5.5小节。</p>
+<p><strong>程序设计：</strong></p>
+<p><span style="color: #800080;">&nbsp; <strong>系统栈大小分配：</strong></span></p>
+<p align="center"><span style="color: #800080;"><img src="https://img2020.cnblogs.com/blog/1379107/202004/1379107-20200425135530966-1196721178.png" alt="">&nbsp;</span></p>
+<p><span style="color: #800080;">&nbsp; <strong>RAM</strong><strong>空间用的DTCM：</strong></span></p>
+<p align="center"><span style="color: #800080;"><img src="https://img2020.cnblogs.com/blog/1379107/202004/1379107-20200425135536157-1942609072.png" alt="">&nbsp;</span></p>
+<p><span style="color: #800080;">&nbsp; <strong>硬件外设初始化</strong></span></p>
+<p>硬件外设的初始化是在 bsp.c 文件实现：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #008000;">/*</span><span style="color: #008000;">
+*********************************************************************************************************
+*    函 数 名: bsp_Init
+*    功能说明: 初始化所有的硬件设备。该函数配置CPU寄存器和外设的寄存器并初始化一些全局变量。只需要调用一次
+*    形    参：无
+*    返 回 值: 无
+*********************************************************************************************************
+</span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">void</span> bsp_Init(<span style="color: #0000ff;">void</span><span style="color: #000000;">)
+{
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 配置MPU </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    MPU_Config();
+    
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 使能L1 Cache </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    CPU_CACHE_Enable();
+
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 
+       STM32H7xx HAL 库初始化，此时系统用的还是H7自带的64MHz，HSI时钟:
+       - 调用函数HAL_InitTick，初始化滴答时钟中断1ms。
+       - 设置NVIV优先级分组为4。
+     </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    HAL_Init();
+
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 
+       配置系统时钟到400MHz
+       - 切换使用HSE。
+       - 此函数会更新全局变量SystemCoreClock，并重新配置HAL_InitTick。
+    </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    SystemClock_Config();
+
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 
+       Event Recorder：
+       - 可用于代码执行时间测量，MDK5.25及其以上版本才支持，IAR不支持。
+       - 默认不开启，如果要使能此选项，务必看V7开发板用户手册第8章
+    </span><span style="color: #008000;">*/</span>    
+<span style="color: #0000ff;">#if</span> Enable_EventRecorder == 1  
+    <span style="color: #008000;">/*</span><span style="color: #008000;"> 初始化EventRecorder并开启 </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    EventRecorderInitialize(EventRecordAll, </span><span style="color: #800080;">1U</span><span style="color: #000000;">);
+    EventRecorderStart();
+</span><span style="color: #0000ff;">#endif</span><span style="color: #000000;">
+    
+    bsp_InitKey();        </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 按键初始化，要放在滴答定时器之前，因为按钮检测是通过滴答定时器扫描 </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    bsp_InitTimer();      </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 初始化滴答定时器 </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    bsp_InitUart();    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 初始化串口 </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    bsp_InitExtIO();    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 初始化FMC总线74HC574扩展IO. 必须在 bsp_InitLed()前执行 </span><span style="color: #008000;">*/</span><span style="color: #000000;">    
+    bsp_InitLed();        </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 初始化LED </span><span style="color: #008000;">*/</span><span style="color: #000000;">    
+}</span></pre>
+</div>
+<p>&nbsp;</p>
+<p><span style="color: #800080;">&nbsp; <strong>MPU</strong><strong>配置和Cache配置：</strong></span></p>
+<p>数据Cache和指令Cache都开启。配置了AXI SRAM区（本例子未用到AXI SRAM），FMC的扩展IO区。</p>
+<div class="cnblogs_code">
+<pre><span style="color: #008000;">/*</span><span style="color: #008000;">
+*********************************************************************************************************
+*    函 数 名: MPU_Config
+*    功能说明: 配置MPU
+*    形    参: 无
+*    返 回 值: 无
+*********************************************************************************************************
+</span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> MPU_Config( <span style="color: #0000ff;">void</span><span style="color: #000000;"> )
+{
+    MPU_Region_InitTypeDef MPU_InitStruct;
+
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 禁止 MPU </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    HAL_MPU_Disable();
+
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 配置AXI SRAM的MPU属性为Write back, Read allocate，Write allocate </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    MPU_InitStruct.Enable           </span>=<span style="color: #000000;"> MPU_REGION_ENABLE;
+    MPU_InitStruct.BaseAddress      </span>= <span style="color: #800080;">0x24000000</span><span style="color: #000000;">;
+    MPU_InitStruct.Size             </span>=<span style="color: #000000;"> MPU_REGION_SIZE_512KB;
+    MPU_InitStruct.AccessPermission </span>=<span style="color: #000000;"> MPU_REGION_FULL_ACCESS;
+    MPU_InitStruct.IsBufferable     </span>=<span style="color: #000000;"> MPU_ACCESS_BUFFERABLE;
+    MPU_InitStruct.IsCacheable      </span>=<span style="color: #000000;"> MPU_ACCESS_CACHEABLE;
+    MPU_InitStruct.IsShareable      </span>=<span style="color: #000000;"> MPU_ACCESS_NOT_SHAREABLE;
+    MPU_InitStruct.Number           </span>=<span style="color: #000000;"> MPU_REGION_NUMBER0;
+    MPU_InitStruct.TypeExtField     </span>=<span style="color: #000000;"> MPU_TEX_LEVEL1;
+    MPU_InitStruct.SubRegionDisable </span>= <span style="color: #800080;">0x00</span><span style="color: #000000;">;
+    MPU_InitStruct.DisableExec      </span>=<span style="color: #000000;"> MPU_INSTRUCTION_ACCESS_ENABLE;
+
+    HAL_MPU_ConfigRegion(</span>&amp;<span style="color: #000000;">MPU_InitStruct);
+    
+    
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 配置FMC扩展IO的MPU属性为Device或者Strongly Ordered </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    MPU_InitStruct.Enable           </span>=<span style="color: #000000;"> MPU_REGION_ENABLE;
+    MPU_InitStruct.BaseAddress      </span>= <span style="color: #800080;">0x60000000</span><span style="color: #000000;">;
+    MPU_InitStruct.Size             </span>=<span style="color: #000000;"> ARM_MPU_REGION_SIZE_64KB;    
+    MPU_InitStruct.AccessPermission </span>=<span style="color: #000000;"> MPU_REGION_FULL_ACCESS;
+    MPU_InitStruct.IsBufferable     </span>=<span style="color: #000000;"> MPU_ACCESS_BUFFERABLE;
+    MPU_InitStruct.IsCacheable      </span>=<span style="color: #000000;"> MPU_ACCESS_NOT_CACHEABLE;    
+    MPU_InitStruct.IsShareable      </span>=<span style="color: #000000;"> MPU_ACCESS_NOT_SHAREABLE;
+    MPU_InitStruct.Number           </span>=<span style="color: #000000;"> MPU_REGION_NUMBER1;
+    MPU_InitStruct.TypeExtField     </span>=<span style="color: #000000;"> MPU_TEX_LEVEL0;
+    MPU_InitStruct.SubRegionDisable </span>= <span style="color: #800080;">0x00</span><span style="color: #000000;">;
+    MPU_InitStruct.DisableExec      </span>=<span style="color: #000000;"> MPU_INSTRUCTION_ACCESS_ENABLE;
+    
+    HAL_MPU_ConfigRegion(</span>&amp;<span style="color: #000000;">MPU_InitStruct);
+
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;">使能 MPU </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);
+}
+
+</span><span style="color: #008000;">/*</span><span style="color: #008000;">
+*********************************************************************************************************
+*    函 数 名: CPU_CACHE_Enable
+*    功能说明: 使能L1 Cache
+*    形    参: 无
+*    返 回 值: 无
+*********************************************************************************************************
+</span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> CPU_CACHE_Enable(<span style="color: #0000ff;">void</span><span style="color: #000000;">)
+{
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 使能 I-Cache </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    SCB_EnableICache();
+
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 使能 D-Cache </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    SCB_EnableDCache();
+}</span></pre>
+</div>
+<p>&nbsp;</p>
+<p><span style="color: #800080;">&nbsp; <strong>主功能：</strong></span></p>
+<p>主程序实现如下操作：</p>
+<ul>
+<li>&nbsp; 启动一个自动重装软件定时器，每100ms翻转一次LED2。</li>
+<li>&nbsp; 按下按键K1, DSP求最大值。</li>
+<li>&nbsp; 按下按键K2, DSP求最小值。</li>
+<li>&nbsp; 按下按键K3, DSP求平均值。</li>
+<li>&nbsp; 按下摇杆OK键, DSP求功率。 &nbsp;</li>
+</ul>
+<div class="cnblogs_code">
+<pre><span style="color: #008000;">/*</span><span style="color: #008000;">
+*********************************************************************************************************
+*    函 数 名: main
+*    功能说明: c程序入口
+*    形    参: 无
+*    返 回 值: 错误代码(无需处理)
+*********************************************************************************************************
+</span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">int</span> main(<span style="color: #0000ff;">void</span><span style="color: #000000;">)
+{
+    uint8_t ucKeyCode;        </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 按键代码 </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    
+
+    bsp_Init();        </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 硬件初始化 </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    PrintfLogo();    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 打印例程信息到串口1 </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+
+    PrintfHelp();    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 打印操作提示信息 </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    
+
+    bsp_StartAutoTimer(</span><span style="color: #800080;">0</span>, <span style="color: #800080;">100</span>);    <span style="color: #008000;">/*</span><span style="color: #008000;"> 启动1个100ms的自动重装的定时器 </span><span style="color: #008000;">*/</span>
+
+    <span style="color: #008000;">/*</span><span style="color: #008000;"> 进入主程序循环体 </span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">while</span> (<span style="color: #800080;">1</span><span style="color: #000000;">)
+    {
+        bsp_Idle();        </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 这个函数在bsp.c文件。用户可以修改这个函数实现CPU休眠和喂狗 </span><span style="color: #008000;">*/</span>
+
+        <span style="color: #008000;">/*</span><span style="color: #008000;"> 判断定时器超时时间 </span><span style="color: #008000;">*/</span>
+        <span style="color: #0000ff;">if</span> (bsp_CheckTimer(<span style="color: #800080;">0</span><span style="color: #000000;">))    
+        {
+            </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 每隔100ms 进来一次 </span><span style="color: #008000;">*/</span><span style="color: #000000;">  
+            bsp_LedToggle(</span><span style="color: #800080;">2</span><span style="color: #000000;">);
+        }
+
+        ucKeyCode </span>= bsp_GetKey();    <span style="color: #008000;">/*</span><span style="color: #008000;"> 读取键值, 无键按下时返回 KEY_NONE = 0 </span><span style="color: #008000;">*/</span>
+        <span style="color: #0000ff;">if</span> (ucKeyCode !=<span style="color: #000000;"> KEY_NONE)
+        {
+            </span><span style="color: #0000ff;">switch</span><span style="color: #000000;"> (ucKeyCode)
+            {
+                </span><span style="color: #0000ff;">case</span> KEY_DOWN_K1:            <span style="color: #008000;">/*</span><span style="color: #008000;"> K1键按下，求最大值 </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+                    DSP_Max();
+                    </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;
+
+                </span><span style="color: #0000ff;">case</span> KEY_DOWN_K2:            <span style="color: #008000;">/*</span><span style="color: #008000;"> K2键按下, 求小值 </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+                    DSP_Min();
+                    </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;
+
+                </span><span style="color: #0000ff;">case</span> KEY_DOWN_K3:            <span style="color: #008000;">/*</span><span style="color: #008000;"> K3键按下，求平方根 </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+                    DSP_Mean();
+                    </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;
+                
+                </span><span style="color: #0000ff;">case</span> JOY_DOWN_OK:            <span style="color: #008000;">/*</span><span style="color: #008000;"> 摇杆上键，求功率  </span><span style="color: #008000;">*/</span><span style="color: #000000;">         
+                    DSP_Power();
+                    </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;
+
+                </span><span style="color: #0000ff;">default</span><span style="color: #000000;">:
+                    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 其他的键值不处理 </span><span style="color: #008000;">*/</span>
+                    <span style="color: #0000ff;">break</span><span style="color: #000000;">;
+            }
+        }
+    }
+}</span></pre>
+</div>
+<p>&nbsp;</p>
+<h2>14.8 实验例程说明（IAR）</h2>
+<p><strong>配套例子：</strong></p>
+<p>V7-209_DSP统计运算（最大值，最小值，平均值和功率）</p>
+<p><strong>实验目的：</strong></p>
+<ol>
+<li>学习DSP快速运算（三角函数和平方根）</li>
+</ol>
+<p><strong>实验内容：</strong></p>
+<ol>
+<li>启动一个自动重装软件定时器，每100ms翻转一次LED2。</li>
+<li>按下按键K1, DSP求最大值。</li>
+<li>按下按键K2, DSP求最小值。</li>
+<li>按下按键K3, DSP求平均值。</li>
+<li>按下摇杆OK键, DSP求功率。</li>
+</ol>
+<p><strong>使用AC6注意事项</strong></p>
+<p>特别注意附件章节C的问题</p>
+<p><strong>上电后串口打印的信息：</strong></p>
+<p>波特率 115200，数据位 8，奇偶校验位无，停止位 1。</p>
+<p>详见本章的3.5&nbsp; 4.5，5.5小节。</p>
+<p><strong>程序设计：</strong></p>
+<p><span style="color: #800080;">&nbsp; <strong>系统栈大小分配：</strong></span></p>
+<p align="center"><span style="color: #800080;"><img src="https://img2020.cnblogs.com/blog/1379107/202004/1379107-20200425135544103-1025321349.png" alt="">&nbsp;</span></p>
+<p><span style="color: #800080;">&nbsp; <strong>RAM</strong><strong>空间用的DTCM：</strong></span></p>
+<p align="center"><span style="color: #800080;"><img src="https://img2020.cnblogs.com/blog/1379107/202004/1379107-20200425135548623-2131568015.png" alt="">&nbsp;</span></p>
+<p><span style="color: #800080;">&nbsp; <strong>硬件外设初始化</strong></span></p>
+<p>硬件外设的初始化是在 bsp.c 文件实现：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #008000;">/*</span><span style="color: #008000;">
+*********************************************************************************************************
+*    函 数 名: bsp_Init
+*    功能说明: 初始化所有的硬件设备。该函数配置CPU寄存器和外设的寄存器并初始化一些全局变量。只需要调用一次
+*    形    参：无
+*    返 回 值: 无
+*********************************************************************************************************
+</span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">void</span> bsp_Init(<span style="color: #0000ff;">void</span><span style="color: #000000;">)
+{
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 配置MPU </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    MPU_Config();
+    
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 使能L1 Cache </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    CPU_CACHE_Enable();
+
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 
+       STM32H7xx HAL 库初始化，此时系统用的还是H7自带的64MHz，HSI时钟:
+       - 调用函数HAL_InitTick，初始化滴答时钟中断1ms。
+       - 设置NVIV优先级分组为4。
+     </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    HAL_Init();
+
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 
+       配置系统时钟到400MHz
+       - 切换使用HSE。
+       - 此函数会更新全局变量SystemCoreClock，并重新配置HAL_InitTick。
+    </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    SystemClock_Config();
+
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 
+       Event Recorder：
+       - 可用于代码执行时间测量，MDK5.25及其以上版本才支持，IAR不支持。
+       - 默认不开启，如果要使能此选项，务必看V7开发板用户手册第8章
+    </span><span style="color: #008000;">*/</span>    
+<span style="color: #0000ff;">#if</span> Enable_EventRecorder == 1  
+    <span style="color: #008000;">/*</span><span style="color: #008000;"> 初始化EventRecorder并开启 </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    EventRecorderInitialize(EventRecordAll, </span><span style="color: #800080;">1U</span><span style="color: #000000;">);
+    EventRecorderStart();
+</span><span style="color: #0000ff;">#endif</span><span style="color: #000000;">
+    
+    bsp_InitKey();        </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 按键初始化，要放在滴答定时器之前，因为按钮检测是通过滴答定时器扫描 </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    bsp_InitTimer();      </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 初始化滴答定时器 </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    bsp_InitUart();    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 初始化串口 </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    bsp_InitExtIO();    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 初始化FMC总线74HC574扩展IO. 必须在 bsp_InitLed()前执行 </span><span style="color: #008000;">*/</span><span style="color: #000000;">    
+    bsp_InitLed();        </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 初始化LED </span><span style="color: #008000;">*/</span><span style="color: #000000;">    
+}</span></pre>
+</div>
+<p>&nbsp;</p>
+<p><span style="color: #800080;">&nbsp; <strong>MPU</strong><strong>配置和Cache配置：</strong></span></p>
+<p>数据Cache和指令Cache都开启。配置了AXI SRAM区（本例子未用到AXI SRAM），FMC的扩展IO区。</p>
+<div class="cnblogs_code">
+<pre><span style="color: #008000;">/*</span><span style="color: #008000;">
+*********************************************************************************************************
+*    函 数 名: MPU_Config
+*    功能说明: 配置MPU
+*    形    参: 无
+*    返 回 值: 无
+*********************************************************************************************************
+</span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> MPU_Config( <span style="color: #0000ff;">void</span><span style="color: #000000;"> )
+{
+    MPU_Region_InitTypeDef MPU_InitStruct;
+
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 禁止 MPU </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    HAL_MPU_Disable();
+
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 配置AXI SRAM的MPU属性为Write back, Read allocate，Write allocate </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    MPU_InitStruct.Enable           </span>=<span style="color: #000000;"> MPU_REGION_ENABLE;
+    MPU_InitStruct.BaseAddress      </span>= <span style="color: #800080;">0x24000000</span><span style="color: #000000;">;
+    MPU_InitStruct.Size             </span>=<span style="color: #000000;"> MPU_REGION_SIZE_512KB;
+    MPU_InitStruct.AccessPermission </span>=<span style="color: #000000;"> MPU_REGION_FULL_ACCESS;
+    MPU_InitStruct.IsBufferable     </span>=<span style="color: #000000;"> MPU_ACCESS_BUFFERABLE;
+    MPU_InitStruct.IsCacheable      </span>=<span style="color: #000000;"> MPU_ACCESS_CACHEABLE;
+    MPU_InitStruct.IsShareable      </span>=<span style="color: #000000;"> MPU_ACCESS_NOT_SHAREABLE;
+    MPU_InitStruct.Number           </span>=<span style="color: #000000;"> MPU_REGION_NUMBER0;
+    MPU_InitStruct.TypeExtField     </span>=<span style="color: #000000;"> MPU_TEX_LEVEL1;
+    MPU_InitStruct.SubRegionDisable </span>= <span style="color: #800080;">0x00</span><span style="color: #000000;">;
+    MPU_InitStruct.DisableExec      </span>=<span style="color: #000000;"> MPU_INSTRUCTION_ACCESS_ENABLE;
+
+    HAL_MPU_ConfigRegion(</span>&amp;<span style="color: #000000;">MPU_InitStruct);
+    
+    
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 配置FMC扩展IO的MPU属性为Device或者Strongly Ordered </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    MPU_InitStruct.Enable           </span>=<span style="color: #000000;"> MPU_REGION_ENABLE;
+    MPU_InitStruct.BaseAddress      </span>= <span style="color: #800080;">0x60000000</span><span style="color: #000000;">;
+    MPU_InitStruct.Size             </span>=<span style="color: #000000;"> ARM_MPU_REGION_SIZE_64KB;    
+    MPU_InitStruct.AccessPermission </span>=<span style="color: #000000;"> MPU_REGION_FULL_ACCESS;
+    MPU_InitStruct.IsBufferable     </span>=<span style="color: #000000;"> MPU_ACCESS_BUFFERABLE;
+    MPU_InitStruct.IsCacheable      </span>=<span style="color: #000000;"> MPU_ACCESS_NOT_CACHEABLE;    
+    MPU_InitStruct.IsShareable      </span>=<span style="color: #000000;"> MPU_ACCESS_NOT_SHAREABLE;
+    MPU_InitStruct.Number           </span>=<span style="color: #000000;"> MPU_REGION_NUMBER1;
+    MPU_InitStruct.TypeExtField     </span>=<span style="color: #000000;"> MPU_TEX_LEVEL0;
+    MPU_InitStruct.SubRegionDisable </span>= <span style="color: #800080;">0x00</span><span style="color: #000000;">;
+    MPU_InitStruct.DisableExec      </span>=<span style="color: #000000;"> MPU_INSTRUCTION_ACCESS_ENABLE;
+    
+    HAL_MPU_ConfigRegion(</span>&amp;<span style="color: #000000;">MPU_InitStruct);
+
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;">使能 MPU </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);
+}
+
+</span><span style="color: #008000;">/*</span><span style="color: #008000;">
+*********************************************************************************************************
+*    函 数 名: CPU_CACHE_Enable
+*    功能说明: 使能L1 Cache
+*    形    参: 无
+*    返 回 值: 无
+*********************************************************************************************************
+</span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> CPU_CACHE_Enable(<span style="color: #0000ff;">void</span><span style="color: #000000;">)
+{
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 使能 I-Cache </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    SCB_EnableICache();
+
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 使能 D-Cache </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    SCB_EnableDCache();
+}</span></pre>
+</div>
+<p>&nbsp;</p>
+<p><span style="color: #800080;">&nbsp; <strong>主功能：</strong></span></p>
+<p>主程序实现如下操作：</p>
+<ul>
+<li>&nbsp;启动一个自动重装软件定时器，每100ms翻转一次LED2。</li>
+<li>&nbsp;按下按键K1, DSP求最大值。</li>
+<li>&nbsp;按下按键K2, DSP求最小值。</li>
+<li>&nbsp;按下按键K3, DSP求平均值。</li>
+<li>&nbsp;按下摇杆OK键, DSP求功率。 &nbsp;</li>
+</ul>
+<div class="cnblogs_code">
+<pre><span style="color: #008000;">/*</span><span style="color: #008000;">
+*********************************************************************************************************
+*    函 数 名: main
+*    功能说明: c程序入口
+*    形    参: 无
+*    返 回 值: 错误代码(无需处理)
+*********************************************************************************************************
+</span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">int</span> main(<span style="color: #0000ff;">void</span><span style="color: #000000;">)
+{
+    uint8_t ucKeyCode;        </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 按键代码 </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    
+
+    bsp_Init();        </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 硬件初始化 </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    PrintfLogo();    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 打印例程信息到串口1 </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+
+    PrintfHelp();    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 打印操作提示信息 </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    
+
+    bsp_StartAutoTimer(</span><span style="color: #800080;">0</span>, <span style="color: #800080;">100</span>);    <span style="color: #008000;">/*</span><span style="color: #008000;"> 启动1个100ms的自动重装的定时器 </span><span style="color: #008000;">*/</span>
+
+    <span style="color: #008000;">/*</span><span style="color: #008000;"> 进入主程序循环体 </span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">while</span> (<span style="color: #800080;">1</span><span style="color: #000000;">)
+    {
+        bsp_Idle();        </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 这个函数在bsp.c文件。用户可以修改这个函数实现CPU休眠和喂狗 </span><span style="color: #008000;">*/</span>
+
+        <span style="color: #008000;">/*</span><span style="color: #008000;"> 判断定时器超时时间 </span><span style="color: #008000;">*/</span>
+        <span style="color: #0000ff;">if</span> (bsp_CheckTimer(<span style="color: #800080;">0</span><span style="color: #000000;">))    
+        {
+            </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 每隔100ms 进来一次 </span><span style="color: #008000;">*/</span><span style="color: #000000;">  
+            bsp_LedToggle(</span><span style="color: #800080;">2</span><span style="color: #000000;">);
+        }
+
+        ucKeyCode </span>= bsp_GetKey();    <span style="color: #008000;">/*</span><span style="color: #008000;"> 读取键值, 无键按下时返回 KEY_NONE = 0 </span><span style="color: #008000;">*/</span>
+        <span style="color: #0000ff;">if</span> (ucKeyCode !=<span style="color: #000000;"> KEY_NONE)
+        {
+            </span><span style="color: #0000ff;">switch</span><span style="color: #000000;"> (ucKeyCode)
+            {
+                </span><span style="color: #0000ff;">case</span> KEY_DOWN_K1:            <span style="color: #008000;">/*</span><span style="color: #008000;"> K1键按下，求最大值 </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+                    DSP_Max();
+                    </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;
+
+                </span><span style="color: #0000ff;">case</span> KEY_DOWN_K2:            <span style="color: #008000;">/*</span><span style="color: #008000;"> K2键按下, 求小值 </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+                    DSP_Min();
+                    </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;
+
+                </span><span style="color: #0000ff;">case</span> KEY_DOWN_K3:            <span style="color: #008000;">/*</span><span style="color: #008000;"> K3键按下，求平方根 </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+                    DSP_Mean();
+                    </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;
+                
+                </span><span style="color: #0000ff;">case</span> JOY_DOWN_OK:            <span style="color: #008000;">/*</span><span style="color: #008000;"> 摇杆上键，求功率  </span><span style="color: #008000;">*/</span><span style="color: #000000;">         
+                    DSP_Power();
+                    </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;
+
+                </span><span style="color: #0000ff;">default</span><span style="color: #000000;">:
+                    </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 其他的键值不处理 </span><span style="color: #008000;">*/</span>
+                    <span style="color: #0000ff;">break</span><span style="color: #000000;">;
+            }
+        }
+    }
+}</span></pre>
+</div>
+<p>&nbsp;</p>
+<h2>14.9 总结</h2>
+<p align="left">本期教程就跟大家讲这么多，有兴趣的可以深入研究这些函数源码的实现。</p>
+<p>&nbsp;</p>
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-04-25 13:57</span>&nbsp;
+<a href="https://www.cnblogs.com/armfly/">安富莱电子</a>&nbsp;
+阅读(<span id="post_view_count">...</span>)&nbsp;
+评论(<span id="post_comment_count">...</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12772839" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(12772839);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/9.12.0/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 437537, cb_blogApp = 'armfly', cb_blogUserGuid = '80835c73-3654-4ddf-f20a-08d58662b770';
+    var cb_entryId = 12772839, cb_entryCreatedDate = '2020-04-25 13:57', cb_postType = 1; 
+    loadViewCount(cb_entryId);
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot("/1090369/C1", [300, 250], "div-gpt-ad-1546353474406-0").addService(googletag.pubads());
+            googletag.defineSlot("/1090369/C2", [468, 60], "div-gpt-ad-1539008685004-0").addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;"></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;">
+            <script>
+                if (new Date() >= new Date(2018, 9, 13)) {
+                    googletag.cmd.push(function () { googletag.display("div-gpt-ad-1539008685004-0"); });
+                }
+            </script>
+        </div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div>
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 安富莱电子
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

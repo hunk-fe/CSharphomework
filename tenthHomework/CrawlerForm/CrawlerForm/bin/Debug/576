@@ -1,0 +1,431 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta property="og:description" content="2019 2020 2 20175202葛旭阳《网络对抗技术》 Exp5 信息搜集与漏洞扫描 一、实验任务 1.各种搜索技巧的应用。 2.DNS IP注册信息的查询。 3.基本的扫描技术：主机发现、端" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>2019-2020-2 20175202葛旭阳《网络对抗技术》 Exp5 信息搜集与漏洞扫描 - 20175202葛旭阳 - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/anothereon001/bundle-anothereon001.min.css?v=vmUk-3Bh8LDsKXwjNHs2GDiFna-ZMTUgOJzjUaXTlPA" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/anothereon001/bundle-anothereon001-mobile.min.css?v=cJiDsI1JAuHHd-OAUWJeyE5JMXXsG4mmuUi2rVmEK1c" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/gexvyang/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/gexvyang/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/gexvyang/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 392656;
+        var currentBlogApp = 'gexvyang';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'AnotherEon001';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    <div id="wrapper">
+<div id="header">
+
+<div id="top">
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/gexvyang/">20175202葛旭阳</a>
+</h1>
+<div id="subtitle">
+
+</div>
+</div>
+<div id="sub"><div class="BlogStats">随笔 - 
+32, 文章 - 
+0, 评论 - 
+1, 引用 - 
+0</div>
+
+</div>
+
+
+
+
+</div>
+<div id="main_container">
+<div id="main_content">
+<div id="content">
+	<div id="post_detail">
+    <div class="post">
+        <h2>
+            
+<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/gexvyang/p/12763456.html">2019-2020-2 20175202葛旭阳《网络对抗技术》 Exp5 信息搜集与漏洞扫描</a>
+
+        </h2>
+        <div class="postbody">
+            
+<div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+    <h1 id="2019-2020-2-20175202葛旭阳《网络对抗技术》-exp5-信息搜集与漏洞扫描">2019-2020-2 20175202葛旭阳《网络对抗技术》 Exp5 信息搜集与漏洞扫描</h1>
+<h2 id="一、实验任务">一、实验任务</h2>
+<p>1.各种搜索技巧的应用。<br>
+2.DNS IP注册信息的查询。<br>
+3.基本的扫描技术：主机发现、端口扫描、OS及服务版本探测、具体服务的查点（以自己主机为目标）。<br>
+4.漏洞扫描：会扫，会看报告，会查漏洞说明，会修补漏洞（以自己主机为目标）。<br>
+5.基础问题回答。</p>
+<h2 id="二、实验步骤">二、实验步骤</h2>
+<h3 id="【任务一：各种搜索技巧的应用】">【任务一：各种搜索技巧的应用】</h3>
+<h4 id="【搜索网址目录结构】">【搜索网址目录结构】</h4>
+<p>1.原理：暴力破解一般就是指穷举法，它的原理就是使用攻击者自己的字典，一个一个去枚举，理论上来说，只要字典足够庞大，枚举总是能够成功的。<br>
+2.依次输入命令；<br>
+①<code>msfconsole</code><br>
+②<code>use auxiliary/scanner/http/dir_scanner</code><br>
+③<code>set THREADS 20</code><br>
+④<code>set RHOSTS www.baidu.com</code><br>
+⑤<code>exploit</code><br>
+3.发现可以找到目录，结果如下；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200423225057432-1273340769.png" alt=""></p>
+<h4 id="【使用traceroute命令进行路由侦查】">【使用traceroute命令进行路由侦查】</h4>
+<p>1.原理：traceroute命令利用ICMP协议定位用户计算机和目标计算机之间的所有路由器。TTL值可以反映数据包经过的路由器或网关的数量，通过操纵独立ICMP呼叫报文的TTL值和观察该报文被抛弃的返回信息，traceroute命令能够遍历到数据包传输路径上的所有路由器。<br>
+2.我们以侦察<code>www.baidu.com</code>为例，在windows下cmd中输入<code>tracert www.baidu.com</code>命令，结果如下；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200423230326763-1220942952.png" alt=""></p>
+<p>3.从图上我们可以分析到；<br>
+①第一列表示生存时间，每途经一个路由器结点自增1；<br>
+②第二、三、四列表示三次发送的ICMP包返回时间，共计3个，单位为毫秒ms，其中带有星号（*）的信息表示该次ICMP包返回时间超时；<br>
+③第五列表示途经路由器的IP地址，如果有主机名，还会包含主机名。</p>
+<p>4.然后我们在Kali的终端中输入命令<code>tracert www.baidu.com</code>，结果如下；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200423231821909-157287761.png" alt=""></p>
+<h4 id="【利用搜索引擎搜索特定类型的文件】">【利用搜索引擎搜索特定类型的文件】</h4>
+<p>1.原理：<br>
+①<code>filetype</code>能对搜索结果的文件类型进行限定，格式为“检索词 filetype:文件类型”；<br>
+②<code>-</code>能在检索结果中获取检索词的补集，格式为“检索词 -词语”；<br>
+③<code>site</code>能限制检索结果的来源，格式为“检索词 site:限制域名”（不要在“:”后的域名中输入“http:”和“www.”）；<br>
+④<code>inurl</code>能在网址中进行搜索，格式为“检索词inurl:检索词”；<br>
+⑤<code>|</code>表示布尔逻辑中的或者（or）关系，使用格式为“关键词1 | 关键词2”；<br>
+⑥空格表示布尔逻辑中的交集（and）关系，使用格式为“关键词1 关键词2”；<br>
+⑦高级搜索界面，高级搜索界面的入口在搜索引擎首页右上角“设置”-&gt;“高级搜索”。<br>
+2.我们在百度中输入site:edu.cn filetype:xls ，能够搜索到xls格式的Excel表格；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424081844111-1169718413.png" alt=""></p>
+<p>3.下载之后打开文件，我们可以看到有关内容；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424082005530-1602696889.png" alt=""></p>
+<h3 id="【任务二：dns-ip注册信息的查询】">【任务二：DNS IP注册信息的查询】</h3>
+<h4 id="【whois查询】">【whois查询】</h4>
+<p>1.原理：<br>
+①<code>whois</code>用来进行域名注册信息查询；<br>
+②在终端输入<code>whois gitee.com</code>可查询到3R注册信息，包括注册人的姓名、组织和城市等信息。<br>
+③进行<code>whois</code>查询时去掉<code>www</code>等前缀，因为注册域名时通常会注册一个上层域名，子域名由自身的域名服务器管理，在<code>whois</code>数据库中可能查询不到。<br>
+2.在终端中输入whois可以查看到域名的注册信息，可以查看到域名注册信息以及3R注册信息，结果如下；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424084300779-420845000.png" alt=""><br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424084310960-1688990512.png" alt=""></p>
+<h4 id="【nslookup查询】">【nslookup查询】</h4>
+<p>1.原理：nslookup可以得到DNS解析服务器保存的Cache的结果，但并不是一定准确的。<br>
+2.在终端中输入<code>nslookup baidu.com</code>命令，结果如下;<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424084720466-660939047.png" alt=""></p>
+<h4 id="【dig查询】">【dig查询】</h4>
+<p>1.原理：dig可以从官方DNS服务器上查询精确的结果。<br>
+2.在终端输入<code>dig gitee.com</code>命令，结果如下；</p>
+<p><img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424085247390-419603853.png" alt=""></p>
+<h4 id="【ip2location地理位置查询】">【IP2Location地理位置查询】</h4>
+<p>1.原理：<code>https://www.maxmind.com</code>网站可以根据IP地址查询地理位置。<br>
+2.在cmd中，利用ping www.baidu.com的查看网站的IP地址;<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424085738542-1027236875.png" alt=""></p>
+<p>3.在网站中输入IP地址可以查看到百度的IP信息；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424090243446-1651709175.png" alt=""></p>
+<p>4.我们可以通过<code>www.ip-adress.com</code>这个网站可以查询到更详细的关于IP的信息，我们仍查看百度，结果如下；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424090847101-840519678.png" alt=""></p>
+<h4 id="【ip2反域名查询】">【IP2反域名查询】</h4>
+<p>1.原理：shodan搜索引擎可以进行反域名查询，可以搜索到该IP的地理位置、服务占用端口号，以及提供的服务类。<br>
+2.打开网站，输入IP地址，可以看到地理位置，端口号和提供的服务具体信息，结果如下；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424091128079-1772060979.png" alt=""></p>
+<h3 id="【任务三：基本的扫描技术：主机发现、端口扫描、os及服务版本探测、具体服务的查点（以自己主机为目标）】">【任务三：基本的扫描技术：主机发现、端口扫描、OS及服务版本探测、具体服务的查点（以自己主机为目标）】</h3>
+<h4 id="【主机发现】">【主机发现】</h4>
+<p>1.在winodws的cmd中执行<code>ping www.baidu.com</code>。<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424092509574-792789692.png" alt=""></p>
+<p>2.在kali的终端中执行<code>ping www.baidu.com</code>；</p>
+<p><img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424092437257-356419459.png" alt=""></p>
+<h4 id="【metasploit中的arp_sweep模块】">【metasploit中的arp_sweep模块】</h4>
+<p>1.原理：<code>arp_sweep</code>和<code>udp_sweep</code>都是<code>Metasploit</code>中位于<code>modules/auxiliary/scanner/discovery</code>中的模块。<code>arp_sweep</code>使用ARP请求枚举本地局域网络中的所有活跃主机；<code>udp_sweep</code>模块除了可以探测到存活主机之外，还可以获得主机名称信息。<br>
+2.依次执行如下命令;<br>
+①<code>msfconsole</code><br>
+②<code>use auxiliary/scanner/discovery/arp_sweep</code> //进入arp_sweep 模块。<br>
+③<code>set RHOSTS 192.168.1.0/24</code> //用set进行hosts主机段设置。<br>
+④<code>set THREADS 50</code> //加快扫描速度。<br>
+⑤<code>run</code> //执行run进行扫描。<br>
+3.结果如下；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424093619902-655731922.png" alt=""></p>
+<h4 id="【metasploit中的udp_sweep模块】">【metasploit中的udp_sweep模块】</h4>
+<p>1.依次执行如下命令;<br>
+①<code>msfconsole</code><br>
+②<code>use auxiliary/scanner/discovery/arp_sweep</code> //进入udp_sweep 模块。<br>
+③<code>set RHOSTS 192.168.1.0/24</code> //用set进行hosts主机段设置。<br>
+④<code>set THREADS 50</code> //加快扫描速度。<br>
+⑤<code>run</code> //执行run进行扫描。<br>
+2.结果如下；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424093844079-758360455.png" alt=""></p>
+<h4 id="【nmap的使用】">【nmap的使用】</h4>
+<p>1.原理；<br>
+①-sS：TCP SYN扫描，可以穿透防火墙；<br>
+②-sA：TCP ACK扫描。有时候由于防火墙会导致返回过滤/未过滤端口；<br>
+③-sP：发送ICMP echo探测；<br>
+④-sT：TCP connect扫描，最准确，但是很容易被IDS检测到，不推荐；<br>
+⑤-sF/-sX/-sN：扫描特殊的标志位以避开设备或软件的监测；<br>
+⑥-O：启用TCP/IP协议栈的指纹特征信息扫描以获取远程主机的操作系统信息；<br>
+⑦-sV：获取开放服务的版本信息；<br>
+2.在Kali的终端中使用<code>nmap -sn 192.168.1.0/24</code>命令寻找该网段下的活跃主机，结果如下；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424094113055-1275105828.png" alt=""><br>
+3.在Kali的终端中使用<code>nmap -O 192.168.40.130</code>命令获取目标机的操作系统等信息，结果如下；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424095628992-1105671165.png" alt=""><br>
+4.在Kali的终端中使用<code>nmap -sS -Pn 192.168.40.130</code>命令，其中-sS 是TCP SYN扫描，-Pn 是在扫描之前，不发送ICMP echo请求测试目标，结果如下；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424095821514-318118647.png" alt=""><br>
+5.在Kali的终端中使用<code>nmap -sV -Pn 192.168.40.130</code>，其中-sV 用来查看目标机子的详细服务信息，结果如下；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424095935643-310373204.png" alt=""></p>
+<h4 id="【具体服务的查点】">【具体服务的查点】</h4>
+<p>1.原理：metasploit中有许多相关工具，大部分都在Scanner辅助模块，常以[service_name]_version（用以遍历主机，确定服务版本）和[service_name]_login（进行口令探测攻击）命名。<br>
+2.Telnet服务扫描；<br>
+①telnet命令用于登录远程主机,对远程主机进行管理。<br>
+②<code>msfconsole</code><br>
+③<code>use auxiliary/scanner/telnet/telnet_version</code>//进入telnet模块<br>
+④<code>set RHOSTS 192.168.0.131/24</code>//扫描网段<br>
+⑤<code>set THREADS 50</code>//提高查询速度<br>
+⑥<code>run</code><br>
+⑦结果如下；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424100611027-173080581.png" alt=""><br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424100619698-2041446956.png" alt=""></p>
+<p>3.SSH服务；<br>
+①原理：SSH（“安全外壳”）协议是用于从一个系统安全远程登录到另一个的方法。用户通过客户端 - 服务器架构格式的不安全网络使用安全通道，用于将SSH客户端与SSH服务器连接起来。<br>
+②<code>msfconsole</code><br>
+③<code>use auxiliary/scanner/ssh/ssh_version</code>//进入ssh模块<br>
+④<code>set RHOSTS 192.168.0.131/24</code>//扫描网段<br>
+⑤<code>set THREADS 50</code>//提高查询速度<br>
+⑥<code>run</code><br>
+⑦结果如下；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424101050432-277741270.png" alt=""></p>
+<p>4.Oracle数据库服务查点；<br>
+①<code>msfconsole</code><br>
+②<code>use auxiliary/scanner/oracle/tnslsnr_version</code>//进入tnslsnr模块<br>
+③<code>set RHOSTS 192.168.0.131/24</code>//扫描网段<br>
+④<code>set THREADS 50</code>//提高查询速度<br>
+⑤<code>run</code><br>
+⑥结果如下；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424101450994-364494516.png" alt=""></p>
+<h3 id="【任务四：漏洞扫描：会扫，会看报告，会查漏洞说明，会修补漏洞（以自己主机为目标）】">【任务四：漏洞扫描：会扫，会看报告，会查漏洞说明，会修补漏洞（以自己主机为目标）】</h3>
+<p>1.安装OpenVAS，依次输入以下命令；<br>
+①<code>apt-get update</code><br>
+②<code>apt-get dist-upgrade</code><br>
+③<code>apt-get install openvas</code><br>
+④<code>openvas-setup</code><br>
+2.安装完成后，通过<code>openvas-check-setup</code>检测安装是否成功，一般都会出现各种各样得问题，百般折磨之后，测试出现<code>It seems like your OpenVAS-9 installation is OK</code>表示安装成功，如图；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200425121359448-644773543.png" alt=""><br>
+3.添加新用户并输入<code>openvas-start</code>命令启动服务，登录；<br>
+①openvasmd --create-user=20175202 --role=Admin 创建用户20175202<br>
+②openvasmd --user=gg5202 --new-password=gg5202 设置新密码<br>
+登录，如下；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200425121535809-1426050004.png" alt=""><br>
+4.出现如下界面，表示成功进入；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200425121655383-1897986065.png" alt=""><br>
+5.新建任务后，填入待扫描的IP地址<code>10.1.1.108</code>，点击<code>Start Scans</code>进行扫描；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200425121902854-479009494.png" alt=""><br>
+5.在等待一段时间后，我们可以得到扫描完成的结果；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200425121938303-1075109110.png" alt=""><br>
+6.点击扫描完成后的结果中的IP地址，可以查看到扫描结果的详细信息；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200425122042650-1775861106.png" alt=""><br>
+7.选择<code>Full and fast</code>可以看到很多的漏洞族，选择一个漏洞族进行查看；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200425122148705-1051800281.png" alt=""><br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200425122156098-1760729122.png" alt=""><br>
+8.在漏洞族中在任意选择一个漏洞，选择一个漏洞族进行查看；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200425122226071-1269212110.png" alt=""></p>
+<h2 id="三、实验过程中遇到的问题">三、实验过程中遇到的问题</h2>
+<p>1.问题：更新资源包的时候，一到97%就失败，如下；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200424112218790-606597945.png" alt=""></p>
+<p>解决：重新启动，进入管理员权限，优先输入<code>apt-get update</code>，解决了问题。</p>
+<p>2.问题：使用<code>openvas-check-setup</code>检查状态，报错,如下；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200425113515449-632830229.png" alt=""></p>
+<p>解决：按提示输入命令<code>sudo greenbone-scapdata-sync</code>同步漏洞库，修复错误。<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200425115923838-1397673262.png" alt=""></p>
+<p>3.问题：在Kali的终端中使用<code>nmap -sn 192.168.1.0/24</code>命令寻找该网段下的活跃主机时，提示没有活跃主机,如图；<br>
+<img src="https://img2020.cnblogs.com/blog/1271383/202004/1271383-20200425122919791-1578522626.png" alt=""></p>
+<p>解决：首先输入<code>sudo -s</code>，优先进入管理员权限，然后输入命令<code>nmap -sn 192.168.1.0/24</code>，解决了问题。</p>
+<h2 id="四、问题的回答">四、问题的回答</h2>
+<p>1.哪些组织负责DNS，IP的管理？<br>
+回答：①全球根服务器均由美国政府授权的ICANN统一管理，负责全球的域名根服务器、DNS和IP地址管理。<br>
+②地址支持组织（ASO）负责IP地址系统的管理。<br>
+③域名支持组织（DNSO）负责互联网上的域名系统（DNS）的管理。<br>
+④协议支持组织（PSO）负责涉及Internet协议的唯一参数的分配。<br>
+2.什么是3R信息？<br>
+回答：①注册人(Registrant)。<br>
+②注册商(Registrar)。<br>
+③官方注册局(Registry)。<br>
+3.评价下扫描结果的准确性？<br>
+回答：扫描结果比较准确，具体见实验过程。</p>
+<h2 id="五、实验心得与体会">五、实验心得与体会</h2>
+<pre><code>这次实验主要时对漏洞的检测和扫描，实验整体难度不大，按照步骤一步步完成就可以了，但是在安装软件和配置环境时问题太多了，问题一个接一个。openvas真的太难装了。好在最后靠自己的耐心，一步步完成了实验。通过这次试验，我发现电脑中平时不起眼的漏洞会有很多，自己的信息很容易走失，以后要多加防范。这次实验我收获颇丰，希望以后的实验中，自己也能保持这种细致和内心，争取收获更多的知识。</code></pre>
+
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+        </div>
+        <p class="postfoot">
+            posted on 
+<span id="post-date">2020-04-25 12:34</span>&nbsp;
+<a href="https://www.cnblogs.com/gexvyang/">20175202葛旭阳</a>&nbsp;
+阅读(<span id="post_view_count">...</span>)&nbsp;
+评论(<span id="post_comment_count">...</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12763456" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(12763456);return false;">收藏</a>
+        </p>
+    </div>
+</div>
+
+<script src="https://common.cnblogs.com/highlight/9.12.0/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 392656, cb_blogApp = 'gexvyang', cb_blogUserGuid = '5324fd39-79ad-4ef9-5ad6-08d4ef52ecb6';
+    var cb_entryId = 12763456, cb_entryCreatedDate = '2020-04-25 12:34', cb_postType = 1; 
+    loadViewCount(cb_entryId);
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot("/1090369/C1", [300, 250], "div-gpt-ad-1546353474406-0").addService(googletag.pubads());
+            googletag.defineSlot("/1090369/C2", [468, 60], "div-gpt-ad-1539008685004-0").addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;"></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;">
+            <script>
+                if (new Date() >= new Date(2018, 9, 13)) {
+                    googletag.cmd.push(function () { googletag.display("div-gpt-ad-1539008685004-0"); });
+                }
+            </script>
+        </div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div>
+
+</div>
+</div>
+<div id="leftmenu">
+
+
+<h3>导航</h3>
+<ul>
+    <li>
+        <a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+
+    </li>
+    <li>
+        
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/gexvyang/">
+首页</a>
+
+    </li>
+    <li>
+        
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+
+    </li>
+    <li>
+        
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/20175202%E8%91%9B%E6%97%AD%E9%98%B3">
+联系</a>
+    </li>
+    <li>
+        
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/gexvyang/rss/">
+订阅</a>
+        
+<a id="blog_nav_rss_image" href="https://www.cnblogs.com/gexvyang/rss/">
+    <img src="/skins/anothereon001/images/xml.gif" alt="订阅" />
+</a>
+    </li>
+    <li>
+        
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+
+    </li>
+</ul>
+
+
+<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>
+
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+
+</div>
+</div>
+<div class="clear"></div>
+<div id="footer">
+<p id="footer">
+	Powered by: 
+	<br />
+	
+	
+<a href="https://www.cnblogs.com/" id="Footer1_Hyperlink3" style="font-size: 12px; font-family: Verdana">博客园</a>
+	<br />
+	Copyright &copy; 2020 20175202葛旭阳
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+</p>
+
+
+</div>
+</div>
+
+
+    
+</body>
+</html>

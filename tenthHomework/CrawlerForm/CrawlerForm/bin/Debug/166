@@ -1,0 +1,528 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>3D视觉工坊 - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/coffee/bundle-coffee.min.css?v=pdMIVgsH8kXt-vOWnlL0N20TlHt3UyP9HzGgocfsP4s" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/coffee/bundle-coffee-mobile.min.css?v=na9bpAY4yh7uEWCcrXj3vfJM3VBse8YtU6-5fUUQPz0" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/YongQiVisionIMAX/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/YongQiVisionIMAX/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/YongQiVisionIMAX/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 450768;
+        var currentBlogApp = 'YongQiVisionIMAX';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'coffee';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a href="https://www.cnblogs.com/YongQiVisionIMAX/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/YongQiVisionIMAX/">3D视觉工坊</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="navigator">
+			
+<ul id="navList">
+	<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+	<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/YongQiVisionIMAX/">
+首页</a>
+</li>
+	<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+	<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/3D%E8%A7%86%E8%A7%89%E5%B7%A5%E5%9D%8A">
+联系</a></li>
+	<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+	<li>
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/YongQiVisionIMAX/rss/">
+订阅</a>
+	
+<a id="blog_nav_rss_image" href="https://www.cnblogs.com/YongQiVisionIMAX/rss/">
+    <img src="/skins/coffee/images/xml.gif" alt="订阅" />
+</a></li>
+</ul>
+
+
+
+			<div class="blogStats">
+				
+				<!--done-->
+随笔- 
+22&nbsp;
+文章- 
+0&nbsp;
+评论- 
+1&nbsp;
+
+
+
+				
+			</div><!--end: blogStats -->
+		</div><!--end: navigator 博客导航栏 -->
+		
+<!--done-->
+
+
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/YongQiVisionIMAX/archive/2020/04/25.html">2020年4月25日</a>
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/YongQiVisionIMAX/p/12771710.html">
+    单图像三维重建、2D到3D风格迁移和3D DeepDream
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：作者：Longway Date：2020-04-25 来源：单图像三维重建、2D到3D风格迁移和3D DeepDream 项目网址：http://hiroharu-kato.com/projects_en/neural_renderer.html 代码网址：https://github.com/hi            <a href="https://www.cnblogs.com/YongQiVisionIMAX/p/12771710.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-25 10:02 3D视觉工坊 阅读 (54) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12771710" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/YongQiVisionIMAX/archive/2020/04/24.html">2020年4月24日</a>
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/YongQiVisionIMAX/p/12765145.html">
+    经典相位法三维轮廓测量模型
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：作者：书涵 Date：2020-04-24 来源：经典相位法三维轮廓测量模型 在结构光三维测量中，之前笔者介绍了关于把投影看做相机的逆的模型，这次笔者要介绍一个经典相位三维轮廓测量模型，有很多相位三维轮廓测量模型都是在经典相位测量模型上的改进。 如下图所示，在经典三维轮廓测量模型中，需要精准的设置相            <a href="https://www.cnblogs.com/YongQiVisionIMAX/p/12765145.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-24 08:38 3D视觉工坊 阅读 (34) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12765145" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/YongQiVisionIMAX/archive/2020/04/21.html">2020年4月21日</a>
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/YongQiVisionIMAX/p/12742156.html">
+    CVPR2020|物体可见性信息在3D检测中的探索
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：作者：蒋天园 Date：2020-04-21 来源：物体可见性信息在3D检测中的探索CVPR2020(oral) 前言 本文是一篇来自Carnegie Mellon大学和Argo AI的合作工作，目前已经被CVPR20接收（oral），该文的主要内容是基于点云的3D目标检测，与以往的研究内容不同的是            <a href="https://www.cnblogs.com/YongQiVisionIMAX/p/12742156.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-21 08:27 3D视觉工坊 阅读 (17) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12742156" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/YongQiVisionIMAX/archive/2020/04/18.html">2020年4月18日</a>
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/YongQiVisionIMAX/p/12728136.html">
+    CVPR2020|3D-VID:基于LiDar Video信息的3D目标检测框架
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：作者：蒋天园 Date：2020-04-18 来源：3D-VID:基于LiDar Video信息的3D目标检测框架|CVPR2020 Brief paper地址：https://arxiv.org/pdf/2004.01389.pdf code地址：https://github.com/yinjun            <a href="https://www.cnblogs.com/YongQiVisionIMAX/p/12728136.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-18 21:16 3D视觉工坊 阅读 (122) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12728136" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/YongQiVisionIMAX/archive/2020/04/17.html">2020年4月17日</a>
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/YongQiVisionIMAX/p/12717558.html">
+    点云学习在自动驾驶中的研究概述
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：作者：蒋天园 Date：2020-04-17 来源：点云学习在自动驾驶中的研究概述 自动驾驶公司的发展 有关自动驾驶的研究最早可以追述到2004年的DARPA Grand Challenge和2007年的DARPA Urban Challenge，目的是研究如何在各种情形下提高自动驾驶的能力；200            <a href="https://www.cnblogs.com/YongQiVisionIMAX/p/12717558.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-17 09:04 3D视觉工坊 阅读 (88) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12717558" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/YongQiVisionIMAX/archive/2020/04/16.html">2020年4月16日</a>
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/YongQiVisionIMAX/p/12710226.html">
+    CVPR2020|  阿里达摩院最新力作SA-SSD
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：作者：蒋天园 Date：2020-04-16 来源：SA-SSD：阿里达摩院最新3D检测力作（CVPR2020） Brief 来自CVPR2020的研究工作，也是仅仅使用Lidar数据进行3D检测的文章，CVPR2020接收的几篇文章中，采用LiDar作为网络结构输入的已经已经多于采用图像和lida            <a href="https://www.cnblogs.com/YongQiVisionIMAX/p/12710226.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-16 08:16 3D视觉工坊 阅读 (54) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12710226" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/YongQiVisionIMAX/archive/2020/04/15.html">2020年4月15日</a>
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/YongQiVisionIMAX/p/12702797.html">
+    CVPR2020文章汇总 | 点云处理、三维重建、姿态估计、SLAM、3D数据集等(12篇)
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：作者：Tom Hardy Date：2020-04-15 来源：CVPR2020文章汇总 | 点云处理、三维重建、姿态估计、SLAM、3D数据集等(12篇) 1.PVN3D: A Deep Point-wise 3D Keypoints Voting Network for 6DoF PoseEst            <a href="https://www.cnblogs.com/YongQiVisionIMAX/p/12702797.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-15 06:22 3D视觉工坊 阅读 (296) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12702797" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/YongQiVisionIMAX/archive/2020/04/14.html">2020年4月14日</a>
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/YongQiVisionIMAX/p/12696097.html">
+    物体的三维识别与6D位姿估计：PPF系列论文介绍（四）
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：作者：仲夏夜之星 Date：2020-04-14 来源：物体的三维识别与6D位姿估计：PPF系列论文介绍（四） 文章“3D Pose Estimation of Daily ObjectsUsing an RGB-D Camera”2012发表在IEEE/RSJInternational Confe            <a href="https://www.cnblogs.com/YongQiVisionIMAX/p/12696097.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-14 10:05 3D视觉工坊 阅读 (31) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12696097" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/YongQiVisionIMAX/archive/2020/04/11.html">2020年4月11日</a>
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/YongQiVisionIMAX/p/12678392.html">
+    CVPR2020 | 3DSSD:基于点云的single-stage物体检测模型
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：作者：蒋天园 Date：2020-04-11 来源：3DSSD:基于点云的single-stage物体检测模型 | CVPR2020 前言 这是一篇来自CVPR2020的研究工作，于2020/4/9日开源，如下图所示，目前被接收的文章有在KITTI上的有四篇，分别是PV-RCNN,SA-SSD,Po            <a href="https://www.cnblogs.com/YongQiVisionIMAX/p/12678392.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-11 11:25 3D视觉工坊 阅读 (138) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12678392" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/YongQiVisionIMAX/archive/2020/04/10.html">2020年4月10日</a>
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/YongQiVisionIMAX/p/12673242.html">
+    史上最全DSO学习资料
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：作者：董岩 Date：2020-04-10 来源：史上最全DSO学习资料 DSO（Direct Sparse Odometry）是一种视觉里程计方法。在SLAM领域，DSO属于稀疏直接法，速度和精度超过了当时传统的特征点法。本文整理了网上一些关于DSO的资料，配合相关论文，可以对DSO做由浅入深地学            <a href="https://www.cnblogs.com/YongQiVisionIMAX/p/12673242.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-10 14:21 3D视觉工坊 阅读 (52) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12673242" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+
+</div>
+
+
+
+<div class="topicListFooter">
+    <div id="nav_next_page">
+        
+    <a href="https://www.cnblogs.com/YongQiVisionIMAX/default.html?page=2">
+        下一页
+    </a>
+
+    </div>    
+</div>
+
+
+
+
+
+
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script></div>
+			
+			<DIV id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</DIV>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 3D视觉工坊
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

@@ -1,0 +1,721 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta property="og:description" content="今天深圳天气有暴风雨，没有事情干，趁着周末和平常晚上写一篇关于Category知识的梳理！可能针对平常只会知道些category基本结论知道的人有些帮助，写这篇博客会按照下面的目录结合实例以及Cate" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Category、load、initialize 源码讲解 - 国孩 - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/mountainink/bundle-mountainink.min.css?v=oG79jFR4NfReV3u2dBQmP3fWN_7_R-qh8UbgFGHtkis" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/mountainink/bundle-mountainink-mobile.min.css?v=ADiCwO2hOTdd5yYidcx7eob7ix2VJI4o_TXjEycTHjs" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/guohai-stronger/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/guohai-stronger/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/guohai-stronger/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 403112;
+        var currentBlogApp = 'guohai-stronger';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'MountainInk';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/guohai-stronger/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/guohai-stronger/">国孩</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/guohai-stronger/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E5%9B%BD%E5%AD%A9">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/guohai-stronger/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			
+			<span id="stats_post_count">随笔 - 
+148&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+26</span>
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/guohai-stronger/p/12763944.html">Category、load、initialize 源码讲解</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body ">
+    <p>今天深圳天气有暴风雨，没有事情干，趁着周末和平常晚上写一篇关于Category知识的梳理！可能针对平常只会知道些category基本结论知道的人有些帮助，写这篇博客会按照下面的目录结合实例以及Category的源码进行一一讲解！！！</p>
+<ol>
+<li>Category的实现原理？</li>
+<li>Category中有load方法吗？load方法是什么时候调用的？</li>
+<li>load、initialize方法的区别是什么？它们在Category中的调用的顺序？以及出现继承时调用过程发生怎样的变化？</li>
+<li>Category能否添加成员变量？如果可以，如何给Category添加成员变量？</li>
+</ol>
+<p>&nbsp;</p>
+<p align="left"><strong>一、Category的实现原理</strong></p>
+<p align="left"><strong>1. 前沿Category讲解-所有知识在这</strong></p>
+<p align="left">在Xcode中使用Category，可以在里面添加方法以及遵守相应的协议。下面以实例讲解，首先创建ZXYPerson类，类中有对象方法run方法，创建两个分类ZXYPerson+Test和ZXYPerson+Eat，方法分别为test和eat方法。，结构代码如下：</p>
+<p align="left"><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200416224042324-1212608789.jpg" alt="" width="445" height="242"></p>
+<div class="cnblogs_code"><img id="code_img_closed_e2f781ed-c67c-4eca-9c78-6f0bff6afb19" class="code_img_closed" src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt=""><span class="cnblogs_code_collapse">View Code</span></div>
+<p>运行代码执行结果如下：</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200416224323985-192259578.png" alt="" width="447" height="210"></p>
+<p>&nbsp;</p>
+<p>上面person是实例对象，所以run实例方法是放在ZXYPerson的实例对象方法中，而对于ZXYPerson（Test）和ZXYPerson（Eat）中的test和eat方法放在哪里了呢？</p>
+<p>&nbsp;</p>
+<p><strong>拓展： isa指针方法</strong>&nbsp;</p>
+<ul>
+<li><strong>&nbsp;instance的isa指向class</strong></li>
+</ul>
+<p align="left"><strong>　　当调用对象方法时，通过instance的isa找到class，最后找到对象方法的实现进行调用</strong></p>
+<ul>
+<li><strong>class的isa指向meta-class</strong></li>
+</ul>
+<p align="left"><strong>　　当调用类方法时，通过class的isa找到meta-class，最后找到类方法的实现进行调用</strong></p>
+<p align="left"><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200420222300117-2129189096.png" alt="" width="627" height="228"></p>
+<p>&nbsp;<strong>答：Category的方法并不是在编译的时候将方法加入到ZXYPerson的实例对象中的，而是在运行时通过Runtime运行时机制将分类的方法合并到到实例对象中的！</strong></p>
+<p>将ZXYPerson+Eat.m clang编译成.cpp文件，查看编译之后的代码（xcrun -sdk iphonesimulator clang -rewrite-objc ZXYPerson+Eat.m）</p>
+<p>查看一下协议Category的结构体如下：</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200421223158453-1995143331.png" alt="" width="615" height="222"></p>
+<p>&nbsp;</p>
+<p>上面协议ZXYPerson+Test以及ZXYPerson+Eat经过编译会编译成两个_category_t结构体，在运行时会把它加入到ZXYPerson的实例对象中（也有可能是类对象中，或者元类对象）</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200421224621240-1820498578.jpg" alt="" width="499" height="145"></p>
+<p><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200421224641325-1691926210.jpg" alt="" width="496" height="152"></p>
+<p>&nbsp;</p>
+<p>如果换成ZXYPerson+Test协议变为.cpp文件，_category_t这个结构体不会发生改变，但是后面的传参会发生改变如下：</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200421225407176-98789154.jpg" alt="" width="508" height="145"></p>
+<p><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200421225435326-1056222284.jpg" alt="" width="508" height="154"></p>
+<p><strong>&nbsp;2. 源码讲解</strong></p>
+<p>下面来验证一下为什么Category的优先级高于主类?原理是什么?</p>
+<p><strong>2.1 结论</strong></p>
+<div class="cnblogs_code"><img id="code_img_closed_338337de-c9b7-4fd2-8234-f70ea2ce65fb" class="code_img_closed" src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt=""><span class="cnblogs_code_collapse">View Code</span></div>
+<p>上面的run方法到底会调用哪一个呢,这个<strong>编译顺序有关,最后参与编译的分类会优先调用</strong></p>
+<p><span>抽出上面的main.m代码，ZXYPerson、ZXYPerson+Eat以及ZXYPerson+Test都具有run方法（看上面收起来的代码）</span></p>
+<div class="cnblogs_code">
+<pre>#import &lt;Foundation/Foundation.h&gt;
+#import "ZXYPerson.h"
+#import "ZXYPerson+Eat.h"
+#import "ZXYPerson+Test.h"
+
+int main(int argc, const char *<span> argv[]) {
+    @autoreleasepool {
+        ZXYPerson *person =<span> [[ZXYPerson alloc]init];
+        <strong>[person run]</strong>;
+    }
+    return 0<span>;
+}</span></span></span></pre>
+</div>
+<p>看下编译顺序和运行结果</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200423155136870-492160868.jpg" alt="" width="563" height="153"></p>
+<p>&nbsp;</p>
+<p>如果将编译顺序改变下</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200423155444790-1468120070.jpg" alt="" width="557" height="169"></p>
+<p>&nbsp;</p>
+<p><strong>&nbsp;2.2 原因</strong></p>
+<p>&nbsp;查看的OC的源码是objc4-723版本 查看Category的加载处理过程,过程可以为以下步骤:</p>
+<ol>
+<li>objc-os.m&nbsp;</li>
+</ol>
+<ul>
+<li>_objc_init</li>
+<li>map_images</li>
+<li>map_images_nolock</li>
+</ul>
+<p>　　2.&nbsp;objc-runtime-new.mm</p>
+<ul>
+<li>_read_images(images是镜像,逆向开发博客有)</li>
+<li>remethodizeClass</li>
+<li>attachCategories</li>
+<li>attachLists</li>
+<li>realloc、memmove、memcpy</li>
+</ul>
+<p>直接看Category加载逻辑,搜索attachCategories,找到对应的实现</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200423162212012-1240284217.jpg" alt="" width="580" height="97"></p>
+<p>&nbsp;</p>
+<p>下面针对attachCategories的实现开始讲解，大家认认真真看下代码</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> 
+attachCategories(Class cls, category_list </span>*cats, <span style="color: #0000ff;">bool</span><span style="color: #000000;"> flush_caches)
+{
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> cls: [ZXYPerson class]
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> cats - category: 代表[ZXYPerson+Eat,ZXYPerson+Test]</span>
+    
+    <span style="color: #0000ff;">if</span> (!cats) <span style="color: #0000ff;">return</span><span style="color: #000000;">;
+    </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (PrintReplacedMethods) printReplacements(cls, cats);
+
+    </span><span style="color: #0000ff;">bool</span> isMeta = cls-&gt;<span style="color: #000000;">isMetaClass();
+    
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;">*方法列表 **mlists  二维数组
+     *[
+     * [method_t,method_t],
+     * [method_t,method_t]
+     * ]
+     </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    method_list_t </span>**mlists = (method_list_t **<span style="color: #000000;">)
+        malloc(cats</span>-&gt;count * <span style="color: #0000ff;">sizeof</span>(*<span style="color: #000000;">mlists));
+    
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;">*属性列表 **proplists 二维数组
+     *[
+     * [property_t,property_t],
+     * [property_t,property_t]
+     * ]
+     </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    property_list_t </span>**proplists = (property_list_t **<span style="color: #000000;">)
+        malloc(cats</span>-&gt;count * <span style="color: #0000ff;">sizeof</span>(*<span style="color: #000000;">proplists));
+    
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;">*协议列表 **protolists 二维数组
+    *[
+    * [protol_t,protol_t],
+    * [protol_t,protol_t]
+    * ]
+    </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    protocol_list_t </span>**protolists = (protocol_list_t **<span style="color: #000000;">)
+        malloc(cats</span>-&gt;count * <span style="color: #0000ff;">sizeof</span>(*<span style="color: #000000;">protolists));
+
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> Count backwards through cats to get newest categories first</span>
+    <span style="color: #0000ff;">int</span> mcount = <span style="color: #800080;">0</span><span style="color: #000000;">;
+    </span><span style="color: #0000ff;">int</span> propcount = <span style="color: #800080;">0</span><span style="color: #000000;">;
+    </span><span style="color: #0000ff;">int</span> protocount = <span style="color: #800080;">0</span><span style="color: #000000;">;
+    </span><span style="color: #0000ff;">int</span> i = cats-&gt;<span style="color: #000000;">count;
+    </span><span style="color: #0000ff;">bool</span> fromBundle =<span style="color: #000000;"> NO;
+    </span><span style="color: #0000ff;">while</span> (i--) {<span style="color: #008000;">//</span><span style="color: #008000;">最后面编译的分类会优先调用，i--，首先取最后一个分类</span>
+<span style="color: #000000;">        
+        auto</span>&amp; entry = cats-&gt;<span style="color: #000000;">list[i];
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">将category里面的方法列表组都加入到一个数组中</span>
+        method_list_t *mlist = entry.cat-&gt;<span style="color: #000000;">methodsForMeta(isMeta);
+        </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (mlist) {
+            mlists[mcount</span>++] =<span style="color: #000000;"> mlist;
+            fromBundle </span>|= entry.hi-&gt;<span style="color: #000000;">isBundle();
+        }
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">将category里面的属性列表组都加入到一个数组中</span>
+        property_list_t *proplist =<span style="color: #000000;"> 
+            entry.cat</span>-&gt;<span style="color: #000000;">propertiesForMeta(isMeta, entry.hi);
+        </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (proplist) {
+            proplists[propcount</span>++] =<span style="color: #000000;"> proplist;
+        }
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">将category里面的协议列表组都加入到一个数组中</span>
+        protocol_list_t *protolist = entry.cat-&gt;<span style="color: #000000;">protocols;
+        </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (protolist) {
+            protolists[protocount</span>++] =<span style="color: #000000;"> protolist;
+        }
+    }
+    
+    </span><span style="color: #008000;">//</span><span style="color: #008000;">得到类里面的数据</span>
+    auto rw = cls-&gt;<span style="color: #000000;">data();
+
+    prepareMethodLists(cls, mlists, mcount, NO, fromBundle);
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 将所有分类的对象方法，附加到类（对象）对象的方法列表中</span>
+    rw-&gt;<span style="color: #000000;"><strong>methods.attachLists</strong>(mlists, mcount);
+    free(mlists);
+    </span><span style="color: #0000ff;">if</span> (flush_caches  &amp;&amp;  mcount &gt; <span style="color: #800080;">0</span><span style="color: #000000;">) flushCaches(cls);
+
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 将所有分类的属性，附加到类（对象）对象的属性列表中</span>
+    rw-&gt;<span style="color: #000000;"><strong>properties.attachLists</strong>(proplists, propcount);
+    free(proplists);
+
+    </span><span style="color: #008000;">//</span><span style="color: #008000;">将所有分类的协议，附加到类（对象）对象的协议列表中</span>
+    rw-&gt;<span style="color: #000000;"><strong>protocols.attachLists</strong>(protolists, protocount);
+    free(protolists);
+}</span></pre>
+</div>
+<p>对于方法attachCategories的参数cls：在本次例子中代表的是[ZXYPerson class]; cats代表的是分类列表[ZXYPerson+Eat,ZXYPerson+Test]</p>
+<p>然后紧接着分配了三个数组空间，三个二维数组mlists，proplists以及protolists分别放着方法、属性和协议列表，然后看一个附加加载过程的原理attachLists()方法</p>
+<div class="cnblogs_code">
+<pre>    <span style="color: #008000;">/*</span><span style="color: #008000;">*方法列表 **mlists  二维数组
+    *[
+    * [method_t,method_t],协议ZXYPerson+Test的方法test
+    * [method_t,method_t] 协议ZXYPerson+Eat的方法Eat
+    * ]
+    *  addedCount = 2
+    </span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">void</span> attachLists(List* <span style="color: #0000ff;">const</span> *<span style="color: #000000;"> addedLists, uint32_t addedCount) {
+        </span><span style="color: #0000ff;">if</span> (addedCount == <span style="color: #800080;">0</span>) <span style="color: #0000ff;">return</span><span style="color: #000000;">;
+
+        </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (hasArray()) {
+            </span><span style="color: #008000;">//</span><span style="color: #008000;"> many lists -&gt; many lists</span>
+            uint32_t oldCount = array()-&gt;<span style="color: #000000;">count;
+            </span><span style="color: #008000;">//</span><span style="color: #008000;">因为ZXYPerson有一个方法run，所以oldCount为1 ，addCount两个分类共有两个方法，所以newCount = 3</span>
+            uint32_t newCount = oldCount +<span style="color: #000000;"> addedCount;
+            
+            </span><span style="color: #008000;">//</span><span style="color: #008000;">通过realloc方法重新分配内存，并分配newCount的空间大小</span>
+            setArray((array_t *<span style="color: #000000;">)realloc(array(), array_t::byteSize(newCount)));
+            array()</span>-&gt;count =<span style="color: #000000;"> newCount;
+            
+            </span><span style="color: #008000;">//</span><span style="color: #008000;">array()-&gt;lists：返回原来的方法列表
+            </span><span style="color: #008000;">//</span><span style="color: #008000;">void    *memmove(void *__dst, const void *__src, size_t __len);将src的array()-&gt;lists移到array()-&gt;lists + addedCount，因为addedCount = 2，相当于将array()-&gt;lists向后移动2位</span>
+            <strong>memmove</strong>(array()-&gt;lists + addedCount, array()-&gt;<span style="color: #000000;">lists, 
+                    oldCount </span>* <span style="color: #0000ff;">sizeof</span>(array()-&gt;lists[<span style="color: #800080;">0</span><span style="color: #000000;">]));
+            
+            </span><span style="color: #008000;">//</span><span style="color: #008000;">addedLists:所有分类的方法列表
+            </span><span style="color: #008000;">//</span><span style="color: #008000;">void    *memcpy(void *__dst, const void *__src, size_t __n); 将src的addedLists拷贝到dst的array()-&gt;lists（原来方法的列表）
+            </span><span style="color: #008000;">//</span><span style="color: #008000;">相当于分类的方法列表拷贝到了原来的方法列表位置，而原来的方法列表位于前面</span>
+            <strong>memcpy</strong>(array()-&gt;<span style="color: #000000;">lists, addedLists, 
+                   addedCount </span>* <span style="color: #0000ff;">sizeof</span>(array()-&gt;lists[<span style="color: #800080;">0</span><span style="color: #000000;">]));
+        }
+        </span><span style="color: #0000ff;">else</span> <span style="color: #0000ff;">if</span> (!list  &amp;&amp;  addedCount == <span style="color: #800080;">1</span><span style="color: #000000;">) {
+            </span><span style="color: #008000;">//</span><span style="color: #008000;"> 0 lists -&gt; 1 list</span>
+            list = addedLists[<span style="color: #800080;">0</span><span style="color: #000000;">];
+        } 
+        </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+            </span><span style="color: #008000;">//</span><span style="color: #008000;"> 1 list -&gt; many lists</span>
+            List* oldList =<span style="color: #000000;"> list;
+            uint32_t oldCount </span>= oldList ? <span style="color: #800080;">1</span> : <span style="color: #800080;">0</span><span style="color: #000000;">;
+            uint32_t newCount </span>= oldCount +<span style="color: #000000;"> addedCount;
+            setArray((array_t </span>*<span style="color: #000000;">)malloc(array_t::byteSize(newCount)));
+            array()</span>-&gt;count =<span style="color: #000000;"> newCount;
+            </span><span style="color: #0000ff;">if</span> (oldList) array()-&gt;lists[addedCount] =<span style="color: #000000;"> oldList;
+            memcpy(array()</span>-&gt;<span style="color: #000000;">lists, addedLists, 
+                   addedCount </span>* <span style="color: #0000ff;">sizeof</span>(array()-&gt;lists[<span style="color: #800080;">0</span><span style="color: #000000;">]));
+        }
+    }</span></pre>
+</div>
+<p>上面源码对应方法内容也做了比较详细的解释，大家可以细细体会看下！下面memcpy（拷贝）和memmove（移动）函数</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200423214558235-1463431328.png" alt="" width="582" height="64"></p>
+<p>&nbsp;</p>
+<p>现在就来回答第一个问题：<strong>Category的实现原理？</strong></p>
+<p><span style="color: #ff0000;"><strong>1. 通过Runtime加载某个类的所有Category数据</strong></span></p>
+<p><span style="color: #ff0000;"><strong>2. 把所有Category的方法、属性、协议数据，合并到一个大数组中，后面参与编译的Category数据，会放在数组的签名</strong></span></p>
+<p><span style="color: #ff0000;"><strong>3. 将合并后的分类数据（方法、属性、协议）插入到类原来数据的前面</strong></span></p>
+<p>&nbsp;</p>
+<p>写到上面了,大家可能有人有疑问,那Category和<strong>Objective-C</strong> 的class Extension有什么关系区别嘛?</p>
+<ol>
+<li><strong>Objective-C 的class Extension 是在编译的时候,它的数据已经包含在类信息中</strong></li>
+<li><strong>Category在运行时才会将数据合并到类信息中</strong></li>
+</ol>
+<p>&nbsp;</p>
+<p><strong>二、Category中有load方法嘛？load方法什么时候调用？</strong></p>
+<p>&nbsp;创建ZXYPerson以及ZXYPerson的分类ZXYPerson+Test和ZXYPerson+Eat，在代码中加入load代码，下面是源代码</p>
+<div class="cnblogs_code" onclick="cnblogs_code_show('a4d137d4-e6b6-4512-a245-faba04f1b2ec')"><img id="code_img_closed_a4d137d4-e6b6-4512-a245-faba04f1b2ec" class="code_img_closed" src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt=""><img id="code_img_opened_a4d137d4-e6b6-4512-a245-faba04f1b2ec" class="code_img_opened" style="display: none" src="https://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt="">
+<div id="cnblogs_code_open_a4d137d4-e6b6-4512-a245-faba04f1b2ec" class="cnblogs_code_hide">
+<pre><span style="color: #0000ff;">#import</span> &lt;Foundation/Foundation.h&gt;
+
+<span style="color: #0000ff;">int</span> main(<span style="color: #0000ff;">int</span> argc, <span style="color: #0000ff;">const</span> <span style="color: #0000ff;">char</span> *<span style="color: #000000;"> argv[]) {
+    @autoreleasepool {
+
+    }
+    </span><span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+}
+
+
+</span><span style="color: #0000ff;">#import</span> &lt;Foundation/Foundation.h&gt;<span style="color: #000000;">
+
+NS_ASSUME_NONNULL_BEGIN
+
+</span><span style="color: #0000ff;">@interface</span><span style="color: #000000;"> ZXYPerson : NSObject
+
+</span><span style="color: #0000ff;">@end</span><span style="color: #000000;">
+
+NS_ASSUME_NONNULL_END
+
+
+
+</span><span style="color: #0000ff;">#import</span> <span style="color: #800000;">"</span><span style="color: #800000;">ZXYPerson.h</span><span style="color: #800000;">"</span>
+
+<span style="color: #0000ff;">@implementation</span><span style="color: #000000;"> ZXYPerson
+ 
+</span>+(<span style="color: #0000ff;">void</span><span style="color: #000000;">)load {
+    NSLog(</span><span style="color: #800000;">@"</span><span style="color: #800000;">ZXYPerson的load方法</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+}
+
+</span><span style="color: #0000ff;">@end</span>
+
+
+
+<span style="color: #0000ff;">#import</span> &lt;Foundation/Foundation.h&gt;
+
+<span style="color: #0000ff;">#import</span> <span style="color: #800000;">"</span><span style="color: #800000;">ZXYPerson.h</span><span style="color: #800000;">"</span><span style="color: #000000;">
+
+NS_ASSUME_NONNULL_BEGIN
+
+</span><span style="color: #0000ff;">@interface</span><span style="color: #000000;"> ZXYPerson (Test)
+
+</span><span style="color: #0000ff;">@end</span>
+
+
+
+<span style="color: #0000ff;">#import</span> <span style="color: #800000;">"</span><span style="color: #800000;">ZXYPerson+Test.h</span><span style="color: #800000;">"</span>
+<span style="color: #0000ff;">#import</span> &lt;Foundation/Foundation.h&gt;
+
+<span style="color: #0000ff;">@implementation</span><span style="color: #000000;"> ZXYPerson (Test)
+
+</span>+(<span style="color: #0000ff;">void</span><span style="color: #000000;">)load {
+    NSLog(</span><span style="color: #800000;">@"</span><span style="color: #800000;">ZXYPerson (Test)的load方法</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+}
+
+</span><span style="color: #0000ff;">@end</span>
+
+
+
+<span style="color: #0000ff;">#import</span> &lt;Foundation/Foundation.h&gt;
+
+<span style="color: #0000ff;">#import</span> <span style="color: #800000;">"</span><span style="color: #800000;">ZXYPerson.h</span><span style="color: #800000;">"</span><span style="color: #000000;">
+
+NS_ASSUME_NONNULL_BEGIN
+
+</span><span style="color: #0000ff;">@interface</span><span style="color: #000000;"> ZXYPerson (Eat)
+
+</span><span style="color: #0000ff;">@end</span><span style="color: #000000;">
+
+NS_ASSUME_NONNULL_END
+
+
+
+</span><span style="color: #0000ff;">#import</span> <span style="color: #800000;">"</span><span style="color: #800000;">ZXYPerson+Eat.h</span><span style="color: #800000;">"</span>
+
+<span style="color: #0000ff;">@implementation</span><span style="color: #000000;"> ZXYPerson (Eat)
+
+</span>+(<span style="color: #0000ff;">void</span><span style="color: #000000;">)load {
+    NSLog(</span><span style="color: #800000;">@"</span><span style="color: #800000;">ZXYPerson (Test)的load方法</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+}
+
+</span><span style="color: #0000ff;">@end</span></pre>
+</div>
+<span class="cnblogs_code_collapse">View Code</span></div>
+<p><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200424215543492-1599571871.jpg" alt="" width="556" height="264"></p>
+<p>&nbsp;</p>
+<p>&nbsp;刚刚代码的编译顺序如下：</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200424215951843-1223978681.jpg" alt="" width="556" height="226"></p>
+<p>&nbsp;</p>
+<p>&nbsp;下面通过源码分析一下load的调用顺序! objc4源码解读过程：objc-os.mm</p>
+<p><strong>1. &nbsp;_objc_init,点击load_images</strong></p>
+<p><strong><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200424221821527-164852710.png" alt="" width="563" height="238"></strong></p>
+<p><strong>&nbsp;</strong></p>
+<p><strong>2. 进入load_images，看到prepare_load_methods和call_load_methods，首先看call_load_methods</strong></p>
+<p><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200424223048532-1019797457.png" alt="" width="563" height="256"></p>
+<p>&nbsp;</p>
+<p><strong>&nbsp;3. 查看call_load_methods</strong></p>
+<p><strong><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200424224748823-1568101132.jpg" alt="" width="565" height="447"></strong></p>
+<p>&nbsp;</p>
+<p>&nbsp;上面就验证了一个观点：<span style="color: #ff0000;"><strong>先调用类的+load，然后再调用分类的+load</strong></span></p>
+<p>紧接着分别查看call_class_loads方法和call_category_loads方法</p>
+<p><strong>4.&nbsp;call_class_loads 加载类的load方法</strong></p>
+<p>假如项目中有100个类， 到底先调用哪一个类呢？</p>
+<p><strong><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200424230056579-196260404.png" alt="" width="571" height="427"></strong></p>
+<p>&nbsp;</p>
+<p>回到上面2中的load_images中，发现调用<strong>call_classes_loads</strong>之前也做了调用<strong>prepare_load_methods,</strong>再次进入了prepare_load_method中，看看有没有做一些准备工作：</p>
+<p><strong>5.&nbsp;prepare_load_method的实现</strong></p>
+<p><strong><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200424231930944-748839663.png" alt="" width="611" height="415"></strong></p>
+<p>&nbsp;</p>
+<p>prepare_load_method&nbsp;实现分为以下步骤：</p>
+<ol>
+<li>获取所有类，调用schedule_class_load</li>
+<li>关于classlist和categorylist两个数组顺序是根据类、分类被编译的顺序放到了对应的数组中去</li>
+</ol>
+<p><strong>6. 类load的调用顺序</strong></p>
+<p>确定类load的调用顺序，依赖于schedule_class_load，它的实现如下：</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200424232955882-1596756166.jpg" alt="" width="615" height="286"></p>
+<p>&nbsp;</p>
+<p>上面源码表明首先调用父类，然后子类！</p>
+<p>对于重写了+load的类，load方法调用顺序是<span style="color: #ff0000;"><strong>先编译的类的父类&gt;先编译的类&gt;后编译类的父类&gt;后编译的类</strong></span></p>
+<p><strong>总结：load调用顺序<strong>（<span style="color: #ff0000;">+load）方法是根据方法地址直接调用，并不是经过objc_msgSend函数调用</span></strong></strong></p>
+<p><strong>　<span style="color: #ff0000;">　1. &nbsp;</span></strong><span style="color: #ff0000;"><strong><span style="color: #ff0000;">&nbsp;</span>先调用类的+load</strong></span></p>
+<ul>
+<li><span style="color: #ff0000;"><strong>按照编译先后顺序调用（先编译先调用）</strong></span></li>
+<li><span style="color: #ff0000;"><strong>调用子类的+load之前会先调用父类的+load</strong></span></li>
+</ul>
+<p><span style="color: #ff0000;"><strong>　　2. &nbsp;再调用分类的+load方法</strong></span></p>
+<ul>
+<li><span style="color: #ff0000;"><strong>按照编译先后顺序调用（先编译先调用）</strong></span></li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>三、initialize讲解</strong></p>
+<p><span style="color: #ff0000;"><strong>+initialize的方法在类第一次接受消息时会被调用</strong></span></p>
+<p><strong><span style="color: #000000;"><span style="caret-color: #ff0000;">1. &nbsp; 例子</span></span></strong></p>
+<p><span style="color: #000000;"><span style="caret-color: #ff0000;">首先给ZXYStudent类和Person类覆盖+initialize，主要代码如下</span></span></p>
+<div class="cnblogs_code">
+<pre><span style="color: #008000;">//</span><span style="color: #008000;">ZXYPerson</span>
++ (<span style="color: #0000ff;">void</span><span style="color: #000000;">)initialize{
+    
+    NSLog(</span><span style="color: #800000;">@"</span><span style="color: #800000;">Person + initialize</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+}
+
+</span><span style="color: #008000;">//</span><span style="color: #008000;">ZXYPerson +Test</span>
++ (<span style="color: #0000ff;">void</span><span style="color: #000000;">)initialize{
+    
+    NSLog(</span><span style="color: #800000;">@"</span><span style="color: #800000;">Person (Test1) + initialize</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+}
+
+</span><span style="color: #008000;">//</span><span style="color: #008000;">ZXYPerson+Eat</span>
++ (<span style="color: #0000ff;">void</span><span style="color: #000000;">)initialize{
+    
+    NSLog(</span><span style="color: #800000;">@"</span><span style="color: #800000;">Person (Eat) + initialize</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+}
+
+</span><span style="color: #008000;">//</span><span style="color: #008000;">ZXYStudent</span>
++ (<span style="color: #0000ff;">void</span><span style="color: #000000;">)initialize{
+    
+    NSLog(</span><span style="color: #800000;">@"</span><span style="color: #800000;">Student + initialize</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+}
+
+</span><span style="color: #008000;">//</span><span style="color: #008000;">ZXYStudent (Test)</span>
++ (<span style="color: #0000ff;">void</span><span style="color: #000000;">)initialize{
+    
+    NSLog(</span><span style="color: #800000;">@"</span><span style="color: #800000;">Student (Test) + initialize</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+}
+
+</span><span style="color: #008000;">//</span><span style="color: #008000;">ZXYStudent (Eat)</span>
++ (<span style="color: #0000ff;">void</span><span style="color: #000000;">)initialize{
+    
+    NSLog(</span><span style="color: #800000;">@"</span><span style="color: #800000;">Student (Eat) + initialize</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+}</span></pre>
+</div>
+<p>此时运行程序，并没有发现打印，说明运行没有调用initialize</p>
+<p>假如给ZXYPerson类发送消息，如下，打印出ZXYPerson+Test的initialize方法</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200425130801017-1493767284.jpg" alt="" width="574" height="252"></p>
+<p>&nbsp;</p>
+<p><strong>&nbsp;因为initialize是走runtime那套，通过msgSend()方式，所以先打印出ZXYPerson的分类方法，至于先打印出哪一个分类的initialize，看编译顺序（先编译后执行）</strong></p>
+<p><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200425131245984-1569899985.png" alt="" width="573" height="254"></p>
+<p>&nbsp;</p>
+<p>&nbsp;当使用ZXYPerson的子类ZXYStudent发送消息</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200425131727348-224513856.png" alt="" width="579" height="278"></p>
+<p>&nbsp;</p>
+<p>发现先调用ZXYPerson的分类，然后再调用子类的分类！也可以多写几行[ZXYStudent alloc]，发现还是一样的打印，说明initialize仅仅在该类第一次收到消息才会调用，下面通过查看源码讲解其调用顺序！</p>
+<p><strong>2. &nbsp;源码讲解</strong></p>
+<p>使用objc4查看initialize的源码解读过程主要在&nbsp;objc-runtime-new.mm中</p>
+<ol>
+<li>class_getInstanceMethod</li>
+<li>lookUpImpOrNil</li>
+<li>lookUpImpOrForward</li>
+<li>_class_initialize</li>
+<li>callInitialize</li>
+<li>objc_msgSend(cls, SEL initialize)</li>
+</ol>
+<p>&nbsp;1）. 上面[ZXYStudent alloc]相当于objc_msgSend([ZXYStudent class], @selector(alloc))</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200425133011947-1473669336.png" alt="" width="591" height="107"></p>
+<p>&nbsp;</p>
+<p>&nbsp;2）. 然后进行点击红色内容</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200425133113879-33888528.png" alt="" width="587" height="325"></p>
+<p>&nbsp;</p>
+<p>&nbsp;3）. 点进去，然后继续寻找lookUpImpOrForward，源码主要内容</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200425133257347-1637151359.png" alt="" width="579" height="143"></p>
+<p>&nbsp;</p>
+<p>&nbsp;这样的源代码说明了<strong>每个类的+initialize方法只会调用一次</strong></p>
+<p>4）.&nbsp;_class_initialize源代码如下</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200425133512938-2053319586.png" alt="" width="578" height="228"></p>
+<p>&nbsp;</p>
+<p>&nbsp;上面的源代码说明首先调用父类的+initialize，然后再调用子类的+initialize，就像上面先调用ZXYPerson的+initialize，然后再调用ZXYStudent的+initialize</p>
+<p>5）. 最后查看callInitialize</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto" src="https://img2020.cnblogs.com/blog/1305302/202004/1305302-20200425133800430-237540094.png" alt=""></p>
+<p>&nbsp;</p>
+<p>说明+initialize方法是通过msgSend()的方式进行调用&nbsp;</p>
+<p><strong>3. &nbsp;总结</strong></p>
+<p><span style="color: #ff0000;"><strong>initialize调用顺序</strong></span></p>
+<p><span style="color: #ff0000;"><strong>首先调用父类的+initialize方法，然后再调用子类的+initialize</strong></span></p>
+<p><span style="color: #ff0000;"><strong>（先初始化父类，然后初始化子类，每个类只会被初始化1次）</strong></span></p>
+<p>&nbsp;</p>
+<p><span style="color: #ff0000;"><strong>通过上面总结下+initialize和+load区别</strong></span></p>
+<p><span style="color: #ff0000;"><strong>　　1. &nbsp;调用方式</strong></span></p>
+<ul>
+<li><span style="color: #ff0000;"><strong>load是根据函数地址直接调用</strong></span></li>
+<li><span style="color: #ff0000;"><strong>initialize是通过objc_msgSend()调用</strong></span></li>
+</ul>
+<p><span style="color: #ff0000;"><strong>　　2. &nbsp;调用时刻</strong></span></p>
+<ul>
+<li><span style="color: #ff0000;"><strong>load是runtime加载类、分类的时候调用（只会被调用1次）</strong></span></li>
+<li><span style="color: #ff0000;"><strong>initialize是类第一次接收到消息的时候调用，每一个类只会initialize一次（父类的initialize可能会调用多次-子类和分类都没有实现+initialize可能存在）</strong></span></li>
+</ul>
+<p><span style="color: #ff0000;"><strong>　　3. &nbsp;调用顺序</strong></span></p>
+<p><span style="color: #ff0000;"><strong>　　load方法</strong></span></p>
+<ul>
+<li><span style="color: #ff0000;"><strong>load方法先调用类的load（先编译的类优先调用load，调用子类的load之前，会优先调用父类）</strong></span></li>
+<li><span style="color: #ff0000;"><strong>然后调用分类的load，先编译的分类，会优先调用load方法</strong></span></li>
+</ul>
+<p><span style="color: #ff0000;"><strong>　　initialize</strong></span></p>
+<ul>
+<li><span style="color: #ff0000;"><strong>先初始化父类</strong></span></li>
+<li><span style="color: #ff0000;"><strong>再初始化子类</strong></span></li>
+</ul>
+<p>&nbsp;</p>
+<p>四. &nbsp;category能添加成员变量（实例变量）（属性）嘛？</p>
+<p>默认情况下： <strong>不能</strong></p>
+<p>因为类的内存布局在编译时候就已经确定了，Category是在运行时才加载的，无法更改早已确定的内存布局。</p>
+<p>由于分类底层结构的限制，不能添加成员变量到分类中，但是可以通过关联（Associate）方式进行间接实现！</p>
+<p>&nbsp;</p>
+<p>上面就是Category、load和initialize的讲解，希望对大家有所帮助！！！如果觉得写得还不错，给个赞吧！！！</p>
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-04-25 14:10</span>&nbsp;
+<a href="https://www.cnblogs.com/guohai-stronger/">国孩</a>&nbsp;
+阅读(<span id="post_view_count">...</span>)&nbsp;
+评论(<span id="post_comment_count">...</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12763944" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(12763944);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/9.12.0/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 403112, cb_blogApp = 'guohai-stronger', cb_blogUserGuid = '386868bd-4970-45cb-565d-08d52fc34315';
+    var cb_entryId = 12763944, cb_entryCreatedDate = '2020-04-25 14:10', cb_postType = 1; 
+    loadViewCount(cb_entryId);
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot("/1090369/C1", [300, 250], "div-gpt-ad-1546353474406-0").addService(googletag.pubads());
+            googletag.defineSlot("/1090369/C2", [468, 60], "div-gpt-ad-1539008685004-0").addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;"></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;">
+            <script>
+                if (new Date() >= new Date(2018, 9, 13)) {
+                    googletag.cmd.push(function () { googletag.display("div-gpt-ad-1539008685004-0"); });
+                }
+            </script>
+        </div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div>
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 国孩
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

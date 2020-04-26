@@ -1,0 +1,739 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="never" />
+    <meta property="og:description" content="第九个示例 目前代码如下: cs using System; if UNITY_EDITOR using UnityEditor; endif using UnityEngine; namespace" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title># Unity 游戏框架搭建 2019 (三十四、三十五) 9 ~ 10 示例整理 - 凉鞋的笔记 - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/blacklowkey/bundle-blacklowkey.min.css?v=Fx4xdLkGuHnlaG7xntG_wAnZrnorJWp5u_TWKqbvMF0" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/blacklowkey/bundle-blacklowkey-mobile.min.css?v=cYvlxMu_nd6MVfg-vi7YqOC6FaZ7VHFsDM166vO_ekA" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/liangxiegame/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/liangxiegame/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/liangxiegame/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 262744;
+        var currentBlogApp = 'liangxiegame';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'BlackLowKey';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/liangxiegame/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/liangxiegame/">凉鞋的笔记</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/liangxiegame/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E5%87%89%E9%9E%8B%E7%9A%84%E7%AC%94%E8%AE%B0">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/liangxiegame/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			
+			<span id="stats_post_count">随笔 - 
+72&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+48</span>
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/liangxiegame/p/12684799.html"># Unity 游戏框架搭建 2019 (三十四、三十五) 9 ~ 10 示例整理</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+    <h2 id="第九个示例">第九个示例</h2>
+<p>目前代码如下:</p>
+<pre><code class="language-cs">using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+namespace QFramework
+{
+	public class ResolutionCheck
+	{
+#if UNITY_EDITOR
+		[MenuItem(&quot;QFramework/9.屏幕宽高比判断&quot;)]
+#endif
+		private static void MenuClicked()
+		{
+			Debug.Log(IsPadResolution() ? &quot;是 Pad 分辨率&quot; : &quot;不是 Pad 分辨率&quot;);
+			Debug.Log(IsPhoneResolution() ? &quot;是 Phone 分辨率&quot; : &quot;不是 Phone 分辨率&quot;);
+			Debug.Log(IsiPhoneXResolution() ? &quot;是 iPhone X 分辨率&quot; : &quot;不是 iPhone X 分辨率&quot;);
+		}
+
+		/// &lt;summary&gt;
+		/// 获取屏幕宽高比
+		/// &lt;/summary&gt;
+		/// &lt;returns&gt;&lt;/returns&gt;
+		public static float GetAspectRatio()
+		{
+			return Screen.width &gt; Screen.height ? (float) Screen.width / Screen.height : (float) Screen.height / Screen.width;
+		}
+
+		/// &lt;summary&gt;
+		/// 是否是 Pad 分辨率 4 : 3 
+		/// &lt;/summary&gt;
+		/// &lt;returns&gt;&lt;/returns&gt;
+		public static bool IsPadResolution()
+		{
+			var aspect = GetAspectRatio();
+			return aspect &gt; 4.0f / 3 - 0.05 &amp;&amp; aspect &lt; 4.0f / 3 + 0.05;
+		}
+		
+		/// &lt;summary&gt;
+		/// 是否是手机分辨率 16:9
+		/// &lt;/summary&gt;
+		/// &lt;returns&gt;&lt;/returns&gt;
+		public static bool IsPhoneResolution()
+		{
+			var aspect = GetAspectRatio();
+			return aspect &gt; 16.0f / 9 - 0.05 &amp;&amp; aspect &lt; 16.0f / 9 + 0.05;
+		}
+		
+		/// &lt;summary&gt;
+		/// 是否是iPhone X 分辨率 2436:1125
+		/// &lt;/summary&gt;
+		/// &lt;returns&gt;&lt;/returns&gt;
+		public static bool IsiPhoneXResolution()
+		{
+			var aspect = GetAspectRatio();
+			return aspect &gt; 2436.0f / 1125 - 0.05 &amp;&amp; aspect &lt; 2436.0f / 1125 + 0.05;
+		}
+	}
+}
+</code></pre>
+<p>第九个示例没有太大的问题，不管是类名还是目录名、菜单名、代码文件名，以及它每个方法所在的类都没有太大的问题。</p>
+<p>所以只需要更改菜单的顺序就好了。</p>
+<p>更改后，MenuItem 代码如下:</p>
+<pre><code class="language-cs">#if UNITY_EDITOR
+		[MenuItem(&quot;QFramework/4.屏幕宽高比判断&quot;, false, 4)]
+#endif
+		private static void MenuClicked()
+		{
+			Debug.Log(IsPadResolution() ? &quot;是 Pad 分辨率&quot; : &quot;不是 Pad 分辨率&quot;);
+			Debug.Log(IsPhoneResolution() ? &quot;是 Phone 分辨率&quot; : &quot;不是 Phone 分辨率&quot;);
+			Debug.Log(IsiPhoneXResolution() ? &quot;是 iPhone X 分辨率&quot; : &quot;不是 iPhone X 分辨率&quot;);
+		}
+
+</code></pre>
+<h2 id="目录结构如下">目录结构如下:</h2>
+<p><img src="http://file.liangxiegame.com/2fce2657-574c-4d27-be5b-07ad094a97b7.png" alt="006tNc79gy1fzfrfari0wj30hc0auabk.jpg"></p>
+<p>第九个示例很容易整理成第四个示例。</p>
+<h2 id="第十个示例">第十个示例</h2>
+<p>目前代码如下:</p>
+<pre><code class="language-cs">#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+using UnityEngine;
+
+namespace QFramework
+{
+	public class TransformLocalPosImprovements
+	{
+#if UNITY_EDITOR
+		[MenuItem(&quot;QFramework/10.Transform 赋值优化&quot;)]
+#endif
+		private static void GenerateUnityPackageName()
+		{
+			var transform = new GameObject(&quot;transform&quot;).transform;
+
+			TransformSimplify.SetLocalPosX(transform, 5.0f);
+			TransformSimplify.SetLocalPosY(transform, 5.0f);
+			TransformSimplify.SetLocalPosZ(transform, 5.0f);
+		}
+	}
+}
+</code></pre>
+<p>做如下更改:</p>
+<ul>
+<li>MenuItem:10.Transform 赋值优化 =&gt; 5.Transform 赋值优化 并加上顺序号  5。</li>
+<li>目录名:10.Transform 赋值优化 = &gt; 5.Transform 赋值优化。</li>
+<li>MenuItem 方法名:GenerateUnityPackageName =&gt; MenuClicked</li>
+</ul>
+<p>这样就可以了。</p>
+<p>更改后菜单如下:<br>
+<img src="http://file.liangxiegame.com/c1cf0299-a3dc-4ca2-b608-732741cf5f7b.png" alt="006tNc79gy1fzfrfhpkjfj309o061tao.jpg"></p>
+<p>目录结构如下:<br>
+<img src="http://file.liangxiegame.com/342ff897-0ab5-478e-ab52-5c1e9598eeae.png" alt="006tNc79gy1fzfrfk4sefj30jw09wmym.jpg"></p>
+<p>到目前为止还比较顺利。但是呢代码中使用的 TransformSimplify 这个类，是在别的文件中定义的。</p>
+<p>而目前的这个示例仅仅有 MenuItem 方法，没有 TransformSimplify 实现代码，为什么会这样呢？</p>
+<p>因为我们在整理之前，对 Transform 的 API 做了两次简化，而我们的示例是一个一个独立写的，所以第一次简化的时候写了一个示例并且创建了一个 Transform 的简化类，第二次也一样也创建了一个 Transform 的简化类，而这两个类在之后整理的时候被合并成一个 Transform 的简化类了。</p>
+<p>这种情况，我们以后还会遇到的，可能有无数个 Transform 的简化方法。而我们的写示例的顺序，就是一个示例一个示例地写，这样写的好处就是初学者友好，也比较容易收集知识点。但是随着示例越写越多，会产生一些问题，比如代码重复实现，类需要合并等等，以目前我们的实力来说是没法搞定的，我们要学习新的东西。但是新的东西，要在我们排序完菜单顺序比较好一些。</p>
+<p>这个问题我们先记下来。</p>
+<p>要做的事情:</p>
+<ul>
+<li>(完成) 备份:导出文件，并取一个合理的名字。</li>
+<li>整理完菜单顺序后，学习新的知识，解决随着示例增多可能出现类需要合并的问题。</li>
+</ul>
+<p>OK，我们接着整理第十一个示例</p>
+<h2 id="第十一个示例">第十一个示例</h2>
+<p>代码如下</p>
+<pre><code class="language-cs">
+using System;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+using UnityEngine;
+
+namespace QFramework
+{
+	public class TransformSimplify
+	{
+		/// &lt;summary&gt;
+		/// 重置操作
+		/// &lt;/summary&gt;
+		/// &lt;param name=&quot;trans&quot;&gt;Trans.&lt;/param&gt;
+		public static void Identity(Transform trans)
+		{
+			trans.localPosition = Vector3.zero;
+			trans.localScale = Vector3.one;
+			trans.localRotation = Quaternion.identity;
+		}
+		
+		public static void SetLocalPosX(Transform transform, float x)
+		{
+			var localPos = transform.localPosition;
+			localPos.x = x;
+			transform.localPosition = localPos;
+		}
+		
+		public static void SetLocalPosY(Transform transform, float y)
+		{
+			var localPos = transform.localPosition;
+			localPos.y = y;
+			transform.localPosition = localPos;
+		}
+		
+		public static void SetLocalPosZ(Transform transform, float z)
+		{
+			var localPos = transform.localPosition;
+			localPos.z = z;
+			transform.localPosition = localPos;
+		}
+		
+		public static void SetLocalPosXY(Transform transform, float x, float y)
+		{
+			var localPos = transform.localPosition;
+			localPos.x = x;
+			localPos.y = y;
+			transform.localPosition = localPos;
+		}
+		
+		public static void SetLocalPosXZ(Transform transform, float x, float z)
+		{
+			var localPos = transform.localPosition;
+			localPos.x = x;
+			localPos.z = z;
+			transform.localPosition = localPos;
+		}
+		
+		public static void SetLocalPosYZ(Transform transform, float y, float z)
+		{
+			var localPos = transform.localPosition;
+			localPos.y = y;
+			localPos.z = z;
+			transform.localPosition = localPos;
+		}
+	}
+	
+	public class TransformIdentity : MonoBehaviour
+	{
+		
+#if UNITY_EDITOR
+		[MenuItem(&quot;QFramework/11.Transform 归一化&quot;)]
+#endif
+		private static void MenuClicked()
+		{
+			var transform = new GameObject(&quot;transform&quot;).transform;
+
+			TransformSimplify.Identity(transform);
+		}
+	}
+}
+</code></pre>
+<p>这个示例可以和第五个示例进行合并。</p>
+<p>合并后的代码如下:</p>
+<pre><code class="language-cs">#if UNITY_EDITOR
+using UnityEngine;
+using UnityEditor;
+#endif
+
+namespace QFramework
+{
+	public class TransformSimplify
+	{
+#if UNITY_EDITOR
+		[MenuItem(&quot;QFramework/5.Transform API 简化/1.赋值优化&quot;, false, 5)]
+#endif
+		private static void MenuClicked1()
+		{
+			var transform = new GameObject(&quot;transform&quot;).transform;
+
+			SetLocalPosX(transform, 5.0f);
+			SetLocalPosY(transform, 5.0f);
+			SetLocalPosZ(transform, 5.0f);
+		}
+		
+#if UNITY_EDITOR
+		[MenuItem(&quot;QFramework/5.Transform API 简化/2.重置&quot;, false 6)]
+#endif
+		private static void MenuClicked2()
+		{
+			var transform = new GameObject(&quot;transform&quot;).transform;
+
+			Identity(transform);
+		}
+		
+		/// &lt;summary&gt;
+		/// 重置操作
+		/// &lt;/summary&gt;
+		/// &lt;param name=&quot;trans&quot;&gt;Trans.&lt;/param&gt;
+		public static void Identity(Transform trans)
+		{
+			trans.localPosition = Vector3.zero;
+			trans.localScale = Vector3.one;
+			trans.localRotation = Quaternion.identity;
+		}
+		
+		public static void SetLocalPosX(Transform transform, float x)
+		{
+			var localPos = transform.localPosition;
+			localPos.x = x;
+			transform.localPosition = localPos;
+		}
+		
+		public static void SetLocalPosY(Transform transform, float y)
+		{
+			var localPos = transform.localPosition;
+			localPos.y = y;
+			transform.localPosition = localPos;
+		}
+		
+		public static void SetLocalPosZ(Transform transform, float z)
+		{
+			var localPos = transform.localPosition;
+			localPos.z = z;
+			transform.localPosition = localPos;
+		}
+		
+		public static void SetLocalPosXY(Transform transform, float x, float y)
+		{
+			var localPos = transform.localPosition;
+			localPos.x = x;
+			localPos.y = y;
+			transform.localPosition = localPos;
+		}
+		
+		public static void SetLocalPosXZ(Transform transform, float x, float z)
+		{
+			var localPos = transform.localPosition;
+			localPos.x = x;
+			localPos.z = z;
+			transform.localPosition = localPos;
+		}
+		
+		public static void SetLocalPosYZ(Transform transform, float y, float z)
+		{
+			var localPos = transform.localPosition;
+			localPos.y = y;
+			localPos.z = z;
+			transform.localPosition = localPos;
+		}
+	}
+}
+</code></pre>
+<p>菜单如下:<br>
+<img src="http://file.liangxiegame.com/922c67e9-d9ca-4c68-be1c-7a6082350ff0.png" alt="006tNc79gy1fzfrgcolu4j30bj05v40v.jpg"></p>
+<h2 id="目录及文件如下">目录及文件如下:</h2>
+<p><img src="http://file.liangxiegame.com/860ab38c-0990-47e3-9154-6355c14ae5d7.png" alt="006tNc79gy1fzfrgfic15j30m40c6wgh.jpg"></p>
+<p>而第一个示例的文件夹已经被笔者删除了。</p>
+<h2 id="第十二个示例">第十二个示例</h2>
+<p>代码如下</p>
+<pre><code class="language-cs">using System;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+using UnityEngine;
+using Random = UnityEngine.Random;
+
+namespace QFramework
+{
+	public class MathUtil
+	{
+		/// &lt;summary&gt;
+		/// 输入百分比返回是否命中概率
+		/// &lt;/summary&gt;
+		public static bool Percent(int percent)
+		{
+			return Random.Range (0, 100) &lt;= percent;
+		}
+	}
+	public class PercentFunction : MonoBehaviour
+	{
+#if UNITY_EDITOR
+		[MenuItem(&quot;QFramework/12.概率函数&quot;)]
+#endif
+		private static void MenuClicked()
+		{
+			Debug.Log(MathUtil.Percent(50));
+		}
+	}
+}
+</code></pre>
+<p>整理步骤：</p>
+<ol>
+<li>合并 MathUtil 类和 PercentFunction  类为 MathUtil.cs</li>
+<li>菜单的标题 从 12 改成 6，而顺序改成 7 （因为 5 和 6 已经被第五个示例用了)。</li>
+<li>目录名改成与菜单名一致。</li>
+</ol>
+<p>更改后代码如下:</p>
+<pre><code class="language-cs">#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+using UnityEngine;
+using Random = UnityEngine.Random;
+
+namespace QFramework
+{
+	public class MathUtil
+	{
+		/// &lt;summary&gt;
+		/// 输入百分比返回是否命中概率
+		/// &lt;/summary&gt;
+		public static bool Percent(int percent)
+		{
+			return Random.Range (0, 100) &lt;= percent;
+		}
+
+#if UNITY_EDITOR
+		[MenuItem(&quot;QFramework/6.概率函数&quot;, false, 7)]
+#endif
+		private static void MenuClicked()
+		{
+			Debug.Log(Percent(50));
+		}
+	}
+}
+</code></pre>
+<p>目录结构如下<br>
+<img src="http://file.liangxiegame.com/d92102eb-5914-4d1c-9613-b51944b1e544.png" alt="006tNc79gy1fzfrgl47anj30iq09sq49.jpg"></p>
+<p>菜单如下<br>
+<img src="http://file.liangxiegame.com/9bfa0bdd-125f-475d-8073-d0faf899ab9a.png" alt="006tNc79gy1fzfrgppbsjj30i00aegrz.jpg"></p>
+<p>OK，第十二个示例整理完了</p>
+<h2 id="第十三个示例">第十三个示例</h2>
+<p>代码如下:</p>
+<pre><code class="language-cs">#if UNITY_EDITOR
+using UnityEditor;
+#endif
+ 
+using UnityEngine;
+
+namespace QFramework
+{
+    public class GameObjectSimplify
+    {
+        public static void Show(GameObject gameObj)
+        {
+            gameObj.SetActive(true);
+        }
+
+        public static void Hide(GameObject gameObj)
+        {
+            gameObj.SetActive(false);
+        }
+    }
+    
+    public class GameObejctActiveImprovements
+    {
+#if UNITY_EDITOR
+        [MenuItem(&quot;QFramework/13.GameObejct 的显示、隐藏简化&quot;)]
+#endif
+        private static void MenuClicked()
+        {
+            var gameObject = new GameObject();
+
+            GameObjectSimplify.Hide(gameObject);
+        }
+    }
+}
+</code></pre>
+<p>整理步骤:</p>
+<ol>
+<li>类合并为 GameObjectSimplify</li>
+<li>菜单顺序更改以及标题顺序更改</li>
+<li>代码文件名和目录更改</li>
+</ol>
+<p>整理之后代码如下:</p>
+<pre><code class="language-cs">#if UNITY_EDITOR
+using UnityEditor;
+#endif
+ 
+using UnityEngine;
+
+namespace QFramework
+{
+    public class GameObjectSimplify
+    {
+        public static void Show(GameObject gameObj)
+        {
+            gameObj.SetActive(true);
+        }
+
+        public static void Hide(GameObject gameObj)
+        {
+            gameObj.SetActive(false);
+        }
+
+#if UNITY_EDITOR
+        [MenuItem(&quot;QFramework/7.GameObejct API 简化/显示、隐藏简化&quot;, false, 8)]
+#endif
+        private static void MenuClicked()
+        {
+            var gameObject = new GameObject();
+
+            Hide(gameObject);
+        }
+    }
+}
+</code></pre>
+<p>编译之后，菜单栏编程如下:<br>
+<img src="http://file.liangxiegame.com/80b47d8a-7fd4-4188-9b7e-851857b450c5.png" alt="006tNc79gy1fzfrgv15puj30nu09w465.jpg"></p>
+<h2 id="目录结构如下-2">目录结构如下:</h2>
+<p><img src="http://file.liangxiegame.com/8c8cc490-b34c-4d46-b6df-935c87957b60.png" alt="006tNc79gy1fzfrgy93eej30iq0aw0u6.jpg"></p>
+<p>到此，全部的菜单顺序整理完了。</p>
+<h2 id="小结">小结:</h2>
+<p>遗留问题:</p>
+<ul>
+<li>(完成) 第八个示例与之前的示例代码重复，功能重复。</li>
+<li>(完成) 方法所在类的命名有问题。</li>
+<li>(完成) 菜单栏显示顺序问题（new)。</li>
+<li>(完成) 弃用的代码警告</li>
+</ul>
+<p>遗留问题终于全部解决了，我们的整理阶段也要接近尾声了。</p>
+<p>今天就写到这，我们下一篇再见，拜拜~ 。</p>
+<p>转载请注明地址：凉鞋的笔记：<a href="http://liangxiegame.com">liangxiegame.com</a></p>
+<h2 id="更多内容">更多内容</h2>
+<ul>
+<li>
+<p>QFramework 地址：<a href="https://github.com/liangxiegame/QFramework">https://github.com/liangxiegame/QFramework</a></p>
+</li>
+<li>
+<p>QQ 交流群：<a href="http://shang.qq.com/wpa/qunwpa?idkey=706b8eef0fff3fe4be9ce27c8702ad7d8cc1bceabe3b7c0430ec9559b3a9ce66">623597263</a></p>
+</li>
+<li>
+<p><strong>Unity 进阶小班</strong>：</p>
+<ul>
+<li>主要训练内容：
+<ul>
+<li>框架搭建训练（第一年）</li>
+<li>跟着案例学 Shader（第一年）</li>
+<li>副业的孵化（第二年、第三年）</li>
+</ul>
+</li>
+<li>权益、授课形式等具体详情请查看<a href="https://liangxiegame.com/master/intro">《小班产品手册》</a>：<a href="https://liangxiegame.com/master/intro">https://liangxiegame.com/master/intro</a></li>
+</ul>
+</li>
+<li>
+<p>关注公众号：liangxiegame 获取第一时间更新通知及更多的免费内容。<br>
+<img src="http://file.liangxiegame.com/38eccb55-40b2-4845-93d6-f5fb50ff9492.png" alt=""></p>
+</li>
+</ul>
+
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-04-25 12:21</span>&nbsp;
+<a href="https://www.cnblogs.com/liangxiegame/">凉鞋的笔记</a>&nbsp;
+阅读(<span id="post_view_count">...</span>)&nbsp;
+评论(<span id="post_comment_count">...</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12684799" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(12684799);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/9.12.0/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 262744, cb_blogApp = 'liangxiegame', cb_blogUserGuid = '6e7beccf-e9b6-e511-9fc1-ac853d9f53cc';
+    var cb_entryId = 12684799, cb_entryCreatedDate = '2020-04-25 12:21', cb_postType = 1; 
+    loadViewCount(cb_entryId);
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot("/1090369/C1", [300, 250], "div-gpt-ad-1546353474406-0").addService(googletag.pubads());
+            googletag.defineSlot("/1090369/C2", [468, 60], "div-gpt-ad-1539008685004-0").addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;"></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;">
+            <script>
+                if (new Date() >= new Date(2018, 9, 13)) {
+                    googletag.cmd.push(function () { googletag.display("div-gpt-ad-1539008685004-0"); });
+                }
+            </script>
+        </div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div>
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 凉鞋的笔记
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

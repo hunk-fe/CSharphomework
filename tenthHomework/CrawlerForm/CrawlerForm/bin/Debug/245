@@ -1,0 +1,624 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta property="og:description" content="看懂本文需要读者具备一定的微积分基础、至少开始学信号与系统了本文主要讲解欧拉公式、傅里叶变换的频率轴的负半轴的意义、傅里叶变换的缺陷、为什么因果LTI系统可以被零极图几乎唯一确定等等容易被初学者忽略但" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>形象地展示信号与系统中的一些细节和原理——卷积、复数、傅里叶变换、拉普拉斯变换、零极图唯一确定因果LTI系统 - Humorize - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/lessismoreright/bundle-lessismoreright.min.css?v=r7HROo-7bHpj9wQ7aMjjOlbCdKigSxO_AFRYzTkcpKo" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/lessismoreright/bundle-lessismoreright-mobile.min.css?v=FJjyQba01xzuYKRyPpSwE1bMq69pRjxrz5wp2oZZGLY" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/Humorize/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/Humorize/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/Humorize/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 535103;
+        var currentBlogApp = 'Humorize';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'LessIsMoreRight';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    <div id="home">
+    <div id="header">
+        <div id="blogTitle">
+            
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/Humorize/">Humorize</a>
+</div>
+<div class="subtitle">
+
+</div>
+
+        </div>
+        <div id="navigator">
+            
+<ul id="navList">
+    <li id="nav_sitehome"><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+    <li id="nav_myhome">
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/Humorize/">
+首页</a>
+</li>
+    <li id="nav_newpost">
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+    <li id="nav_contact">
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/Humorize">
+联系</a></li>
+    <li id="nav_rss">
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/Humorize/rss/">
+订阅</a></li>
+    <li id="nav_admin">
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+            <div class="blogStats">
+                
+<span id="stats_post_count">随笔 - 
+7&nbsp;</span>
+<span id="stats_article_count">文章 - 
+0&nbsp;</span>
+<!-- <span id="stats-comment_count"></span> -->
+<span id="stats_comment_count">评论 - 
+0</span>
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div id="mainContent">
+            <div class="forFlow">
+                <div id="post_detail">
+    <div id="topics">
+        <div class="post">
+            <h1 class="postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/Humorize/p/Signal_and_System-basic_and_detail.html">形象地展示信号与系统中的一些细节和原理——卷积、复数、傅里叶变换、拉普拉斯变换、零极图唯一确定因果LTI系统</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body ">
+    <p>看懂本文需要读者具备一定的微积分基础、至少开始学信号与系统了<br />本文主要讲解欧拉公式、傅里叶变换的频率轴的负半轴的意义、傅里叶变换的缺陷、为什么因果LTI系统可以被零极图几乎唯一确定等等容易被初学者忽略但对深入理解非常重要的细节问题<br />本文秉承尽量直观的原则，尽量少用纯数学推导，而多用形象直观的物理意义、几何意义、举例<br />作者的审美极度直男癌，本文的排版可能引起很多人不适，但本文的内容一定是亮点<br />作者还没本科毕业，水平有限，读者如发现本文的错误、读不懂的地方，恳请提出<br />全文原创，转载请标明出处</p>
+<p>&nbsp;</p>
+<p>信号与系统是电子信息类专业的专业课，这门课看上去很像数学分析，不像模电数电电磁场微机原理那样与物理世界贴合得紧密、容易想象<br />信号与系统里存在<em>&delta;</em>(<em>t</em>)、复指数信号、非因果信号与系统等不存在于物理世界中的难以想象的东西，但它们在信号处理领域非常重要，为了帮大家建立直观理解，特地写作此文，以解决初学者们的一些疑问，这些疑问都是我初学的时候曾有过的</p>
+<p>&nbsp;</p>
+<p>本文已假设读者掌握了</p>
+<ul>
+<li>极限、积分</li>
+<li>无穷级数、狄利克雷条件</li>
+<li>时域与频域</li>
+<li>LTI系统</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+<p>等知识点</p>
+<p>&nbsp;</p>
+<h1>卷积</h1>
+<p>LTI系统的输出信号=输入信号卷积LTI系统的单位冲激响应。卷积的积分表达式是<span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic">&int;<sub>-&infin;</sub><sup>+&infin;</sup><em>f</em>(<em>&tau;</em>)<em>g</em>(<em>t</em>-<em><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic">&tau;</span></span></span></span></span></span></span></em>)d<span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><em>&tau;</em>，乍一看感觉不知所云，咋又有<em>t</em>又有<span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><em>&tau;</em>，其实这个表达式具有非常直观的物理意义，举个很简单的例子：</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<ul>
+<li class="phonetic"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><em>f</em>(<em>&tau;</em>)是在<em><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic">&tau;</span></span></span></span></span></span></span></span></span></span></span></span></span></span></em>时刻用一次会打出多颗子弹的枪命中敌人的子弹数</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></li>
+<li class="phonetic"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><em>g</em>(<em>t</em>)是敌人被命中1发子弹后的掉血函数，例如第1秒掉5血、第2秒掉3血、第3秒掉1血、然后不再掉。显然<span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><em>g</em>(<em>t</em>-<em><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic">&tau;</span></span></span></span></span></span></span></em>)是敌人在</span></span></span></span></span></span></span><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><em>&tau;</em></span></span></span></span></span></span></span></span></span></span></span></span></span></span>时刻被命中1发子弹后的掉血函数</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></li>
+<li class="phonetic"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><em>t</em>时刻敌人实际的掉血量是过去和当前命中的子弹各自产生的作用求和</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></li>
+<li class="phonetic"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic">把离散的子弹换成连续的激光束，那么上述的求和就成为积分<br /><img src="https://img2020.cnblogs.com/blog/1761941/202004/1761941-20200424221004302-496628822.png" alt=""></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></li>
+
+
+
+</ul>
+<p class="phonetic">注意：卷积的积分表达式里的积分区间是<span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><em>&tau;</em>&isin;[-&infin;,+&infin;]，因为这样就能让公式适用于无穷长的被卷积函数<br />简而言之：卷积的物理意义是&mdash;&mdash;输出信号=输入信号的各片段产生的各输出信号作用的总和<br /></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1>欧拉公式</h1>
+<p>早在高中数学就引入了复数(complex number)，高中数学只说了&radic;(-1)等于1个虚数单位，可以用<em>i</em>表示虚数单位，有虚部的数叫复数(complex number)，只有虚部没有实部的数叫纯虚数(pure imaginary number)。高中数学并没帮我们对复数形成直观理解，它只说了复数在电子技术等很多领域有非常广泛的应用，然后就是教如何计算复数的运算、在复平面表示复数</p>
+<p>电子信息技术中，为了让虚数单位的符号不与表示电流的符号混淆，改用<em>j</em>表示1个虚数单位</p>
+<p>复数、虚数的英文名字complex number、imaginary number，看上去是在说复数是复杂的数、虚数是想象出来的数，在知道虚数的英文名之前，我一直以为虚数的"虚"表示虚假，实际上应该表示虚构<br />虚数的英文名字imaginary number似乎表明了引入虚数的原因：实数不能满足需求，于是虚构出能满足需求的数即虚数。同时这也似乎表明虚数并不存在于物理世界中，否则干嘛还要"虚构"出虚数呢。欧拉公式阐述了虚数需要满足的"需求"是什么<br />推荐看<a href="https://www.bilibili.com/video/BV1fx41187tZ" target="_blank">这个直观的视频</a>来了解欧拉公式<br />视频作者是斯坦福大学数学系毕业生，他在Youtube、Bilibili用名字3Blue1Brown发布了很多形象地展示数学之美的视频，推荐对数学感兴趣的同学们细品<br /><span style="background-color: #00ffff;">弹幕中有很多还没上大学的中小学生发表的撞壁言论。为了让你自己专注于知识而非弹幕撕逼战，为了不被撞壁言论打击学习的积极性和自信心，建议关闭弹幕以保护智商。同时你也要保持对知识的敬畏之心，当你掌握更多知识之后，你可能会发现你之前对某些知识引以为傲的理解非常片面甚至错误<br /></span></p>
+<p><br />欧拉公式<em>e<sup>j&pi;</sup></em>=-1表明了虚数单位<em>j</em>在复平面上的作用：乘<em>j</em>相当于绕原点逆时针旋转90&deg;，乘<em>e<sup>j&alpha;</sup></em>相当于绕原点逆时针旋转<em>&alpha;</em> rad</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1>LTI系统的特征信号</h1>
+<p>任何满足狄利克雷条件的周期函数都可以被展开为三角级数，欧拉公式又表明任一三角函数能展开为一对频率、瞬时相位都互为相反数的复指数函数之和<br />信号与系统教材已用纯数学手段证明复指数信号是LTI系统的特征信号，即如果把铺满整个时间轴的复指数信号输入给LTI系统，那么LTI系统的输出信号一定是铺满整个时间轴的同频的复指数信号，可能只是相位、幅度发生变化<br />物理世界的所有信号都功率有限(即振幅有限、斜率有限)、能量有限(即不会无止境地存在)，天然地满足狄利克雷条件<br />显然如果LTI系统总是对频率互为相反数的复指数信号具有互为相反数的相移、相同的幅度增益/衰减，那么把铺满整个时间轴的正弦信号输入给LTI系统，LTI系统的输出信号也一定是铺满整个时间轴的同频正弦信号，可能只是相位、幅度发生变化，从而正弦信号也能是LTI系统的特征信号<br />幸运的是物理世界的LTI系统能将正弦信号作为特征信号<br /><br /></p>
+<p>如果能知道物理世界的LTI系统对各个频率的正弦信号会产生多大的增益/衰减、多大的相移 、知道信号里的各种正弦频率成分的幅度、初始相位，根据LTI系统的线性性质，也能得知输出信号的波形<br />就像模电教材分析电路的频率特性总是拿正弦信号作为输入信号。得知电路对感兴趣的频率的正弦信号的相移、增益/衰减，就得知了这个电路的频率特性<br />你现在可能觉得这比在时域上<em>x</em>(<em>t</em>)*<em>h</em>(<em>t</em>)麻烦一些，但你得注意到：<br />在现实世界中可能造出完美的<em>&delta;</em>(<em>t</em>)吗？造出的<em>&delta;</em>(<em>t</em>)的持续时间是不是无穷小？能测量出持续时间就说明持续时间不是无穷小。既然弄不出完美的<em>&delta;</em>(<em>t</em>)那又怎么得知精准的<em>h</em>(<em>t</em>)？<br />有些情况下的信号处理任务在频域下进行，例如你很可能见过的音频播放器软件或者音响设备控制台的均衡器(equalizer)，可能长这样：<br /><img src="https://img2020.cnblogs.com/blog/1761941/202004/1761941-20200418171624968-1720907002.png" alt=""><br />图中的这个均衡器的顶部表示正弦频率、底部表示增益/衰减程度(正比于以某个统一值为底数的增益/衰减倍数的对数)，显然图中的均衡器的目标是提升声音中的低频、高频分量幅度，衰减中频分量幅度，有的均衡器设置能让100块钱的音响放出1000块钱的效果<br />在音频均衡器的例子中，推导出输出信号需要知道输入信号中感兴趣的频率的幅度</p>
+<p><br />如何知道系统对各频率成分的增益/衰减、滞后/超前？信号与系统教材已经证明过<em>&delta;</em>(<em>t</em>)包含所有频率分量，知道LTI系统对输入信号是<em>&delta;</em>(<em>t</em>)时的响应<em>h</em>(<em>t</em>)，就相当于知道了LTI系统对所有频率的响应<br />下面就来这个问题：如何知道信号里各正弦频率成分的幅度、初始相位</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1>正弦函数的正交性、连续时间傅里叶变换</h1>
+<p>高等数学讲过三角函数具备正交性，即两个<span style="background-color: #ffff00;">不同</span>频率的正弦函数的积函数，在积函数的<span style="background-color: #ffff00;">整数个周期</span>内的积分是0，即：<br />不妨记这2个频率分别为<em>&Omega;</em><sub>1</sub>、<em>&Omega;</em><sub>2</sub>，积函数为cos<em>&Omega;</em><sub>1</sub><em>t</em>cos<em>&Omega;</em><sub>2</sub><em>t</em>，直接计算积函数的积分可能很困难，但是可以借助欧拉公式来简化<br />把cos<em>&Omega;</em><sub>1</sub><em>t</em>、cos<em>&Omega;</em><sub>2</sub><em>t</em>都展开为复指数的和的表达式，然后乘开乘积，再把频率互为相反数的复指数函数合并为正弦函数<br />所以cos<em>&Omega;</em><sub>1</sub><em>t</em>cos<em><em>&Omega;</em><sub>2</sub>t</em>=[cos(<em>&Omega;</em><sub>1</sub>+<em>&Omega;</em><sub>2</sub>)<em>t</em>+cos(<em>&Omega;</em><sub>1</sub>-<em>&Omega;</em><sub>2</sub>)<em>t</em>]/2，再算积分就非常简单了：</p>
+<ul>
+<li>如果<em>&Omega;</em><sub>1</sub>=<em>&Omega;</em><sub>2</sub>，那么cos(<em>&Omega;</em><sub>1</sub>-<em>&Omega;</em><sub>2</sub>)<em>t</em>就成为常数1，这时cos<em>&Omega;</em><sub>1</sub><em>t</em>cos<em><em>&Omega;</em><sub>2</sub>t</em>&ge;0，从而无论在哪段<em>t</em>上积分，结果都非0</li>
+<li>如果<em>&Omega;</em><sub>1</sub>&ne;<em>&Omega;</em><sub>2</sub>，那么显然在积函数的整数个周期内cos(<em>&Omega;</em><sub>1</sub>+<em>&Omega;</em><sub>2</sub>)<em>t</em>和cos(<em>&Omega;</em><sub>1</sub>-<em>&Omega;</em><sub>2</sub>)<em>t</em>的积分都是0</li>
+
+
+
+
+
+
+
+
+
+</ul>
+<p>再结合高等数学推导出的"周期趋于+&infin;时的三角级数"的知识，可以把<span style="background-color: #ffff00;">物理世界</span>的信号(记为<em>x</em>(<em>t</em>))写为无穷个不同频率的正弦信号的线性组合，如果想知道这个线性组合里<em>&Omega;</em><sub>0</sub>分量有多少，那就计算<em>x</em>(<em>t</em>)cos(<em>&Omega;</em><sub>0</sub>t)的积分，积分区间必须盖住<em>x</em>(<em>t</em>)有值的时间段，干脆就设为cos(<em>&Omega;</em><sub>0</sub>t)的无穷个周期即铺满整个时间轴吧，反正<em>x</em>(<em>t</em>)=0的时刻完全不影响积分值，而且能保证积分区间一定盖满<em>x</em>(<em>t</em>)非0的时间段</p>
+<p>但是仍然存在问题：</p>
+<ul>
+<li>积分值无法反映<em>x</em>(<em>t</em>)中的<em>&Omega;<sub>0</sub></em>分量在<em>t</em>=0时刻的相位</li>
+<li>如果积分时间段不是cos(<em>&Omega;</em><sub>0</sub>t)的整数个周期，那么cos(<em>&Omega;</em><sub>0</sub>t)的初始相位会影响积分值；</li>
+
+
+
+
+
+
+
+
+
+</ul>
+<p>于是引出傅里叶变换</p>
+<p>傅里叶变换的思路和前文所述的以正弦信号为基分解信号的思路相当，只是傅里叶变换的基是物理世界并不存在的复指数信号<br />很好理解基是正弦信号的情况，也可以用欧拉公式把正弦信号基分解为一对复指数信号基，从而理解基是复指数信号的情况。但还有一种更直观地理解基是复指数信号的情况的方法，推荐看看<a title="这个视频" href="https://www.bilibili.com/video/BV1pW411J7s8" target="_blank">这个视频<br /></a>这个视频依然是3Blue1Brown的作品，依然建议<span style="background-color: #00ffff;">关闭弹幕、保护智商</span></p>
+<p>&nbsp;</p>
+<p>视频为了能演示，选用的信号长度是有限的<br />如视频中的操作：根据欧拉公式的几何含义，把<em>x</em>(<em>t</em>)<em>e</em><sup>-<em>j&Omega;t</em></sup>看作把<em>x</em>(<em>t</em>)在复平面上从相角为0的地方、绕着原点、向逆时针方向、以角速度<em>&Omega;</em>rad/s旋转铺开，如果信号中真的含有<em>e</em><sup>-<em>j&Omega;t</em></sup>，那么旋转铺开得到的形状肯定会显然不关于原点对称，从而质心明显偏离原点；<br /><img src="https://img2020.cnblogs.com/blog/1761941/202004/1761941-20200423124838453-796235123.png" alt=""><br />如果信号不包含<em>e</em><sup>-<em>j&Omega;t</em></sup>，那么旋转铺开得到的形状就会非常像关于原点中心对称，从而质心离原点很近<br /><img src="https://img2020.cnblogs.com/blog/1761941/202004/1761941-20200423124901475-1263864977.png" alt=""><br />同时也容易想象到：如果信号的初始相位变化，那么最终旋转铺开得到的形状会绕原点旋转，从而很容易理解<span style="background-color: #ffff00;">从原点指到质心的相量的模能反映信号中<em>e</em><sup>-<em>j&Omega;t</em></sup>的振幅、幅角能反映信号中<em>e</em><sup>-<em>j&Omega;t</em></sup>的初始相位</span></p>
+<p>对一个信号，取从-&infin;到+&infin;的所有复指数频率，进行上面的操作，得到各复指数频率下对应的质心在复平面的坐标值，这就是<span style="background-color: #ffff00;">连续时间傅里叶变换</span>(The Continuous-Time Fourier Transform，简称<span style="background-color: #ffff00;">CTFT</span>)，记<em>x</em>(<em>t</em>)的傅里叶变换为<em>X</em>(<em>&Omega;</em>)</p>
+<p>再看傅里叶变换的公式<em>X</em>(<em>&Omega;</em>)=<span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic">&int;</span></span></span></span></span></span></span></span><sub>-&infin;</sub><sup>+&infin;</sup><em>x</em>(<em>t</em>)<em>e</em><sup>-</sup><sup><em>j&Omega;t</em></sup>d<em>t，</em>有没有感觉这个公式非常直观</p>
+<p>&nbsp;</p>
+<p>你可能仍有疑问，例如视频中这个时域信号的幅频图，在时域信号并不包含的频率处并不是0，而是有波动<br /><img src="https://img2020.cnblogs.com/blog/1761941/202004/1761941-20200423212610170-521119843.png" alt="" width="694" height="380"><br />这是因为参与变换的时域信号有限长，如果时域信号持续时间不是<em>e<sup>j&Omega;</sup></em><sup><sub>0</sub><em>t</em></sup>的整数倍，那么旋转铺开的形状并不密闭，就像下图这样，下图中的绿色波形最右侧的线条没有闭合，所以这个形状的质心并没落在原点<br /><img src="https://img2020.cnblogs.com/blog/1761941/202004/1761941-20200423124901475-1263864977.png" alt=""><br />如果让信号持续的时间再长几倍，那么这个不完整的形状就会更趋于完整，从而质心离原点更近<br />这个现象非常像数字信号处理中的频谱泄露<br />视频作者说他在下一个视频中讨论这个问题，按作者在YouTube发布视频的顺序，"下个视频"是<a href="https://www.bilibili.com/video/BV1WW411x7BJ" target="_blank">这个视频</a>。依然建议大家关闭弹幕保护智商</p>
+<p>&nbsp;</p>
+<p>如果要画傅里叶变换的图谱，横轴为复指数频率，那么在平面上是做不到让一维的纵轴表示视频里的质心的二维坐标的。那就分出2个图谱吧，纵轴分别是幅度和相移，这2个图谱分别叫幅频谱和相频谱</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1>傅里叶变换的缺陷</h1>
+<p>为了直观，下面所有参与变换的信号<em>x</em>(<em>t</em>)都是实信号。看懂了实信号，分析物理世界并不存在的复信号也能触类旁通</p>
+<p>&nbsp;</p>
+<p>考虑从<em>t</em>=0开始由cos<em>&pi;t</em>的<em>n</em>(<em>n</em>为整数)个周期首尾拼接成的信号<em>x</em>(<em>t</em>)，用傅里叶变换计算<em>x</em>(<em>t</em>)里<em>e</em><sup>-<em>j&pi;t</em></sup>的幅度时<br />(1)如果<em>n</em>=1，原本铺满整个时间轴的积分区间就相当于是<em>t</em>从0到2，因为<em>x</em>(<em>t</em>)=0的时刻对积分无贡献。记计算得到的<em>e</em><sup>-<em>j&pi;t</em></sup>的"幅度"为|<em>X</em><sub>1</sub>|<br />(2)如果<em>n</em>=2、让时域波形振幅减半，积分区间相当于是<em>t</em>从0到4，是刚才的2倍，但由于振幅减半，所以积分表达式前面需要乘0.5，计算得到的<em>e</em><sup>-<em>j&pi;t</em></sup>的"幅度"仍为|<em>X</em>1|<br />再按照傅里叶变换的公式算出上述2中情况下的相频表达式，可得这2种情况下<em>e</em><sup>-<em>j&pi;t</em></sup>的振幅、初始相位完全一样，但显然违背直觉<br /><img src="https://img2020.cnblogs.com/blog/1761941/202004/1761941-20200424203848765-1541985979.png" alt=""><br />(3)如果取<em>n</em>=2，不改变波形振幅，则这时计算得到的<em>e</em><sup>-<em>j&pi;t</em></sup>的"幅度"为2|<em>X</em><sub>1</sub>|<br />(1)、(3)中<em>x</em>(<em>t</em>)中的cos<em>&pi;t</em>的幅度根本没有变化，变化的只是cos<em>&pi;t</em>的周期数即积分区间，导致计算得到的|<em>X</em>(<em>&Omega;</em>)|变化了</p>
+<p><br /><br />显然傅里叶变换计算出的|X(<em>&Omega;</em><sub>0</sub>)|正比于<em>x</em>(<em>t</em>)非0时，频率为<em>&Omega;</em><sub>0</sub>的复指数信号分量的<span style="background-color: #ffff00;">幅度&times;持续时长</span></p>
+<p>&nbsp;</p>
+<p>如果<em>x</em>(<em>t</em>)中<em>&Omega;</em><sub>0</sub>分量铺满整个时间轴，例如<em>x</em>(<em>t</em>)=cos(<em>&Omega;</em><sub>0</sub><em>t</em>)，那么显然根据公式计算得|<em>X</em>(<em>&Omega;</em><sub>0</sub>)|趋于+&infin;<br />这时的x(t)显然不满足狄利克雷条件，按理说不能做傅里叶变换，但拿出傅里叶变换频谱的物理意义，很容易画出这时的<em>x</em>(<em>t</em>)的幅频谱、相频谱的形状，不考虑幅频谱中的谱线值的绝对值的话</p>
+<p>是不是感觉很矛盾？|<em>X</em>(&Omega;)|并不能100%地反映<em>x</em>(<em>t</em>)非0的时间段内<em>e</em><sup>-<em>j&Omega;t</em></sup>的幅度、不满足狄利克雷条件的信号也能有傅里叶变换</p>
+<p>&nbsp;</p>
+<p>于是我去搜索为什么傅里叶变换算出的幅度值无法绝对表示信号中的频率分量的幅度，遗憾的是靠前的汉语搜索结果没一个符合我描述的意思<br /><img src="https://img2020.cnblogs.com/blog/1761941/202004/1761941-20200424225308289-1151619248.png" alt=""><br />于是换用英语搜索，看上去靠前的第1、4、5个英语搜索结果都符合我描述的意思</p>
+<p><img src="https://img2020.cnblogs.com/blog/1761941/202004/1761941-20200419191746413-65750023.png" alt=""><br />我爱汉语，希望我们的汉语互联网也能这么开放互联、信息也能这么丰富</p>
+<p>尽管上图中的英文搜索结果里的回答也是网友们写的，不能算是绝对权威，但他们说的也很有道理。英文搜索结果里的回复表达的意思与本文下面根据Adobe Audition的幅频图和其它必要信息还原出时域信号的方法相同。那么难道说教科书上说的是错的？<br />并不是。如果能写出<em>X</em>(<em>&Omega;</em>)的表达式，那么一定能唯一确定<em>x</em>(<em>t</em>)的形状，这已被数学证明过，不会有错</p>
+<p>信号与系统教科书里讲傅里叶变换的方式更像是数学家们思考的方式，和工程实际还有一定差别，和你能想象出的物理世界的实情也有一定差别，比如物理世界哪有cos(+&infin;<em>t</em>)？物理世界中当幅度小于一定值的时候，信号已几乎无法被测量到，但数学家告诉你，正是无数个这样测不到的信号分量导致了最终结果的巨大差异</p>
+<p>&nbsp;</p>
+<p>接下来看看工程实际中是如何用傅里叶变换进行频谱分析的。工程实际中广泛运用计算机计算傅里叶变换，这涉及到数字信号处理，本文不涉及到数字信号处理</p>
+<p>单看傅里叶变换的表达式无法判断基的确切长度，因为只要基在<em>t</em>=0时相位为0、基的持续时间段盖满信号的持续时间段，那么积分结果就不会受到基的长度的影响<br />再看傅里叶逆变换的表达式<em>x</em>(<em>t</em>)=(<span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic">&int;<sub>-&infin;</sub><sup>+&infin;</sup></span></span></span></span></span></span></span></span><em>X</em>(<em>&Omega;</em>)<span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><em>e</em><sup>-</sup><sup><em>j&Omega;t</em></sup></span></span></span></span></span></span></span></span>d<em>&Omega;)</em>/2<em>&pi;</em>。被积函数是<em>X</em>(<em>&Omega;</em>)<span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><span class="pronounce"><span class="phonetic"><em>e</em><sup>-</sup><sup><em>j&Omega;t</em></sup></span></span></span></span></span></span></span></span>，它铺满整个时间轴<span>，即傅里叶变换的基铺满整个时间轴</span></p>
+<p>&nbsp;</p>
+<p><span>基无限长是存在一些缺陷的，比如信号当①没铺满整个时间轴或②非周期或③周期非常长等等<br />以①举例(其实刚才举过)，假设一首歌的时长是1分钟，那么把这首歌以铺满整个时间轴的不同频率正弦函数为基进行分解，得到的结果无法反映某个具体的时刻下这首歌的特征，例如在这首歌已经放完了的<em>t</em>=2分钟时根本听不到任何声音，但傅里叶变换告诉你此时依然有各种频率的分量，这显然违背直觉</span></p>
+<p>&nbsp;</p>
+<p>为什么要把基设为铺满时间轴呢？我猜测是为了让基严格满足LTI系统的特征信号的条件，本文推荐的第3个视频也表达了类似观点<br />如果输入信号有限长，那么输入信号从非0开始变为全0的片段，无法保证输入给LTI系统后，输出的信号能保持原样、最多只存在幅度和相位的区别<br /><img src="https://img2020.cnblogs.com/blog/1761941/202004/1761941-20200424204001909-402747274.png" alt=""></p>
+<p>&nbsp;</p>
+<p>但是在工程实际中没必要总是把基设为铺满整个时间轴啊，持续1小时、1分钟、半分钟的1kHz声音无法让机器检测出1kHz分量吗，当然可以。但是持续1秒、0.5秒、0.00001秒就可能无法让精密的机器检测出了。所以这涉及到选定基的长度、参与变换的信号片段长度的问题(本文提到的第3个视频也讨论过这个问题。这个问题类似于数字信号处理里的频谱的物理分辨率)<br />为了解决傅里叶变换的上述缺陷，于是有了短时傅里叶变换、小波变换。我搜到过很形象地演示小波变换的原理的文章，还排在搜索引擎结果很靠前的位置，例如<a href="https://zhuanlan.zhihu.com/p/22450818" target="_blank">这篇</a></p>
+<p>&nbsp;</p>
+<p>有的信号，各频率分量幅度的绝对值并不重要，而相对值很重要，例如语音信号。显然如果把某个语音信号x(t)中所有的频率分量的幅度全部同时扩大到相同倍数，就像扭动音响设备控制台的总音量旋钮，那么<em>x</em>(<em>t</em>)包含的信息完全没有变化，依然能听出<em>x</em>(<em>t</em>)被放大之前所传达的信息</p>
+<p>其实也很好理解：话筒把声音转成微弱的电信号后，这个电信号肯定会被模数转换器(analog to digit converter，ADC)的前端电路处理得恰好铺满ADC的模拟输入端的输入范围(其实不会恰好铺满，而是会留有一定裕量)以充分利用ADC的精度</p>
+<p>对ADC和听声音的人来说，话筒转换得到的电信号的幅度的绝对值没有意义。用专业些的音频处理软件Adobe Audition来举例：</p>
+<p>Audition的傅里叶变换是短时傅里叶变换(其实是数字信号处理里的离散傅里叶变换，不过离散傅里叶变换选用的信号片段长度确实是"短时"的)，每次变换所用的信号并不是整个音频文件，而是可以由用户设定使用多长的信号片段，现在只关注Audition的幅频图的纵轴</p>
+<p><img src="https://img2020.cnblogs.com/blog/1761941/202004/1761941-20200419160114823-359400746.png" alt=""></p>
+<p>Audition的幅频图的纵轴标注的刻度以分贝(decibel，简称dB)为单位，分贝可以表示倍数。工程中出现的倍数可能在末尾或者紧挨着小数点右侧有非常多的0，为了让人类看这样的倍数时不用把精力浪费在仔细地数0的个数上，于是分贝诞生了<br />如果用分贝表示2个电压值<em>U</em><sub>1</sub>、<em>U</em><sub>2</sub>之间的倍数关系，那么可以把<em>U</em><sub>1</sub>定义为0dB，计算出<em>U</em><sub>2</sub>=20lg(<em>U</em><sub>2</sub>/<em>U</em><sub>1</sub>)dB<br />如果用分贝表示2个功率值<em>P</em><sub>1</sub>、<em>P</em><sub>2</sub>之间的倍数关系，如果把<em>P</em><sub>1</sub>定义为0dB，计算<em>P</em><sub>2</sub>时，却应该是<em>P</em><sub>2</sub>=10lg(<em>P</em><sub>2</sub>/<em>P</em><sub>1</sub>)dB，因为如果用电压<em>U</em>表示功率<em>P</em>，<em>P</em>正比于<em>U</em><sup>2</sup>，<em>U</em>扩大至<em>k</em>倍后，<em>P</em>会扩大至<em>k</em><sup>2</sup>倍，<em>P</em>已暗含了平方关系，类似地，用分贝表示暗含了平方关系的物理量之间的倍数关系时，对数式前乘的系数都是10</p>
+<p><br />再看上图：纵轴刻度的最大值是0dB=1倍，纵轴向下是负的分贝<br />所以Audition的幅频谱把能达到的最大幅度定为0dB，其它幅度的值根据它相对于0dB的比例计算出。这个幅频谱没有反映频率分量幅度的绝对值，而反映了相对值。这样反映出的幅度也叫<span style="background-color: #ffff00;">归一化</span>(<span style="background-color: #ffff00;">normalized</span>)幅度，就是把最大的值定为1，其它值根据它占最大值的比例算得。同学们以后会经常碰到"归一化"这个词<br />如果频率分量的幅度的绝对值重要、而幅频谱仍然像Audition的这样只给出各频率分量<span style="color: #ff0000;">幅度的相对值</span>，那就再规定幅频谱里的<span style="color: #ff0000;">0dB表示的绝对值</span>是多少，这样就能算出所有频率分量幅度的绝对值啦；再拿到<span style="color: #ff0000;">相频谱</span>、规定参与变换的<span style="color: #ff0000;">时域信号的长度</span>，那么就一定能还原出时域信号。注意看这段话里的红色字，它们都是工程实际中还原出时域信号必备的信息，缺一不可</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1>滤波器</h1>
+<p>再来看前面的音频均衡器的例子，图中推子的连线像不像幅频曲线？<br /><img src="https://img2020.cnblogs.com/blog/1761941/202004/1761941-20200419214502244-1293555272.png" alt=""><br />一些音乐软件有音质优化功能，这个功能里预设了一些效果曲线，比如一些预设效果叫室内、KTV、金属、人声等等，每个预设效果都对应着一条声音调整曲线。可以说每个预设效果都是一个滤波器(filter)，预设效果对应的声音调整曲线就是这个滤波器的幅频图<br />滤波器是信号处理领域非常重要的研究课题，LTI系统就是典型的滤波器<br />滤波器嘛，顾名思义，滤除不想要的波形用的。其实不止滤除波形，滤波器还能提升需要的波形的幅度。都说了幅频图里的谱线的绝对值不重要，只提升想保留的频率的幅度算不算是抑制不想要的频率的幅度？</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1>计算傅里叶变换时的一些细节问题</h1>
+<p>本节进行变换时把时域信号当作无穷长，选用的基也铺满整个时间轴。反正你的作业和考试就是这么设定的<br />同样为了直观，参与变换的信号<em>x</em>(<em>t</em>)依然是实信号</p>
+<p>以复指数信号为基分解<span style="background-color: #ffff00;">实信号</span>，为了让这些基最终拟合出的虚部是0，那么显然<span style="background-color: #ffff00;">频率互为相反数的复指数信号的幅度相同、瞬时相位互为相反数</span>(你要说幅度互为相反数、瞬时相位相同也没错，但习惯上不这么说)</p>
+<p>&nbsp;</p>
+<h2><em>x</em>(<em>t</em>)是周期信号，不妨设<em>x</em>(<em>t</em>)=cos<em>t</em>+2cos2<em>t</em></h2>
+<p>如果用短时傅里叶变换：根据傅里叶变换的物理意义，傅里叶变换的基是铺满整个时域的不同频率的单频复指数信号，显然幅频图中复指数频率1、-1、2、-2的谱线长度非0，且1、-1的谱线长度是2、-2的谱线长度的一半，其它所有复指数频率的谱线长度都是0，规定复指数频率<em>&Omega;</em>=1的分量的幅度是1；幅度非0的复指数频率的初始相位都是0；选用的基铺满整个时间轴</p>
+<p>按照教科书教的计算：这个信号完全不满足狄利克雷条件，但是引入冲激信号<em>&delta;</em>(<em>t</em>)之后，可以认为复指数频率1、-1的幅度是<em>&delta;</em>(<em>t</em>)、复指数频率2、-2的幅度是2<em>&delta;</em>(<em>t</em>)；幅度非0的复指数频率分量的初始相位都是0。即复指数频率为1的分量的幅度是1个单位的+&infin;、复指数频率为2的分量的幅度是2个单位的+&infin;</p>
+<p>&nbsp;</p>
+<h2><em>x</em>(<em>t</em>)仍然是周期信号，不妨设周期是<em>T</em><sub>0</sub></h2>
+<p>幅频图上，非0的正弦频率的频率一定是1/<em>T</em><sub>0</sub> Hz的整数倍，其它频率处严格为0，否则<em>x</em>(<em>t</em>)的周期不可能是<em>T</em><sub>0</sub>。幅频图中的1/<em>T</em><sub>0</sub> Hz、2/<em>T</em><sub>0</sub> Hz、3/<em>T</em><sub>0</sub> Hz、&hellip;&hellip;、<em>n</em>/<em>T</em><sub>0</sub> Hz的分量就是<em>x</em>(<em>t</em>)中的<span style="background-color: #ffff00;">基波</span>、二次谐波、三次谐波、&hellip;&hellip;、<span style="background-color: #ffff00;">n次谐波</span><br />这就是<span style="background-color: #00ff00;">"时域周期则频域离散、非周期"</span><br />同上，基波和各次谐波的幅度都是<em>k&delta;</em>(<em>t</em>)，<em>k</em>是常数</p>
+<p>&nbsp;</p>
+<h2><em>x</em>(<em>t</em>)有限长</h2>
+<p>用铺满整个时间轴的基去拟合<span style="background-color: #00ff00;">有限长的信号</span>，看上去无法在<em>x</em>(<em>t</em>)彻底为0的时刻严格地拟合得到0，所以必须提升拟合精度，即<span style="background-color: #00ff00;">频谱图铺满整个频率轴</span><br />这时一个数学家跳出来说：我说基取遍所有频率能严格拟合物理世界的所有信号就能严格拟合<br />咱又不能真的实现"把所有频率的铺满整个时间轴的基都取遍，加起来看看是不是有限长的<em>x</em>(<em>t</em>)的时域波形"，那么数学家说是就是吧，工程师和物理学家不都只有经常从数学家的乐(l&egrave;)色桶里捡乐色才能维持的了研究🐎</p>
+<p>&nbsp;</p>
+<h2><em>x</em>(<em>t</em>)无限长且非周期</h2>
+<p>这时<em>x</em>(<em>t</em>)必须得满足狄利克雷条件，否则如果非得算其傅里叶变换，那么根据公式算出来的所有复指数频率的幅度可能都是+&infin;，而且还不知道这些+&infin;是多少倍<em>&delta;</em>(<em>t</em>)<br />你可能会觉得，如果<em>x</em>(<em>t</em>)是持续时间无限长的语音信号，精密的机器肯定能听出任何时刻的幅频图，这样能做傅里叶变换啊<br />但是别忘了这一节的傅里叶变换的基铺满整个时间轴，参与变换的信号片段是铺满整个时间轴的整个<em>x</em>(<em>t</em>)。机器能绘制出任何时刻的幅频图，但每个幅频图对应的时域信号都是完整的<em>x</em>(<em>t</em>)吗，这台机器肯定也像Audition一样实际上做的是短时傅里叶变换</p>
+<p>&nbsp;</p>
+<h2><em>x</em>(<em>t</em>)是等间隔序列，即只在等间隔的有限个时刻的值非0、其它所有时刻的值严格为0</h2>
+<p>特别说明：为避免歧义，特地假定<em>x</em>(<em>t</em>)在其持续时间段内一直非0</p>
+<p><br />其实物理世界根本不存在完全符合这个要求的信号，因为这样的信号在<em>x</em>(<em>t</em>)从非0变为0时的斜率为&infin;，那就说明<em>x</em>(<em>t</em>)的功率是+&infin;，这不可能<br />所以这种信号的傅里叶变换频谱图的极高频分量的幅度也是&infin;，而且算不出来到底是哪些频率的幅度是多少个<em>&delta;</em>(<em>t</em>)<br />那就改变基，把<span style="background-color: #ffff00;">基换为铺满整个时间轴的等间隔复指数序列</span>，基的频率范围也铺满整个频率轴。这时再把时域信号的自变量设为时间<em>t</em>已不太准确，那就把序列值的编号<em>n</em>设为自变量吧，既然序列铺满整个时间轴，那么序列值的编号也能取尽所有整数<em><br /></em>这就是<span style="background-color: #ffff00;">离散时间傅里叶变换</span>(Discrete Time Fourier Transform，简称<span style="background-color: #ffff00;">DTFT</span>)<br />计算机等数字电子设备不能处理连续的信号，所以得把连续信号变为离散序列后才能让数字设备处理。掌握好离散时间傅里叶变换才能学习今后的数字信号处理课程<br />这时的基(为了直观，假设基是正弦序列。如果是复指数序列，我就得分别画幅度序列和相位序列，反而更不直观)的频率有这样的特征：</p>
+<ul>
+<li>只看<em>&Omega;</em>&isin;[0,2<em>&pi;</em>]时，<em>&Omega;</em>=<em>&Omega;</em><sub>0</sub>和<em>&Omega;</em>=2<em>&pi;</em>-<em>&Omega;</em><sub>0</sub>的基的波形完全一样<br /><img src="https://img2020.cnblogs.com/blog/1761941/202004/1761941-20200424204714150-1185778981.png" alt="" width="408" height="654"><br />你可能会问：如图，这2个信号作差后不是全0，它们的波形不一样啊<br />那是因为计算机表示的小数位数有限，看上图中第3个图的纵轴数量级，都到了10<sup>-15</sup>，如上图红框内容。显然作差后不全0是计算机的舍入误差造成的。不信的话，你问64位的MATLAB，看它认为cos(<em>&pi;</em>/2)是否等于0，如果不等于0那等于什么<br /><img src="https://img2020.cnblogs.com/blog/1761941/202004/1761941-20200424205139741-678720188.png" alt=""><br />历史上就有过美军导弹因舍入误差而打中美军基地的事故</li>
+<li><em>&Omega;</em>=<em>&Omega;</em><sub>0</sub>和<em>&Omega;</em>=<em>&Omega;</em><sub>0</sub>+2<em>&pi;</em>的基的波形也完全一样</li>
+<li>基变化得最快时频率是<em>&pi;</em>和所有与<em>&pi;</em>隔2<em>k&pi;</em>的值，基停止变化时频率是2<em>&pi;</em>和所有与2<em>&pi;</em>隔2<em>k&pi;</em>的值<br /><br /></li>
+
+
+
+
+
+
+</ul>
+<p>上述特征反映到离散傅里叶变换的幅频谱就是：</p>
+<ul>
+<li>显然这时的频谱图的频率轴肯定会被铺满、频谱图以2<em>&pi;</em>为周期、每个<em>&Omega;</em>&isin;[2<em>k&pi;</em>,2(<em>k</em>+1)<em>&pi;</em>]的周期内的频谱图关于周期中线<em>&Omega;</em>=(2<em>k</em>+1)<em>&pi;</em>对称<br />这个性质也是数字信号处理里的离散傅里叶变换的图谱的性质</li>
+<li>由于离散时间傅里叶变换的基的频率<em>&Omega;</em>是连续的，所以<em>x</em>(<em>n</em>)的DTFT的频谱图也是连续的</li>
+
+
+
+
+
+</ul>
+<p><img src="https://img2020.cnblogs.com/blog/1761941/202004/1761941-20200424210955025-1588268856.png" alt=""></p>
+<p>这就解释了教材说的<span style="background-color: #00ff00;">"时域离散、周期，则频域连续、非周期"</span>。注意：<span style="background-color: #ffff00;">这是描述离散时间傅里叶变换DTFT用的</span>，而不是描述连续时间傅里叶变换CTFT</p>
+<p>&nbsp;</p>
+<p>但计算机依然不能处理DTFT，因为DTFT的频谱图依然是连续的，如果要让计算机计算傅里叶变换，就得让DTFT的频谱图也离散，这就是离散傅里叶变换(<span style="background-color: #ffff00;">Discrete Fourier Transform</span>，简称<span style="background-color: #ffff00;">DFT</span>)</p>
+<p>&nbsp;</p>
+<p>DTFT的频谱图能再次验证前述的"工程实际中幅频谱的谱线长度的绝对值不重要而相对值才重要"：<br />显然如果把这样的频谱图里的所有频率(从-&infin;到+&infin;)的基与它们各自在频谱图里的幅度值相乘后全部相加，那么得到的<em>x</em>(<em>n</em>)的波形绝对会在几乎所有<em>n</em>时都是&infin;(无穷个频率的基相加，频率每隔2&pi;的基的波形完全一样，从无穷个频率里也能抽出无穷个波形完全一样的基，这无穷个"波形完全一样"的基相加肯定会让时域幅度无穷大)<br />所以不如只拿出频谱图里<em>&Omega;</em>&isin;[0,<em>&pi;</em>]的部分、纵轴表示归一化幅度，Audition就是这么做的</p>
+<p>前面假设过<em>x</em>(<em>n</em>)是实信号，所以可以只根据频谱图里一段长为<em>&pi;</em>的连续片段补全<em>&Omega;</em>铺满整个频率轴的频谱图；<br />如果<em>x</em>(<em>n</em>)是物理世界不存在的复信号，那么得至少根据复指数频率频谱图里一段长为2<em>&pi;</em>的连续片段才能补全<br />因为对于实信号，根据<em>X</em>(<em>&Omega;</em><sub>0</sub>)一定能推出<em>X</em>(-<em>&Omega;</em><sub>0</sub>)，因为实信号没有虚部，所以<em>e</em><sup><em>j&Omega;</em><sub>0</sub><em>t</em></sup>、<em>e<sup>-</sup></em><sup><em>j&Omega;</em><sub>0</sub><em>t</em></sup>的幅度一定要相同、瞬时相位一定要互为相反数，否则就会加出虚部。前面已说过<br />而复信号却无法根据<em>X</em>(<em>&Omega;</em><sub>0</sub>)推出<em>X</em>(-<em>&Omega;</em><sub>0</sub>)</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1>拉普拉斯变换</h1>
+<p>还记得教科书证明了复指数信号是LTI系统的特征信号吧，本文前面的部分只讨论了复指数是纯虚数的情况，复指数还可以是既有实部又有虚部的一般复数，接下来就来讨论以一般复指数信号为基的变换<br />记一般复数<em>a</em>+<em>j</em><em>&Omega;</em>=<em>s</em>，一般复指数信号<em>e</em><sup>(<em>a</em>+<em>j&Omega;</em>)<em>t</em></sup>=<em>e</em><sup>-<em>st</em></sup>，把傅里叶变换表达式里的e<sup>-</sup><em><sup>j&Omega;t</sup></em>换成e<sup>-<em>st</em></sup>，这就是<span style="background-color: #ffff00;">拉普拉斯变换</span>(<span style="background-color: #ffff00;">Laplace Transform</span>)，记<em>x</em>(<em>t</em>)的拉普拉斯变换为<em>X</em>(<em>s</em>)</p>
+<p><br /><em>e</em><sup>-<em>st</em></sup>可以被拆为<em>e</em><sup>-</sup><em><sup>a</sup></em><sup>t</sup><em>e</em><sup>-<em>j</em></sup><em><sup>&Omega;t</sup></em>，如果让<em>e</em><sup>-</sup><em><sup>a</sup></em><sup>t</sup>跟着<em>e</em><sup>-<em>j</em></sup><em><sup>&Omega;t</sup></em>，让你想象用指数衰减/增长的基去分解信号，你可能感到很困难<br />那就让拉普拉斯变换表达式里的<em>e</em><sup>-</sup><em><sup>a</sup></em><sup>t</sup>跟着<em>x</em>(<em>t</em>)吧，相当于把<em>x</em>(<em>t</em>)乘上指数衰减/增长的信号后再做傅里叶变换，现在好想象了吧</p>
+<p><br />你可能会感到疑惑：乘上增长的指数信号不是更不能保证让积信号符合狄利克雷条件吗？但如果<em>x</em>(<em>t</em>)是当<em>t</em>&rarr;-&infin;时幅度不趋于0的非因果信号呢？当<em>t</em>&rarr;-&infin;时增长的指数信号趋于0，积信号是不是更容易符合狄利克雷条件？<br />指数是数学里的魔鬼，单调递增的指数函数可能在某个时刻函数值低于非指数函数，但随着自变量越来越大，指数函数的函数值一定会远超非指数函数的，而且越拉越远<br />把<em>x</em>(<em>t</em>)乘上指数增长/衰减的信号，在信号处理领域的意义就是，有的信号不满足狄利克雷条件从而不能算傅里叶变换，如果当<em>t</em>趋于+&infin;时这个信号仍不趋于0，那就给它乘上指数衰减的信号，把它压得趋于0；如果选用的一个指数函数压不住，那就换用个底数绝对值更大的单调递减指数函数，总有个指数函数能压住，从而能做傅里叶变换</p>
+<p>&nbsp;</p>
+<p>平面不够表示拉普拉斯变换的幅频谱，得用立体空间<br /><img src="https://img2020.cnblogs.com/blog/1761941/202004/1761941-20200424212546478-1068336653.png" alt="" width="437" height="355"></p>
+<p><br />这个图谱的俯视图就是个复平面，不过对于拉普拉斯变换，这个平面叫<em>s</em>平面</p>
+<p>&nbsp;</p>
+<p>实轴表示用来乘<em>x</em>(<em>t</em>)的<em>e</em><sup>-</sup><em><sup>a</sup></em><sup>t</sup>的指数<em>a</em>，虚轴表示<em><em>x</em>(<em>t</em>)e</em><sup>-</sup><em><sup>a</sup></em><sup>t</sup>的傅里叶变换幅频谱的频率轴<br />显然如果<em>x</em>(<em>t</em>)能直接做傅里叶变换，那么<em>a</em>=0时(即上图中虚轴处)的|<em>X</em>(<em>s</em>)|就是|<em>X</em>(<em>&Omega;</em>)|。把|<em>X</em>(<em>s</em>)|沿复平面虚轴切开，切面就是|<em>X</em>(<em>&Omega;</em>)|<br />再看拉普拉斯变换幅频图的侧视图，其实就是固定了表达式的<em>x</em>(<em>t</em>)<em>e</em><sup>-</sup><em><sup>a</sup></em><sup>t</sup>的傅里叶变换的幅频谱(如果<em>x</em>(<em>t</em>)<em>e</em><sup>-</sup><em><sup>a</sup></em><sup>t</sup>有傅里叶变换的话)</p>
+<p><br />假如<em>x</em>(<em>t</em>)=cos(<em>&pi;t</em>)<em>e<sup>t</sup>u</em>(<em>t</em>)，显然<em>x</em>(<em>t</em>)的包络线即<em>e<sup>t</sup>u</em>(<em>t</em>)当<em>t</em>&rarr;+&infin;时趋于+&infin;，<em>x</em>(<em>t</em>)不满足狄利克雷条件。于是给<em>x</em>(<em>t</em>)乘上指数信号<em>e</em><sup>-</sup><em><sup>a</sup><sup>t</sup></em>，显然</p>
+<ul>
+<li><em>a</em>&lt;1时<em>x</em>(<em>t</em>)<em>e</em><sup>-</sup><em><sup>a</sup></em><sup>t</sup>仍然不能做傅里叶变换</li>
+<li><em>a</em>=1时<em>x</em>(<em>t</em>)<em>e</em><sup>-</sup><em><sup>a</sup></em><sup>t</sup>=cos(<em>&pi;t</em>)<em>u</em>(<em>t</em>)，恰好能根据傅里叶变换的物理意义画出幅频图，这时的<em>x</em>(<em>t</em>)<em>e</em><sup>-</sup><em><sup>a</sup></em><sup>t</sup>中<em>&Omega;</em>=<em>&pi;</em>、-<em>&pi;</em>的分量的幅度是<em>k&delta;</em>(<em>t</em>)，<em>k</em>是常数，<em>k&delta;</em>(<em>t</em>)仍然是+&infin;</li>
+<li><em>a</em>&gt;1时<em>x</em>(<em>t</em>)<em>e</em><sup>-</sup><em><sup>a</sup></em><sup>t</sup>已被指数衰减的<em>e</em><sup>-</sup><em><sup>a</sup></em><sup>t</sup>压得符合狄利克雷条件，这时可以用傅里叶变换的公式套<em>x</em>(<em>t</em>)<em>e</em><sup>-</sup><em><sup>a</sup></em><sup>t</sup></li>
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+<p>所以<em>x</em>(<em>t</em>)=cos(<em>&pi;t</em>)<em>e<sup>t</sup>u</em>(<em>t</em>)的拉普拉斯变换的幅频图的俯视图上，点1+<em>j&pi;</em>、1-<em>j&pi;</em>处的谱线高度为<em>k&delta;</em>(<em>t</em>)，<em>k&delta;</em>(<em>t</em>)是+&infin;。在俯视图上出现+&infin;高度谱线的点处标上"&times;"，并说这些点是<em>X</em>(<em>s</em>)的极点<br /><img src="https://img2020.cnblogs.com/blog/1761941/202004/1761941-20200424211249255-1091371768.png" alt="" width="406" height="346"><br />实轴上<em>a</em>&lt;1的部分对应的<em>e</em><sup>-</sup><em><sup>a</sup></em><sup>t</sup>并不能让<em>x</em>(<em>t</em>)<em>e</em><sup>-</sup><em><sup>a</sup></em><sup>t</sup>具有傅里叶变换，如果非要用傅里叶变换的公式计算这些<em>x</em>(<em>t</em>)<em>e</em><sup>-</sup><em><sup>a</sup></em><sup>t</sup>的傅里叶变换，那就像前文所说的那样所有的频率分量的幅度都是+&infin;，而且不知道这些+&infin;等于多少个<em>&delta;</em>(<em>t</em>)；</p>
+<p><em>a</em>=1时虽然能根据物理意义画出<em>x</em>(<em>t</em>)<em>e</em><sup>-</sup><em><sup>a</sup></em><sup>t</sup>的傅里叶变换幅频谱，但这时的<em>x</em>(<em>t</em>)<em>e</em><sup>-</sup><em><sup>a</sup></em><sup>t</sup>=cos(<em>&pi;t</em>)<em>u</em>(<em>t</em>)在无限长的时间里非0，这在物理世界中是不可能的，而且按照傅里叶变换的公式算得的幅频谱的谱线高度是+&infin;，并不是有限值；所以如果有个拥有足够能量的信号处理LTI系统的<em>h</em>(<em>t</em>)长这样，这个系统无法正常工作，因为给它输入<em>&delta;</em>(<em>t</em>)后，撤掉所有输入信号，这个系统的输出就能无止境地振荡下去，这是不希望信号处理系统出现的现象；但如果要设计模拟的信号发生器(在"的"后断句)，这样的系统是很符合要求的</p>
+<p>&nbsp;</p>
+<p><em>a</em>是<em>s</em>的实部，<em>a</em>可以被记为Re[<em>s</em>]，"re"是"实"的英文单词real的前2个字母。于是说<em>a</em>&le;1即Re[<em>s</em>]&le;1时<em>X</em>(<em>s</em>)不收敛，同样地，可以说<em>a</em>&gt;1即Re[<em>s</em>]＞1是<em>X</em>(<em>s</em>)的收敛域(Region of Convergence，简称ROC)<br />记住咯：拉普拉斯变换不能收敛的域下不存在傅里叶变换，这些域下|<em>X</em>(<em>s</em>)|不是0、也不是可以算出<em>k</em>的<em>k&delta;</em>(<em>t</em>)，而是<span style="background-color: #ffff00;">如果硬要算的话几乎所有的频率分量的幅度都是+&infin;，而且不知道这些+&infin;是<em>&delta;</em>(<em>t</em>)的多少倍</span><br />相当于<em>X</em>(<em>s</em>)不收敛的域内|<em>X</em>(<em>s</em>)|的谱线全都是+&infin;，但给拉普拉斯变换不收敛的域的所有点都画上"&times;"并不现实，那就用深色覆盖这个域吧<br /><img src="https://img2020.cnblogs.com/blog/1761941/202004/1761941-20200424211356824-1824225105.png" alt="" width="414" height="350"></p>
+<p>更一般点，如果<em>x</em>(<em>t</em>)=<em>x</em><sub>1</sub>(<em>t</em>)+<em>x</em><sub>2</sub>(<em>t</em>)+<em>x</em><sub>3</sub>(<em>t</em>)，<em>X</em><sub>1</sub>(<em>s</em>)、<em>X</em><sub>2</sub>(<em>s</em>)、<em>X</em><sub>3</sub>(<em>s</em>)收敛域边界上的极点如下图分布，假设从左到右依次为<em>X</em><sub>1</sub>(<em>s</em>)、<em>X</em><sub>2</sub>(<em>s</em>)、<em>X</em><sub>3</sub>(<em>s</em>)的极点，下面来分析ROC<sub><em>X</em></sub>可能的范围<br /><img src="https://img2020.cnblogs.com/blog/1761941/202004/1761941-20200424211451924-1680754119.png" alt="" width="385" height="354"></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>ROC<sub><em>X</em></sub>肯定不能包含任一极点，图中符合这一要求的区间有4个<br />如果ROC<sub><em>X</em></sub>是B区，那么ROC<sub><em>X</em>3</sub>一定会包含<em>X</em><sub>2</sub>(<em>s</em>)不收敛的区域(即黄色的C区)，所以ROC<sub><em>X</em></sub>不能是B区，同理也不能是C区，只有ROC<sub><em>X</em></sub>是A区或D区时才可能让<em>X</em><sub>1</sub>(<em>s</em>)、<em>X</em><sub>2</sub>(<em>s</em>)、<em>X</em><sub>3</sub>(<em>s</em>)全都收敛</p>
+<p>&nbsp; </p>
+<p>如果把<em>X</em><sub>1</sub>(<em>s</em>)、<em>X</em><sub>2</sub>(<em>s</em>)、<em>X</em><sub>3</sub>(<em>s</em>)各自不收敛的区域分别用深色填充，再组合出<em>X</em>(<em>s</em>)的极点分布图，那么你应该不会再一开始就认为B区或C区可能是ROC<sub><em>X</em></sub>了</p>
+<p>我初学拉普拉斯变换时就有过这样的疑问：上图中B区、C区明明不包含极点(现在才知道其实一定会包含)，为什么不能是ROC<sub><em>X</em></sub>。B区、C区只是没有包含<em>X</em><sub>1</sub>(<em>s</em>)、<em>X</em><sub>2</sub>(<em>s</em>)和<em>X</em><sub>3</sub>(<em>s</em>)收敛域边界上的极点，但一定会包含<em>X</em><sub>1</sub>(<em>s</em>)、<em>X</em><sub>2</sub>(<em>s</em>)或<em>X</em><sub>3</sub>(<em>s</em>)不收敛的区域</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1>用拉普拉斯变换确定信号和系统的稳定性和因果性</h1>
+<p>有的LTI系统不稳定，例如把话筒对准扬声器，扬声器会发出啸叫声。这个LTI系统就不稳定，只给一丁点输入信号(空气的轻微流动导致话筒能产生一丁点电压信号)，就能产生不趋于0的时间无穷长(如果能给这个音响系统无穷的能量)、幅度无穷大(如果这个音响能输出幅度无穷大的声音)的输出信号，这种现象叫自激振荡，显然这个系统的<em>h</em>(<em>t</em>)也是时间无穷长的啸叫声，但如果非要分析这个系统的特性，傅里叶变换做不到，但拉普拉斯变换可以做到</p>
+<p>对一个LTI系统的<em>h</em>(<em>t</em>)做拉普拉斯变换得到<em>H</em>(<em>s</em>)，<span style="background-color: #00ff00;">如果ROC<sub><em>H</em></sub>包含Re[<em>s</em>]=0，那么这个LTI系统一定稳定，如果<em>h</em>(<em>t</em>)还是因果信号，那么ROC<sub><em>H</em></sub>一定包含复平面的整个右半平面。</span>这显而易见：Re[<em>s</em>]=0时相当于不对<em>x</em>(<em>t</em>)乘指数信号，Re[<em>s</em>]&gt;0时相当于对<em>x</em>(<em>t</em>)乘衰减的指数信号，如果<em>x</em>(<em>t</em>)是因果信号，既然不乘指数衰减的信号的<em>x</em>(<em>t</em>)都能符合狄利克雷条件，那么乘了指数衰减的信号得到的<em>x</em>(<em>t</em>)<em>e</em><sup>-</sup><em><sup>a</sup></em><sup>t</sup>一定也能满足狄利克雷条件</p>
+<p>&nbsp;</p>
+<p>衰减的指数信号当<em>t</em>&lt;0时振幅大于1，所以只要<em>x</em>(<em>t</em>)<em>e</em><sup>-</sup><em><sup>a</sup></em><sup>t</sup>存在非因果的片段，那么总有个Re[<em>s</em>]&gt;0的<em>s</em>能让这个非因果片段大得不满足狄利克雷条件；<br />如果<em>x</em>(<em>t</em>)的非因果片段不趋于0的时间无穷长(例如cos(<em>t</em>))，那么任何为正的Re[<em>s</em>]都可以让<em>x</em>(<em>t</em>)<em>e</em><sup>-</sup><em><sup>a</sup></em><sup>t</sup>在<em>t</em>&rarr;-&infin;时趋于无穷，所以这时Re[<em>s</em>]&gt;0一定不在ROC<sub><em>X</em></sub>内；<br />Re[<em>s</em>]&lt;0时会将<em>x</em>(<em>t</em>)的非因果片段指数扩大，有没有可能Re[<em>s</em>]&lt;0时也能让<em>x</em>(<em>t</em>)<em>e</em><sup>-<em>at</em></sup>的非因果片段满足狄利克雷条件呢？当然可以，<em>x</em>(<em>t</em>)的非因果片段有限长时就行，这时甚至所有有限的Re[<em>s</em>]&lt;0的<em>s</em>都能让<em>x</em>(<em>t</em>)<em>e</em><sup>-<em>at</em></sup>满足狄利克雷条件；<br /><br /><br />综上，<span style="background-color: #00ff00;">任何非因果信号的收敛域都包含Re[<em>s</em>]小于某个值的区域</span></p>
+<p>&nbsp;</p>
+<p>如果<em>x</em>(<em>t</em>)是因果信号，同上，<span style="background-color: #00ff00;">任何因果信号的收敛域都包含Re[<em>s</em>]大于某个值的区域</span></p>
+<p>综上还能得出<span style="background-color: #00ff00;">有限长、幅度有限的信号的收敛域是整个<em>s</em>平面，不论这个信号的因果性如何</span></p>
+<p>&nbsp;</p>
+<p>如果把不稳定的LTI系统的<em>h</em>(<em>t</em>)做拉普拉斯变换得到<em>H</em>(<em>s</em>)，那么<em>H</em>(<em>s</em>)的收敛域的边界就能指导我们如何修改这个不稳定系统从而让它稳定。假设前面啸叫的音响系统的ROC<sub><em>H</em></sub>是Re[<em>s</em>]&gt;5、对所有频率的相移都是2<em>&pi;</em>的整数倍(实际上自激振荡的条件还和系统的相移有关，为了简化讨论，做出这个假设，这样这个系统就既有相移但不改变各频率分量的相位。直接假设系统没有相移不行🐎？确实不行，后面会分析)，那么这个收敛域边界就告诉了我们：<em>h</em>(<em>t</em>)如果被比<em>e</em><sup>-5<em>t</em></sup>衰减得更快的指数信号衰减，那么这个系统就稳定了<br />你可能又有疑惑：很好想象固定比例衰减，比如电阻分压可以固定比例衰减电压信号；但怎么实现指数衰减环节？<br />注意这个音响系统是反馈(feedback)系统。声音(输入信号)进入话筒，被功率放大器放大后从扬声器输出(输出信号，假设刚从扬声器出来的音量是快要进入话筒的音量的<em>k</em>倍)，输出信号在空气中传播(衰减，假设再次进入话筒的音量是刚从扬声器出来的音量的1/<em>m</em>)后又进入话筒(反馈环节)<br /><img src="https://img2020.cnblogs.com/blog/1761941/202004/1761941-20200424212015653-983100005.png" alt=""></p>
+<p>&nbsp;</p>
+<p>看好咯：输入给话筒的声音被转为电信号(假设是<em>x</em>(<em>t</em>))、经功率放大器放大、经扬声器输出、经空气衰减，再次到达话筒前、又被话筒转为电信号(假设是<em>y</em>(<em>t</em>))，显然这一个循环下来<em>y</em>(<em>t</em>)成了<em>x</em>(<em>t</em>)的<em>k</em>/<em>m</em>倍(如果系统没有相移，那就相当于这个循环不消耗时间，从而不论输入什么信号，输出信号都会瞬间振幅无穷大，这将是假设系统没有相移所引入的Bug。为了不引入这个Bug，所以假设了对所有频率的相移是2<em>&pi;</em>的整数倍，这样既让这个循环需要消耗时间，也不改变信号的相位)<br />如果经过<em>n</em>个循环，那么最后被话筒转换得到的电信号(假设是<em>q</em>(<em>t</em>))会成为最初被话筒转换得到的电信号(假设是<em>x</em>(<em>t</em>))的(<em>k</em>/<em>m</em>)<em><sup>n</sup></em>倍<br />有指数增益/衰减的感觉了吧</p>
+<ul>
+<li>如果<em>k</em>=<em>m</em>，那么<em>h</em>(<em>t</em>)是铺满正半时间轴的周期信号(稍后解释为什么是周期的)，相当于将原<em>h</em>(<em>t</em>)乘了指数衰减的信号，用反馈成功地将定比例衰减转为了指数衰减，但系统依然不稳定</li>
+
+
+
+
+
+</ul>
+<p><img src="https://img2020.cnblogs.com/blog/1761941/202004/1761941-20200424212046430-1761263274.png" alt=""><br />新h(t)是不是相当于给旧h(t)乘了衰减的指数信号？</p>
+<ul>
+<li>如果<em>k</em>&gt;<em>m</em>，且音响能输出的音量无上限，那么这时的<em>h</em>(<em>t</em>)是<em>k</em>=<em>m</em>时的<em>h</em>(<em>t</em>)乘指数增长的信号，系统更加不稳定</li>
+<li>如果<em>k</em>&lt;<em>m</em>，系统稳定</li>
+
+
+
+
+
+</ul>
+<p>所以只要把话筒放得离扬声器远一些、让衰减倍数<em>m</em>够大，系统就稳定了<br /><br />下面来解释为什么振荡的音响系统输出的信号是周期信号或周期信号&times;指数增长的信号：<br />不考虑波形失真、空气再轻微流动、机器老化等因素的话，相当于输入了<em>&delta;</em>(<em>t</em>)之后再也没有输入信号，如果<em>h</em>(<em>t</em>)不是周期的，那么这个非周期信号包含的信息来自哪里呢？<br />你可能会感到疑惑：假设音响能输出幅度无穷大的声音时，<em>h</em>(<em>t</em>)最终趋于无穷大，这个<em>h</em>(<em>t</em>)就是非周期的<br />实际上这时的<em>h</em>(<em>t</em>)是周期信号被不断放大的结果，如果知道了<em>h</em>(<em>t</em>)被放大的速度、<em>h</em>(<em>t</em>)被适当衰减后的一个周期的波形，那么能写出<em>h</em>(<em>t</em>)的表达式。表达式都有了，它再长也没没有包含更多信息。为什么？这涉及到信息论的知识。信息的作用是消除不确定度，表达式都有了，哪还有不确定度呢<br /><em>&delta;</em>(<em>t</em>)包含所有频率，那么振荡系统的<em>h</em>(<em>t</em>)的一个周期内的信息或者增长的速度信息来自哪里呢？当然是来自系统本身了：这个系统就是能选出这些频率，或者就是能以这个速度放大信号</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1>用零极图几乎唯一确定因果LTI系统</h1>
+<p>显然傅里叶变换所用的基&mdash;&mdash;铺满整个时间轴的复指数信号，其拉普拉斯变换在整个<em>s</em>平面都不收敛。很好想象：e<sup><em>j&Omega;</em><sub>0</sub></sup><em><sup>t</sup>e</em><sup>Re[<em>s</em>]<em>t</em></sup>在Re[s]=0时能根据物理意义写出<em>X</em>(<em>&Omega;</em><sub>0</sub>)=<em>&delta;</em>(<em>t</em>)，在其它Re[<em>s</em>]下e<sup><em>j&Omega;</em><sub>0</sub></sup><em><sup>t</sup>e</em><sup>Re[<em>s</em>]<em>t</em></sup>一定会沿时间轴的某个方向指数增长，从而不满足狄利克雷条件<br />不过没关系，物理世界的信号与系统都是因果的</p>
+<p>&nbsp;</p>
+<p>再来回顾LTI系统的线性性质：如果用包含输入输出信号的方程式描述LTI系统，那么方程式中绝对不会出现非1次项、幂函数、指数函数、对数函数等等非线性函数，否则就不满足线性性质<br />例如9=3<sup>2</sup>，16=4<sup>2</sup>，而9+16&ne;(3+4)<sup>2</sup>，说明不能出现2次项<br />例如5=4+4<sup>0</sup>，6=5+5<sup>0</sup>，而5+6&ne;(4+5)+(4+5)<sup>0</sup>，说明不能出现0次项<br />例如2=lg100，3=lg1000，而2+3&ne;lg(100+1000)，说明不能出现对数函数<br />其它的就不再举例了</p>
+<p>&nbsp;</p>
+<p>所以为了满足LTI系统的线性性质，描述LTI系统的方程式中只能出现一次项、微分这些线性函数、线性运算的线性组合。积分不是线性运算，因为积分会引入常数项，这个常数项导致了非线性<br />刚才举了输出只与输入有关的例子，实际上有的LTI系统现在的输出还与过去的输出有关，例如前述的存在反馈环节的系统<br />接下来的部分就看信号与系统教材的了<br /><img src="https://img2020.cnblogs.com/blog/1761941/202004/1761941-20200424135630795-2118054742.png" alt=""><br />这就是本节标题所说的"用零极图几乎唯一确定因果LTI系统"，这个操作对分析物理世界的系统很有用<br />前面说了在零极图上用"&times;"标注极点。零点用"&middot;"(点号)标注</p>
+<p>&nbsp;</p>
+<p>为什么本节标题说"几乎"呢？因为如果把形如"<em>y</em>(<em>t</em>)=啥啥啥"的方程的"啥啥啥"乘上常数<em>k</em>，这个"<em>y</em>(<em>t</em>)=啥啥啥"的零极点并不会变化，即零极图无法体现<em>k</em>。不过这在归一化面前都不是事</p>
+<p>有了零极图就能几乎唯一确定描述LTI系统的时域和频域方程，从而才能像教材9.4节说的那样"由零极点图对傅里叶变换进行几何求值"</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1>完结撒花</h1>
+<p>又到了我最喜欢的环节</p>
+<ul>
+<li>卷积的物理意义是：输出信号=输入信号的各片段产生的各输出信号作用的总和</li>
+<li>欧拉公式表明了引入复数的原因。虚数单位<em>j</em>在复平面上的作用是乘<em>j</em>相当于绕原点逆时针旋转90&deg;，乘<em>e<sup>j&alpha;</sup></em>相当于绕原点逆时针旋转<em>&alpha;</em> rad，参考<a href="https://www.bilibili.com/video/BV1fx41187tZ" target="_blank">视频1</a></li>
+<li>复指数信号<em>e<sup>st</sup></em>是任何LTI系统的特征信号，其中<em>s</em>=<em>a</em>+<em>j</em><em>&Omega;</em>，<em>a</em>、<em>&Omega;</em>是实数</li>
+<li>正弦信号是物理世界的LTI系统的特征信号</li>
+<li>连续时间傅里叶变换(CTFT)的任务是以铺满时间轴的复指数信号<em>e<em><sup>j</sup></em><em><sup>&Omega;t</sup></em></em>为基，分解时域连续信号，参考<a href="https://www.bilibili.com/video/BV1pW411J7s8" target="_blank">视频2</a>、<a href="https://www.bilibili.com/video/BV1WW411x7BJ" target="_blank">视频3</a></li>
+<li>理论上的CTFT使用无限长的基，工程实际中实际上使用有限长的基、归一化的幅度</li>
+<li>根据CTFT计算得：振幅为1、铺满整个时间轴的单频(若频率为<em>&Omega;</em><sub>0</sub>)复指数信号的幅频谱是|<em>&delta;</em>(<em>&Omega;</em>-<em>&Omega;</em><sub>0</sub>)|。<em>&delta;</em>(<em>t</em>)叫单位冲激信号，其只在<em>t</em>=0时幅度为&rdquo;1个单位的&rdquo;+&infin;，在其它时刻为0</li>
+<li>离散时间傅里叶变换(DTFT)的任务是以铺满时间轴的复指数序列<em>e<em><sup>j</sup></em><em><sup>&Omega;n</sup></em></em>为基，分解时域离散序列，得到的频谱图连续、以2<em>&pi;</em><em>为周期</em></li>
+<li>物理世界的信号都满足狄利克雷条件、是实信号，其频谱图中<em>&Omega;</em>&lt;0的片段的信息是冗余的</li>
+<li>拉普拉斯变换相当于将信号乘指数信号后再做傅里叶变换，能让积信号存在傅里叶变换的指数信号的指数组成拉普拉斯变换的收敛域</li>
+<li>由LTI系统的线性性质，可以用零极图几乎唯一确定因果LTI系统，从而才能由零极点图对傅里叶变换进行几何求值</li>
+
+
+
+
+
+</ul>
+<p>&nbsp;</p>
+<h1>更新历史</h1>
+<table border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="text-align: left;" valign="top" width="54">
+<p align="center">版本</p>
+
+
+
+
+
+
+</td>
+<td style="text-align: left;" valign="top" width="85">
+<p align="center">日期</p>
+
+
+
+
+
+
+</td>
+<td style="text-align: left;" valign="top" width="82">
+<p align="center">变动</p>
+
+
+
+
+
+
+</td>
+<td style="text-align: left;" valign="top" width="54">
+<p align="center">鸣谢</p>
+
+
+
+
+
+
+</td>
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: left;" valign="top" width="54">
+<p align="center">1</p>
+
+
+
+
+
+
+</td>
+<td style="text-align: left;" valign="top" width="85">
+<p align="center">20200424</p>
+
+
+
+
+
+
+</td>
+<td style="text-align: left;" valign="top" width="82">
+<p align="center">完成初稿</p>
+
+
+
+
+
+
+</td>
+<td style="text-align: left;" valign="top" width="54">
+<p align="center">&nbsp;</p>
+
+
+
+
+
+
+</td>
+
+
+
+
+
+
+</tr>
+
+
+
+
+
+
+</tbody>
+
+
+
+
+
+
+</table>
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-04-24 22:34</span>&nbsp;
+<a href="https://www.cnblogs.com/Humorize/">Humorize</a>&nbsp;
+阅读(<span id="post_view_count">...</span>)&nbsp;
+评论(<span id="post_comment_count">...</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12723741" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(12723741);return false;">收藏</a></div>
+        </div>
+<script src="https://common.cnblogs.com/highlight/9.12.0/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 535103, cb_blogApp = 'Humorize', cb_blogUserGuid = 'ec380606-71b9-4aa1-dbc4-08d7188de755';
+    var cb_entryId = 12723741, cb_entryCreatedDate = '2020-04-24 22:34', cb_postType = 1; 
+    loadViewCount(cb_entryId);
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot("/1090369/C1", [300, 250], "div-gpt-ad-1546353474406-0").addService(googletag.pubads());
+            googletag.defineSlot("/1090369/C2", [468, 60], "div-gpt-ad-1539008685004-0").addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;"></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;">
+            <script>
+                if (new Date() >= new Date(2018, 9, 13)) {
+                    googletag.cmd.push(function () { googletag.display("div-gpt-ad-1539008685004-0"); });
+                }
+            </script>
+        </div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div>    </div>
+</div>
+            </div>
+        </div>
+
+        <div id="sideBar">
+            <div id="sideBarMain">
+                
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+                <div id="calendar"><div id="blog-calendar" style="display:none"></div></div>                
+                <script>loadBlogDefaultCalendar();</script>
+                <div id="leftcontentcontainer">
+                    <!-- begin:SingleColumn -->
+                    <div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+                    <!-- end:  SingleColumn -->
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+    <div id="footer">
+        <!--done-->
+Copyright &copy; 2020 Humorize
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+    </div>
+</div>
+
+    
+</body>
+</html>

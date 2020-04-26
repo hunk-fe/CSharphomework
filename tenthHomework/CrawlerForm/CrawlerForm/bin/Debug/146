@@ -1,0 +1,500 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>许朋友爱玩 - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/custom/bundle-custom.min.css?v=1ssrnY3Il79Ok472qeVrpxlSprSXcHhYPgZC5S3wtVM" />
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/xcynice/custom.css?v=E12RB34x4b10l2Xm8jPcPLAb5Ns=" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/custom/bundle-custom-mobile.min.css?v=-Yh290MhQyDeXLmvKTSses9H6-49lqbpXFh55zvS0w8" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/xcynice/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/xcynice/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/xcynice/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 579839;
+        var currentBlogApp = 'xcynice';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'Custom';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/xcynice/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/xcynice/">许朋友爱玩</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/xcynice/">
+首页</a>
+</li>
+<li>
+
+
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E8%AE%B8%E6%9C%8B%E5%8F%8B%E7%88%B1%E7%8E%A9">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/xcynice/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			
+			<span id="stats_post_count">随笔 - 
+21&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+5</span>
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<!--done-->
+
+
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/xcynice/archive/2020/04/25.html">2020年4月25日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/xcynice/p/feng-zhuang-zi-ji-de-quan-xian-guan-li-kuang-jia.html">
+    带你封装自己的『权限管理』框架
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：我们在日常开发中，经常需要用到申请运行时权限的知识，我们可以通过自己封装一个简单的权限申请框架开始，学习发布开源库到 Jitpack / Jcenter 的一整套流程，从而激发自己的学习兴趣，以后自己也多多造轮子！成为 Android 界的轮子哥            <a href="https://www.cnblogs.com/xcynice/p/feng-zhuang-zi-ji-de-quan-xian-guan-li-kuang-jia.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-25 11:14 许朋友爱玩 阅读 (191) 评论 (1)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12772050" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/xcynice/archive/2020/04/13.html">2020年4月13日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/xcynice/p/jvm-xian-cheng-an-quan-yu-suo-you-hua.html">
+    一夜搞懂 | JVM 线程安全与锁优化
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：并发编程的目的是为了让程序运行得更快，提高程序的响应速度，虽然我们希望通过多线程执行任务让程序运行得更快，但是同时也会面临非常多的挑战，比如像线程安全问题、线程上下文切换的问题、硬件和软件资源限制等问题，这些都是并发编程给我们带来的难题。            <a href="https://www.cnblogs.com/xcynice/p/jvm-xian-cheng-an-quan-yu-suo-you-hua.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-13 11:06 许朋友爱玩 阅读 (210) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12690045" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/xcynice/archive/2020/04/09.html">2020年4月9日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/xcynice/p/java_nei_cun_mo_xing_yu_xian_cheng.html">
+    一夜搞懂 | Java 内存模型与线程
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：Java 的并发采用的是共享内存模型，Java 线程之间的通信总是隐式进行，整个通信过程对程序员完全透明。如果你想设计表现良好的并发程序，理解 Java 内存模型是非常重要的。Java 内存模型规定了如何和何时可以看到由其他线程修改过后的共享变量的值，以及在必须时如何同步的访问共享变量。            <a href="https://www.cnblogs.com/xcynice/p/java_nei_cun_mo_xing_yu_xian_cheng.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-09 10:21 许朋友爱玩 阅读 (242) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12665046" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/xcynice/archive/2020/04/06.html">2020年4月6日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/xcynice/p/jvm_zi_jie_ma_zhi_xing_ying_qing.html">
+    一夜搞懂 | JVM 字节码执行引擎
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：代码编译的结果从本地机器码转变为字节码，是存储格式发展的一小步，却是编程语言发展的一大步            <a href="https://www.cnblogs.com/xcynice/p/jvm_zi_jie_ma_zhi_xing_ying_qing.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-06 12:13 许朋友爱玩 阅读 (143) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12641476" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/xcynice/archive/2020/04/03.html">2020年4月3日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/xcynice/p/jvm_lei_jia_zai_ji_zhi.html">
+    一夜搞懂 | JVM 类加载机制
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：今天想跟大家唠嗑唠嗑Java的类加载机制，这是Java的一个很重要的创新点，曾经也是Java流行的重要原因之一。            <a href="https://www.cnblogs.com/xcynice/p/jvm_lei_jia_zai_ji_zhi.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-03 11:04 许朋友爱玩 阅读 (326) 评论 (3)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12625233" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/xcynice/archive/2020/03/30.html">2020年3月30日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/xcynice/p/jvm_gc_nei_cun_fen_pei.html">
+    一夜搞懂 | JVM GC&amp;内存分配
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：时代发展到现在，如今的内存动态分配与内存回收技术已经相当成熟，一切看似进入了“自动化”时代，不免发出疑问："为啥我们还要了解垃圾收集和内存分配？"            <a href="https://www.cnblogs.com/xcynice/p/jvm_gc_nei_cun_fen_pei.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-03-30 10:56 许朋友爱玩 阅读 (329) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12597183" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/xcynice/archive/2020/03/27.html">2020年3月27日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/xcynice/p/jvm_nei_cun_guan_li.html">
+    一文洞悉JVM内存管理机制
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：对于Java程序员来说，JVM给我们提供了自动内存管理机制，不需要既当“皇帝”，又当“人民”，不需要人为地给每一个new操作写配对的delete/free代码，不容易出现内存泄漏和内存溢出问题。然而一旦出现内存泄漏和溢出方面的问题，如果不清楚JVM内存的内存管理机制，那么将很难定位与解决问题。而且，JVM的内存管理机制在面试中也是非常重要的考点之一。            <a href="https://www.cnblogs.com/xcynice/p/jvm_nei_cun_guan_li.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-03-27 10:27 许朋友爱玩 阅读 (274) 评论 (2)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12579689" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/xcynice/archive/2020/03/19.html">2020年3月19日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/xcynice/p/dai_ni_ao_you_wang_luo_ceng.html">
+    自顶向下 | 带你遨游网络层
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：网络层的知识点非常繁多，本文仅是基于《计算机网络 自顶向下》而总结的一些重点知识点，如果想要详细了解网络层的知识，可以看下《自顶向下》            <a href="https://www.cnblogs.com/xcynice/p/dai_ni_ao_you_wang_luo_ceng.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-03-19 21:04 许朋友爱玩 阅读 (21) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12527172" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/xcynice/archive/2020/03/18.html">2020年3月18日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/xcynice/p/dai_ni_ao_you_yun_shu_ceng.html">
+    自顶向下 | 带你遨游运输层
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：手把手带你探索运输层，洞悉三次握手四次挥手的奥秘            <a href="https://www.cnblogs.com/xcynice/p/dai_ni_ao_you_yun_shu_ceng.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-03-18 17:16 许朋友爱玩 阅读 (105) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12518620" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/xcynice/archive/2020/03/15.html">2020年3月15日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/xcynice/p/dai_ni_ao_you_ying_yong_ceng.html">
+    自顶向下 | 带你遨游应用层
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：前言 本文已经收录到我的 个人博客，欢迎大佬们光临寒舍： &quot;我的GIthub博客&quot; 学习导图： 一、应用层协议原理 Q1:网络应用程序体系结构 客户 服务器体系结构（ ）： 点对点结构（ ）：迅雷 混合结构： Q2：进程通信 客户和服务器进程 进程与计算机网络之间的接口：进程通过套接字（ ）软件接口            <a href="https://www.cnblogs.com/xcynice/p/dai_ni_ao_you_ying_yong_ceng.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-03-15 21:11 许朋友爱玩 阅读 (106) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12500056" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+
+<div class="topicListFooter">
+    <div id="nav_next_page">
+        
+    <a href="https://www.cnblogs.com/xcynice/default.html?page=2">
+        下一页
+    </a>
+
+    </div>    
+</div>
+
+
+
+
+
+
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 许朋友爱玩
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

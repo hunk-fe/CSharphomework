@@ -1,0 +1,2813 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta property="og:description" content="本文将简述Flink SQL / Table API的内部实现，为大家把 &#x27;从SQL语句到具体执行&#x27; 这个流程串起来。并且尽量多提供调用栈，这样大家在遇到问题时就知道应该从什么地方设置断点，对整体架构" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>[源码分析] 带你梳理 Flink SQL / Table API内部执行流程 - 罗西的思考 - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/lessismoreright/bundle-lessismoreright.min.css?v=r7HROo-7bHpj9wQ7aMjjOlbCdKigSxO_AFRYzTkcpKo" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/lessismoreright/bundle-lessismoreright-mobile.min.css?v=FJjyQba01xzuYKRyPpSwE1bMq69pRjxrz5wp2oZZGLY" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/rossiXYZ/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/rossiXYZ/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/rossiXYZ/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 556264;
+        var currentBlogApp = 'rossiXYZ';
+        var cb_enable_mathjax = true;
+        var isLogined = false;
+        var skinName = 'LessIsMoreRight';
+    </script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']], processClass: 'math', processEscapes: true },
+        TeX: {
+        equationNumbers: { autoNumber: ['AMS'], useLabelIds: true },
+        extensions: ['extpfeil.js', 'mediawiki-texvc.js'],
+        Macros: {bm: "\\boldsymbol"}
+        },
+        'HTML-CSS': { linebreaks: { automatic: true } },
+        SVG: { linebreaks: { automatic: true } }
+        });
+    </script>
+    <script src="https://mathjax.cnblogs.com/2_7_5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+</head>
+<body>
+    <a name="top"></a>
+    <div id="page_begin_html">
+        
+
+    </div>
+    <div id="home">
+    <div id="header">
+        <div id="blogTitle">
+            
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/rossiXYZ/">罗西的思考</a>
+</div>
+<div class="subtitle">
+一手伸向技术，一手伸向生活
+</div>
+
+        </div>
+        <div id="navigator">
+            
+<ul id="navList">
+    <li id="nav_sitehome"><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+    <li id="nav_myhome">
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/rossiXYZ/">
+首页</a>
+</li>
+    <li id="nav_newpost">
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+    <li id="nav_contact">
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E7%BD%97%E8%A5%BF%E7%9A%84%E6%80%9D%E8%80%83">
+联系</a></li>
+    <li id="nav_rss">
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/rossiXYZ/rss/">
+订阅</a></li>
+    <li id="nav_admin">
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+            <div class="blogStats">
+                
+<span id="stats_post_count">随笔 - 
+23&nbsp;</span>
+<span id="stats_article_count">文章 - 
+0&nbsp;</span>
+<!-- <span id="stats-comment_count"></span> -->
+<span id="stats_comment_count">评论 - 
+2</span>
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div id="mainContent">
+            <div class="forFlow">
+                <div id="post_detail">
+    <div id="topics">
+        <div class="post">
+            <h1 class="postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/rossiXYZ/p/12770436.html">[源码分析] 带你梳理 Flink SQL / Table API内部执行流程</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+    <div id="cnblogs_post_description" style="display: none">
+        本文将简述Flink SQL / Table API的内部实现，为大家把 "从SQL语句到具体执行" 这个流程串起来。并且尽量多提供调用栈，这样大家在遇到问题时就知道应该从什么地方设置断点，对整体架构理解也能更加深入。
+    </div>
+<div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+    <h1 id="源码分析-带你梳理-flink-sql--table-api内部执行流程">[源码分析] 带你梳理 Flink SQL / Table API内部执行流程</h1>
+<p><div class="toc"><div class="toc-container-header">目录</div><ul><li><a href="#源码分析-带你梳理-flink-sql--table-api内部执行流程">[源码分析] 带你梳理 Flink SQL / Table API内部执行流程</a><ul><li><a href="#0x00-摘要">0x00 摘要</a></li><li><a href="#0x01-apache-calcite">0x01 Apache Calcite</a><ul><li><a href="#1-calcite-概念">1. Calcite 概念</a></li><li><a href="#2-calcite-处理流程">2. Calcite 处理流程</a></li></ul></li><li><a href="#0x02--flink-sql综述">0x02  Flink SQL综述</a><ul><li><a href="#1-flink关系型api执行原理">1. Flink关系型API执行原理</a></li><li><a href="#2-flink-sql-执行流程">2. Flink Sql 执行流程</a></li><li><a href="#3-flink-table-api-执行流程">3. Flink Table Api 执行流程</a></li><li><a href="#4-flink-tablesql-执行流程的异同">4. Flink Table/SQL 执行流程的异同</a></li></ul></li><li><a href="#0x03-flink-sql-相关对象">0x03 Flink SQL 相关对象</a><ul><li><a href="#1-tableenvironment对象">1. TableEnvironment对象</a></li><li><a href="#2-catalog">2. Catalog</a></li><li><a href="#3-streamplanner">3. StreamPlanner</a></li><li><a href="#4-flinkplannerimpl">4. FlinkPlannerImpl</a></li><li><a href="#5-table-和-tableimpl">5. Table 和 TableImpl</a></li></ul></li><li><a href="#0x04-flink-sql-具体流程">0x04 Flink SQL 具体流程</a><ul><li><a href="#1-sql-解析阶段（sqlsqlnode）">1. SQL 解析阶段（SQL–>SqlNode）</a></li><li><a href="#2-sqlnode-验证（sqlnodesqlnode）">2. SqlNode 验证（SqlNode–>SqlNode）</a></li><li><a href="#3-语义分析（sqlnoderelnoderexnode）">3. 语义分析（SqlNode–>RelNode/RexNode）</a></li><li><a href="#4-优化阶段（relnoderelnode）">4. 优化阶段（RelNode–>RelNode）</a><ul><li><a href="#优化器的作用">优化器的作用</a></li><li><a href="#基于成本优化（cbo）">基于成本优化（CBO）</a></li><li><a href="#volcanoplanner相关概念">VolcanoPlanner相关概念</a></li><li><a href="#volcanoplanner执行步骤">VolcanoPlanner执行步骤</a></li><li><a href="#优化规则">优化规则</a><ul><li><a href="#streamexecunionrule">StreamExecUnionRule</a></li><li><a href="#streamexecjoinrule">StreamExecJoinRule</a></li></ul></li></ul></li><li><a href="#5-生成executionplan">5. 生成ExecutionPlan</a></li><li><a href="#6-运行时">6. 运行时</a></li></ul></li><li><a href="#0x05--代码实例-union">0x05  代码实例 UNION</a></li><li><a href="#0x06--代码实例-outer--join">0x06  代码实例 OUTER  JOIN</a></li><li><a href="#0x07--代码实例-window--join">0x07  代码实例 WINDOW  JOIN</a></li><li><a href="#0x08-参考">0x08 参考</a></li></ul></li></ul></div></p>
+<h2 id="0x00-摘要">0x00 摘要</h2>
+<p>本文将简述Flink SQL / Table API的内部实现，为大家把 &quot;从SQL语句到具体执行&quot; 这个流程串起来。并且尽量多提供调用栈，这样大家在遇到问题时就知道应该从什么地方设置断点，对整体架构理解也能更加深入。</p>
+<p>SQL流程中涉及到几个重要的节点举例如下：</p>
+<pre><code class="language-java">// NOTE : 执行顺序是从上至下, &quot; -----&gt; &quot; 表示生成的实例类型
+* 
+*        +-----&gt; &quot;left outer JOIN&quot; (SQL statement)
+*        |   
+*        |     
+*     SqlParser.parseQuery // SQL 解析阶段，生成AST（抽象语法树），作用是SQL–&gt;SqlNode      
+*        |   
+*        |      
+*        +-----&gt; SqlJoin (SqlNode)
+*        |   
+*        |     
+*     SqlToRelConverter.convertQuery // 语义分析，生成逻辑计划，作用是SqlNode–&gt;RelNode
+*        |    
+*        |     
+*        +-----&gt; LogicalProject (RelNode) // Abstract Syntax Tree，未优化的RelNode   
+*        |      
+*        |     
+*    FlinkLogicalJoinConverter (RelOptRule) // Flink定制的优化rules      
+*    VolcanoRuleCall.onMatch // 基于Flink定制的一些优化rules去优化 Logical Plan 
+*        | 
+*        |   
+*        +-----&gt; FlinkLogicalJoin (RelNode)  // Optimized Logical Plan，逻辑执行计划
+*        |  
+*        |    
+*    StreamExecJoinRule (RelOptRule) // Rule that converts FlinkLogicalJoin without window bounds in join condition to StreamExecJoin     
+*    VolcanoRuleCall.onMatch // 基于Flink rules将optimized LogicalPlan转成Flink物理执行计划
+*        |       
+*        |   
+*        +-----&gt; StreamExecJoin (FlinkRelNode) // Stream physical RelNode，物理执行计划
+*        |      
+*        |     
+*    StreamExecJoin.translateToPlanInternal  // 作用是生成 StreamOperator, 即Flink算子  
+*        |     
+*        |     
+*        +-----&gt; StreamingJoinOperator (StreamOperator) // Streaming unbounded Join operator in StreamTask   
+*        |     
+*        |       
+*    StreamTwoInputProcessor.processRecord1// 在TwoInputStreamTask调用StreamingJoinOperator，真实的执行 
+*        |
+*        |  
+</code></pre>
+<p><u>后续我们会以这个图为脉络进行讲解</u>。</p>
+<h2 id="0x01-apache-calcite">0x01 Apache Calcite</h2>
+<p>Flink Table API&amp;SQL 为流式数据和静态数据的关系查询保留统一的接口，而且利用了Apache Calcite的查询优化框架和SQL parser。</p>
+<p>为什么Flink要使用Table API呢？总结来说，关系型API的好处如下：</p>
+<ul>
+<li>关系型API是声明式的</li>
+<li>查询能够被有效的优化</li>
+<li>查询可以高效的执行</li>
+<li>“Everybody” knows SQL</li>
+</ul>
+<p>Calcite是这里面的核心成员。Apache Calcite是面向Hadoop新的sql引擎，它提供了标准的SQL语言、多种查询优化和连接各种数据源的能力。</p>
+<h3 id="1-calcite-概念">1. Calcite 概念</h3>
+<p>下面是 Calcite 概念梳理：</p>
+<ul>
+<li><strong>关系代数（Relational algebra）</strong>：即关系表达式。它们通常以动词命名，例如 Sort, Join, Project, Filter, Scan, Sample.</li>
+<li><strong>表达式有各种特征（Trait）</strong>：使用 Trait 的 satisfies() 方法来测试某个表达式是否符合某 Trait 或 Convention.</li>
+<li><strong>规则（Rules）</strong>：用于将一个表达式转换（Transform）为另一个表达式。它有一个由 RelOptRuleOperand 组成的列表来决定是否可将规则应用于树的某部分。</li>
+<li><strong>规划器（Planner）</strong> ：即请求优化器，它可以根据一系列规则和成本模型（例如基于成本的优化模型 VolcanoPlanner、启发式优化模型 HepPlanner）来将一个表达式转为语义等价（但效率更优）的另一个表达式。</li>
+<li><strong>RelNode</strong> ：代表了对数据的一个处理操作，常见的操作有 Sort、Join、Project、Filter、Scan 等。它蕴含的是对整个 Relation 的操作，而不是对具体数据的处理逻辑。RelNode 会标识其 input RelNode 信息，这样就构成了一棵 RelNode 树。</li>
+<li><strong>RexNode</strong>  : 行表达式（标量表达式），蕴含的是对一行数据的处理逻辑。每个行表达式都有数据的类型。这是因为在 Valdiation 的过程中，编译器会推导出表达式的结果类型。常见的行表达式包括字面量 RexLiteral， 变量 RexVariable，函数或操作符调用 RexCall 等。RexNode 通过 RexBuilder 进行构建。</li>
+<li><strong>RelTrait</strong> :  用来定义逻辑表的物理相关属性（physical property），三种主要的 trait 类型是：Convention、RelCollation、RelDistribution；</li>
+</ul>
+<h3 id="2-calcite-处理流程">2. Calcite 处理流程</h3>
+<p>Sql 的执行过程一般可以分为四个阶段，Calcite 与这个很类似，但Calcite是分成五个阶段 ：</p>
+<ol>
+<li>
+<p>SQL 解析阶段，生成AST（抽象语法树）（SQL–&gt;SqlNode）</p>
+</li>
+<li>
+<p>SqlNode 验证（SqlNode–&gt;SqlNode）</p>
+</li>
+<li>
+<p>语义分析，生成逻辑计划（Logical Plan）（SqlNode–&gt;RelNode/RexNode）</p>
+</li>
+<li>
+<p>优化阶段，按照相应的规则（Rule）进行优化（RelNode–&gt;RelNode）</p>
+</li>
+<li>
+<p>生成ExecutionPlan，生成物理执行计划（DataStream Plan）</p>
+</li>
+</ol>
+<h2 id="0x02--flink-sql综述">0x02  Flink SQL综述</h2>
+<h3 id="1-flink关系型api执行原理">1. Flink关系型API执行原理</h3>
+<p>Flink承载了 Table API 和 SQL API 两套表达方式。它以Apache Calcite这个SQL解析器做SQL语义解析，统一生成为 Calcite Logical Plan（SqlNode 树）；随后验证；再利用 Calcite的优化器优化转换规则和logical plan，根据数据源的性质(流和批)使用不同的规则进行优化，优化为 RelNode 逻辑执行计划树；最终优化后的plan转成常规的Flink DataSet 或 DataStream 程序。任何对于DataStream API和DataSet API的性能调优提升都能够自动地提升Table API或者SQL查询的效率。</p>
+<h3 id="2-flink-sql-执行流程">2. Flink Sql 执行流程</h3>
+<p>一条stream sql从提交到calcite解析、优化最后到Flink引擎执行，一般分为以下几个阶段:</p>
+<ol>
+<li>Sql Parser: 将sql语句通过java cc解析成AST(语法树),在calcite中用SqlNode表示AST;</li>
+<li>Sql Validator: 结合数字字典(catalog)去验证sql语法；</li>
+<li>生成Logical Plan: 将sqlNode表示的AST转换成LogicalPlan, 用relNode表示;</li>
+<li>生成 optimized LogicalPlan: 先基于calcite rules 去优化logical Plan, 再基于Flink定制的一些优化rules去优化logical Plan；</li>
+<li>生成Flink PhysicalPlan: 这里也是基于Flink里头的rules，将optimized LogicalPlan转成成Flink的物理执行计划；</li>
+<li>将物理执行计划转成Flink ExecutionPlan: 就是调用相应的tanslateToPlan方法转换和利用CodeGen元编程成Flink的各种算子。</li>
+</ol>
+<h3 id="3-flink-table-api-执行流程">3. Flink Table Api 执行流程</h3>
+<p>而如果是通过table api来提交任务的话，也会经过calcite优化等阶段，基本流程和直接运行sql类似:</p>
+<ol>
+<li>table api parser: Flink会把table api表达的计算逻辑也表示成一颗树，用treeNode去表式;<br>
+在这棵树上的每个节点的计算逻辑用Expression来表示。</li>
+<li>Validate: 会结合数字字典(catalog)将树的每个节点的Unresolved Expression进行绑定，生成Resolved Expression；</li>
+<li>生成Logical Plan: 依次遍历数的每个节点，调用construct方法将原先用treeNode表达的节点转成成用calcite 内部的数据结构relNode 来表达。即生成了LogicalPlan, 用relNode表示;</li>
+<li>生成 optimized LogicalPlan: 先基于calcite rules 去优化logical Plan,<br>
+再基于Flink定制的一些优化rules去优化logical Plan；</li>
+<li>生成Flink PhysicalPlan: 这里也是基于Flink里头的rules，将optimized LogicalPlan转成成Flink的物理执行计划；</li>
+<li>将物理执行计划转成Flink ExecutionPlan: 就是调用相应的tanslateToPlan方法转换和利用CodeGen元编程成Flink的各种算子。</li>
+</ol>
+<h3 id="4-flink-tablesql-执行流程的异同">4. Flink Table/SQL 执行流程的异同</h3>
+<p>可以看出来，Table API 与 SQL 在获取 RelNode 之后是一样的流程，只是获取 RelNode 的方式有所区别：</p>
+<ul>
+<li>Table API ：通过使用 RelBuilder来拿到RelNode（LogicalNode与Expression分别转换成RelNode与RexNode）；</li>
+<li>SQL ：通过使用Planner。首先通过parse方法将用户使用的SQL文本转换成由SqlNode表示的parse tree。接着通过validate方法，使用元信息来resolve字段，确定类型，验证有效性等等。最后通过rel方法将SqlNode转换成RelNode；</li>
+</ul>
+<h2 id="0x03-flink-sql-相关对象">0x03 Flink SQL 相关对象</h2>
+<h3 id="1-tableenvironment对象">1. TableEnvironment对象</h3>
+<p>TableEnvironment对象是Table API和SQL集成的一个核心，支持以下场景：</p>
+<ul>
+<li>注册一个Table。</li>
+<li>将一个TableSource注册给TableEnvironment，这里的TableSource指的是将数据存储系统的作为Table，例如mysql,hbase,CSV,Kakfa,RabbitMQ等等。</li>
+<li>注册一个外部的catalog，可以访问外部系统的数据或文件。</li>
+<li>执行SQL查询。</li>
+<li>注册一个用户自定义的function。</li>
+<li>将DataStream或DataSet转成Table。</li>
+</ul>
+<p>一个查询中只能绑定一个指定的TableEnvironment，TableEnvironment可以通过来配置TableConfig来配置，通过TableConfig可以自定义查询优化以及translation的进程。</p>
+<p>TableEnvironment执行过程如下：</p>
+<ul>
+<li>
+<p>TableEnvironment.sql()为调用入口；</p>
+</li>
+<li>
+<p>Flink实现了FlinkPlannerImpl，执行parse(sql)，validate(sqlNode)，rel(sqlNode)操作；</p>
+</li>
+<li>
+<p>生成Table；</p>
+</li>
+</ul>
+<p>具体代码摘要如下</p>
+<pre><code class="language-java">package org.apache.Flink.table.api.internal;
+
+@Internal
+public class TableEnvironmentImpl implements TableEnvironment {
+	private final CatalogManager catalogManager;
+	private final ModuleManager moduleManager;
+	private final OperationTreeBuilder operationTreeBuilder;
+	private final List&lt;ModifyOperation&gt; bufferedModifyOperations = new ArrayList&lt;&gt;();
+
+	protected final TableConfig tableConfig;
+	protected final Executor execEnv;
+	protected final FunctionCatalog functionCatalog;
+	protected final Planner planner;
+	protected final Parser parser;  
+}  
+
+// 在程序中打印类内容如下
+
+this = {StreamTableEnvironmentImpl@4701} 
+ functionCatalog = {FunctionCatalog@4702} 
+ scalaExecutionEnvironment = {StreamExecutionEnvironment@4703} 
+ planner = {StreamPlanner@4704} 
+  config = {TableConfig@4708} 
+  executor = {StreamExecutor@4709} 
+  PlannerBase.config = {TableConfig@4708} 
+  functionCatalog = {FunctionCatalog@4702} 
+  catalogManager = {CatalogManager@1250} 
+  isStreamingMode = true
+  plannerContext = {PlannerContext@4711} 
+  parser = {ParserImpl@4696} 
+ catalogManager = {CatalogManager@1250} 
+ moduleManager = {ModuleManager@4705} 
+ operationTreeBuilder = {OperationTreeBuilder@4706} 
+ bufferedModifyOperations = {ArrayList@4707}  size = 0
+ tableConfig = {TableConfig@4708} 
+ execEnv = {StreamExecutor@4709} 
+ TableEnvironmentImpl.functionCatalog = {FunctionCatalog@4702} 
+ TableEnvironmentImpl.planner = {StreamPlanner@4704} 
+ parser = {ParserImpl@4696} 
+ registration = {TableEnvironmentImpl$1@4710} 
+</code></pre>
+<h3 id="2-catalog">2. Catalog</h3>
+<p><strong>Catalog</strong> – 定义元数据和命名空间，包含 Schema（库），Table（表），RelDataType（类型信息）。</p>
+<p>所有对数据库和表的元数据信息都存放在Flink CataLog内部目录结构中，其存放了Flink内部所有与Table相关的元数据信息，包括表结构信息/数据源信息等。</p>
+<pre><code class="language-java">// TableEnvironment里面包含一个CatalogManager
+public final class CatalogManager {
+	// A map between names and catalogs.
+	private Map&lt;String, Catalog&gt; catalogs;  
+} 
+
+// Catalog接口
+public interface Catalog {
+  ......
+  	default Optional&lt;TableFactory&gt; getTableFactory() {
+		return Optional.empty();
+	}
+  ......
+}   
+
+// 当数据来源是在程序里面自定义的时候，对应是GenericInMemoryCatalog
+public class GenericInMemoryCatalog extends AbstractCatalog {
+	public static final String DEFAULT_DB = &quot;default&quot;;
+	private final Map&lt;String, CatalogDatabase&gt; databases;
+	private final Map&lt;ObjectPath, CatalogBaseTable&gt; tables;
+	private final Map&lt;ObjectPath, CatalogFunction&gt; functions;
+	private final Map&lt;ObjectPath, Map&lt;CatalogPartitionSpec, CatalogPartition&gt;&gt; partitions;
+
+	private final Map&lt;ObjectPath, CatalogTableStatistics&gt; tableStats;
+	private final Map&lt;ObjectPath, CatalogColumnStatistics&gt; tableColumnStats;
+	private final Map&lt;ObjectPath, Map&lt;CatalogPartitionSpec, CatalogTableStatistics&gt;&gt; partitionStats;
+	private final Map&lt;ObjectPath, Map&lt;CatalogPartitionSpec, CatalogColumnStatistics&gt;&gt; partitionColumnStats;
+}  
+
+// 程序中调试的内容  
+
+catalogManager = {CatalogManager@4646} 
+ catalogs = {LinkedHashMap@4652}  size = 1
+  &quot;default_catalog&quot; -&gt; {GenericInMemoryCatalog@4659} 
+   key = &quot;default_catalog&quot;
+    value = {char[15]@4668} 
+    hash = 552406043
+   value = {GenericInMemoryCatalog@4659} 
+    databases = {LinkedHashMap@4660}  size = 1
+    tables = {LinkedHashMap@4661}  size = 0
+    functions = {LinkedHashMap@4662}  size = 0
+    partitions = {LinkedHashMap@4663}  size = 0
+    tableStats = {LinkedHashMap@4664}  size = 0
+    tableColumnStats = {LinkedHashMap@4665}  size = 0
+    partitionStats = {LinkedHashMap@4666}  size = 0
+    partitionColumnStats = {LinkedHashMap@4667}  size = 0
+    catalogName = &quot;default_catalog&quot;
+    defaultDatabase = &quot;default_database&quot;
+ temporaryTables = {HashMap@4653}  size = 2
+ currentCatalogName = &quot;default_catalog&quot;
+ currentDatabaseName = &quot;default_database&quot;
+ builtInCatalogName = &quot;default_catalog&quot;
+</code></pre>
+<h3 id="3-streamplanner">3. StreamPlanner</h3>
+<p>StreamPlanner是新的Blink Planner一种。</p>
+<p>Flink Table 的新架构实现了查询处理器的插件化，社区完整保留原有 Flink Planner (Old Planner)，同时又引入了新的 Blink Planner，用户可以自行选择使用 Old Planner 还是 Blink Planner。</p>
+<p>在模型上，Old Planner 没有考虑流计算作业和批处理作业的统一，针对流计算作业和批处理作业的实现不尽相同，在底层会分别翻译到 DataStream API 和 DataSet API 上。而 Blink Planner 将批数据集看作 bounded DataStream (有界流式数据) ，流计算作业和批处理作业最终都会翻译到 Transformation API 上。 在架构上，Blink Planner 针对批处理和流计算，分别实现了BatchPlanner 和 <strong>StreamPlanner</strong> ，两者共用了大部分代码，共享了很多优化逻辑。 Old Planner 针对批处理和流计算的代码实现的是完全独立的两套体系，基本没有实现代码和优化逻辑复用。</p>
+<p>除了模型和架构上的优点外，Blink Planner 沉淀了许多实用功能，集中在三个方面：</p>
+<ul>
+<li><strong>Blink Planner 对代码生成机制做了改进、对部分算子进行了优化</strong>，提供了丰富实用的新功能，如维表 join、Top N、MiniBatch、流式去重、聚合场景的数据倾斜优化等新功能。</li>
+<li><strong>Blink Planner 的优化策略是基于公共子图的优化算法</strong>，包含了基于成本的优化（CBO）和基于规则的优化(CRO)两种策略，优化更为全面。同时，Blink Planner 支持从 catalog 中获取数据源的统计信息，这对CBO优化非常重要。</li>
+<li><strong>Blink Planner 提供了更多的内置函数，更标准的 SQL 支持</strong>，在 Flink 1.9 版本中已经完整支持 TPC-H ，对高阶的 TPC-DS 支持也计划在下一个版本实现。</li>
+</ul>
+<p>具体对应代码来看，StreamPlanner体现在translateToPlan会调用到不同的 StreamOperator 生成系统上。</p>
+<pre><code class="language-java">class StreamPlanner(
+    executor: Executor,
+    config: TableConfig,
+    functionCatalog: FunctionCatalog,
+    catalogManager: CatalogManager)
+  extends PlannerBase(executor, config, functionCatalog, catalogManager, isStreamingMode = true) {
+
+  override protected def translateToPlan(
+      execNodes: util.List[ExecNode[_, _]]): util.List[Transformation[_]] = {
+    execNodes.map {
+      case node: StreamExecNode[_] =&gt; node.translateToPlan(this)
+      case _ =&gt;
+        throw new TableException(&quot;Cannot generate DataStream due to an invalid logical plan. &quot; +
+          &quot;This is a bug and should not happen. Please file an issue.&quot;)
+    }
+  }
+}
+
+@Internal
+public final class StreamTableEnvironmentImpl extends TableEnvironmentImpl implements StreamTableEnvironment {
+
+	private &lt;T&gt; DataStream&lt;T&gt; toDataStream(Table table, OutputConversionModifyOperation modifyOperation) {
+    
+    // 在转换回DataStream时候进行调用 planner 生成plan的操作。
+    
+		List&lt;Transformation&lt;?&gt;&gt; transformations = planner.translate(Collections.singletonList(modifyOperation));
+
+		Transformation&lt;T&gt; transformation = getTransformation(table, transformations);
+
+		executionEnvironment.addOperator(transformation);
+		return new DataStream&lt;&gt;(executionEnvironment, transformation);
+	}
+}
+
+// 程序中调试打印的运行栈 
+
+translateToPlanInternal:85, StreamExecUnion (org.apache.Flink.table.planner.plan.nodes.physical.stream)
+translateToPlanInternal:39, StreamExecUnion (org.apache.Flink.table.planner.plan.nodes.physical.stream)
+translateToPlan:58, ExecNode$class (org.apache.Flink.table.planner.plan.nodes.exec)
+translateToPlan:39, StreamExecUnion (org.apache.Flink.table.planner.plan.nodes.physical.stream)
+translateToTransformation:184, StreamExecSink (org.apache.Flink.table.planner.plan.nodes.physical.stream)
+translateToPlanInternal:153, StreamExecSink (org.apache.Flink.table.planner.plan.nodes.physical.stream)
+translateToPlanInternal:48, StreamExecSink (org.apache.Flink.table.planner.plan.nodes.physical.stream)
+translateToPlan:58, ExecNode$class (org.apache.Flink.table.planner.plan.nodes.exec)
+translateToPlan:48, StreamExecSink (org.apache.Flink.table.planner.plan.nodes.physical.stream)
+apply:60, StreamPlanner$$anonfun$translateToPlan$1 (org.apache.Flink.table.planner.delegation)
+apply:59, StreamPlanner$$anonfun$translateToPlan$1 (org.apache.Flink.table.planner.delegation)
+apply:234, TraversableLike$$anonfun$map$1 (scala.collection)
+apply:234, TraversableLike$$anonfun$map$1 (scala.collection)
+foreach:891, Iterator$class (scala.collection)
+foreach:1334, AbstractIterator (scala.collection)
+foreach:72, IterableLike$class (scala.collection)
+foreach:54, AbstractIterable (scala.collection)
+map:234, TraversableLike$class (scala.collection)
+map:104, AbstractTraversable (scala.collection)
+translateToPlan:59, StreamPlanner (org.apache.Flink.table.planner.delegation)
+translate:153, PlannerBase (org.apache.Flink.table.planner.delegation)
+toDataStream:210, StreamTableEnvironmentImpl (org.apache.Flink.table.api.scala.internal)
+toAppendStream:107, StreamTableEnvironmentImpl (org.apache.Flink.table.api.scala.internal)
+toAppendStream:101, TableConversions (org.apache.Flink.table.api.scala)
+main:89, StreamSQLExample$ (spendreport)
+main:-1, StreamSQLExample (spendreport)
+</code></pre>
+<h3 id="4-flinkplannerimpl">4. FlinkPlannerImpl</h3>
+<p>Flink实现了<strong>FlinkPlannerImpl</strong>，做为和Calcite 联系的桥梁，执行parse(sql)，validate(sqlNode)，rel(sqlNode)操作。</p>
+<pre><code class="language-java">class FlinkPlannerImpl(
+    config: FrameworkConfig,
+    catalogReaderSupplier: JFunction[JBoolean, CalciteCatalogReader],
+    typeFactory: FlinkTypeFactory,
+    cluster: RelOptCluster) {
+
+  val operatorTable: SqlOperatorTable = config.getOperatorTable
+  val parser: CalciteParser = new CalciteParser(config.getParserConfig)
+  val convertletTable: SqlRexConvertletTable = config.getConvertletTable
+  val sqlToRelConverterConfig: SqlToRelConverter.Config = config.getSqlToRelConverterConfig
+}
+
+// 这里会有使用 FlinkPlannerImpl
+public class ParserImpl implements Parser {
+	private final CatalogManager catalogManager;
+	private final Supplier&lt;FlinkPlannerImpl&gt; validatorSupplier;
+	private final Supplier&lt;CalciteParser&gt; calciteParserSupplier;
+  
+	@Override
+	public List&lt;Operation&gt; parse(String statement) {
+		CalciteParser parser = calciteParserSupplier.get();
+    // 这里会有使用 FlinkPlannerImpl
+		FlinkPlannerImpl planner = validatorSupplier.get();
+		// parse the sql query
+		SqlNode parsed = parser.parse(statement);
+		Operation operation = SqlToOperationConverter.convert(planner, catalogManager, parsed)
+			.orElseThrow(() -&gt; new TableException(&quot;Unsupported query: &quot; + statement));
+		return Collections.singletonList(operation);
+	}  
+}
+
+// 程序中调试的内容  
+
+planner = {FlinkPlannerImpl@4659} 
+ config = {Frameworks$StdFrameworkConfig@4685} 
+ catalogReaderSupplier = {PlannerContext$lambda@4686} 
+ typeFactory = {FlinkTypeFactory@4687} 
+ cluster = {FlinkRelOptCluster@4688} 
+ operatorTable = {ChainedSqlOperatorTable@4689} 
+ parser = {CalciteParser@4690} 
+ convertletTable = {StandardConvertletTable@4691} 
+ sqlToRelConverterConfig = {SqlToRelConverter$ConfigImpl@4692} 
+ validator = null
+   
+// 程序调用栈之一   
+   
+validate:104, FlinkPlannerImpl (org.apache.Flink.table.planner.calcite)
+convert:127, SqlToOperationConverter (org.apache.Flink.table.planner.operations)
+parse:66, ParserImpl (org.apache.Flink.table.planner.delegation)
+sqlQuery:464, TableEnvironmentImpl (org.apache.Flink.table.api.internal)
+main:82, StreamSQLExample$ (spendreport)
+main:-1, StreamSQLExample (spendreport)
+  
+// 程序调用栈之二       
+  
+rel:135, FlinkPlannerImpl (org.apache.Flink.table.planner.calcite)
+toQueryOperation:522, SqlToOperationConverter (org.apache.Flink.table.planner.operations)
+convertSqlQuery:436, SqlToOperationConverter (org.apache.Flink.table.planner.operations)
+convert:154, SqlToOperationConverter (org.apache.Flink.table.planner.operations)
+parse:66, ParserImpl (org.apache.Flink.table.planner.delegation)
+sqlQuery:464, TableEnvironmentImpl (org.apache.Flink.table.api.internal)
+main:82, StreamSQLExample$ (spendreport)
+main:-1, StreamSQLExample (spendreport)  
+</code></pre>
+<h3 id="5-table-和-tableimpl">5. Table 和 TableImpl</h3>
+<p>从代码中能看出，这就是个把各种相关操作和信息封装起来类而已，并不涉及太多实际逻辑。</p>
+<pre><code class="language-java">@Internal
+public class TableImpl implements Table {
+
+	private static final AtomicInteger uniqueId = new AtomicInteger(0);
+
+	private final TableEnvironment tableEnvironment;
+	private final QueryOperation operationTree;
+	private final OperationTreeBuilder operationTreeBuilder;
+	private final LookupCallResolver lookupResolver;
+  
+	private TableImpl joinInternal(
+			Table right,
+			Optional&lt;Expression&gt; joinPredicate,
+			JoinType joinType) {
+		verifyTableCompatible(right);
+
+		return createTable(operationTreeBuilder.join(
+			this.operationTree,
+			right.getQueryOperation(),
+			joinType,
+			joinPredicate,
+			false));
+	}
+}
+
+// 程序中调试的内容 
+
+view = {TableImpl@4583} &quot;UnnamedTable$0&quot;
+ tableEnvironment = {StreamTableEnvironmentImpl@4580} 
+  functionCatalog = {FunctionCatalog@4646} 
+  scalaExecutionEnvironment = {StreamExecutionEnvironment@4579} 
+  planner = {StreamPlanner@4647} 
+  catalogManager = {CatalogManager@4644} 
+  moduleManager = {ModuleManager@4648} 
+  operationTreeBuilder = {OperationTreeBuilder@4649} 
+  bufferedModifyOperations = {ArrayList@4650}  size = 0
+  tableConfig = {TableConfig@4651} 
+  execEnv = {StreamExecutor@4652} 
+  TableEnvironmentImpl.functionCatalog = {FunctionCatalog@4646} 
+  TableEnvironmentImpl.planner = {StreamPlanner@4647} 
+  parser = {ParserImpl@4653} 
+  registration = {TableEnvironmentImpl$1@4654} 
+ operationTree = {ScalaDataStreamQueryOperation@4665} 
+  identifier = null
+  dataStream = {DataStreamSource@4676} 
+  fieldIndices = {int[2]@4677} 
+  tableSchema = {TableSchema@4678} &quot;root\n |-- orderId: STRING\n |-- productName: STRING\n&quot;
+ operationTreeBuilder = {OperationTreeBuilder@4649} 
+  config = {TableConfig@4651} 
+  functionCatalog = {FunctionCatalog@4646} 
+  tableReferenceLookup = {TableEnvironmentImpl$lambda@4668} 
+  lookupResolver = {LookupCallResolver@4669} 
+  projectionOperationFactory = {ProjectionOperationFactory@4670} 
+  sortOperationFactory = {SortOperationFactory@4671} 
+  calculatedTableFactory = {CalculatedTableFactory@4672} 
+  setOperationFactory = {SetOperationFactory@4673} 
+  aggregateOperationFactory = {AggregateOperationFactory@4674} 
+  joinOperationFactory = {JoinOperationFactory@4675} 
+ lookupResolver = {LookupCallResolver@4666} 
+  functionLookup = {FunctionCatalog@4646} 
+ tableName = &quot;UnnamedTable$0&quot;
+  value = {char[14]@4667} 
+  hash = 1355882650
+</code></pre>
+<h2 id="0x04-flink-sql-具体流程">0x04 Flink SQL 具体流程</h2>
+<h3 id="1-sql-解析阶段（sqlsqlnode）">1. SQL 解析阶段（SQL–&gt;SqlNode）</h3>
+<p><u>这里对应前面脉络图，作用是生成了 SqlJoin 这样的 SqlNode</u></p>
+<pre><code class="language-java">// NOTE : 执行顺序是从上至下，&quot; -----&gt; &quot; 表示生成的实例类型
+* 
+*        +-----&gt; &quot;left outer JOIN&quot; (SQL statement)
+*        |   
+*        |     
+*     SqlParser.parseQuery // SQL 解析阶段，生成AST（抽象语法树），作用是SQL–&gt;SqlNode      
+*        |   
+*        |  
+*        +-----&gt; SqlJoin (SqlNode)
+*        |   
+*        |   
+</code></pre>
+<p>Calcite 使用 JavaCC 做 SQL 解析，JavaCC 根据 Calcite 中定义的 Parser.jj 文件，生成一系列的 java 代码，生成的 Java 代码会把 SQL 转换成 AST 的数据结构（这里是 SqlNode 类型）。</p>
+<blockquote>
+<p>即：把 SQL 转换成为 AST （抽象语法树），在 Calcite 中用 SqlNode 来表示；</p>
+</blockquote>
+<pre><code class="language-java">package org.apache.Flink.table.planner.delegation;
+
+public class ParserImpl implements Parser {
+	@Override
+	public List&lt;Operation&gt; parse(String statement) {
+		CalciteParser parser = calciteParserSupplier.get();
+		FlinkPlannerImpl planner = validatorSupplier.get();
+    
+		// parse the sql query
+		SqlNode parsed = parser.parse(statement);
+
+		Operation operation = SqlToOperationConverter.convert(planner, catalogManager, parsed)
+			.orElseThrow(() -&gt; new TableException(&quot;Unsupported query: &quot; + statement));
+		return Collections.singletonList(operation);
+	}  
+}  
+
+// 打印出来解析之后 parsed 的内容，我们能看到 SqlNode 的基本格式。
+  
+parsed = {SqlBasicCall@4690} &quot;SELECT *\nFROM `UnnamedTable$0`\nWHERE `amount` &gt; 2\nUNION ALL\nSELECT *\nFROM `OrderB`\nWHERE `amount` &lt; 2&quot;
+ operator = {SqlSetOperator@4716} &quot;UNION ALL&quot;
+  all = true
+  name = &quot;UNION ALL&quot;
+  kind = {SqlKind@4742} &quot;UNION&quot;
+  leftPrec = 14
+  rightPrec = 15
+  returnTypeInference = {ReturnTypes$lambda@4743} 
+  operandTypeInference = null
+  operandTypeChecker = {SetopOperandTypeChecker@4744} 
+ operands = {SqlNode[2]@4717} 
+  0 = {SqlSelect@4746} &quot;SELECT *\nFROM `UnnamedTable$0`\nWHERE `amount` &gt; 2&quot;
+  1 = {SqlSelect@4747} &quot;SELECT *\nFROM `OrderB`\nWHERE `amount` &lt; 2&quot;
+ functionQuantifier = null
+ expanded = false
+ pos = {SqlParserPos@4719} &quot;line 2, column 1&quot;  
+    
+// 下面是调试相关Stack，可以帮助大家深入理解
+    
+SqlStmt:3208, FlinkSqlParserImpl (org.apache.Flink.sql.parser.impl)
+SqlStmtEof:3732, FlinkSqlParserImpl (org.apache.Flink.sql.parser.impl)
+parseSqlStmtEof:234, FlinkSqlParserImpl (org.apache.Flink.sql.parser.impl)
+parseQuery:160, SqlParser (org.apache.calcite.sql.parser)
+parseStmt:187, SqlParser (org.apache.calcite.sql.parser)
+parse:48, CalciteParser (org.apache.Flink.table.planner.calcite)
+parse:64, ParserImpl (org.apache.Flink.table.planner.delegation)
+sqlQuery:464, TableEnvironmentImpl (org.apache.Flink.table.api.internal)
+main:82, StreamSQLExample$ (spendreport)
+main:-1, StreamSQLExample (spendreport)
+  
+// 另一个参考 in FlinkSqlParserImpl.FromClause     
+    
+e = {SqlJoin@4709} &quot;`Orders` AS `o`\nLEFT JOIN `Payment` AS `p` ON `o`.`orderId` = `p`.`orderId`&quot;
+ left = {SqlBasicCall@4676} &quot;`Orders` AS `o`&quot;
+  operator = {SqlAsOperator@4752} &quot;AS&quot;
+  operands = {SqlNode[2]@4753} 
+  functionQuantifier = null
+  expanded = false
+  pos = {SqlParserPos@4755} &quot;line 7, column 3&quot;
+ natural = {SqlLiteral@4677} &quot;FALSE&quot;
+  typeName = {SqlTypeName@4775} &quot;BOOLEAN&quot;
+  value = {Boolean@4776} false
+  pos = {SqlParserPos@4777} &quot;line 7, column 13&quot;
+ joinType = {SqlLiteral@4678} &quot;LEFT&quot;
+  typeName = {SqlTypeName@4758} &quot;SYMBOL&quot;
+  value = {JoinType@4759} &quot;LEFT&quot;
+  pos = {SqlParserPos@4724} &quot;line 7, column 26&quot;
+ right = {SqlBasicCall@4679} &quot;`Payment` AS `p`&quot;
+  operator = {SqlAsOperator@4752} &quot;AS&quot;
+  operands = {SqlNode[2]@4763} 
+  functionQuantifier = null
+  expanded = false
+  pos = {SqlParserPos@4764} &quot;line 7, column 31&quot;
+ conditionType = {SqlLiteral@4680} &quot;ON&quot;
+  typeName = {SqlTypeName@4758} &quot;SYMBOL&quot;
+  value = {JoinConditionType@4771} &quot;ON&quot;
+  pos = {SqlParserPos@4772} &quot;line 7, column 44&quot;
+ condition = {SqlBasicCall@4681} &quot;`o`.`orderId` = `p`.`orderId`&quot;
+  operator = {SqlBinaryOperator@4766} &quot;=&quot;
+  operands = {SqlNode[2]@4767} 
+  functionQuantifier = null
+  expanded = false
+  pos = {SqlParserPos@4768} &quot;line 7, column 47&quot;
+ pos = {SqlParserPos@4724} &quot;line 7, column 26&quot; 
+        
+// 下面是调试相关Stack，可以帮助大家深入理解
+    
+FromClause:10192, FlinkSqlParserImpl (org.apache.flink.sql.parser.impl)
+SqlSelect:5918, FlinkSqlParserImpl (org.apache.flink.sql.parser.impl)
+LeafQuery:630, FlinkSqlParserImpl (org.apache.flink.sql.parser.impl)
+LeafQueryOrExpr:15651, FlinkSqlParserImpl (org.apache.flink.sql.parser.impl)
+QueryOrExpr:15118, FlinkSqlParserImpl (org.apache.flink.sql.parser.impl)
+OrderedQueryOrExpr:504, FlinkSqlParserImpl (org.apache.flink.sql.parser.impl)
+SqlStmt:3693, FlinkSqlParserImpl (org.apache.flink.sql.parser.impl)
+SqlStmtEof:3732, FlinkSqlParserImpl (org.apache.flink.sql.parser.impl)
+parseSqlStmtEof:234, FlinkSqlParserImpl (org.apache.flink.sql.parser.impl)
+parseQuery:160, SqlParser (org.apache.calcite.sql.parser)
+parseStmt:187, SqlParser (org.apache.calcite.sql.parser)
+parse:48, CalciteParser (org.apache.flink.table.planner.calcite)
+parse:64, ParserImpl (org.apache.flink.table.planner.delegation)
+sqlQuery:464, TableEnvironmentImpl (org.apache.flink.table.api.internal)
+main:73, SimpleOuterJoin$ (spendreport)
+main:-1, SimpleOuterJoin (spendreport)  
+</code></pre>
+<h3 id="2-sqlnode-验证（sqlnodesqlnode）">2. SqlNode 验证（SqlNode–&gt;SqlNode）</h3>
+<p>经过上面的第一步，会生成一个 SqlNode 对象，它是一个未经验证的抽象语法树，下面就进入了一个语法检查阶段，语法检查前需要知道元数据信息，这个检查会包括表名、字段名、函数名、数据类型的检查。</p>
+<blockquote>
+<p>即：语法检查，根据元数据信息进行语法验证，验证之后还是用 SqlNode 表示 AST 语法树；</p>
+</blockquote>
+<pre><code class="language-java">package org.apache.Flink.table.planner.operations;
+
+public class SqlToOperationConverter {
+	public static Optional&lt;Operation&gt; convert(
+    // 这里进行validate的调用
+		final SqlNode validated = FlinkPlanner.validate(sqlNode);
+		SqlToOperationConverter converter = new SqlToOperationConverter(FlinkPlanner, catalogManager);
+	}    
+}
+    
+// 打印出来解析之后 validated 的内容。    
+    
+validated = {SqlBasicCall@4675} &quot;SELECT `UnnamedTable$0`.`user`, `UnnamedTable$0`.`product`, `UnnamedTable$0`.`amount`\nFROM `default_catalog`.`default_database`.`UnnamedTable$0` AS `UnnamedTable$0`\nWHERE `UnnamedTable$0`.`amount` &gt; 2\nUNION ALL\nSELECT `OrderB`.`user`, `OrderB`.`product`, `OrderB`.`amount`\nFROM `default_catalog`.`default_database`.`OrderB` AS `OrderB`\nWHERE `OrderB`.`amount` &lt; 2&quot;
+ operator = {SqlSetOperator@5000} &quot;UNION ALL&quot;
+  all = true
+  name = &quot;UNION ALL&quot;
+  kind = {SqlKind@5029} &quot;UNION&quot;
+  leftPrec = 14
+  rightPrec = 15
+  returnTypeInference = {ReturnTypes$lambda@5030} 
+  operandTypeInference = null
+  operandTypeChecker = {SetopOperandTypeChecker@5031} 
+ operands = {SqlNode[2]@5001} 
+  0 = {SqlSelect@4840} &quot;SELECT `UnnamedTable$0`.`user`, `UnnamedTable$0`.`product`, `UnnamedTable$0`.`amount`\nFROM `default_catalog`.`default_database`.`UnnamedTable$0` AS `UnnamedTable$0`\nWHERE `UnnamedTable$0`.`amount` &gt; 2&quot;
+  1 = {SqlSelect@5026} &quot;SELECT `OrderB`.`user`, `OrderB`.`product`, `OrderB`.`amount`\nFROM `default_catalog`.`default_database`.`OrderB` AS `OrderB`\nWHERE `OrderB`.`amount` &lt; 2&quot;
+ functionQuantifier = null
+ expanded = false
+ pos = {SqlParserPos@5003} &quot;line 2, column 1&quot;    
+    
+// 下面是调试相关Stack，可以帮助大家深入理解    
+    
+validate:81, AbstractNamespace (org.apache.calcite.sql.validate)
+validateNamespace:1008, SqlValidatorImpl (org.apache.calcite.sql.validate)
+validateQuery:968, SqlValidatorImpl (org.apache.calcite.sql.validate)
+validateCall:90, SqlSetOperator (org.apache.calcite.sql)
+validateCall:5304, SqlValidatorImpl (org.apache.calcite.sql.validate)
+validate:116, SqlCall (org.apache.calcite.sql)
+validateScopedExpression:943, SqlValidatorImpl (org.apache.calcite.sql.validate)
+validate:650, SqlValidatorImpl (org.apache.calcite.sql.validate)
+org$apache$Flink$table$planner$calcite$FlinkPlannerImpl$$validate:126, FlinkPlannerImpl (org.apache.Flink.table.planner.calcite)
+validate:105, FlinkPlannerImpl (org.apache.Flink.table.planner.calcite)
+convert:127, SqlToOperationConverter (org.apache.Flink.table.planner.operations)
+parse:66, ParserImpl (org.apache.Flink.table.planner.delegation)
+sqlQuery:464, TableEnvironmentImpl (org.apache.Flink.table.api.internal)
+main:82, StreamSQLExample$ (spendreport)
+main:-1, StreamSQLExample (spendreport)    
+</code></pre>
+<h3 id="3-语义分析（sqlnoderelnoderexnode）">3. 语义分析（SqlNode–&gt;RelNode/RexNode）</h3>
+<p>脉络图中，这时候来到了</p>
+<pre><code class="language-java">// NOTE : 执行顺序是从上至下，&quot; -----&gt; &quot; 表示生成的实例类型
+* 
+*        +-----&gt; &quot;left outer JOIN&quot; (SQL statement)
+*        |   
+*        |     
+*     SqlParser.parseQuery // SQL 解析阶段，生成AST（抽象语法树），作用是SQL–&gt;SqlNode      
+*        |   
+*        |      
+*        +-----&gt; SqlJoin (SqlNode)
+*        |   
+*        |     
+*     SqlToRelConverter.convertQuery // 语义分析，生成逻辑计划，作用是SqlNode–&gt;RelNode
+*        |    
+*        |     
+*        +-----&gt; LogicalProject (RelNode) // Abstract Syntax Tree，未优化的RelNode   
+*        |      
+*        |     
+</code></pre>
+<p>经过第二步之后，这里的 SqlNode 就是经过语法校验的 SqlNode 树，接下来这一步就是将 SqlNode 转换成 RelNode/RexNode，也就是生成相应的逻辑计划（Logical Plan）</p>
+<blockquote>
+<p>即：语义分析，根据 SqlNode及元信息构建 RelNode 树，也就是最初版本的逻辑计划（Logical Plan）；</p>
+</blockquote>
+<p><u>根据这个已经生成的Flink的logical Plan，将它转换成calcite的logicalPlan，这样我们才能用到calcite强大的优化规则</u>。</p>
+<p>Flink由上往下依次调用各个节点的construct方法，将Flink节点转换成calcite的RelNode节点。真正的实现是在 <code>convertQueryRecursive()</code> 方法中完成的。</p>
+<p>比如生成 LogicalProject 调用关系大概如下：</p>
+<pre><code class="language-java">createJoin:378, RelFactories$JoinFactoryImpl (org.apache.calcite.rel.core)
+createJoin:2520, SqlToRelConverter (org.apache.calcite.sql2rel)
+convertFrom:2111, SqlToRelConverter (org.apache.calcite.sql2rel)
+convertSelectImpl:646, SqlToRelConverter (org.apache.calcite.sql2rel)
+convertSelect:627, SqlToRelConverter (org.apache.calcite.sql2rel)
+convertQueryRecursive:3181, SqlToRelConverter (org.apache.calcite.sql2rel)
+convertQuery:563, SqlToRelConverter (org.apache.calcite.sql2rel)
+org$apache$flink$table$planner$calcite$FlinkPlannerImpl$$rel:148, FlinkPlannerImpl (org.apache.flink.table.planner.calcite)
+rel:135, FlinkPlannerImpl (org.apache.flink.table.planner.calcite)
+toQueryOperation:522, SqlToOperationConverter (org.apache.flink.table.planner.operations)
+convertSqlQuery:436, SqlToOperationConverter (org.apache.flink.table.planner.operations)
+convert:154, SqlToOperationConverter (org.apache.flink.table.planner.operations)
+parse:66, ParserImpl (org.apache.flink.table.planner.delegation)
+sqlQuery:464, TableEnvironmentImpl (org.apache.flink.table.api.internal)
+main:73, SimpleOuterJoin$ (spendreport)
+main:-1, SimpleOuterJoin (spendreport)
+</code></pre>
+<p>具体详细源码如下：</p>
+<pre><code class="language-java">SqlToRelConverter 中的 convertQuery() 将 SqlNode 转换为 RelRoot
+  
+public class SqlToRelConverter {  
+    public RelRoot convertQuery(SqlNode query, boolean needsValidation, boolean top) {
+        if (needsValidation) {
+            query = this.validator.validate(query);
+        }
+              	             RelMetadataQuery.THREAD_PROVIDERS.set(JaninoRelMetadataProvider.of(this.cluster.getMetadataProvider()));
+        RelNode result = this.convertQueryRecursive(query, top, (RelDataType)null).rel;
+        if (top &amp;&amp; isStream(query)) {
+            result = new LogicalDelta(this.cluster, ((RelNode)result).getTraitSet(), (RelNode)result);
+        }
+
+        RelCollation collation = RelCollations.EMPTY;
+        if (!query.isA(SqlKind.DML) &amp;&amp; isOrdered(query)) {
+            collation = this.requiredCollation((RelNode)result);
+        }
+
+        this.checkConvertedType(query, (RelNode)result);
+
+        RelDataType validatedRowType = this.validator.getValidatedNodeType(query);
+      
+        // 这里设定了Root
+        return RelRoot.of((RelNode)result, validatedRowType, query.getKind()).withCollation(collation);
+    }
+}
+
+// 在这里打印
+toQueryOperation:523, SqlToOperationConverter (org.apache.Flink.table.planner.operations)
+
+// 得到如下内容，可以看到一个RelRoot的真实结构
+  
+relational = {RelRoot@5248} &quot;Root {kind: UNION, rel: LogicalUnion#6, rowType: RecordType(BIGINT user, VARCHAR(2147483647) product, INTEGER amount), fields: [&lt;0, user&gt;, &lt;1, product&gt;, &lt;2, amount&gt;], collation: []}&quot;
+ rel = {LogicalUnion@5227} &quot;LogicalUnion#6&quot;
+  inputs = {RegularImmutableList@5272}  size = 2
+  kind = {SqlKind@5029} &quot;UNION&quot;
+  all = true
+  desc = &quot;LogicalUnion#6&quot;
+  rowType = {RelRecordType@5238} &quot;RecordType(BIGINT user, VARCHAR(2147483647) product, INTEGER amount)&quot;
+  digest = &quot;LogicalUnion#6&quot;
+  cluster = {FlinkRelOptCluster@4800} 
+  id = 6
+  traitSet = {RelTraitSet@5273}  size = 5
+ validatedRowType = {RelRecordType@5238} &quot;RecordType(BIGINT user, VARCHAR(2147483647) product, INTEGER amount)&quot;
+  kind = {StructKind@5268} &quot;FULLY_QUALIFIED&quot;
+  nullable = false
+  fieldList = {RegularImmutableList@5269}  size = 3
+  digest = &quot;RecordType(BIGINT user, VARCHAR(2147483647) CHARACTER SET &quot;UTF-16LE&quot; product, INTEGER amount) NOT NULL&quot;
+ kind = {SqlKind@5029} &quot;UNION&quot;
+  lowerName = &quot;union&quot;
+  sql = &quot;UNION&quot;
+  name = &quot;UNION&quot;
+  ordinal = 18
+ fields = {RegularImmutableList@5254}  size = 3
+  {Integer@5261} 0 -&gt; &quot;user&quot;
+  {Integer@5263} 1 -&gt; &quot;product&quot;
+  {Integer@5265} 2 -&gt; &quot;amount&quot;
+ collation = {RelCollationImpl@5237} &quot;[]&quot;
+  fieldCollations = {RegularImmutableList@5256}  size = 0
+
+// 调用栈内容
+    
+convertQuery:561, SqlToRelConverter (org.apache.calcite.sql2rel)
+org$apache$Flink$table$planner$calcite$FlinkPlannerImpl$$rel:148, FlinkPlannerImpl (org.apache.Flink.table.planner.calcite)
+rel:135, FlinkPlannerImpl (org.apache.Flink.table.planner.calcite)
+toQueryOperation:522, SqlToOperationConverter (org.apache.Flink.table.planner.operations)
+convertSqlQuery:436, SqlToOperationConverter (org.apache.Flink.table.planner.operations)
+convert:154, SqlToOperationConverter (org.apache.Flink.table.planner.operations)
+parse:66, ParserImpl (org.apache.Flink.table.planner.delegation)
+sqlQuery:464, TableEnvironmentImpl (org.apache.Flink.table.api.internal)
+main:82, StreamSQLExample$ (spendreport)
+main:-1, StreamSQLExample (spendreport)
+  
+// 再次举例，生成了LogicalProject 
+  
+bb = {SqlToRelConverter$Blackboard@4978} 
+ scope = {SelectScope@4977} 
+ nameToNodeMap = null
+ root = {LogicalProject@5100} &quot;LogicalProject#4&quot;
+  exps = {RegularImmutableList@5105}  size = 3
+  input = {LogicalJoin@5106} &quot;LogicalJoin#3&quot;
+  desc = &quot;LogicalProject#4&quot;
+  rowType = {RelRecordType@5107} &quot;RecordType(VARCHAR(2147483647) orderId, VARCHAR(2147483647) productName, VARCHAR(2147483647) payType)&quot;
+  digest = &quot;LogicalProject#4&quot;
+  cluster = {FlinkRelOptCluster@4949} 
+  id = 4
+  traitSet = {RelTraitSet@5108}  size = 5
+ inputs = {Collections$SingletonList@5111}  size = 1
+ mapCorrelateToRex = {HashMap@5112}  size = 0
+ isPatternVarRef = false
+ cursors = {ArrayList@5113}  size = 0
+ subQueryList = {LinkedHashSet@5114}  size = 0
+ agg = null
+ window = null
+ mapRootRelToFieldProjection = {HashMap@5115}  size = 0
+ columnMonotonicities = {ArrayList@5116}  size = 3
+ systemFieldList = {ArrayList@5117}  size = 0
+ top = true
+ initializerExpressionFactory = {NullInitializerExpressionFactory@5118} 
+ this$0 = {SqlToRelConverter@4926} 
+
+// 举例，LogicalProject是在这里生成的。
+
+   protected void convertFrom(SqlToRelConverter.Blackboard bb, SqlNode from) {
+            case JOIN:
+                RelNode joinRel = this.createJoin(fromBlackboard, leftRel, rightRel, conditionExp, convertedJoinType);
+                bb.setRoot(joinRel, false);  
+   }
+  
+// 相关调用栈
+
+createJoin:378, RelFactories$JoinFactoryImpl (org.apache.calcite.rel.core)
+createJoin:2520, SqlToRelConverter (org.apache.calcite.sql2rel)
+convertFrom:2111, SqlToRelConverter (org.apache.calcite.sql2rel)
+convertSelectImpl:646, SqlToRelConverter (org.apache.calcite.sql2rel)
+convertSelect:627, SqlToRelConverter (org.apache.calcite.sql2rel)
+convertQueryRecursive:3181, SqlToRelConverter (org.apache.calcite.sql2rel)
+convertQuery:563, SqlToRelConverter (org.apache.calcite.sql2rel)
+org$apache$flink$table$planner$calcite$FlinkPlannerImpl$$rel:148, FlinkPlannerImpl (org.apache.flink.table.planner.calcite)
+rel:135, FlinkPlannerImpl (org.apache.flink.table.planner.calcite)
+toQueryOperation:522, SqlToOperationConverter (org.apache.flink.table.planner.operations)
+convertSqlQuery:436, SqlToOperationConverter (org.apache.flink.table.planner.operations)
+convert:154, SqlToOperationConverter (org.apache.flink.table.planner.operations)
+parse:66, ParserImpl (org.apache.flink.table.planner.delegation)
+sqlQuery:464, TableEnvironmentImpl (org.apache.flink.table.api.internal)
+main:73, SimpleOuterJoin$ (spendreport)
+main:-1, SimpleOuterJoin (spendreport)
+</code></pre>
+<h3 id="4-优化阶段（relnoderelnode）">4. 优化阶段（RelNode–&gt;RelNode）</h3>
+<p>这时候，脉络图到了这里</p>
+<pre><code class="language-java">// NOTE : 执行顺序是从上至下，&quot; -----&gt; &quot; 表示生成的实例类型
+* 
+*        +-----&gt; &quot;left outer JOIN&quot; (SQL statement)
+*        |   
+*        |     
+*     SqlParser.parseQuery // SQL 解析阶段，生成AST（抽象语法树），作用是SQL–&gt;SqlNode      
+*        |   
+*        |      
+*        +-----&gt; SqlJoin (SqlNode)
+*        |   
+*        |     
+*     SqlToRelConverter.convertQuery // 语义分析，生成逻辑计划，作用是SqlNode–&gt;RelNode
+*        |    
+*        |     
+*        +-----&gt; LogicalProject (RelNode) // Abstract Syntax Tree，未优化的RelNode   
+*        |      
+*        |     
+*    FlinkLogicalJoinConverter (RelOptRule) // Flink定制的优化rules      
+*    VolcanoRuleCall.onMatch // 基于Flink定制的一些优化rules去优化 Logical Plan 
+*        | 
+*        |   
+*        +-----&gt; FlinkLogicalJoin (RelNode)  // Optimized Logical Plan，逻辑执行计划
+*        |  
+*        |    
+*    StreamExecJoinRule (RelOptRule) // Rule that converts FlinkLogicalJoin without window bounds in join condition to StreamExecJoin     
+*    VolcanoRuleCall.onMatch // 基于Flink rules将optimized LogicalPlan转成Flink物理执行计划
+*        |       
+*        |   
+*        +-----&gt; StreamExecJoin (FlinkRelNode) // Stream physical RelNode，物理执行计划
+*        |      
+*        |     
+</code></pre>
+<p>第四阶段，也就是 Calcite 的核心所在。</p>
+<blockquote>
+<p>即：逻辑计划优化，优化器的核心，根据前面生成的逻辑计划按照相应的规则（Rule）进行优化；</p>
+</blockquote>
+<p>Flink的这部分实现统一封装在optimize方法里头。这部分涉及到多个阶段，每个阶段都是用Rule对逻辑计划进行优化和改进。</p>
+<h4 id="优化器的作用">优化器的作用</h4>
+<p>在 Calcite 架构中，最核心地方就是 Optimizer，也就是优化器，一个 Optimization Engine 包含三个组成部分：</p>
+<ul>
+<li>rules：也就是匹配规则，Calcite 内置上百种 Rules 来优化 relational expression，当然也支持自定义 rules；</li>
+<li>metadata providers：主要是向优化器提供信息，这些信息会有助于指导优化器向着目标（减少整体 cost）进行优化，信息可以包括行数、table 哪一列是唯一列等，也包括计算 RelNode 树中执行 subexpression cost 的函数；</li>
+<li>planner engines：它的主要目标是进行触发 rules 来达到指定目标，比如像 cost-based optimizer（CBO）的目标是减少cost（Cost 包括处理的数据行数、CPU cost、IO cost 等）。</li>
+</ul>
+<p>优化器的作用是将解析器生成的关系代数表达式转换成执行计划，供执行引擎执行，在这个过程中，会应用一些规则优化，以帮助生成更高效的执行计划。优化器进行优化的地方如过滤条件的下压（push down），在进行 join 操作前，先进行 filter 操作，这样的话就不需要在 join 时进行全量 join，减少参与 join 的数据量等。</p>
+<p>Calcite 中 RelOptPlanner 是 Calcite 中优化器的基类。Calcite 中关于优化器提供了两种实现：</p>
+<ul>
+<li>HepPlanner：就是基于规则优化RBO 的实现，它是一个启发式的优化器，按照规则进行匹配，直到达到次数限制（match 次数限制）或者遍历一遍后不再出现 rule match 的情况才算完成；</li>
+<li>VolcanoPlanner：就是基于成本优化CBO 的实现，它会一直迭代 rules，直到找到 cost 最小的 paln。</li>
+</ul>
+<h4 id="基于成本优化（cbo）">基于成本优化（CBO）</h4>
+<p>基于代价的优化器(Cost-Based Optimizer，CBO) 是根据优化规则对关系表达式进行转换。这里的转换是说一个关系表达式经过优化规则后会生成另外一个关系表达式，同时原有表达式也会保留，经过一系列转换后会生成多个执行计划，然后 CBO 会根据统计信息和代价模型 (Cost Model) 计算每个执行计划的 Cost，从中挑选 Cost 最小的执行计划。</p>
+<p>由上可知，CBO 中有两个依赖：统计信息和代价模型。统计信息的准确与否、代价模型的合理与否都会影响 CBO 选择最优计划。 从上述描述可知，CBO 是优于 RBO 的，原因是 RBO 是一种只认规则，对数据不敏感的呆板的优化器，而在实际过程中，数据往往是有变化的，通过 RBO 生成的执行计划很有可能不是最优的。事实上目前各大数据库和大数据计算引擎都倾向于使用 CBO，但是对于流式计算引擎来说，使用 CBO 还是有很大难度的，因为并不能提前预知数据量等信息，这会极大地影响优化效果，CBO 主要还是应用在离线的场景。</p>
+<h4 id="volcanoplanner相关概念">VolcanoPlanner相关概念</h4>
+<p>VolcanoPlanner就是 CBO 的实现，它会一直迭代 rules，直到找到 cost 最小的 paln。其部分相关概念如下：</p>
+<ul>
+<li><strong>RelSet</strong> 描述一组等价 Relation Expression，所有的 RelNode 会记录在 <code>rels</code> 中；</li>
+<li><strong>RelSubset</strong>  描述一组物理属性相同的等价 Relation Expression，即它们具有相同的 Physical Properties；每个 RelSubset 都会记录其所属的 RelSet；RelSubset 继承自 AbstractRelNode，它也是一种 RelNode，物理属性记录在其成员变量 traitSet 中。每个 RelSubset 都将会记录其最佳 plan（<code>best</code>）和最佳 plan 的 cost（<code>bestCost</code>）信息。</li>
+<li><strong>RuleMatch</strong> 是对 Rule 和 RelSubset 关系的一个抽象，它会记录这两者的信息。</li>
+<li><strong>importance</strong> 决定了在进行 Rule 优化时 Rule 应用的顺序，它是一个相对概念，在 VolcanoPlanner 中有两个 importance，分别是 RelSubset 和 RuleMatch 的 importance</li>
+</ul>
+<h4 id="volcanoplanner执行步骤">VolcanoPlanner执行步骤</h4>
+<p>在应用 VolcanoPlanner 时，整体分为以下四步：</p>
+<ol>
+<li>初始化 VolcanoPlanner，并向 Rule Match Queue 中添加相应的 Rule Match（包括 ConverterRule）；</li>
+<li>对 RelNode 做等价转换：应用 Rule Match 对 plan graph 做 transformation 优化（Rule specifies an Operator sub-graph to match and logic to generate equivalent better sub-graph）；这里只是改变其物理属性（<code>Convention</code>）；</li>
+<li>通过 VolcanoPlanner 的 <code>setRoot()</code> 方法注册相应的 RelNode，并进行相应的初始化操作；</li>
+<li>通过动态规划算法进行相应的迭代，直到 cost 不再变化或者 Rule Match Queue 中 rule match 已经全部应用完成；这样找到 cost 最小的 plan；Rule Match 的 importance 依赖于 RelNode 的 cost 和深度。</li>
+</ol>
+<p>下面通过这个 <strong>示例</strong> 来详细看下 VolcanoPlanner 内部的实现逻辑。</p>
+<pre><code class="language-java">//1. 初始化 VolcanoPlanner 对象，并添加相应的 Rule
+VolcanoPlanner planner = new VolcanoPlanner();
+planner.addRelTraitDef(ConventionTraitDef.INSTANCE);
+planner.addRelTraitDef(RelDistributionTraitDef.INSTANCE);
+// 添加相应的 rule
+  planner.addRule(FilterJoinRule.FilterIntoJoinRule.FILTER_ON_JOIN);
+planner.addRule(ReduceExpressionsRule.PROJECT_INSTANCE);
+planner.addRule(PruneEmptyRules.PROJECT_INSTANCE);
+// 添加相应的 ConverterRule
+planner.addRule(EnumerableRules.ENUMERABLE_MERGE_JOIN_RULE);
+planner.addRule(EnumerableRules.ENUMERABLE_SORT_RULE);
+planner.addRule(EnumerableRules.ENUMERABLE_VALUES_RULE);
+planner.addRule(EnumerableRules.ENUMERABLE_PROJECT_RULE);
+planner.addRule(EnumerableRules.ENUMERABLE_FILTER_RULE);
+//2. Changes a relational expression to an equivalent one with a different set of traits.
+RelTraitSet desiredTraits =
+    relNode.getCluster().traitSet().replace(EnumerableConvention.INSTANCE);
+relNode = planner.changeTraits(relNode, desiredTraits);
+//3. 通过 VolcanoPlanner 的 setRoot 方法注册相应的 RelNode，并进行相应的初始化操作
+planner.setRoot(relNode);
+//4. 通过动态规划算法找到 cost 最小的 plan
+relNode = planner.findBestExp();
+</code></pre>
+<p>Flink 中相关代码如下：</p>
+<pre><code class="language-java">public PlannerContext(
+			TableConfig tableConfig,
+			FunctionCatalog functionCatalog,
+			CatalogManager catalogManager,
+			CalciteSchema rootSchema,
+			List&lt;RelTraitDef&gt; traitDefs) {
+		this.tableConfig = tableConfig;
+
+		this.context = new FlinkContextImpl(
+				tableConfig,
+				functionCatalog,
+				catalogManager,
+				this::createSqlExprToRexConverter);
+
+		this.rootSchema = rootSchema;
+		this.traitDefs = traitDefs;
+		// Make a framework config to initialize the RelOptCluster instance,
+		// caution that we can only use the attributes that can not be overwrite/configured
+		// by user.
+		this.frameworkConfig = createFrameworkConfig();
+
+    // 这里使用了VolcanoPlanner
+		RelOptPlanner planner = new VolcanoPlanner(frameworkConfig.getCostFactory(), frameworkConfig.getContext());
+		planner.setExecutor(frameworkConfig.getExecutor());
+		for (RelTraitDef traitDef : frameworkConfig.getTraitDefs()) {
+			planner.addRelTraitDef(traitDef);
+		}
+		this.cluster = FlinkRelOptClusterFactory.create(planner, new RexBuilder(typeFactory));
+	}
+
+
+//初始化
+&lt;init&gt;:119, PlannerContext (org.apache.Flink.table.planner.delegation)
+&lt;init&gt;:86, PlannerBase (org.apache.Flink.table.planner.delegation)
+&lt;init&gt;:44, StreamPlanner (org.apache.Flink.table.planner.delegation)
+create:50, BlinkPlannerFactory (org.apache.Flink.table.planner.delegation)
+create:325, StreamTableEnvironmentImpl$ (org.apache.Flink.table.api.scala.internal)
+create:425, StreamTableEnvironment$ (org.apache.Flink.table.api.scala)
+main:56, StreamSQLExample$ (spendreport)
+main:-1, StreamSQLExample (spendreport)
+
+
+class FlinkVolcanoProgram[OC &lt;: FlinkOptimizeContext] extends FlinkRuleSetProgram[OC] {
+
+ override def optimize(root: RelNode, context: OC): RelNode = {
+    val targetTraits = root.getTraitSet.plusAll(requiredOutputTraits.get).simplify()
+    // VolcanoPlanner limits that the planer a RelNode tree belongs to and
+    // the VolcanoPlanner used to optimize the RelNode tree should be same instance.
+    // see: VolcanoPlanner#registerImpl
+    // here, use the planner in cluster directly
+      
+    // 这里也使用了VolcanoPlanner 
+    val planner = root.getCluster.getPlanner.asInstanceOf[VolcanoPlanner]
+    val optProgram = Programs.ofRules(rules)
+  }
+}      
+  
+// 其调用栈
+
+optimize:60, FlinkVolcanoProgram (org.apache.Flink.table.planner.plan.optimize.program)
+apply:62, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.Flink.table.planner.plan.optimize.program)
+apply:58, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.Flink.table.planner.plan.optimize.program)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+foreach:891, Iterator$class (scala.collection)
+foreach:1334, AbstractIterator (scala.collection)
+foreach:72, IterableLike$class (scala.collection)
+foreach:54, AbstractIterable (scala.collection)
+foldLeft:157, TraversableOnce$class (scala.collection)
+foldLeft:104, AbstractTraversable (scala.collection)
+optimize:57, FlinkChainedProgram (org.apache.Flink.table.planner.plan.optimize.program)
+optimizeTree:170, StreamCommonSubGraphBasedOptimizer (org.apache.Flink.table.planner.plan.optimize)
+doOptimize:90, StreamCommonSubGraphBasedOptimizer (org.apache.Flink.table.planner.plan.optimize)
+optimize:77, CommonSubGraphBasedOptimizer (org.apache.Flink.table.planner.plan.optimize)
+optimize:248, PlannerBase (org.apache.Flink.table.planner.delegation)
+translate:151, PlannerBase (org.apache.Flink.table.planner.delegation)
+toDataStream:210, StreamTableEnvironmentImpl (org.apache.Flink.table.api.scala.internal)
+toAppendStream:107, StreamTableEnvironmentImpl (org.apache.Flink.table.api.scala.internal)
+toAppendStream:101, TableConversions (org.apache.Flink.table.api.scala)
+main:89, StreamSQLExample$ (spendreport)
+main:-1, StreamSQLExample (spendreport)
+
+// 下面全部是 VolcanoPlanner 相关代码和调用栈 
+  
+// VolcanoPlanner添加Rule，筛选出来的优化规则会封装成VolcanoRuleMatch，然后扔到RuleQueue里，而这个RuleQueue正是接下来执行动态规划算法要用到的核心类。   
+public class VolcanoPlanner extends AbstractRelOptPlanner {
+      public boolean addRule(RelOptRule rule) {
+        ......
+      }
+}    
+        
+addRule:438, VolcanoPlanner (org.apache.calcite.plan.volcano)
+run:315, Programs$RuleSetProgram (org.apache.calcite.tools)
+optimize:64, FlinkVolcanoProgram (org.apache.Flink.table.planner.plan.optimize.program)
+apply:62, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.Flink.table.planner.plan.optimize.program)
+apply:58, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.Flink.table.planner.plan.optimize.program)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+foreach:891, Iterator$class (scala.collection)
+foreach:1334, AbstractIterator (scala.collection)
+foreach:72, IterableLike$class (scala.collection)
+foreach:54, AbstractIterable (scala.collection)
+foldLeft:157, TraversableOnce$class (scala.collection)
+foldLeft:104, AbstractTraversable (scala.collection)
+optimize:57, FlinkChainedProgram (org.apache.Flink.table.planner.plan.optimize.program)
+optimizeTree:170, StreamCommonSubGraphBasedOptimizer (org.apache.Flink.table.planner.plan.optimize)
+doOptimize:90, StreamCommonSubGraphBasedOptimizer (org.apache.Flink.table.planner.plan.optimize)
+optimize:77, CommonSubGraphBasedOptimizer (org.apache.Flink.table.planner.plan.optimize)
+optimize:248, PlannerBase (org.apache.Flink.table.planner.delegation)
+translate:151, PlannerBase (org.apache.Flink.table.planner.delegation)
+toDataStream:210, StreamTableEnvironmentImpl (org.apache.Flink.table.api.scala.internal)
+toAppendStream:107, StreamTableEnvironmentImpl (org.apache.Flink.table.api.scala.internal)
+toAppendStream:101, TableConversions (org.apache.Flink.table.api.scala)
+main:89, StreamSQLExample$ (spendreport)
+main:-1, StreamSQLExample (spendreport)        
+ 
+// VolcanoPlanner修改Traits   
+public class VolcanoPlanner extends AbstractRelOptPlanner {
+    public RelNode changeTraits(RelNode rel, RelTraitSet toTraits) {
+        assert !rel.getTraitSet().equals(toTraits);
+
+        assert toTraits.allSimple();
+
+        RelSubset rel2 = this.ensureRegistered(rel, (RelNode)null);
+        return rel2.getTraitSet().equals(toTraits) ? rel2 : rel2.set.getOrCreateSubset(rel.getCluster(), toTraits.simplify());
+    }
+}
+
+changeTraits:529, VolcanoPlanner (org.apache.calcite.plan.volcano)
+run:324, Programs$RuleSetProgram (org.apache.calcite.tools)
+optimize:64, FlinkVolcanoProgram (org.apache.Flink.table.planner.plan.optimize.program)
+apply:62, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.Flink.table.planner.plan.optimize.program)
+apply:58, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.Flink.table.planner.plan.optimize.program)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+foreach:891, Iterator$class (scala.collection)
+foreach:1334, AbstractIterator (scala.collection)
+foreach:72, IterableLike$class (scala.collection)
+foreach:54, AbstractIterable (scala.collection)
+foldLeft:157, TraversableOnce$class (scala.collection)
+foldLeft:104, AbstractTraversable (scala.collection)
+optimize:57, FlinkChainedProgram (org.apache.Flink.table.planner.plan.optimize.program)
+optimizeTree:170, StreamCommonSubGraphBasedOptimizer (org.apache.Flink.table.planner.plan.optimize)
+doOptimize:90, StreamCommonSubGraphBasedOptimizer (org.apache.Flink.table.planner.plan.optimize)
+optimize:77, CommonSubGraphBasedOptimizer (org.apache.Flink.table.planner.plan.optimize)
+optimize:248, PlannerBase (org.apache.Flink.table.planner.delegation)
+translate:151, PlannerBase (org.apache.Flink.table.planner.delegation)
+toDataStream:210, StreamTableEnvironmentImpl (org.apache.Flink.table.api.scala.internal)
+toAppendStream:107, StreamTableEnvironmentImpl (org.apache.Flink.table.api.scala.internal)
+toAppendStream:101, TableConversions (org.apache.Flink.table.api.scala)
+main:89, StreamSQLExample$ (spendreport)
+main:-1, StreamSQLExample (spendreport)
+  
+// VolcanoPlanner设定Root 
+public class VolcanoPlanner extends AbstractRelOptPlanner {  
+    public void setRoot(RelNode rel) {
+        this.registerMetadataRels();
+        this.root = this.registerImpl(rel, (RelSet)null);
+        if (this.originalRoot == null) {
+            this.originalRoot = rel;
+        }
+
+        this.ruleQueue.recompute(this.root);
+        this.ensureRootConverters();
+    }
+}
+
+setRoot:294, VolcanoPlanner (org.apache.calcite.plan.volcano)
+run:326, Programs$RuleSetProgram (org.apache.calcite.tools)
+optimize:64, FlinkVolcanoProgram (org.apache.Flink.table.planner.plan.optimize.program)
+apply:62, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.Flink.table.planner.plan.optimize.program)
+apply:58, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.Flink.table.planner.plan.optimize.program)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+foreach:891, Iterator$class (scala.collection)
+foreach:1334, AbstractIterator (scala.collection)
+foreach:72, IterableLike$class (scala.collection)
+foreach:54, AbstractIterable (scala.collection)
+foldLeft:157, TraversableOnce$class (scala.collection)
+foldLeft:104, AbstractTraversable (scala.collection)
+optimize:57, FlinkChainedProgram (org.apache.Flink.table.planner.plan.optimize.program)
+optimizeTree:170, StreamCommonSubGraphBasedOptimizer (org.apache.Flink.table.planner.plan.optimize)
+doOptimize:90, StreamCommonSubGraphBasedOptimizer (org.apache.Flink.table.planner.plan.optimize)
+optimize:77, CommonSubGraphBasedOptimizer (org.apache.Flink.table.planner.plan.optimize)
+optimize:248, PlannerBase (org.apache.Flink.table.planner.delegation)
+translate:151, PlannerBase (org.apache.Flink.table.planner.delegation)
+toDataStream:210, StreamTableEnvironmentImpl (org.apache.Flink.table.api.scala.internal)
+toAppendStream:107, StreamTableEnvironmentImpl (org.apache.Flink.table.api.scala.internal)
+toAppendStream:101, TableConversions (org.apache.Flink.table.api.scala)
+main:89, StreamSQLExample$ (spendreport)
+main:-1, StreamSQLExample (spendreport)
+  
+// VolcanoPlanner找到最小cost，本质上就是一个动态规划算法的实现。
+  
+public class VolcanoPlanner extends AbstractRelOptPlanner {
+    public RelNode findBestExp() {
+        this.ensureRootConverters();
+        this.registerMaterializations();
+        int cumulativeTicks = 0;
+        VolcanoPlannerPhase[] var2 = VolcanoPlannerPhase.values();
+        int var3 = var2.length;
+
+        for(int var4 = 0; var4 &lt; var3; ++var4) {
+            VolcanoPlannerPhase phase = var2[var4];
+            this.setInitialImportance();
+            RelOptCost targetCost = this.costFactory.makeHugeCost();
+            int tick = 0;
+            int firstFiniteTick = -1;
+            int splitCount = 0;
+            int giveUpTick = 2147483647;
+
+            while(true) {
+                ++tick;
+                ++cumulativeTicks;
+                if (this.root.bestCost.isLe(targetCost)) {
+                    if (firstFiniteTick &lt; 0) {
+                        firstFiniteTick = cumulativeTicks;
+                        this.clearImportanceBoost();
+                    }
+
+                    if (!this.ambitious) {
+                        break;
+                    }
+
+                    targetCost = this.root.bestCost.multiplyBy(0.9D);
+                    ++splitCount;
+                    if (this.impatient) {
+                        if (firstFiniteTick &lt; 10) {
+                            giveUpTick = cumulativeTicks + 25;
+                        } else {
+                            giveUpTick = cumulativeTicks + Math.max(firstFiniteTick / 10, 25);
+                        }
+                    }
+                } else {
+                    if (cumulativeTicks &gt; giveUpTick) {
+                        break;
+                    }
+
+                    if (this.root.bestCost.isInfinite() &amp;&amp; tick % 10 == 0) {
+                        this.injectImportanceBoost();
+                    }
+                }
+
+                VolcanoRuleMatch match = this.ruleQueue.popMatch(phase);
+                if (match == null) {
+                    break;
+                }
+
+                assert match.getRule().matches(match);
+
+                match.onMatch();
+                this.root = this.canonize(this.root);
+            }
+
+            this.ruleQueue.phaseCompleted(phase);
+        }
+
+        RelNode cheapest = this.root.buildCheapestPlan(this);
+
+        return cheapest;
+    }
+}
+
+// VolcanoPlanner得到的Flink逻辑节点 cheapest，就是最终选择的结点
+
+cheapest = {FlinkLogicalUnion@6487} &quot;FlinkLogicalUnion#443&quot;
+ cluster = {FlinkRelOptCluster@6224} 
+ inputs = {RegularImmutableList@6493}  size = 2
+  0 = {FlinkLogicalCalc@6498} &quot;FlinkLogicalCalc#441&quot;
+   cluster = {FlinkRelOptCluster@6224} 
+   calcProgram = {RexProgram@6509} &quot;(expr#0..2=[{inputs}], expr#3=[2], expr#4=[&gt;($t2, $t3)], proj#0..2=[{exprs}], $condition=[$t4])&quot;
+   program = {RexProgram@6509} &quot;(expr#0..2=[{inputs}], expr#3=[2], expr#4=[&gt;($t2, $t3)], proj#0..2=[{exprs}], $condition=[$t4])&quot;
+   input = {FlinkLogicalDataStreamTableScan@6510} &quot;rel#437:FlinkLogicalDataStreamTableScan.LOGICAL.any.None: 0.false.UNKNOWN(table=[default_catalog, default_database, UnnamedTable$0])&quot;
+   desc = &quot;FlinkLogicalCalc#441&quot;
+   rowType = {RelRecordType@6504} &quot;RecordType(BIGINT user, VARCHAR(2147483647) product, INTEGER amount)&quot;
+   digest = &quot;FlinkLogicalCalc#441&quot;
+   AbstractRelNode.cluster = {FlinkRelOptCluster@6224} 
+   id = 441
+   traitSet = {RelTraitSet@5942}  size = 5
+  1 = {FlinkLogicalCalc@6499} &quot;FlinkLogicalCalc#442&quot;
+   cluster = {FlinkRelOptCluster@6224} 
+   calcProgram = {RexProgram@6502} &quot;(expr#0..2=[{inputs}], expr#3=[2], expr#4=[&lt;($t2, $t3)], proj#0..2=[{exprs}], $condition=[$t4])&quot;
+   program = {RexProgram@6502} &quot;(expr#0..2=[{inputs}], expr#3=[2], expr#4=[&lt;($t2, $t3)], proj#0..2=[{exprs}], $condition=[$t4])&quot;
+   input = {FlinkLogicalDataStreamTableScan@6503} &quot;rel#435:FlinkLogicalDataStreamTableScan.LOGICAL.any.None: 0.false.UNKNOWN(table=[default_catalog, default_database, OrderB])&quot;
+   desc = &quot;FlinkLogicalCalc#442&quot;
+   rowType = {RelRecordType@6504} &quot;RecordType(BIGINT user, VARCHAR(2147483647) product, INTEGER amount)&quot;
+   digest = &quot;FlinkLogicalCalc#442&quot;
+   AbstractRelNode.cluster = {FlinkRelOptCluster@6224} 
+   id = 442
+   traitSet = {RelTraitSet@5942}  size = 5
+ kind = {SqlKind@6494} &quot;UNION&quot;
+  lowerName = &quot;union&quot;
+  sql = &quot;UNION&quot;
+  name = &quot;UNION&quot;
+  ordinal = 18
+ all = true
+ desc = &quot;FlinkLogicalUnion#443&quot;
+ rowType = null
+ digest = &quot;FlinkLogicalUnion#443&quot;
+ AbstractRelNode.cluster = {FlinkRelOptCluster@6224} 
+ id = 443
+ traitSet = {RelTraitSet@5942}  size = 5
+
+
+findBestExp:572, VolcanoPlanner (org.apache.calcite.plan.volcano)
+run:327, Programs$RuleSetProgram (org.apache.calcite.tools)
+optimize:64, FlinkVolcanoProgram (org.apache.Flink.table.planner.plan.optimize.program)
+apply:62, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.Flink.table.planner.plan.optimize.program)
+apply:58, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.Flink.table.planner.plan.optimize.program)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+foreach:891, Iterator$class (scala.collection)
+foreach:1334, AbstractIterator (scala.collection)
+foreach:72, IterableLike$class (scala.collection)
+foreach:54, AbstractIterable (scala.collection)
+foldLeft:157, TraversableOnce$class (scala.collection)
+foldLeft:104, AbstractTraversable (scala.collection)
+optimize:57, FlinkChainedProgram (org.apache.Flink.table.planner.plan.optimize.program)
+optimizeTree:170, StreamCommonSubGraphBasedOptimizer (org.apache.Flink.table.planner.plan.optimize)
+doOptimize:90, StreamCommonSubGraphBasedOptimizer (org.apache.Flink.table.planner.plan.optimize)
+optimize:77, CommonSubGraphBasedOptimizer (org.apache.Flink.table.planner.plan.optimize)
+optimize:248, PlannerBase (org.apache.Flink.table.planner.delegation)
+translate:151, PlannerBase (org.apache.Flink.table.planner.delegation)
+toDataStream:210, StreamTableEnvironmentImpl (org.apache.Flink.table.api.scala.internal)
+toAppendStream:107, StreamTableEnvironmentImpl (org.apache.Flink.table.api.scala.internal)
+toAppendStream:101, TableConversions (org.apache.Flink.table.api.scala)
+main:89, StreamSQLExample$ (spendreport)
+main:-1, StreamSQLExample (spendreport)
+</code></pre>
+<p><strong>以下是Join的优化</strong> 。</p>
+<pre><code class="language-java">class FlinkLogicalJoin(
+    cluster: RelOptCluster,
+    traitSet: RelTraitSet,
+    left: RelNode,
+    right: RelNode,
+    condition: RexNode,
+    joinType: JoinRelType)
+  extends FlinkLogicalJoinBase(
+
+  override def convert(rel: RelNode): RelNode = {
+    val join = rel.asInstanceOf[LogicalJoin]
+    val traitSet = rel.getTraitSet.replace(FlinkConventions.LOGICAL)
+    val newLeft = RelOptRule.convert(join.getLeft, FlinkConventions.LOGICAL)
+    val newRight = RelOptRule.convert(join.getRight, FlinkConventions.LOGICAL)
+
+    new FlinkLogicalJoin(
+      rel.getCluster,
+      traitSet,
+      newLeft,
+      newRight,
+      join.getCondition,
+      join.getJoinType)
+  }
+}  
+
+call = {VolcanoRuleMatch@6191} &quot;rule [FlinkLogicalJoinConverter(in:NONE,out:LOGICAL)] rels [rel#100:LogicalJoin.NONE.any.None: 0.false.UNKNOWN(left=RelSubset#98,right=RelSubset#99,condition==($0, $2),joinType=left)]&quot;
+ targetSet = {RelSet@6193} 
+ targetSubset = null
+ digest = &quot;rule [FlinkLogicalJoinConverter(in:NONE,out:LOGICAL)] rels [rel#100:LogicalJoin.NONE.any.None: 0.false.UNKNOWN(left=RelSubset#98,right=RelSubset#99,condition==($0, $2),joinType=left)]&quot;
+ cachedImportance = 0.8019000000000001
+ volcanoPlanner = {VolcanoPlanner@6194} 
+ generatedRelList = null
+ id = 71
+ operand0 = {RelOptRule$ConverterRelOptRuleOperand@6186} 
+  parent = null
+  rule = {FlinkLogicalJoinConverter@6179} &quot;FlinkLogicalJoinConverter(in:NONE,out:LOGICAL)&quot;
+  predicate = {ConverterRule$lambda@6246} 
+  solveOrder = {int[1]@6247} 
+  ordinalInParent = 0
+  ordinalInRule = 0
+  trait = {Convention$Impl@6184} &quot;NONE&quot;
+  clazz = {Class@5010} &quot;class org.apache.calcite.rel.logical.LogicalJoin&quot;
+  children = {RegularImmutableList@6230}  size = 0
+  childPolicy = {RelOptRuleOperandChildPolicy@6248} &quot;ANY&quot;
+ nodeInputs = {RegularImmutableBiMap@6195}  size = 0
+ rule = {FlinkLogicalJoinConverter@6179} &quot;FlinkLogicalJoinConverter(in:NONE,out:LOGICAL)&quot;
+ rels = {RelNode[1]@6196} 
+  0 = {LogicalJoin@6181} &quot;rel#100:LogicalJoin.NONE.any.None: 0.false.UNKNOWN(left=RelSubset#98,right=RelSubset#99,condition==($0, $2),joinType=left)&quot;
+   semiJoinDone = false
+   systemFieldList = {RegularImmutableList@6230}  size = 0
+   condition = {RexCall@6231} &quot;=($0, $2)&quot;
+   variablesSet = {RegularImmutableSet@6232}  size = 0
+   joinType = {JoinRelType@6233} &quot;LEFT&quot;
+   joinInfo = {JoinInfo@6234} 
+   left = {RelSubset@6235} &quot;rel#98:Subset#0.NONE.any.None: 0.false.UNKNOWN&quot;
+   right = {RelSubset@6236} &quot;rel#99:Subset#1.NONE.any.None: 0.false.UNKNOWN&quot;
+   desc = &quot;rel#100:LogicalJoin.NONE.any.None: 0.false.UNKNOWN(left=RelSubset#98,right=RelSubset#99,condition==($0, $2),joinType=left)&quot;
+   rowType = {RelRecordType@6237} &quot;RecordType(VARCHAR(2147483647) orderId, VARCHAR(2147483647) productName, VARCHAR(2147483647) orderId0, VARCHAR(2147483647) payType)&quot;
+   digest = &quot;LogicalJoin.NONE.any.None: 0.false.UNKNOWN(left=RelSubset#98,right=RelSubset#99,condition==($0, $2),joinType=left)&quot;
+   cluster = {FlinkRelOptCluster@6239} 
+   id = 100
+   traitSet = {RelTraitSet@6240}  size = 5
+ planner = {VolcanoPlanner@6194} 
+ parents = null  
+  
+// 生成时候的调用栈   
+   
+create:106, FlinkLogicalJoin$ (org.apache.flink.table.planner.plan.nodes.logical)
+convert:92, FlinkLogicalJoinConverter (org.apache.flink.table.planner.plan.nodes.logical)
+onMatch:144, ConverterRule (org.apache.calcite.rel.convert)
+onMatch:208, VolcanoRuleCall (org.apache.calcite.plan.volcano)
+findBestExp:631, VolcanoPlanner (org.apache.calcite.plan.volcano)
+run:327, Programs$RuleSetProgram (org.apache.calcite.tools)
+optimize:64, FlinkVolcanoProgram (org.apache.flink.table.planner.plan.optimize.program)
+apply:62, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.flink.table.planner.plan.optimize.program)
+apply:58, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.flink.table.planner.plan.optimize.program)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+foreach:891, Iterator$class (scala.collection)
+foreach:1334, AbstractIterator (scala.collection)
+foreach:72, IterableLike$class (scala.collection)
+foreach:54, AbstractIterable (scala.collection)
+foldLeft:157, TraversableOnce$class (scala.collection)
+foldLeft:104, AbstractTraversable (scala.collection)
+optimize:57, FlinkChainedProgram (org.apache.flink.table.planner.plan.optimize.program)
+optimizeTree:170, StreamCommonSubGraphBasedOptimizer (org.apache.flink.table.planner.plan.optimize)
+doOptimize:90, StreamCommonSubGraphBasedOptimizer (org.apache.flink.table.planner.plan.optimize)
+optimize:77, CommonSubGraphBasedOptimizer (org.apache.flink.table.planner.plan.optimize)
+optimize:248, PlannerBase (org.apache.flink.table.planner.delegation)
+translate:151, PlannerBase (org.apache.flink.table.planner.delegation)
+toDataStream:210, StreamTableEnvironmentImpl (org.apache.flink.table.api.scala.internal)
+toRetractStream:127, StreamTableEnvironmentImpl (org.apache.flink.table.api.scala.internal)
+toRetractStream:146, TableConversions (org.apache.flink.table.api.scala)
+main:75, SimpleOuterJoin$ (spendreport)
+main:-1, SimpleOuterJoin (spendreport)
+  
+abstract class FlinkLogicalJoinBase(  
+    cluster: RelOptCluster,
+    traitSet: RelTraitSet,
+    left: RelNode,
+    right: RelNode,
+    condition: RexNode,
+    joinType: JoinRelType)
+  extends Join(
+    cluster,
+    traitSet,
+    left,
+    right,
+    condition,
+    Set.empty[CorrelationId].asJava,
+    joinType)
+  with FlinkLogicalRel {
+    
+  // 这里也会计算cost
+  override def computeSelfCost(planner: RelOptPlanner, mq: RelMetadataQuery): RelOptCost = {
+    val leftRowCnt = mq.getRowCount(getLeft)
+    val leftRowSize = mq.getAverageRowSize(getLeft)
+    val rightRowCnt = mq.getRowCount(getRight)
+
+    joinType match {
+      case JoinRelType.SEMI | JoinRelType.ANTI =&gt;
+        val rightRowSize = mq.getAverageRowSize(getRight)
+        val ioCost = (leftRowCnt * leftRowSize) + (rightRowCnt * rightRowSize)
+        val cpuCost = leftRowCnt + rightRowCnt
+        val rowCnt = leftRowCnt + rightRowCnt
+        planner.getCostFactory.makeCost(rowCnt, cpuCost, ioCost)
+      case _ =&gt;
+        val cpuCost = leftRowCnt + rightRowCnt
+        val ioCost = (leftRowCnt * leftRowSize) + rightRowCnt
+        planner.getCostFactory.makeCost(leftRowCnt, cpuCost, ioCost)
+    }
+  }  
+}  
+  
+// 调用栈    
+  
+computeSelfCost:63, FlinkLogicalJoin (org.apache.flink.table.planner.plan.nodes.logical)
+getNonCumulativeCost:41, FlinkRelMdNonCumulativeCost (org.apache.flink.table.planner.plan.metadata)
+getNonCumulativeCost_$:-1, GeneratedMetadataHandler_NonCumulativeCost
+getNonCumulativeCost:-1, GeneratedMetadataHandler_NonCumulativeCost
+getNonCumulativeCost:301, RelMetadataQuery (org.apache.calcite.rel.metadata)
+getCost:936, VolcanoPlanner (org.apache.calcite.plan.volcano)
+propagateCostImprovements0:347, RelSubset (org.apache.calcite.plan.volcano)
+propagateCostImprovements:330, RelSubset (org.apache.calcite.plan.volcano)
+addRelToSet:1828, VolcanoPlanner (org.apache.calcite.plan.volcano)
+registerImpl:1764, VolcanoPlanner (org.apache.calcite.plan.volcano)
+register:846, VolcanoPlanner (org.apache.calcite.plan.volcano)
+ensureRegistered:868, VolcanoPlanner (org.apache.calcite.plan.volcano)
+ensureRegistered:1939, VolcanoPlanner (org.apache.calcite.plan.volcano)
+transformTo:129, VolcanoRuleCall (org.apache.calcite.plan.volcano)
+transformTo:236, RelOptRuleCall (org.apache.calcite.plan)
+onMatch:146, ConverterRule (org.apache.calcite.rel.convert)
+onMatch:208, VolcanoRuleCall (org.apache.calcite.plan.volcano)
+findBestExp:631, VolcanoPlanner (org.apache.calcite.plan.volcano)
+run:327, Programs$RuleSetProgram (org.apache.calcite.tools)
+optimize:64, FlinkVolcanoProgram (org.apache.flink.table.planner.plan.optimize.program)
+apply:62, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.flink.table.planner.plan.optimize.program)
+apply:58, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.flink.table.planner.plan.optimize.program)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+foreach:891, Iterator$class (scala.collection)
+foreach:1334, AbstractIterator (scala.collection)
+foreach:72, IterableLike$class (scala.collection)
+foreach:54, AbstractIterable (scala.collection)
+foldLeft:157, TraversableOnce$class (scala.collection)
+foldLeft:104, AbstractTraversable (scala.collection)
+optimize:57, FlinkChainedProgram (org.apache.flink.table.planner.plan.optimize.program)
+optimizeTree:170, StreamCommonSubGraphBasedOptimizer (org.apache.flink.table.planner.plan.optimize)
+doOptimize:90, StreamCommonSubGraphBasedOptimizer (org.apache.flink.table.planner.plan.optimize)
+optimize:77, CommonSubGraphBasedOptimizer (org.apache.flink.table.planner.plan.optimize)
+optimize:248, PlannerBase (org.apache.flink.table.planner.delegation)
+translate:151, PlannerBase (org.apache.flink.table.planner.delegation)
+toDataStream:210, StreamTableEnvironmentImpl (org.apache.flink.table.api.scala.internal)
+toRetractStream:127, StreamTableEnvironmentImpl (org.apache.flink.table.api.scala.internal)
+toRetractStream:146, TableConversions (org.apache.flink.table.api.scala)
+main:75, SimpleOuterJoin$ (spendreport)
+main:-1, SimpleOuterJoin (spendreport)  
+</code></pre>
+<h4 id="优化规则">优化规则</h4>
+<p>Calcite 会基于优化规则来优化这些 Logical Plan，根据运行环境的不同会应用不同的优化规则（Flink提供了批的优化规则 和  流的优化规则）。</p>
+<p>优化规则分为两类，一类是Calcite提供的内置优化规则（如条件下推，剪枝等），另一类是是将Logical Node转变成 Flink Node 的规则。</p>
+<p>这两步骤都属于 Calcite 的优化阶段。得到的 DataStream Plan 封装了如何将节点翻译成对应 DataStream / DataSet 程序的逻辑。其步骤就是将不同的 DataStream/DataSet Node 通过代码生成（CodeGen）翻译成最终可执行的 DataStream/DataSet 程序。</p>
+<p>下面就列举了不同的Rule，每条规则会对应生成一个物理节点。比如节点内根据Calcite生成的sql的执行步骤，会进行codegen出<strong>DataSet</strong>的执行<strong>Function</strong>代码，</p>
+<pre><code class="language-java">package org.apache.Flink.table.plan.rules
+  
+  /**
+    * RuleSet to optimize plans for batch / DataSet execution
+    */
+  val DATASET_OPT_RULES: RuleSet = RuleSets.ofList(
+    // translate to Flink DataSet nodes
+    DataSetWindowAggregateRule.INSTANCE,
+    DataSetAggregateRule.INSTANCE,
+    DataSetDistinctRule.INSTANCE,
+    DataSetCalcRule.INSTANCE,
+    DataSetPythonCalcRule.INSTANCE,
+    DataSetJoinRule.INSTANCE,
+    DataSetSingleRowJoinRule.INSTANCE,
+    DataSetScanRule.INSTANCE,
+    DataSetUnionRule.INSTANCE,
+    DataSetIntersectRule.INSTANCE,
+    DataSetMinusRule.INSTANCE,
+    DataSetSortRule.INSTANCE,
+    DataSetValuesRule.INSTANCE,
+    DataSetCorrelateRule.INSTANCE,
+    BatchTableSourceScanRule.INSTANCE
+  )
+  
+   /**
+    * RuleSet to optimize plans for stream / DataStream execution
+    */
+  val DATASTREAM_OPT_RULES: RuleSet = RuleSets.ofList(
+    // translate to DataStream nodes
+    DataStreamSortRule.INSTANCE,
+    DataStreamGroupAggregateRule.INSTANCE,
+    DataStreamOverAggregateRule.INSTANCE,
+    DataStreamGroupWindowAggregateRule.INSTANCE,
+    DataStreamCalcRule.INSTANCE,
+    DataStreamScanRule.INSTANCE,
+    DataStreamUnionRule.INSTANCE,
+    DataStreamValuesRule.INSTANCE,
+    DataStreamCorrelateRule.INSTANCE,
+    DataStreamWindowJoinRule.INSTANCE,
+    DataStreamJoinRule.INSTANCE,
+    DataStreamTemporalTableJoinRule.INSTANCE,
+    StreamTableSourceScanRule.INSTANCE,
+    DataStreamMatchRule.INSTANCE,
+    DataStreamTableAggregateRule.INSTANCE,
+    DataStreamGroupWindowTableAggregateRule.INSTANCE,
+    DataStreamPythonCalcRule.INSTANCE
+  )
+    
+package org.apache.Flink.table.planner.plan.rules
+
+  /**
+    * RuleSet to do physical optimize for stream
+    */
+  val PHYSICAL_OPT_RULES: RuleSet = RuleSets.ofList(
+    FlinkExpandConversionRule.STREAM_INSTANCE,
+    // source
+    StreamExecDataStreamScanRule.INSTANCE,
+    StreamExecTableSourceScanRule.INSTANCE,
+    StreamExecIntermediateTableScanRule.INSTANCE,
+    StreamExecWatermarkAssignerRule.INSTANCE,
+    StreamExecValuesRule.INSTANCE,
+    // calc
+    StreamExecCalcRule.INSTANCE,
+    StreamExecPythonCalcRule.INSTANCE,
+    // union
+    StreamExecUnionRule.INSTANCE,
+    // sort
+    StreamExecSortRule.INSTANCE,
+    StreamExecLimitRule.INSTANCE,
+    StreamExecSortLimitRule.INSTANCE,
+    StreamExecTemporalSortRule.INSTANCE,
+    // rank
+    StreamExecRankRule.INSTANCE,
+    StreamExecDeduplicateRule.RANK_INSTANCE,
+    // expand
+    StreamExecExpandRule.INSTANCE,
+    // group agg
+    StreamExecGroupAggregateRule.INSTANCE,
+    StreamExecGroupTableAggregateRule.INSTANCE,
+    // over agg
+    StreamExecOverAggregateRule.INSTANCE,
+    // window agg
+    StreamExecGroupWindowAggregateRule.INSTANCE,
+    StreamExecGroupWindowTableAggregateRule.INSTANCE,
+    // join
+    StreamExecJoinRule.INSTANCE,
+    StreamExecWindowJoinRule.INSTANCE,
+    StreamExecTemporalJoinRule.INSTANCE,
+    StreamExecLookupJoinRule.SNAPSHOT_ON_TABLESCAN,
+    StreamExecLookupJoinRule.SNAPSHOT_ON_CALC_TABLESCAN,
+    // CEP
+    StreamExecMatchRule.INSTANCE,
+    // correlate
+    StreamExecConstantTableFunctionScanRule.INSTANCE,
+    StreamExecCorrelateRule.INSTANCE,
+    // sink
+    StreamExecSinkRule.INSTANCE
+  )
+</code></pre>
+<h5 id="streamexecunionrule">StreamExecUnionRule</h5>
+<p>一个具体的Rule举例 ，这里是 Union  的 Rule ：</p>
+<pre><code class="language-java">package org.apache.Flink.table.planner.plan.rules.physical.stream
+
+class StreamExecUnionRule
+  extends ConverterRule(
+    classOf[FlinkLogicalUnion],
+    FlinkConventions.LOGICAL,
+    FlinkConventions.STREAM_PHYSICAL,
+    &quot;StreamExecUnionRule&quot;) {
+  
+  def convert(rel: RelNode): RelNode = {
+    val union: FlinkLogicalUnion = rel.asInstanceOf[FlinkLogicalUnion]
+    val traitSet: RelTraitSet = rel.getTraitSet.replace(FlinkConventions.STREAM_PHYSICAL)
+    val newInputs = union.getInputs.map(RelOptRule.convert(_, FlinkConventions.STREAM_PHYSICAL))
+
+    // 这里本条规则会对应生成一个物理节点。节点内根据Calcite生成的sql的执行步骤，会进行codegen出Stream的执行Function代码，
+    new StreamExecUnion(
+      rel.getCluster,
+      traitSet,
+      newInputs,
+      union.all,
+      rel.getRowType)
+    }
+  }  
+} 
+
+public class VolcanoPlanner extends AbstractRelOptPlanner {
+    public RelNode findBestExp() {
+             // 在这里会对Rule进行匹配调用
+             match.onMatch();
+        return cheapest;
+    }
+}
+
+match = {VolcanoRuleMatch@6252} &quot;rule [StreamExecUnionRule(in:LOGICAL,out:STREAM_PHYSICAL)] rels [rel#215:FlinkLogicalUnion.LOGICAL.any.None: 0.false.UNKNOWN(input#0=RelSubset#211,input#1=RelSubset#214,all=true)]&quot;
+ targetSet = {RelSet@6298} 
+ targetSubset = null
+ digest = &quot;rule [StreamExecUnionRule(in:LOGICAL,out:STREAM_PHYSICAL)] rels [rel#215:FlinkLogicalUnion.LOGICAL.any.None: 0.false.UNKNOWN(input#0=RelSubset#211,input#1=RelSubset#214,all=true)]&quot;
+ cachedImportance = 0.81
+ volcanoPlanner = {VolcanoPlanner@6259} 
+ generatedRelList = null
+ id = 521
+ operand0 = {RelOptRule$ConverterRelOptRuleOperand@6247} 
+ nodeInputs = {RegularImmutableBiMap@6299}  size = 0
+ rule = {StreamExecUnionRule@6241} &quot;StreamExecUnionRule(in:LOGICAL,out:STREAM_PHYSICAL)&quot;
+ rels = {RelNode[1]@6300} 
+ planner = {VolcanoPlanner@6259} 
+ parents = null
+
+// 调用栈       
+   
+create:106, FlinkLogicalJoin$ (org.apache.flink.table.planner.plan.nodes.logical)
+convert:92, FlinkLogicalJoinConverter (org.apache.flink.table.planner.plan.nodes.logical)
+onMatch:144, ConverterRule (org.apache.calcite.rel.convert)
+onMatch:208, VolcanoRuleCall (org.apache.calcite.plan.volcano)
+findBestExp:631, VolcanoPlanner (org.apache.calcite.plan.volcano)
+run:327, Programs$RuleSetProgram (org.apache.calcite.tools)
+optimize:64, FlinkVolcanoProgram (org.apache.flink.table.planner.plan.optimize.program)
+apply:62, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.flink.table.planner.plan.optimize.program)
+apply:58, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.flink.table.planner.plan.optimize.program)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+foreach:891, Iterator$class (scala.collection)
+foreach:1334, AbstractIterator (scala.collection)
+foreach:72, IterableLike$class (scala.collection)
+foreach:54, AbstractIterable (scala.collection)
+foldLeft:157, TraversableOnce$class (scala.collection)
+foldLeft:104, AbstractTraversable (scala.collection)
+optimize:57, FlinkChainedProgram (org.apache.flink.table.planner.plan.optimize.program)
+optimizeTree:170, StreamCommonSubGraphBasedOptimizer (org.apache.flink.table.planner.plan.optimize)
+doOptimize:90, StreamCommonSubGraphBasedOptimizer (org.apache.flink.table.planner.plan.optimize)
+optimize:77, CommonSubGraphBasedOptimizer (org.apache.flink.table.planner.plan.optimize)
+optimize:248, PlannerBase (org.apache.flink.table.planner.delegation)
+translate:151, PlannerBase (org.apache.flink.table.planner.delegation)
+toDataStream:210, StreamTableEnvironmentImpl (org.apache.flink.table.api.scala.internal)
+toRetractStream:127, StreamTableEnvironmentImpl (org.apache.flink.table.api.scala.internal)
+toRetractStream:146, TableConversions (org.apache.flink.table.api.scala)
+main:75, SimpleOuterJoin$ (spendreport)
+main:-1, SimpleOuterJoin (spendreport)
+   
+  
+// 调用栈      
+  
+convert:46, StreamExecUnionRule (org.apache.Flink.table.planner.plan.rules.physical.stream)
+onMatch:144, ConverterRule (org.apache.calcite.rel.convert)
+onMatch:208, VolcanoRuleCall (org.apache.calcite.plan.volcano)
+findBestExp:631, VolcanoPlanner (org.apache.calcite.plan.volcano)
+run:327, Programs$RuleSetProgram (org.apache.calcite.tools)
+optimize:64, FlinkVolcanoProgram (org.apache.Flink.table.planner.plan.optimize.program)
+apply:62, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.Flink.table.planner.plan.optimize.program)
+apply:58, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.Flink.table.planner.plan.optimize.program)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+foreach:891, Iterator$class (scala.collection)
+foreach:1334, AbstractIterator (scala.collection)
+foreach:72, IterableLike$class (scala.collection)
+foreach:54, AbstractIterable (scala.collection)
+foldLeft:157, TraversableOnce$class (scala.collection)
+foldLeft:104, AbstractTraversable (scala.collection)
+optimize:57, FlinkChainedProgram (org.apache.Flink.table.planner.plan.optimize.program)
+optimizeTree:170, StreamCommonSubGraphBasedOptimizer (org.apache.Flink.table.planner.plan.optimize)
+doOptimize:90, StreamCommonSubGraphBasedOptimizer (org.apache.Flink.table.planner.plan.optimize)
+optimize:77, CommonSubGraphBasedOptimizer (org.apache.Flink.table.planner.plan.optimize)
+optimize:248, PlannerBase (org.apache.Flink.table.planner.delegation)
+translate:151, PlannerBase (org.apache.Flink.table.planner.delegation)
+toDataStream:210, StreamTableEnvironmentImpl (org.apache.Flink.table.api.scala.internal)
+toAppendStream:107, StreamTableEnvironmentImpl (org.apache.Flink.table.api.scala.internal)
+toAppendStream:101, TableConversions (org.apache.Flink.table.api.scala)
+main:89, StreamSQLExample$ (spendreport)
+main:-1, StreamSQLExample (spendreport)
+</code></pre>
+<h5 id="streamexecjoinrule">StreamExecJoinRule</h5>
+<p>另一个具体的Rule举例 ，这里是 Join的优化，StreamExecJoin的生成</p>
+<pre><code class="language-java">class StreamExecJoinRule {
+    override def onMatch(call: RelOptRuleCall): Unit = {
+      val newJoin = new StreamExecJoin(
+        join.getCluster,
+        providedTraitSet,
+        newLeft,
+        newRight,
+        join.getCondition,
+        join.getJoinType)
+      call.transformTo(newJoin)
+    }
+}
+
+newJoin = {StreamExecJoin@6326} &quot;StreamExecJoin#152&quot;
+ cluster = {FlinkRelOptCluster@5072} 
+ joinType = {JoinRelType@5038} &quot;LEFT&quot;
+ LOG = null
+ transformation = null
+ bitmap$trans$0 = false
+ CommonPhysicalJoin.joinType = {JoinRelType@5038} &quot;LEFT&quot;
+ filterNulls = null
+ keyPairs = null
+ flinkJoinType = null
+ inputRowType = null
+ bitmap$0 = 0
+ condition = {RexCall@5041} &quot;=($0, $2)&quot;
+ variablesSet = {RegularImmutableSet@6342}  size = 0
+ Join.joinType = {JoinRelType@5038} &quot;LEFT&quot;
+ joinInfo = {JoinInfo@6343} 
+ left = {RelSubset@6328} &quot;rel#150:Subset#5.STREAM_PHYSICAL.hash[0]true.None: 0.false.UNKNOWN&quot;
+  bestCost = {FlinkCost$$anon$1@6344} &quot;{inf}&quot;
+  set = {RelSet@6348} 
+  best = null
+  timestamp = 0
+  boosted = false
+  desc = &quot;rel#150:Subset#5.STREAM_PHYSICAL.hash[0]true.None: 0.false.UNKNOWN&quot;
+  rowType = {RelRecordType@6349} &quot;RecordType(VARCHAR(2147483647) orderId, VARCHAR(2147483647) productName)&quot;
+  digest = &quot;Subset#5.STREAM_PHYSICAL.hash[0]true.None: 0.false.UNKNOWN&quot;
+  cluster = {FlinkRelOptCluster@5072} 
+  id = 150
+  traitSet = {RelTraitSet@6336}  size = 5
+ right = {RelSubset@6329} &quot;rel#151:Subset#6.STREAM_PHYSICAL.hash[0]true.None: 0.false.UNKNOWN&quot;
+  bestCost = {FlinkCost$$anon$1@6344} &quot;{inf}&quot;
+  set = {RelSet@6345} 
+  best = null
+  timestamp = 0
+  boosted = false
+  desc = &quot;rel#151:Subset#6.STREAM_PHYSICAL.hash[0]true.None: 0.false.UNKNOWN&quot;
+  rowType = null
+  digest = &quot;Subset#6.STREAM_PHYSICAL.hash[0]true.None: 0.false.UNKNOWN&quot;
+  cluster = {FlinkRelOptCluster@5072} 
+  id = 151
+  traitSet = {RelTraitSet@6336}  size = 5
+ desc = &quot;StreamExecJoin#152&quot;
+ rowType = null
+ digest = &quot;StreamExecJoin#152&quot;
+ AbstractRelNode.cluster = {FlinkRelOptCluster@5072} 
+ id = 152
+ traitSet = {RelTraitSet@6327}  size = 5
+
+// 调用栈       
+   
+&lt;init&gt;:58, StreamExecJoin (org.apache.flink.table.planner.plan.nodes.physical.stream)
+onMatch:128, StreamExecJoinRule (org.apache.flink.table.planner.plan.rules.physical.stream)
+onMatch:208, VolcanoRuleCall (org.apache.calcite.plan.volcano)
+findBestExp:631, VolcanoPlanner (org.apache.calcite.plan.volcano)
+run:327, Programs$RuleSetProgram (org.apache.calcite.tools)
+optimize:64, FlinkVolcanoProgram (org.apache.flink.table.planner.plan.optimize.program)
+apply:62, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.flink.table.planner.plan.optimize.program)
+apply:58, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.flink.table.planner.plan.optimize.program)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+foreach:891, Iterator$class (scala.collection)
+foreach:1334, AbstractIterator (scala.collection)
+foreach:72, IterableLike$class (scala.collection)
+foreach:54, AbstractIterable (scala.collection)
+foldLeft:157, TraversableOnce$class (scala.collection)
+foldLeft:104, AbstractTraversable (scala.collection)
+optimize:57, FlinkChainedProgram (org.apache.flink.table.planner.plan.optimize.program)
+optimizeTree:170, StreamCommonSubGraphBasedOptimizer (org.apache.flink.table.planner.plan.optimize)
+doOptimize:90, StreamCommonSubGraphBasedOptimizer (org.apache.flink.table.planner.plan.optimize)
+optimize:77, CommonSubGraphBasedOptimizer (org.apache.flink.table.planner.plan.optimize)
+optimize:248, PlannerBase (org.apache.flink.table.planner.delegation)
+translate:151, PlannerBase (org.apache.flink.table.planner.delegation)
+toDataStream:210, StreamTableEnvironmentImpl (org.apache.flink.table.api.scala.internal)
+toRetractStream:127, StreamTableEnvironmentImpl (org.apache.flink.table.api.scala.internal)
+toRetractStream:146, TableConversions (org.apache.flink.table.api.scala)
+main:75, SimpleOuterJoin$ (spendreport)
+main:-1, SimpleOuterJoin (spendreport)
+</code></pre>
+<h3 id="5-生成executionplan">5. 生成ExecutionPlan</h3>
+<p>这时候脉络图如下</p>
+<pre><code class="language-java">// NOTE : 执行顺序是从上至下，&quot; -----&gt; &quot; 表示生成的实例类型
+* 
+*        +-----&gt; &quot;left outer JOIN&quot; (SQL statement)
+*        |   
+*        |     
+*     SqlParser.parseQuery // SQL 解析阶段，生成AST（抽象语法树），作用是SQL–&gt;SqlNode      
+*        |   
+*        |      
+*        +-----&gt; SqlJoin (SqlNode)
+*        |   
+*        |     
+*     SqlToRelConverter.convertQuery // 语义分析，生成逻辑计划，作用是SqlNode–&gt;RelNode
+*        |    
+*        |     
+*        +-----&gt; LogicalProject (RelNode) // Abstract Syntax Tree，未优化的RelNode   
+*        |      
+*        |     
+*    FlinkLogicalJoinConverter (RelOptRule) // Flink定制的优化rules      
+*    VolcanoRuleCall.onMatch // 基于Flink定制的一些优化rules去优化 Logical Plan 
+*        | 
+*        |   
+*        +-----&gt; FlinkLogicalJoin (RelNode)  // Optimized Logical Plan，逻辑执行计划
+*        |  
+*        |    
+*    StreamExecJoinRule (RelOptRule) // Rule that converts FlinkLogicalJoin without window bounds in join condition to StreamExecJoin     
+*    VolcanoRuleCall.onMatch // 基于Flink rules将optimized LogicalPlan转成Flink物理执行计划
+*        |       
+*        |   
+*        +-----&gt; StreamExecJoin (FlinkRelNode) // Stream physical RelNode，物理执行计划
+*        |      
+*        |   
+*    StreamExecJoin.translateToPlanInternal  // 作用是生成 StreamOperator, 即Flink算子  
+*        |     
+*        |     
+*        +-----&gt; StreamingJoinOperator (StreamOperator) // Streaming unbounded Join operator in StreamTask 
+*        |     
+*        |  
+</code></pre>
+<p>Calcite 针对不同的大数据组件，将优化后的plan映射到最终的大数据引擎，如折射成Flink图。</p>
+<p>这一块只要是递归调用各个节点DataStreamRel的translateToPlan方法，这个方法利用CodeGen元编程成Flink的各种算子。现在就相当于我们直接利用Flink的DataSet或DataStream API开发的程序。</p>
+<pre><code class="language-java">class StreamPlanner(
+    executor: Executor,
+    config: TableConfig,
+    functionCatalog: FunctionCatalog,
+    catalogManager: CatalogManager)
+  extends PlannerBase(executor, config, functionCatalog, catalogManager, isStreamingMode = true) {
+  override protected def translateToPlan(
+      execNodes: util.List[ExecNode[_, _]]): util.List[Transformation[_]] = {
+    execNodes.map {
+      case node: StreamExecNode[_] =&gt; node.translateToPlan(this)
+      case _ =&gt;
+        throw new TableException(&quot;Cannot generate DataStream due to an invalid logical plan. &quot; +
+          &quot;This is a bug and should not happen. Please file an issue.&quot;)
+    }
+  }
+}
+
+package org.apache.Flink.table.planner.plan.nodes.physical.stream	
+
+class StreamExecUnion(
+    cluster: RelOptCluster,
+    traitSet: RelTraitSet,
+    inputRels: util.List[RelNode],
+    all: Boolean,
+    outputRowType: RelDataType)
+  extends Union(cluster, traitSet, inputRels, all)
+  with StreamPhysicalRel
+  with StreamExecNode[BaseRow] {
+
+  // 这里就生成了Flink算子
+  override protected def translateToPlanInternal(
+      planner: StreamPlanner): Transformation[BaseRow] = {
+    val transformations = getInputNodes.map {
+      input =&gt; input.translateToPlan(planner).asInstanceOf[Transformation[BaseRow]]
+    }
+    new UnionTransformation(transformations)
+  }
+}
+
+ // 调用栈
+
+translateToPlanInternal:85, StreamExecUnion (org.apache.Flink.table.planner.plan.nodes.physical.stream)
+translateToPlanInternal:39, StreamExecUnion (org.apache.Flink.table.planner.plan.nodes.physical.stream)
+translateToPlan:58, ExecNode$class (org.apache.Flink.table.planner.plan.nodes.exec)
+translateToPlan:39, StreamExecUnion (org.apache.Flink.table.planner.plan.nodes.physical.stream)
+translateToTransformation:184, StreamExecSink (org.apache.Flink.table.planner.plan.nodes.physical.stream)
+translateToPlanInternal:153, StreamExecSink (org.apache.Flink.table.planner.plan.nodes.physical.stream)
+translateToPlanInternal:48, StreamExecSink (org.apache.Flink.table.planner.plan.nodes.physical.stream)
+translateToPlan:58, ExecNode$class (org.apache.Flink.table.planner.plan.nodes.exec)
+translateToPlan:48, StreamExecSink (org.apache.Flink.table.planner.plan.nodes.physical.stream)
+apply:60, StreamPlanner$$anonfun$translateToPlan$1 (org.apache.Flink.table.planner.delegation)
+apply:59, StreamPlanner$$anonfun$translateToPlan$1 (org.apache.Flink.table.planner.delegation)
+apply:234, TraversableLike$$anonfun$map$1 (scala.collection)
+apply:234, TraversableLike$$anonfun$map$1 (scala.collection)
+foreach:891, Iterator$class (scala.collection)
+foreach:1334, AbstractIterator (scala.collection)
+foreach:72, IterableLike$class (scala.collection)
+foreach:54, AbstractIterable (scala.collection)
+map:234, TraversableLike$class (scala.collection)
+map:104, AbstractTraversable (scala.collection)
+translateToPlan:59, StreamPlanner (org.apache.Flink.table.planner.delegation)
+translate:153, PlannerBase (org.apache.Flink.table.planner.delegation)
+toDataStream:210, StreamTableEnvironmentImpl (org.apache.Flink.table.api.scala.internal)
+toAppendStream:107, StreamTableEnvironmentImpl (org.apache.Flink.table.api.scala.internal)
+toAppendStream:101, TableConversions (org.apache.Flink.table.api.scala)
+main:89, StreamSQLExample$ (spendreport)
+main:-1, StreamSQLExample (spendreport)
+</code></pre>
+<h3 id="6-运行时">6. 运行时</h3>
+<p>此时脉络图补充完全。</p>
+<pre><code class="language-java">// NOTE : 执行顺序是从上至下，&quot; -----&gt; &quot; 表示生成的实例类型
+* 
+*        +-----&gt; &quot;left outer JOIN&quot; (SQL statement)
+*        |   
+*        |     
+*     SqlParser.parseQuery // SQL 解析阶段，生成AST（抽象语法树），作用是SQL–&gt;SqlNode      
+*        |   
+*        |      
+*        +-----&gt; SqlJoin (SqlNode)
+*        |   
+*        |     
+*     SqlToRelConverter.convertQuery // 语义分析，生成逻辑计划，作用是SqlNode–&gt;RelNode
+*        |    
+*        |     
+*        +-----&gt; LogicalProject (RelNode) // Abstract Syntax Tree，未优化的RelNode   
+*        |      
+*        |     
+*    FlinkLogicalJoinConverter (RelOptRule) // Flink定制的优化rules      
+*    VolcanoRuleCall.onMatch // 基于Flink定制的一些优化rules去优化 Logical Plan 
+*        | 
+*        |   
+*        +-----&gt; FlinkLogicalJoin (RelNode)  // Optimized Logical Plan，逻辑执行计划
+*        |  
+*        |    
+*    StreamExecJoinRule (RelOptRule) // Rule that converts FlinkLogicalJoin without window bounds in join condition to StreamExecJoin     
+*    VolcanoRuleCall.onMatch // 基于Flink rules将optimized LogicalPlan转成Flink物理执行计划
+*        |       
+*        |   
+*        +-----&gt; StreamExecJoin (FlinkRelNode) // Stream physical RelNode，物理执行计划
+*        |      
+*        |     
+*    StreamExecJoin.translateToPlanInternal  // 作用是生成 StreamOperator, 即Flink算子  
+*        |     
+*        |     
+*        +-----&gt; StreamingJoinOperator (StreamOperator) // Streaming unbounded Join operator in StreamTask 
+*        |     
+*        |       
+*    StreamTwoInputProcessor.processRecord1// 在TwoInputStreamTask调用StreamingJoinOperator，真实的执行  
+*        |
+*        |  
+</code></pre>
+<p>运行时候，则会在StreamTask中进行业务操作，这就是我们熟悉的操作了。调用栈举例如下</p>
+<pre><code class="language-java">processElement:150, StreamTaskNetworkInput (org.apache.Flink.streaming.runtime.io)
+emitNext:128, StreamTaskNetworkInput (org.apache.Flink.streaming.runtime.io)
+processInput:69, StreamOneInputProcessor (org.apache.Flink.streaming.runtime.io)
+processInput:311, StreamTask (org.apache.Flink.streaming.runtime.tasks)
+runDefaultAction:-1, 354713989 (org.apache.Flink.streaming.runtime.tasks.StreamTask$$Lambda$710)
+runMailboxLoop:187, MailboxProcessor (org.apache.Flink.streaming.runtime.tasks.mailbox)
+runMailboxLoop:487, StreamTask (org.apache.Flink.streaming.runtime.tasks)
+invoke:470, StreamTask (org.apache.Flink.streaming.runtime.tasks)
+doRun:707, Task (org.apache.Flink.runtime.taskmanager)
+run:532, Task (org.apache.Flink.runtime.taskmanager)
+run:748, Thread (java.lang)
+</code></pre>
+<h2 id="0x05--代码实例-union">0x05  代码实例 UNION</h2>
+<p>下面是如何具体生成各种执行计划的代码</p>
+<pre><code class="language-java">import org.apache.Flink.api.java.utils.ParameterTool
+import org.apache.Flink.api.scala._
+import org.apache.Flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}
+import org.apache.Flink.table.api.EnvironmentSettings
+import org.apache.Flink.table.api.scala._
+
+object StreamSQLExample {
+
+  // *************************************************************************
+  //     PROGRAM
+  // *************************************************************************
+  def main(args: Array[String]): Unit = {
+
+    val params = ParameterTool.fromArgs(args)
+    val planner = if (params.has(&quot;planner&quot;)) params.get(&quot;planner&quot;) else &quot;Flink&quot;
+
+    // set up execution environment
+    val env = StreamExecutionEnvironment.getExecutionEnvironment
+    val tEnv = if (planner == &quot;blink&quot;) {  // use blink planner in streaming mode
+      val settings = EnvironmentSettings.newInstance()
+        .useBlinkPlanner()
+        .inStreamingMode()
+        .build()
+      StreamTableEnvironment.create(env, settings)
+    } else if (planner == &quot;Flink&quot;) {  // use Flink planner in streaming mode
+      StreamTableEnvironment.create(env)
+    } else {
+      System.err.println(&quot;The planner is incorrect. Please run 'StreamSQLExample --planner &lt;planner&gt;', &quot; +
+        &quot;where planner (it is either Flink or blink, and the default is Flink) indicates whether the &quot; +
+        &quot;example uses Flink planner or blink planner.&quot;)
+      return
+    }
+
+    val orderA: DataStream[Order] = env.fromCollection(Seq(
+      Order(1L, &quot;beer&quot;, 3),
+      Order(1L, &quot;diaper&quot;, 4),
+      Order(3L, &quot;rubber&quot;, 2)))
+
+    val orderB: DataStream[Order] = env.fromCollection(Seq(
+      Order(2L, &quot;pen&quot;, 3),
+      Order(2L, &quot;rubber&quot;, 3),
+      Order(4L, &quot;beer&quot;, 1)))
+
+    // convert DataStream to Table
+    val tableA = tEnv.fromDataStream(orderA, 'user, 'product, 'amount)
+    // register DataStream as Table
+    tEnv.registerDataStream(&quot;OrderB&quot;, orderB, 'user, 'product, 'amount)
+
+    // union the two tables
+    val result = tEnv.sqlQuery(
+      s&quot;&quot;&quot;
+         |SELECT * FROM $tableA WHERE amount &gt; 2
+         |UNION ALL
+         |SELECT * FROM OrderB WHERE amount &lt; 2
+        &quot;&quot;&quot;.stripMargin)
+
+    result.toAppendStream[Order].print()
+    print(tEnv.explain(result))
+    env.execute()
+  }
+
+  // *************************************************************************
+  //     USER DATA TYPES
+  // *************************************************************************
+  case class Order(user: Long, product: String, amount: Int)
+}
+</code></pre>
+<p>整个流程的转换大体就像这样：</p>
+<pre><code class="language-java">== Abstract Syntax Tree ==
+LogicalUnion(all=[true])
+:- LogicalProject(user=[$0], product=[$1], amount=[$2])
+:  +- LogicalFilter(condition=[&gt;($2, 2)])
+:     +- LogicalTableScan(table=[[default_catalog, default_database, UnnamedTable$0]])
++- LogicalProject(user=[$0], product=[$1], amount=[$2])
+   +- LogicalFilter(condition=[&lt;($2, 2)])
+      +- LogicalTableScan(table=[[default_catalog, default_database, OrderB]])
+
+== Optimized Logical Plan ==
+Union(all=[true], union=[user, product, amount])
+:- Calc(select=[user, product, amount], where=[&gt;(amount, 2)])
+:  +- DataStreamScan(table=[[default_catalog, default_database, UnnamedTable$0]], fields=[user, product, amount])
++- Calc(select=[user, product, amount], where=[&lt;(amount, 2)])
+   +- DataStreamScan(table=[[default_catalog, default_database, OrderB]], fields=[user, product, amount])
+
+== Physical Execution Plan ==
+Stage 1 : Data Source
+	content : Source: Collection Source
+
+Stage 2 : Data Source
+	content : Source: Collection Source
+
+	Stage 10 : Operator
+		content : SourceConversion(table=[default_catalog.default_database.UnnamedTable$0], fields=[user, product, amount])
+		ship_strategy : FORWARD
+
+		Stage 11 : Operator
+			content : Calc(select=[user, product, amount], where=[(amount &gt; 2)])
+			ship_strategy : FORWARD
+
+			Stage 12 : Operator
+				content : SourceConversion(table=[default_catalog.default_database.OrderB], fields=[user, product, amount])
+				ship_strategy : FORWARD
+
+				Stage 13 : Operator
+					content : Calc(select=[user, product, amount], where=[(amount &lt; 2)])
+					ship_strategy : FORWARD
+
+</code></pre>
+<h2 id="0x06--代码实例-outer--join">0x06  代码实例 OUTER  JOIN</h2>
+<pre><code class="language-java">import java.sql.Timestamp
+import org.apache.Flink.api.java.utils.ParameterTool
+import org.apache.Flink.api.scala._
+import org.apache.Flink.streaming.api.TimeCharacteristic
+import org.apache.Flink.streaming.api.scala.StreamExecutionEnvironment
+import org.apache.Flink.table.api.{EnvironmentSettings, TableEnvironment}
+import org.apache.Flink.table.api.scala._
+import org.apache.Flink.types.Row
+
+import scala.collection.mutable
+
+object SimpleOuterJoin {
+  def main(args: Array[String]): Unit = {
+
+    val params = ParameterTool.fromArgs(args)
+    val planner = if (params.has(&quot;planner&quot;)) params.get(&quot;planner&quot;) else &quot;Flink&quot;
+
+    val env = StreamExecutionEnvironment.getExecutionEnvironment
+
+    val tEnv = if (planner == &quot;blink&quot;) {  // use blink planner in streaming mode
+      val settings = EnvironmentSettings.newInstance()
+        .useBlinkPlanner()
+        .inStreamingMode()
+        .build()
+      StreamTableEnvironment.create(env, settings)
+    } else if (planner == &quot;Flink&quot;) {  // use Flink planner in streaming mode
+      StreamTableEnvironment.create(env)
+    } else {
+      System.err.println(&quot;The planner is incorrect. Please run 'StreamSQLExample --planner &lt;planner&gt;', &quot; +
+        &quot;where planner (it is either Flink or blink, and the default is Flink) indicates whether the &quot; +
+        &quot;example uses Flink planner or blink planner.&quot;)
+      return
+    }
+
+    env.setParallelism(1)
+    env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
+    // 构造订单数据
+    val ordersData = new mutable.MutableList[(String, String)]
+    ordersData.+=((&quot;001&quot;, &quot;iphone&quot;))
+    ordersData.+=((&quot;002&quot;, &quot;mac&quot;))
+    ordersData.+=((&quot;003&quot;, &quot;book&quot;))
+    ordersData.+=((&quot;004&quot;, &quot;cup&quot;))
+
+    // 构造付款表
+    val paymentData = new mutable.MutableList[(String, String)]
+    paymentData.+=((&quot;001&quot;, &quot;alipay&quot;))
+    paymentData.+=((&quot;002&quot;, &quot;card&quot;))
+    paymentData.+=((&quot;003&quot;, &quot;card&quot;))
+    paymentData.+=((&quot;004&quot;, &quot;alipay&quot;))
+    val orders = env
+      .fromCollection(ordersData)
+       .toTable(tEnv, 'orderId, 'productName)
+    val ratesHistory = env
+      .fromCollection(paymentData)
+      .toTable(tEnv, 'orderId, 'payType)
+
+    tEnv.registerTable(&quot;Orders&quot;, orders)
+    tEnv.registerTable(&quot;Payment&quot;, ratesHistory)
+
+    var sqlQuery =
+      &quot;&quot;&quot;
+        |SELECT
+        |  o.orderId,
+        |  o.productName,
+        |  p.payType
+        |FROM
+        |  Orders AS o left outer JOIN Payment AS p ON o.orderId = p.orderId
+        |&quot;&quot;&quot;.stripMargin
+    tEnv.registerTable(&quot;TemporalJoinResult&quot;, tEnv.sqlQuery(sqlQuery))
+
+    val result = tEnv.scan(&quot;TemporalJoinResult&quot;).toRetractStream[Row]
+    result.print()
+    print(tEnv.explain(tEnv.sqlQuery(sqlQuery)))
+    env.execute()
+  }
+}
+</code></pre>
+<p>整个流程的转换如下：</p>
+<pre><code class="language-java">== Abstract Syntax Tree ==
+LogicalProject(orderId=[$0], productName=[$1], payType=[$3])
++- LogicalJoin(condition=[=($0, $2)], joinType=[left])
+   :- LogicalTableScan(table=[[default_catalog, default_database, Orders]])
+   +- LogicalTableScan(table=[[default_catalog, default_database, Payment]])
+
+== Optimized Logical Plan ==
+Calc(select=[orderId, productName, payType])
++- Join(joinType=[LeftOuterJoin], where=[=(orderId, orderId0)], select=[orderId, productName, orderId0, payType], leftInputSpec=[NoUniqueKey], rightInputSpec=[NoUniqueKey])
+   :- Exchange(distribution=[hash[orderId]])
+   :  +- DataStreamScan(table=[[default_catalog, default_database, Orders]], fields=[orderId, productName])
+   +- Exchange(distribution=[hash[orderId]])
+      +- DataStreamScan(table=[[default_catalog, default_database, Payment]], fields=[orderId, payType])
+
+== Physical Execution Plan ==
+Stage 1 : Data Source
+	content : Source: Collection Source
+
+Stage 2 : Data Source
+	content : Source: Collection Source
+
+	Stage 11 : Operator
+		content : SourceConversion(table=[default_catalog.default_database.Orders], fields=[orderId, productName])
+		ship_strategy : FORWARD
+
+		Stage 13 : Operator
+			content : SourceConversion(table=[default_catalog.default_database.Payment], fields=[orderId, payType])
+			ship_strategy : FORWARD
+
+			Stage 15 : Operator
+				content : Join(joinType=[LeftOuterJoin], where=[(orderId = orderId0)], select=[orderId, productName, orderId0, payType], leftInputSpec=[NoUniqueKey], rightInputSpec=[NoUniqueKey])
+				ship_strategy : HASH
+
+				Stage 16 : Operator
+					content : Calc(select=[orderId, productName, payType])
+					ship_strategy : FORWARD
+
+输出结果是
+(true,001,iphone,null)
+(false,001,iphone,null)
+(true,001,iphone,alipay)
+(true,002,mac,null)
+(false,002,mac,null)
+(true,002,mac,card)
+(true,003,book,null)
+(false,003,book,null)
+(true,003,book,card)
+(true,004,cup,null)
+(false,004,cup,null)
+(true,004,cup,alipay)
+</code></pre>
+<p>下面是调试时候的调用栈，这个可以给大家参考</p>
+<pre><code class="language-java">// 调用Rule进行优化
+
+matches:49, StreamExecJoinRule (org.apache.Flink.table.planner.plan.rules.physical.stream)
+matchRecurse:263, VolcanoRuleCall (org.apache.calcite.plan.volcano)
+matchRecurse:370, VolcanoRuleCall (org.apache.calcite.plan.volcano)
+matchRecurse:370, VolcanoRuleCall (org.apache.calcite.plan.volcano)
+match:247, VolcanoRuleCall (org.apache.calcite.plan.volcano)
+fireRules:1534, VolcanoPlanner (org.apache.calcite.plan.volcano)
+registerImpl:1807, VolcanoPlanner (org.apache.calcite.plan.volcano)
+register:846, VolcanoPlanner (org.apache.calcite.plan.volcano)
+ensureRegistered:868, VolcanoPlanner (org.apache.calcite.plan.volcano)
+ensureRegistered:90, VolcanoPlanner (org.apache.calcite.plan.volcano)
+onRegister:329, AbstractRelNode (org.apache.calcite.rel)
+registerImpl:1668, VolcanoPlanner (org.apache.calcite.plan.volcano)
+register:846, VolcanoPlanner (org.apache.calcite.plan.volcano)
+ensureRegistered:868, VolcanoPlanner (org.apache.calcite.plan.volcano)
+ensureRegistered:90, VolcanoPlanner (org.apache.calcite.plan.volcano)
+onRegister:329, AbstractRelNode (org.apache.calcite.rel)
+registerImpl:1668, VolcanoPlanner (org.apache.calcite.plan.volcano)
+register:846, VolcanoPlanner (org.apache.calcite.plan.volcano)
+ensureRegistered:868, VolcanoPlanner (org.apache.calcite.plan.volcano)
+changeTraits:529, VolcanoPlanner (org.apache.calcite.plan.volcano)
+run:324, Programs$RuleSetProgram (org.apache.calcite.tools)
+optimize:64, FlinkVolcanoProgram (org.apache.Flink.table.planner.plan.optimize.program)
+apply:62, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.Flink.table.planner.plan.optimize.program)
+apply:58, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.Flink.table.planner.plan.optimize.program)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+foreach:891, Iterator$class (scala.collection)
+foreach:1334, AbstractIterator (scala.collection)
+foreach:72, IterableLike$class (scala.collection)
+foreach:54, AbstractIterable (scala.collection)
+foldLeft:157, TraversableOnce$class (scala.collection)
+foldLeft:104, AbstractTraversable (scala.collection)
+optimize:57, FlinkChainedProgram (org.apache.Flink.table.planner.plan.optimize.program)
+optimizeTree:170, StreamCommonSubGraphBasedOptimizer (org.apache.Flink.table.planner.plan.optimize)
+doOptimize:90, StreamCommonSubGraphBasedOptimizer (org.apache.Flink.table.planner.plan.optimize)
+optimize:77, CommonSubGraphBasedOptimizer (org.apache.Flink.table.planner.plan.optimize)
+optimize:248, PlannerBase (org.apache.Flink.table.planner.delegation)
+translate:151, PlannerBase (org.apache.Flink.table.planner.delegation)
+toDataStream:210, StreamTableEnvironmentImpl (org.apache.Flink.table.api.scala.internal)
+toRetractStream:127, StreamTableEnvironmentImpl (org.apache.Flink.table.api.scala.internal)
+toRetractStream:146, TableConversions (org.apache.Flink.table.api.scala)
+main:75, SimpleOuterJoin$ (spendreport)
+main:-1, SimpleOuterJoin (spendreport)
+  
+  
+// 调用Rule进行转换到Flink逻辑算子  
+  
+translateToPlanInternal:140, StreamExecJoin (org.apache.flink.table.planner.plan.nodes.physical.stream)
+translateToPlanInternal:51, StreamExecJoin (org.apache.flink.table.planner.plan.nodes.physical.stream)
+translateToPlan:58, ExecNode$class (org.apache.flink.table.planner.plan.nodes.exec)
+translateToPlan:51, StreamExecJoin (org.apache.flink.table.planner.plan.nodes.physical.stream)
+translateToPlanInternal:54, StreamExecCalc (org.apache.flink.table.planner.plan.nodes.physical.stream)
+translateToPlanInternal:39, StreamExecCalc (org.apache.flink.table.planner.plan.nodes.physical.stream)
+translateToPlan:58, ExecNode$class (org.apache.flink.table.planner.plan.nodes.exec)
+translateToPlan:38, StreamExecCalcBase (org.apache.flink.table.planner.plan.nodes.physical.stream)
+translateToTransformation:184, StreamExecSink (org.apache.flink.table.planner.plan.nodes.physical.stream)
+translateToPlanInternal:153, StreamExecSink (org.apache.flink.table.planner.plan.nodes.physical.stream)
+translateToPlanInternal:48, StreamExecSink (org.apache.flink.table.planner.plan.nodes.physical.stream)
+translateToPlan:58, ExecNode$class (org.apache.flink.table.planner.plan.nodes.exec)
+translateToPlan:48, StreamExecSink (org.apache.flink.table.planner.plan.nodes.physical.stream)
+apply:60, StreamPlanner$$anonfun$translateToPlan$1 (org.apache.flink.table.planner.delegation)
+apply:59, StreamPlanner$$anonfun$translateToPlan$1 (org.apache.flink.table.planner.delegation)
+apply:234, TraversableLike$$anonfun$map$1 (scala.collection)
+apply:234, TraversableLike$$anonfun$map$1 (scala.collection)
+foreach:891, Iterator$class (scala.collection)
+foreach:1334, AbstractIterator (scala.collection)
+foreach:72, IterableLike$class (scala.collection)
+foreach:54, AbstractIterable (scala.collection)
+map:234, TraversableLike$class (scala.collection)
+map:104, AbstractTraversable (scala.collection)
+translateToPlan:59, StreamPlanner (org.apache.flink.table.planner.delegation)
+translate:153, PlannerBase (org.apache.flink.table.planner.delegation)
+toDataStream:210, StreamTableEnvironmentImpl (org.apache.flink.table.api.scala.internal)
+toRetractStream:127, StreamTableEnvironmentImpl (org.apache.flink.table.api.scala.internal)
+toRetractStream:146, TableConversions (org.apache.flink.table.api.scala)
+main:75, SimpleOuterJoin$ (spendreport)
+main:-1, SimpleOuterJoin (spendreport)  
+ 
+// 运行时候
+  
+@Internal
+public final class StreamTwoInputProcessor&lt;IN1, IN2&gt; implements StreamInputProcessor {
+	private void processRecord2(
+			StreamRecord&lt;IN2&gt; record,
+			TwoInputStreamOperator&lt;IN1, IN2, ?&gt; streamOperator,
+			Counter numRecordsIn) throws Exception {
+
+		streamOperator.setKeyContextElement2(record);
+		streamOperator.processElement2(record);
+		postProcessRecord(numRecordsIn);
+	}  
+}    
+
+// 能看出来，streamOperator就是StreamingJoinOperator
+
+streamOperator = {StreamingJoinOperator@10943} 
+ leftIsOuter = true
+ rightIsOuter = false
+ outRow = {JoinedRow@10948} &quot;JoinedRow{row1=org.apache.flink.table.dataformat.BinaryRow@dc6a1b67, row2=(+|null,null)}&quot;
+ leftNullRow = {GenericRow@10949} &quot;(+|null,null)&quot;
+ rightNullRow = {GenericRow@10950} &quot;(+|null,null)&quot;
+ leftRecordStateView = {OuterJoinRecordStateViews$InputSideHasNoUniqueKey@10945} 
+ rightRecordStateView = {JoinRecordStateViews$InputSideHasNoUniqueKey@10946} 
+ generatedJoinCondition = {GeneratedJoinCondition@10951} 
+ leftType = {BaseRowTypeInfo@10952} &quot;BaseRow(orderId: STRING, productName: STRING)&quot;
+ rightType = {BaseRowTypeInfo@10953} &quot;BaseRow(orderId: STRING, payType: STRING)&quot;
+ leftInputSideSpec = {JoinInputSideSpec@10954} &quot;NoUniqueKey&quot;
+ rightInputSideSpec = {JoinInputSideSpec@10955} &quot;NoUniqueKey&quot;
+ nullFilterKeys = {int[1]@10956} 
+ nullSafe = false
+ filterAllNulls = true
+ minRetentionTime = 0
+ stateCleaningEnabled = false
+ joinCondition = {AbstractStreamingJoinOperator$JoinConditionWithNullFilters@10947} 
+ collector = {TimestampedCollector@10957} 
+ chainingStrategy = {ChainingStrategy@10958} &quot;HEAD&quot;
+ container = {TwoInputStreamTask@10959} &quot;Join(joinType=[LeftOuterJoin], where=[(orderId = orderId0)], select=[orderId, productName, orderId0, payType], leftInputSpec=[NoUniqueKey], rightInputSpec=[NoUniqueKey]) -&gt; Calc(select=[orderId, productName, payType]) -&gt; SinkConversionToTuple2 -&gt; Sink: Print to Std. Out (1/1)&quot;
+ config = {StreamConfig@10960} &quot;\n=======================Stream Config=======================\nNumber of non-chained inputs: 2\nNumber of non-chained outputs: 0\nOutput names: []\nPartitioning:\nChained subtasks: [(Join(joinType=[LeftOuterJoin], where=[(orderId = orderId0)], select=[orderId, productName, orderId0, payType], leftInputSpec=[NoUniqueKey], rightInputSpec=[NoUniqueKey])-7 -&gt; Calc(select=[orderId, productName, payType])-8, typeNumber=0, selectedNames=[], outputPartitioner=FORWARD, outputTag=null)]\nOperator: SimpleOperatorFactory\nBuffer timeout: 100\nState Monitoring: false\n\n\n---------------------\nChained task configs\n---------------------\n{8=\n=======================Stream Config=======================\nNumber of non-chained inputs: 0\nNumber of non-chained outputs: 0\nOutput names: []\nPartitioning:\nChained subtasks: [(Calc(select=[orderId, productName, payType])-8 -&gt; SinkConversionToTuple2-9, typeNumber=0, selectedNames=[], outputPartitioner=FORWARD, outputTag=null)]\nOperator: CodeGenOperatorFactory\nBuffer timeout: &quot;
+ output = {AbstractStreamOperator$CountingOutput@10961} 
+ runtimeContext = {StreamingRuntimeContext@10962} 
+ stateKeySelector1 = {BinaryRowKeySelector@10963} 
+ stateKeySelector2 = {BinaryRowKeySelector@10964} 
+ keyedStateBackend = {HeapKeyedStateBackend@10965} &quot;HeapKeyedStateBackend&quot;
+ keyedStateStore = {DefaultKeyedStateStore@10966} 
+ operatorStateBackend = {DefaultOperatorStateBackend@10967} 
+ metrics = {OperatorMetricGroup@10968} 
+ latencyStats = {LatencyStats@10969} 
+ processingTimeService = {ProcessingTimeServiceImpl@10970} 
+ timeServiceManager = {InternalTimeServiceManager@10971} 
+ combinedWatermark = -9223372036854775808
+ input1Watermark = -9223372036854775808
+ input2Watermark = -9223372036854775808
+  
+// 处理table 1 
+
+processElement1:118, StreamingJoinOperator (org.apache.Flink.table.runtime.operators.join.stream)
+processRecord1:135, StreamTwoInputProcessor (org.apache.Flink.streaming.runtime.io)
+lambda$new$0:100, StreamTwoInputProcessor (org.apache.Flink.streaming.runtime.io)
+accept:-1, 169462196 (org.apache.Flink.streaming.runtime.io.StreamTwoInputProcessor$$Lambda$733)
+emitRecord:362, StreamTwoInputProcessor$StreamTaskNetworkOutput (org.apache.Flink.streaming.runtime.io)
+processElement:151, StreamTaskNetworkInput (org.apache.Flink.streaming.runtime.io)
+emitNext:128, StreamTaskNetworkInput (org.apache.Flink.streaming.runtime.io)
+processInput:182, StreamTwoInputProcessor (org.apache.Flink.streaming.runtime.io)
+processInput:311, StreamTask (org.apache.Flink.streaming.runtime.tasks)
+runDefaultAction:-1, 1284793893 (org.apache.Flink.streaming.runtime.tasks.StreamTask$$Lambda$713)
+runMailboxLoop:187, MailboxProcessor (org.apache.Flink.streaming.runtime.tasks.mailbox)
+runMailboxLoop:487, StreamTask (org.apache.Flink.streaming.runtime.tasks)
+invoke:470, StreamTask (org.apache.Flink.streaming.runtime.tasks)
+doRun:707, Task (org.apache.Flink.runtime.taskmanager)
+run:532, Task (org.apache.Flink.runtime.taskmanager)
+run:748, Thread (java.lang)
+  
+// 处理table 2 
+
+processElement2:123, StreamingJoinOperator (org.apache.Flink.table.runtime.operators.join.stream)
+processRecord2:145, StreamTwoInputProcessor (org.apache.Flink.streaming.runtime.io)
+lambda$new$1:107, StreamTwoInputProcessor (org.apache.Flink.streaming.runtime.io)
+accept:-1, 76811487 (org.apache.Flink.streaming.runtime.io.StreamTwoInputProcessor$$Lambda$734)
+emitRecord:362, StreamTwoInputProcessor$StreamTaskNetworkOutput (org.apache.Flink.streaming.runtime.io)
+processElement:151, StreamTaskNetworkInput (org.apache.Flink.streaming.runtime.io)
+emitNext:128, StreamTaskNetworkInput (org.apache.Flink.streaming.runtime.io)
+processInput:185, StreamTwoInputProcessor (org.apache.Flink.streaming.runtime.io)
+processInput:311, StreamTask (org.apache.Flink.streaming.runtime.tasks)
+runDefaultAction:-1, 1284793893 (org.apache.Flink.streaming.runtime.tasks.StreamTask$$Lambda$713)
+runMailboxLoop:187, MailboxProcessor (org.apache.Flink.streaming.runtime.tasks.mailbox)
+runMailboxLoop:487, StreamTask (org.apache.Flink.streaming.runtime.tasks)
+invoke:470, StreamTask (org.apache.Flink.streaming.runtime.tasks)
+doRun:707, Task (org.apache.Flink.runtime.taskmanager)
+run:532, Task (org.apache.Flink.runtime.taskmanager)
+run:748, Thread (java.lang)
+  
+// 处理table 1   
+  
+processRecord1:134, StreamTwoInputProcessor (org.apache.flink.streaming.runtime.io)
+lambda$new$0:100, StreamTwoInputProcessor (org.apache.flink.streaming.runtime.io)
+accept:-1, 230607815 (org.apache.flink.streaming.runtime.io.StreamTwoInputProcessor$$Lambda$735)
+emitRecord:362, StreamTwoInputProcessor$StreamTaskNetworkOutput (org.apache.flink.streaming.runtime.io)
+processElement:151, StreamTaskNetworkInput (org.apache.flink.streaming.runtime.io)
+emitNext:128, StreamTaskNetworkInput (org.apache.flink.streaming.runtime.io)
+processInput:182, StreamTwoInputProcessor (org.apache.flink.streaming.runtime.io)
+processInput:311, StreamTask (org.apache.flink.streaming.runtime.tasks)
+runDefaultAction:-1, 33038573 (org.apache.flink.streaming.runtime.tasks.StreamTask$$Lambda$718)
+runMailboxLoop:187, MailboxProcessor (org.apache.flink.streaming.runtime.tasks.mailbox)
+runMailboxLoop:487, StreamTask (org.apache.flink.streaming.runtime.tasks)
+invoke:470, StreamTask (org.apache.flink.streaming.runtime.tasks)
+doRun:707, Task (org.apache.flink.runtime.taskmanager)
+run:532, Task (org.apache.flink.runtime.taskmanager)
+run:748, Thread (java.lang)	
+  
+// 处理table 2   
+  
+processRecord2:144, StreamTwoInputProcessor (org.apache.flink.streaming.runtime.io)
+lambda$new$1:107, StreamTwoInputProcessor (org.apache.flink.streaming.runtime.io)
+accept:-1, 212261435 (org.apache.flink.streaming.runtime.io.StreamTwoInputProcessor$$Lambda$736)
+emitRecord:362, StreamTwoInputProcessor$StreamTaskNetworkOutput (org.apache.flink.streaming.runtime.io)
+processElement:151, StreamTaskNetworkInput (org.apache.flink.streaming.runtime.io)
+emitNext:128, StreamTaskNetworkInput (org.apache.flink.streaming.runtime.io)
+processInput:185, StreamTwoInputProcessor (org.apache.flink.streaming.runtime.io)
+processInput:311, StreamTask (org.apache.flink.streaming.runtime.tasks)
+runDefaultAction:-1, 33038573 (org.apache.flink.streaming.runtime.tasks.StreamTask$$Lambda$718)
+runMailboxLoop:187, MailboxProcessor (org.apache.flink.streaming.runtime.tasks.mailbox)
+runMailboxLoop:487, StreamTask (org.apache.flink.streaming.runtime.tasks)
+invoke:470, StreamTask (org.apache.flink.streaming.runtime.tasks)
+doRun:707, Task (org.apache.flink.runtime.taskmanager)
+run:532, Task (org.apache.flink.runtime.taskmanager)
+run:748, Thread (java.lang)  
+  
+</code></pre>
+<h2 id="0x07--代码实例-window--join">0x07  代码实例 WINDOW  JOIN</h2>
+<pre><code class="language-java">import java.sql.Timestamp
+import org.apache.flink.api.java.utils.ParameterTool
+import org.apache.flink.api.scala._
+import org.apache.flink.streaming.api.TimeCharacteristic
+import org.apache.flink.streaming.api.functions.timestamps.BoundedOutOfOrdernessTimestampExtractor
+import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
+import org.apache.flink.streaming.api.windowing.time.Time
+import org.apache.flink.table.api.{EnvironmentSettings, TableEnvironment}
+import org.apache.flink.table.api.scala._
+import org.apache.flink.types.Row
+
+import scala.collection.mutable
+
+import java.sql.Timestamp
+
+import org.apache.flink.api.scala._
+import org.apache.flink.streaming.api.TimeCharacteristic
+import org.apache.flink.streaming.api.functions.timestamps.BoundedOutOfOrdernessTimestampExtractor
+import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
+import org.apache.flink.streaming.api.windowing.time.Time
+import org.apache.flink.table.api.TableEnvironment
+import org.apache.flink.table.api.scala._
+import org.apache.flink.types.Row
+
+import scala.collection.mutable
+
+object SimpleTimeIntervalJoinA {
+  def main(args: Array[String]): Unit = {
+    val params = ParameterTool.fromArgs(args)
+    val planner = if (params.has(&quot;planner&quot;)) params.get(&quot;planner&quot;) else &quot;flink&quot;
+
+    val env = StreamExecutionEnvironment.getExecutionEnvironment
+
+    val tEnv = if (planner == &quot;blink&quot;) {  // use blink planner in streaming mode
+      val settings = EnvironmentSettings.newInstance()
+        .useBlinkPlanner()
+        .inStreamingMode()
+        .build()
+      StreamTableEnvironment.create(env, settings)
+    } else if (planner == &quot;flink&quot;) {  // use flink planner in streaming mode
+      StreamTableEnvironment.create(env)
+    } else {
+      System.err.println(&quot;The planner is incorrect. Please run 'StreamSQLExample --planner &lt;planner&gt;', &quot; +
+        &quot;where planner (it is either flink or blink, and the default is flink) indicates whether the &quot; +
+        &quot;example uses flink planner or blink planner.&quot;)
+      return
+    }
+    env.setParallelism(1)
+    env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
+    // 构造订单数据
+    val ordersData = new mutable.MutableList[(String, String, Timestamp)]
+    ordersData.+=((&quot;001&quot;, &quot;iphone&quot;, new Timestamp(1545800002000L)))
+    ordersData.+=((&quot;002&quot;, &quot;mac&quot;, new Timestamp(1545800003000L)))
+    ordersData.+=((&quot;003&quot;, &quot;book&quot;, new Timestamp(1545800004000L)))
+    ordersData.+=((&quot;004&quot;, &quot;cup&quot;, new Timestamp(1545800018000L)))
+
+    // 构造付款表
+    val paymentData = new mutable.MutableList[(String, String, Timestamp)]
+    paymentData.+=((&quot;001&quot;, &quot;alipay&quot;, new Timestamp(1545803501000L)))
+    paymentData.+=((&quot;002&quot;, &quot;card&quot;, new Timestamp(1545803602000L)))
+    paymentData.+=((&quot;003&quot;, &quot;card&quot;, new Timestamp(1545803610000L)))
+    paymentData.+=((&quot;004&quot;, &quot;alipay&quot;, new Timestamp(1545803611000L)))
+    val orders = env
+      .fromCollection(ordersData)
+      .assignTimestampsAndWatermarks(new TimestampExtractor[String, String]())
+      .toTable(tEnv, 'orderId, 'productName, 'orderTime.rowtime)
+    val ratesHistory = env
+      .fromCollection(paymentData)
+      .assignTimestampsAndWatermarks(new TimestampExtractor[String, String]())
+      .toTable(tEnv, 'orderId, 'payType, 'payTime.rowtime)
+
+    tEnv.registerTable(&quot;Orders&quot;, orders)
+    tEnv.registerTable(&quot;Payment&quot;, ratesHistory)
+
+    var sqlQuery =
+      &quot;&quot;&quot;
+        |SELECT
+        |  o.orderId,
+        |  o.productName,
+        |  p.payType,
+        |  o.orderTime,
+        |  cast(payTime as timestamp) as payTime
+        |FROM
+        |  Orders AS o left outer JOIN Payment AS p ON o.orderId = p.orderId AND
+        | p.payTime BETWEEN orderTime AND orderTime + INTERVAL '1' HOUR
+        |&quot;&quot;&quot;.stripMargin
+    tEnv.registerTable(&quot;TemporalJoinResult&quot;, tEnv.sqlQuery(sqlQuery))
+
+    val result = tEnv.scan(&quot;TemporalJoinResult&quot;).toAppendStream[Row]
+    result.print()
+    print(tEnv.explain(tEnv.sqlQuery(sqlQuery)))
+    env.execute()
+  }
+}
+
+class TimestampExtractor[T1, T2]
+  extends BoundedOutOfOrdernessTimestampExtractor[(T1, T2, Timestamp)](Time.seconds(10)) {
+  override def extractTimestamp(element: (T1, T2, Timestamp)): Long = {
+    element._3.getTime
+  }
+}
+</code></pre>
+<p>输出如下</p>
+<pre><code class="language-java">== Abstract Syntax Tree ==
+LogicalProject(orderId=[$0], productName=[$1], payType=[$4], orderTime=[$2], payTime=[CAST($5):TIMESTAMP(6)])
++- LogicalJoin(condition=[AND(=($0, $3), &gt;=($5, $2), &lt;=($5, +($2, 3600000:INTERVAL HOUR)))], joinType=[left])
+   :- LogicalTableScan(table=[[default_catalog, default_database, Orders]])
+   +- LogicalTableScan(table=[[default_catalog, default_database, Payment]])
+
+== Optimized Logical Plan ==
+Calc(select=[orderId, productName, payType, orderTime, CAST(CAST(payTime)) AS payTime])
++- WindowJoin(joinType=[LeftOuterJoin], windowBounds=[isRowTime=true, leftLowerBound=-3600000, leftUpperBound=0, leftTimeIndex=2, rightTimeIndex=2], where=[AND(=(orderId, orderId0), &gt;=(payTime, orderTime), &lt;=(payTime, +(orderTime, 3600000:INTERVAL HOUR)))], select=[orderId, productName, orderTime, orderId0, payType, payTime])
+   :- Exchange(distribution=[hash[orderId]])
+   :  +- DataStreamScan(table=[[default_catalog, default_database, Orders]], fields=[orderId, productName, orderTime])
+   +- Exchange(distribution=[hash[orderId]])
+      +- DataStreamScan(table=[[default_catalog, default_database, Payment]], fields=[orderId, payType, payTime])
+
+== Physical Execution Plan ==
+Stage 1 : Data Source
+	content : Source: Collection Source
+
+	Stage 2 : Operator
+		content : Timestamps/Watermarks
+		ship_strategy : FORWARD
+
+Stage 3 : Data Source
+	content : Source: Collection Source
+
+	Stage 4 : Operator
+		content : Timestamps/Watermarks
+		ship_strategy : FORWARD
+
+		Stage 13 : Operator
+			content : SourceConversion(table=[default_catalog.default_database.Orders], fields=[orderId, productName, orderTime])
+			ship_strategy : FORWARD
+
+			Stage 15 : Operator
+				content : SourceConversion(table=[default_catalog.default_database.Payment], fields=[orderId, payType, payTime])
+				ship_strategy : FORWARD
+
+				Stage 17 : Operator
+					content : WindowJoin(joinType=[LeftOuterJoin], windowBounds=[isRowTime=true, leftLowerBound=-3600000, leftUpperBound=0, leftTimeIndex=2, rightTimeIndex=2], where=[((orderId = orderId0) AND (payTime &gt;= orderTime) AND (payTime &lt;= (orderTime + 3600000:INTERVAL HOUR)))], select=[orderId, productName, orderTime, orderId0, payType, payTime])
+					ship_strategy : HASH
+
+					Stage 18 : Operator
+						content : Calc(select=[orderId, productName, payType, orderTime, CAST(CAST(payTime)) AS payTime])
+						ship_strategy : FORWARD
+
+001,iphone,alipay,2018-12-26T04:53:22,2018-12-26T05:51:41
+002,mac,card,2018-12-26T04:53:23,2018-12-26T05:53:22
+004,cup,alipay,2018-12-26T04:53:38,2018-12-26T05:53:31
+003,book,null,2018-12-26T04:53:24,null
+</code></pre>
+<p>相关类以及调用栈</p>
+<pre><code class="language-java">class StreamExecWindowJoin {  
+}
+
+class StreamExecWindowJoinRule
+  extends ConverterRule(
+    classOf[FlinkLogicalJoin],
+    FlinkConventions.LOGICAL,
+    FlinkConventions.STREAM_PHYSICAL,
+    &quot;StreamExecWindowJoinRule&quot;) {
+}
+
+
+matches:54, StreamExecWindowJoinRule (org.apache.flink.table.planner.plan.rules.physical.stream)
+matchRecurse:263, VolcanoRuleCall (org.apache.calcite.plan.volcano)
+match:247, VolcanoRuleCall (org.apache.calcite.plan.volcano)
+fireRules:1534, VolcanoPlanner (org.apache.calcite.plan.volcano)
+registerImpl:1807, VolcanoPlanner (org.apache.calcite.plan.volcano)
+register:846, VolcanoPlanner (org.apache.calcite.plan.volcano)
+ensureRegistered:868, VolcanoPlanner (org.apache.calcite.plan.volcano)
+ensureRegistered:90, VolcanoPlanner (org.apache.calcite.plan.volcano)
+onRegister:329, AbstractRelNode (org.apache.calcite.rel)
+registerImpl:1668, VolcanoPlanner (org.apache.calcite.plan.volcano)
+register:846, VolcanoPlanner (org.apache.calcite.plan.volcano)
+ensureRegistered:868, VolcanoPlanner (org.apache.calcite.plan.volcano)
+ensureRegistered:90, VolcanoPlanner (org.apache.calcite.plan.volcano)
+onRegister:329, AbstractRelNode (org.apache.calcite.rel)
+registerImpl:1668, VolcanoPlanner (org.apache.calcite.plan.volcano)
+register:846, VolcanoPlanner (org.apache.calcite.plan.volcano)
+ensureRegistered:868, VolcanoPlanner (org.apache.calcite.plan.volcano)
+changeTraits:529, VolcanoPlanner (org.apache.calcite.plan.volcano)
+run:324, Programs$RuleSetProgram (org.apache.calcite.tools)
+optimize:64, FlinkVolcanoProgram (org.apache.flink.table.planner.plan.optimize.program)
+apply:62, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.flink.table.planner.plan.optimize.program)
+apply:58, FlinkChainedProgram$$anonfun$optimize$1 (org.apache.flink.table.planner.plan.optimize.program)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+apply:157, TraversableOnce$$anonfun$foldLeft$1 (scala.collection)
+foreach:891, Iterator$class (scala.collection)
+foreach:1334, AbstractIterator (scala.collection)
+foreach:72, IterableLike$class (scala.collection)
+foreach:54, AbstractIterable (scala.collection)
+foldLeft:157, TraversableOnce$class (scala.collection)
+foldLeft:104, AbstractTraversable (scala.collection)
+optimize:57, FlinkChainedProgram (org.apache.flink.table.planner.plan.optimize.program)
+optimizeTree:170, StreamCommonSubGraphBasedOptimizer (org.apache.flink.table.planner.plan.optimize)
+doOptimize:90, StreamCommonSubGraphBasedOptimizer (org.apache.flink.table.planner.plan.optimize)
+optimize:77, CommonSubGraphBasedOptimizer (org.apache.flink.table.planner.plan.optimize)
+optimize:248, PlannerBase (org.apache.flink.table.planner.delegation)
+translate:151, PlannerBase (org.apache.flink.table.planner.delegation)
+toDataStream:210, StreamTableEnvironmentImpl (org.apache.flink.table.api.scala.internal)
+toAppendStream:107, StreamTableEnvironmentImpl (org.apache.flink.table.api.scala.internal)
+toAppendStream:101, TableConversions (org.apache.flink.table.api.scala)
+main:93, SimpleTimeIntervalJoinA$ (spendreport)
+main:-1, SimpleTimeIntervalJoinA (spendreport)
+  
+  
+translateToPlanInternal:136, StreamExecWindowJoin (org.apache.flink.table.planner.plan.nodes.physical.stream)
+translateToPlanInternal:53, StreamExecWindowJoin (org.apache.flink.table.planner.plan.nodes.physical.stream)
+translateToPlan:58, ExecNode$class (org.apache.flink.table.planner.plan.nodes.exec)
+translateToPlan:53, StreamExecWindowJoin (org.apache.flink.table.planner.plan.nodes.physical.stream)
+translateToPlanInternal:54, StreamExecCalc (org.apache.flink.table.planner.plan.nodes.physical.stream)
+translateToPlanInternal:39, StreamExecCalc (org.apache.flink.table.planner.plan.nodes.physical.stream)
+translateToPlan:58, ExecNode$class (org.apache.flink.table.planner.plan.nodes.exec)
+translateToPlan:38, StreamExecCalcBase (org.apache.flink.table.planner.plan.nodes.physical.stream)
+translateToTransformation:184, StreamExecSink (org.apache.flink.table.planner.plan.nodes.physical.stream)
+translateToPlanInternal:153, StreamExecSink (org.apache.flink.table.planner.plan.nodes.physical.stream)
+translateToPlanInternal:48, StreamExecSink (org.apache.flink.table.planner.plan.nodes.physical.stream)
+translateToPlan:58, ExecNode$class (org.apache.flink.table.planner.plan.nodes.exec)
+translateToPlan:48, StreamExecSink (org.apache.flink.table.planner.plan.nodes.physical.stream)
+apply:60, StreamPlanner$$anonfun$translateToPlan$1 (org.apache.flink.table.planner.delegation)
+apply:59, StreamPlanner$$anonfun$translateToPlan$1 (org.apache.flink.table.planner.delegation)
+apply:234, TraversableLike$$anonfun$map$1 (scala.collection)
+apply:234, TraversableLike$$anonfun$map$1 (scala.collection)
+foreach:891, Iterator$class (scala.collection)
+foreach:1334, AbstractIterator (scala.collection)
+foreach:72, IterableLike$class (scala.collection)
+foreach:54, AbstractIterable (scala.collection)
+map:234, TraversableLike$class (scala.collection)
+map:104, AbstractTraversable (scala.collection)
+translateToPlan:59, StreamPlanner (org.apache.flink.table.planner.delegation)
+translate:153, PlannerBase (org.apache.flink.table.planner.delegation)
+toDataStream:210, StreamTableEnvironmentImpl (org.apache.flink.table.api.scala.internal)
+toAppendStream:107, StreamTableEnvironmentImpl (org.apache.flink.table.api.scala.internal)
+toAppendStream:101, TableConversions (org.apache.flink.table.api.scala)
+main:93, SimpleTimeIntervalJoinA$ (spendreport)
+main:-1, SimpleTimeIntervalJoinA (spendreport)   
+</code></pre>
+<h2 id="0x08-参考">0x08 参考</h2>
+<p><a href="https://www.cnblogs.com/029zz010buct/p/10142264.html">Flink table&amp;Sql中使用Calcite</a></p>
+<p><a href="http://www.itkeyword.com/doc/0030173773605248x543/SQL-Flink">Flink sql的实现</a></p>
+<p><a href="https://www.pianshen.com/article/9486258228/">Calcite 功能简析及在 Flink 的应用</a></p>
+<p><a href="https://blog.csdn.net/super_wj0820/article/details/95623380">基于Flink1.8 深入理解Flink Sql执行流程 + Flink Sql语法扩展</a></p>
+<p><a href="https://www.cnblogs.com/davidwang456/p/11205723.html">使用Flink Table &amp;Sql api来构建批量和流式应用(3)Flink Sql 使用</a></p>
+<p><a href="https://www.sohu.com/a/206110258_617676">Flink关系型API： Table API 与SQL</a></p>
+<p><a href="http://www.itkeyword.com/doc/0030173773605248x543/SQL-Flink">Flink sql的实现</a></p>
+<p><a href="https://blog.csdn.net/kisimple/article/details/89460031">Flink如何实现动态表与静态表的Join操作</a></p>
+<p><a href="https://www.aboutyun.com/thread-26627-1-1.html">一文解析Flink SQL工作流程</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/94845238">Flink1.9-table/SQLAPI</a></p>
+<p><a href="https://blog.csdn.net/hxcaifly/article/details/88016060">【Flink SQL引擎】：Calcite 功能简析及在 Flink 的应用</a></p>
+<p><a href="http://matt33.com/2019/03/07/apache-calcite-process-flow/">Apache Calcite 处理流程详解（一）</a></p>
+<p><a href="http://matt33.com/2019/03/17/apache-calcite-planner/">Apache Calcite 优化器详解（二）</a></p>
+<p><a href="https://www.jianshu.com/p/74f3d2cd36d9">揭秘 Flink 1.9 新架构，Blink Planner 你会用了吗？</a></p>
+<p><a href="http://link.sov5.cn/l/LwXyLrJxqd">Flink 原理与实现：Table &amp; SQL API | Jark's Blog</a></p>
+
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-04-25 10:08</span>&nbsp;
+<a href="https://www.cnblogs.com/rossiXYZ/">罗西的思考</a>&nbsp;
+阅读(<span id="post_view_count">...</span>)&nbsp;
+评论(<span id="post_comment_count">...</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12770436" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(12770436);return false;">收藏</a></div>
+        </div>
+<script src="https://common.cnblogs.com/highlight/9.12.0/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 556264, cb_blogApp = 'rossiXYZ', cb_blogUserGuid = '3d1961d5-3b13-4975-9d25-08d753a9a8fd';
+    var cb_entryId = 12770436, cb_entryCreatedDate = '2020-04-25 10:08', cb_postType = 1; 
+    loadViewCount(cb_entryId);
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot("/1090369/C1", [300, 250], "div-gpt-ad-1546353474406-0").addService(googletag.pubads());
+            googletag.defineSlot("/1090369/C2", [468, 60], "div-gpt-ad-1539008685004-0").addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;"></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;">
+            <script>
+                if (new Date() >= new Date(2018, 9, 13)) {
+                    googletag.cmd.push(function () { googletag.display("div-gpt-ad-1539008685004-0"); });
+                }
+            </script>
+        </div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div>    </div>
+</div>
+            </div>
+        </div>
+
+        <div id="sideBar">
+            <div id="sideBarMain">
+                
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+                <div id="calendar"><div id="blog-calendar" style="display:none"></div></div>                
+                <script>loadBlogDefaultCalendar();</script>
+                <div id="leftcontentcontainer">
+                    <!-- begin:SingleColumn -->
+                    <div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+                    <!-- end:  SingleColumn -->
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+    <div id="footer">
+        <!--done-->
+Copyright &copy; 2020 罗西的思考
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+    </div>
+</div>
+
+    
+</body>
+</html>

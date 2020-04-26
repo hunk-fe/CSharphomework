@@ -1,0 +1,500 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>lomtom - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/lomtom/custom.css?v=BJE9Mly77MA6esabncjwocGWjG8=" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/SimpleMemory/bundle-SimpleMemory-mobile.min.css" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/lomtom/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/lomtom/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/lomtom/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 579514;
+        var currentBlogApp = 'lomtom';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'SimpleMemory';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/lomtom/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/lomtom/">lomtom</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/lomtom/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/lomtom">
+联系</a></li>
+<li>
+
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			
+			<span id="stats_post_count">随笔 - 
+26&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+6</span>
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<!--done-->
+
+
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/lomtom/archive/2020/04/24.html">2020年4月24日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/lomtom/p/12770516.html">
+    【mybatis xml】数据层框架应用--Mybatis 基于XML映射文件实现数据的CRUD
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：使用MyBatis框架进行持久层开发 MyBatis是支持普通SQL查询，存储过程和高级映射的优秀持久层框架。 MyBatis消除了几乎所有的JDBC代码和参数的手工设置以及对结果集的检索。 MyBatis可以使用简单的XML或注解用于配置和原始映射，将接口和Java的POJO（Plain Old             <a href="https://www.cnblogs.com/lomtom/p/12770516.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-24 21:59 lomtom 阅读 (31) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12770516" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/lomtom/archive/2020/04/19.html">2020年4月19日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/lomtom/p/12733255.html">
+    【spring 国际化】springMVC、springboot国际化处理详解
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：在web开发中我们常常会遇到国际化语言处理问题，那么如何来做到国际化呢？ 你能get的知识点？ 1. 使用springgmvc与thymeleaf进行国际化处理。 2. 使用springgmvc与jsp进行国际化处理。 3. 使用springboot与thymeleaf进行国际化处理。 [TOC]             <a href="https://www.cnblogs.com/lomtom/p/12733255.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-19 20:19 lomtom 阅读 (116) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12733255" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/lomtom/archive/2020/04/17.html">2020年4月17日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/lomtom/p/12717936.html">
+    【java 数据结构】还不会二叉树？一篇搞定二叉树
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：二叉树是我们常见的数据结构之一，在学习二叉树之前我们需要知道什么是树，什么是二叉树，本篇主要讲述了二叉树，以及二叉树的遍历。 你能get到的知识点？ 1、树的介绍 2、二叉树的介绍 3、二叉树遍历的四种方法 4、牛客题目：反转二叉树 [TOC] 一、知识预备 1、树 树 （Tree）是n（n =0)            <a href="https://www.cnblogs.com/lomtom/p/12717936.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-17 10:00 lomtom 阅读 (295) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12717936" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/lomtom/archive/2020/04/12.html">2020年4月12日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/lomtom/p/12686672.html">
+    【docker linux】linux系统镜像转化为docker镜像
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：概述 使用docker安装linux的同学都知道，你在docker提供的仓库安装linux系统，你就会体验到最精简的、最纯净的linux系统，当然，他会精简到你连 命令都需要自己配置，恰好对于我来说，这并不是我想要的。如果我去使用VMware安装linux系统，但是我已经使用了docker，就不能使            <a href="https://www.cnblogs.com/lomtom/p/12686672.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-12 18:07 lomtom 阅读 (161) 评论 (1)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12686672" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/lomtom/archive/2020/04/05.html">2020年4月5日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/lomtom/p/12635945.html">
+    【springmvc thymeleaf】springmvc整合thymeleaf
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：概述 Thymeleaf提供了一组Spring集成，使您可以将其用作Spring MVC应用程序中JSP的全功能替代品。 这些集成将使您能够： @Controller像使用JSP一样，将Spring MVC 对象中的映射方法转发到Thymeleaf管理的模板。 在模板中使用Spring表达式语言（S            <a href="https://www.cnblogs.com/lomtom/p/12635945.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-05 09:47 lomtom 阅读 (46) 评论 (3)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12635945" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/lomtom/archive/2020/03/29.html">2020年3月29日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/lomtom/p/12591836.html">
+    【spring springmvc】这里有你想要的SpringMVC的REST风格的四种请求方式
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：概述 之前的文章 &quot;springmvc使用注解声明控制器与请求映射&quot; 有简单提到过控制器与请求映射，这一次就详细讲解一下 的`REST`风格的四种请求方式及其使用方法。 你能get的知识点 1、什么是Rest风格？ 2、基于 实现REST风格的四种请求方式 3、post请求转换为 与`put`请求             <a href="https://www.cnblogs.com/lomtom/p/12591836.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-03-29 13:14 lomtom 阅读 (120) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12591836" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/lomtom/archive/2020/03/27.html">2020年3月27日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/lomtom/p/12584956.html">
+    【docker Elasticsearch】Rest风格的分布式开源搜索和分析引擎Elasticsearch初体验
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：概述： Elasticsearch 是一个分布式、可扩展、实时的搜索与数据分析引擎。 它能从项目一开始就赋予你的数据以搜索、分析和探索的能力，这是通常没有预料到的。 它存在还因为原始数据如果只是躺在磁盘里面根本就毫无用处。 Elasticsearch 不仅仅只是全文搜索，我们还将介绍结构化搜索、数据            <a href="https://www.cnblogs.com/lomtom/p/12584956.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-03-27 22:58 lomtom 阅读 (209) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12584956" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/lomtom/archive/2020/03/24.html">2020年3月24日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/lomtom/p/12558323.html">
+    【开发工具 docker】值得学习的应用容器引擎docker安装
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：概述： Docker 是一个开源的应用容器引擎，基于 Go 语言 并遵从 Apache2.0 协议开源。 Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。 容器是完全使用沙箱机制，相互之间不会有任何接口（类似            <a href="https://www.cnblogs.com/lomtom/p/12558323.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-03-24 12:55 lomtom 阅读 (219) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12558323" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/lomtom/archive/2020/03/22.html">2020年3月22日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/lomtom/p/12546991.html">
+    【开发工具 浏览器】细数那些优秀的谷歌浏览器插件
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：概述 相信所有人包括程序员都离不开浏览器，而作为猿来说，谷歌浏览器是我们必不可少的工具，开发调试，查找资料都离不开他，所以说浏览器也是一款开发工具也不为过。 浏览器经过过多年的发展，诞生了无数浏览器拓展程序，也就是插件，因为插件，我们使用浏览器变得更加便捷、实用。接下来，我将为大家介绍几款优秀的浏览            <a href="https://www.cnblogs.com/lomtom/p/12546991.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-03-22 17:05 lomtom 阅读 (336) 评论 (2)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12546991" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/lomtom/archive/2020/03/21.html">2020年3月21日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/lomtom/p/12538918.html">
+    【spring springmvc】springmvc使用注解声明控制器与请求映射
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：概述 注解： 在Spring中尽管使用XML配置文件可以实现Bean的装配工作，但如果应用中Bean的数量较多，会导致XML配置文件过于臃肿，从而给维护和升级带来一定的困难。 从JDK 5开始提供了名为Annotation（注解）的功能，Spring正是利用这一特性，Spring逐步完善对Annot            <a href="https://www.cnblogs.com/lomtom/p/12538918.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-03-21 13:20 lomtom 阅读 (172) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12538918" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+
+<div class="topicListFooter">
+    <div id="nav_next_page">
+        
+    <a href="https://www.cnblogs.com/lomtom/default.html?page=2">
+        下一页
+    </a>
+
+    </div>    
+</div>
+
+
+
+
+
+
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 lomtom
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

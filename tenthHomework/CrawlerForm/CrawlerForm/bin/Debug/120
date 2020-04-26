@@ -1,0 +1,400 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="never" />
+    <meta property="og:description" content="1：AVL树简介 二叉搜索树在一般情况下其搜索的时间复杂度为O(logn)，但某些特殊情况下会退化为链表，导致树的高度变大且搜索的时间复杂度变为O(n)，发挥不出树这种数据结构的优势，因此平衡二叉树便" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>图解AVL树 - 曾聪聪 - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/blacklowkey/bundle-blacklowkey.min.css?v=Fx4xdLkGuHnlaG7xntG_wAnZrnorJWp5u_TWKqbvMF0" />
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/zengcongcong/custom.css?v=EPpbOfm12WUORZ6OnhsPtel4oj0=" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/blacklowkey/bundle-blacklowkey-mobile.min.css?v=cYvlxMu_nd6MVfg-vi7YqOC6FaZ7VHFsDM166vO_ekA" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/zengcongcong/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/zengcongcong/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/zengcongcong/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 491385;
+        var currentBlogApp = 'zengcongcong';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'BlackLowKey';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/zengcongcong/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/zengcongcong/">生命不息，折腾不止</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/zengcongcong/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E6%9B%BE%E8%81%AA%E8%81%AA">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/zengcongcong/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			
+			<span id="stats_post_count">随笔 - 
+98&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+3</span>
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/zengcongcong/p/12770809.html">图解AVL树</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+    <h3>1：AVL树简介</h3>
+二叉搜索树在一般情况下其搜索的时间复杂度为O(logn)，但某些特殊情况下会退化为链表，导致树的高度变大且搜索的时间复杂度变为O(n)，发挥不出树这种数据结构的优势，因此平衡二叉树便应运而生，通过保证树的高度来保证查询的时间复杂度为O(logn)，想想人类实在是太聪明了！
+<h3>2：构造AVL树</h3>
+在构造一棵AVL树的时候如何保持平衡呢？其手段便是通过各种旋转变换来调整以此保证整棵树的高度，调整的原则是左右子树的高度不能大于1的绝对值(平衡因子)先来介绍下旋转的方法吧。
+<h4>2.1：LL型</h4>
+当插入元素后构成LL型，如下图所示，则以2为支，高右转，把3右旋下来保证平衡。
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/30/1712a28c73066ebf?w=1048&amp;h=318&amp;f=png&amp;s=35028" alt=""></p>
+<h4>2.2：RR型</h4>
+当插入元素后构成RR型，如下图所示，则以2为支，高左转，把1左旋转下来保证平衡。
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/30/1712a284ecddd2e0?w=1102&amp;h=323&amp;f=png&amp;s=36371" alt=""></p>
+<h4>2.3：LR型</h4>
+当插入元素后构成LR型，如下图所示，先2,3整体左旋，在根据LL型进行右旋转来保证平衡。
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/30/1712a35d0562bb57?w=1624&amp;h=313&amp;f=png&amp;s=58973" alt=""></p>
+<h4>2.4：RL型</h4>
+当插入元素后构成RL型，如下图所示，先将5右转，在与6进行交换，在根据RR型进行旋转来保证平衡。
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/30/1712a3a03a86bca5?w=1626&amp;h=328&amp;f=png&amp;s=59588" alt=""></p>
+<h4>2.5：其他情况</h4>
+<font color="red">当因为插入一个元素而导致出现两个不平衡点，应该调整距离插入节点最近的不平衡点</font>
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/30/1712a72c966a8979?w=1629&amp;h=455&amp;f=png&amp;s=70694" alt=""></p>
+<h4>2.6：自测题</h4>
+测试题：以关键字序列{16、3、7、11、9、26、18、14、15}构造一颗AVL树
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/30/1712a74b0794b218?w=1074&amp;h=305&amp;f=png&amp;s=26744" alt=""></p>
+<h4>2.7：java实现AVL的构造</h4>
+<pre><code class="language-java">package AVL;
+
+/**
+ * @author admin
+ * @version 1.0.0
+ * @ClassName AVLTree.java
+ * @Description TODO
+ * @createTime 2020年03月30日 18:28:00
+ */
+public class AVLTree {
+
+
+    /**
+     * 获取左右节点的高度差,即平衡因子
+     * @param root
+     * @return
+     */
+    public int getBalance(Node root) {
+        return root==null?0:getHeight(root.left)-getHeight(root.right);
+    }
+
+    /**
+     * 获取节点的高度
+     * @param root
+     * @return
+     */
+    public int getHeight(Node root) {
+        return root == null ? 0 : root.height;
+    }
+
+    /**
+     * 更新节点的高度
+     * @param root
+     * @return
+     */
+    private  int updateHeight(Node root) {
+        if (root == null)
+            return 0;
+        return Math.max(updateHeight(root.left), updateHeight(root.right)) + 1;
+    }
+
+    /**
+     * LL型，右旋操作
+     *
+     * @param root
+     * @return
+     */
+    public Node rightRotate(Node root) {
+        Node node = root.left;
+        root.left = node.right;
+        node.right = root;
+        root.height = updateHeight(root);
+        node.height = updateHeight(node);
+        return node;
+    }
+
+    /**
+     * RR型，左旋操作
+     * @param root
+     * @return
+     */
+    public Node leftRotate(Node root) {
+        Node node = root.right;
+        root.right = node.left;
+        node.left = root;
+        root.height = updateHeight(root);
+        node.height = updateHeight(node);
+        return node;
+    }
+
+    public Node insert(Node node, int data) {
+        //当节点为空，直接插入
+        if (node == null) {
+            return (new Node(data));
+        }
+        //当插入元素&lt;node.data,往node的左子树进行插入；&gt;node.data，往node的右子树插入
+        if (node.data &gt; data) {
+            node.left = insert(node.left, data);
+        } else {
+            node.right = insert(node.right, data);
+        }
+        //更新节点的高度
+        node.height = updateHeight(node);
+        //获取平衡因子(左子树高度-右子树高度)
+        int balDiff = getBalance(node);
+
+        // 右旋
+        if (balDiff &gt; 1 &amp;&amp; data &lt; node.left.data) {
+            return rightRotate(node);
+        }
+
+        // 左旋
+        if (balDiff &lt; -1 &amp;&amp; data &gt; node.right.data) {
+            return leftRotate(node);
+        }
+
+        // 先左旋在右旋
+        if (balDiff &gt; 1 &amp;&amp; data &gt; node.left.data) {
+            node.left = leftRotate(node.left);
+            return rightRotate(node);
+        }
+
+        // 先右旋在左旋
+        if (balDiff &lt; -1 &amp;&amp; data &lt; node.right.data) {
+            node.right = rightRotate(node.right);
+            return leftRotate(node);
+        }
+
+        return node;
+    }
+
+    
+}
+
+class Node {
+    int data;
+    Node left;
+    Node right;
+    int height;
+
+    public Node(Integer data) {
+        this.data = data;
+        height = 1;
+    }
+}
+
+</code></pre>
+<h3>3：AVL树的删除</h3>
+<h4>3.1：删除叶子节点</h4>
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/30/1712a9993bee37da?w=1040&amp;h=348&amp;f=png&amp;s=41544" alt=""></p>
+<h4>3.2：删除只拥有左子树或右子树的节点</h4>
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/30/1712a99dc59e7f1d?w=1125&amp;h=328&amp;f=png&amp;s=41081" alt=""></p>
+<h4>3.3：删除既拥有左子树又有右子树的节点</h4>
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/30/1712a9a2892b20eb?w=1537&amp;h=306&amp;f=png&amp;s=53427" alt=""></p>
+<h4>3.4：自测题</h4>
+将上一道自测题的图依次删除16，15，11节点，画出最后的结果
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/30/1712aa4522a0a7f1?w=1060&amp;h=272&amp;f=png&amp;s=19903" alt=""></p>
+<h4>参考链接</h4>
+<blockquote>
+<p>数据可视化网站： <a href="https://visualgo.net/zh">https://visualgo.net/zh</a><br>
+<br>哔哩哔哩讲AVL：<a href="https://www.bilibili.com/video/BV1xE411h7dd">https://www.bilibili.com/video/BV1xE411h7dd</a></p>
+</blockquote>
+
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-04-25 12:43</span>&nbsp;
+<a href="https://www.cnblogs.com/zengcongcong/">曾聪聪</a>&nbsp;
+阅读(<span id="post_view_count">...</span>)&nbsp;
+评论(<span id="post_comment_count">...</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12770809" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(12770809);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/9.12.0/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 491385, cb_blogApp = 'zengcongcong', cb_blogUserGuid = '1131037e-13ee-4d45-cdfe-08d619917642';
+    var cb_entryId = 12770809, cb_entryCreatedDate = '2020-04-25 12:43', cb_postType = 1; 
+    loadViewCount(cb_entryId);
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot("/1090369/C1", [300, 250], "div-gpt-ad-1546353474406-0").addService(googletag.pubads());
+            googletag.defineSlot("/1090369/C2", [468, 60], "div-gpt-ad-1539008685004-0").addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;"></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;">
+            <script>
+                if (new Date() >= new Date(2018, 9, 13)) {
+                    googletag.cmd.push(function () { googletag.display("div-gpt-ad-1539008685004-0"); });
+                }
+            </script>
+        </div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div>
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 曾聪聪
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

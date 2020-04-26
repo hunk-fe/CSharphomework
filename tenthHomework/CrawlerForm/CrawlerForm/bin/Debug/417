@@ -1,0 +1,293 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta property="og:description" content="目录：andorid jar/库源码解析 Okhttp3： 作用： 用于网络编程（http,https）的快速开发。 栗子： // okHttpClient定义成全局静态，或者单例，不然重复new可能" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>andorid jar/库源码解析之okhttp3 - Supper_litt - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/coffee/bundle-coffee.min.css?v=pdMIVgsH8kXt-vOWnlL0N20TlHt3UyP9HzGgocfsP4s" />
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/Supperlitt/custom.css?v=fps3tCiIdIcDHcwxNewq3nTjy1A=" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/coffee/bundle-coffee-mobile.min.css?v=na9bpAY4yh7uEWCcrXj3vfJM3VBse8YtU6-5fUUQPz0" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/Supperlitt/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/Supperlitt/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/Supperlitt/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 195171;
+        var currentBlogApp = 'Supperlitt';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'coffee';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a href="https://www.cnblogs.com/Supperlitt/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/Supperlitt/">Supper litt</a>
+</h1>
+<h2>
+不想成为大神的屌丝，不是好屌丝。主攻C#相关开源代码。<br><br>  可是，越接近神，越发现自己渺小！<br><br>
+   To Be a Unicorn
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="navigator">
+			
+<ul id="navList">
+	<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+	<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/Supperlitt/">
+首页</a>
+</li>
+	<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+	<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/Supper_litt">
+联系</a></li>
+	<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+	<li>
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/Supperlitt/rss/">
+订阅</a>
+	
+<a id="blog_nav_rss_image" href="https://www.cnblogs.com/Supperlitt/rss/">
+    <img src="/skins/coffee/images/xml.gif" alt="订阅" />
+</a></li>
+</ul>
+
+
+
+			<div class="blogStats">
+				
+				<!--done-->
+随笔- 
+41&nbsp;
+文章- 
+0&nbsp;
+评论- 
+74&nbsp;
+
+
+
+				
+			</div><!--end: blogStats -->
+		</div><!--end: navigator 博客导航栏 -->
+		<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class = "postTitle">
+			
+<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/Supperlitt/p/12772798.html">andorid jar/库源码解析之okhttp3</a>
+
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			
+<div id="cnblogs_post_body" class="blogpost-body ">
+    <p>目录：<a class="entry" href="https://www.cnblogs.com/Supperlitt/p/12761165.html" target="_blank">andorid jar/库源码解析</a>&nbsp;</p>
+<h2>Okhttp3：</h2>
+<h3><strong>　　作用：</strong></h3>
+<p><strong>　　　　</strong>用于网络编程（http,https）的快速开发。</p>
+<h3>　　栗子：</h3>
+<div class="cnblogs_code">
+<pre><span style="color: #008000;">//</span><span style="color: #ff0000;"> okHttpClient定义成全局静态，或者单例，不然重复new可能导致连接数耗尽</span>
+OkHttpClient okHttpClient = <span style="color: #0000ff;">new</span><span style="color: #000000;"> OkHttpClient();
+String url </span>= "https://www.test.com"<span style="color: #000000;">;
+</span><span style="color: #0000ff;">byte</span>[] data = <span style="color: #0000ff;">new</span> <span style="color: #0000ff;">byte</span>[] { 1<span style="color: #000000;"> };
+
+okhttp3.RequestBody body </span>= okhttp3.RequestBody.create(MediaType.parse("application/octet-stream"<span style="color: #000000;">), data);
+
+</span><span style="color: #008000;">//</span><span style="color: #008000;"> Request</span>
+Request request = <span style="color: #0000ff;">new</span> Request.Builder().addHeader("Authorization", "Bearer XXXXXXXX"<span style="color: #000000;">).url(url).post(body).build();
+
+</span><span style="color: #008000;">//</span><span style="color: #008000;"> Response</span>
+Response response =<span style="color: #000000;"> okHttpClient.newBuilder().build().newCall(request).execute();
+
+</span><span style="color: #008000;">//</span><span style="color: #ff0000; background-color: #c0c0c0;"> 注意：这里是string不是toString</span>
+<span style="color: #0000ff;">final</span> String msg = response.body().string();</pre>
+</div>
+<h3>　　源码解读：</h3>
+<p><span class="token punctuation">　　<img src="https://img2020.cnblogs.com/blog/141063/202004/141063-20200425090228199-1077381502.jpg" alt=""></span></p>
+<p><span class="token punctuation">　　①：创建OkHttpClient对象，同时赋值默认值</span></p>
+<p><span class="token punctuation">　　②：返回一个&nbsp;</span>RequestBody对象，该对象包含，类型，长度，和写入数据的方法。</p>
+<p><span class="token punctuation">　　③：创建一个Request$Builder对象，默认使用GET请求,对addHeader进行添加到List&lt;String&gt;集合中，name，value.trim(),一个header用两条。</span></p>
+<p><span class="token punctuation">　　④：赋值请求地址，同时特殊处理ws-&gt;http，wss-&gt;https。对url进行拆分解析，.得到url中的schema，host，port，name，password，path等</span></p>
+<p><span class="token punctuation">　　⑤：赋值RequestBody和method成POST</span></p>
+<p><span class="token punctuation">　　⑥：用所有的Request$Builder成员，初始化一个Request对象。</span></p>
+<p><span class="token punctuation">　　⑦：用</span>OkHttpClient对象的默认值，初始化一个OkHttpClient$Builder对象</p>
+<p><span class="token punctuation">　　⑧：返回一个</span>OkHttpClient对象，值来自OkHttpClient$Builder</p>
+<p><span class="token punctuation">　　⑨：通过OkHttpClient和Request构造一个，RealCall对象。</span></p>
+<p>　　⑩：调用RealCall的execute方法。a&gt;把RealCall对象添加到，运行Call的集合中。b&gt;创建&nbsp;RealInterceptorChain 对象进行通讯。 c&gt; 调用&nbsp;proceed 方法。。d&gt; 创建&nbsp;List&lt;Interceptor&gt; 集合。循环调用 Interceptor的intercept方法，进行处理请求。的细节。</p>
+<p>　　　　顺序： RetryAndFollowUpInterceptor、BridgeInterceptor、CacheInterceptor、ConnectInterceptor、networkInterceptors、CallServerInterceptor</p>
+<p>　　　　最后在CallServerInterceptor 中的intercept中。执行创建一个&nbsp;RealBufferedSink 对象，用于写入数据（post内容），然后调用finishRequest。</p>
+<p>　　　　读取readResponseHeaders ，得到&nbsp;Response.Builder 对象，使用这个对象，构造一个Response对象，把request，超时等信息，赋值到response上，判断response.code==100，重新readResponseHeaders，更新code的值。</p>
+<p>　　　　调用responseHeadersEnd，完成读取同步，然后读取body：openResponseBody，得到&nbsp;ResponseBody对象。赋值给Response对象，返回</p>
+<p>　　⑪：得到ResponseBody对象而已，没啥说的</p>
+<p>　　⑫：使用Okio 读取数据，并且返回（因为是流读取，所以只能调用一次）</p>
+<h3>　　源码：<a href="https://github.com/square/okhttp">https://github.com/square/okhttp</a></h3>
+<h3>　　引入：</h3>
+<div class="cnblogs_code">
+<pre>implementation 'com.squareup.okhttp3:okhttp:3.12.1'</pre>
+</div>
+<p>&nbsp;</p>
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+		</div>
+		<div class="postDesc">posted @ 
+<span id="post-date">2020-04-25 13:48</span>&nbsp;
+<a href="https://www.cnblogs.com/Supperlitt/">Supper_litt</a>&nbsp;
+阅读(<span id="post_view_count">...</span>)&nbsp;
+评论(<span id="post_comment_count">...</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12772798" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(12772798);return false;">收藏</a></div>
+	</div>
+	
+	
+</div><!--end: topics 文章、评论容器-->
+<script src="https://common.cnblogs.com/highlight/9.12.0/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 195171, cb_blogApp = 'Supperlitt', cb_blogUserGuid = 'e7727b52-017d-df11-ba8f-001cf0cd104b';
+    var cb_entryId = 12772798, cb_entryCreatedDate = '2020-04-25 13:48', cb_postType = 1; 
+    loadViewCount(cb_entryId);
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot("/1090369/C1", [300, 250], "div-gpt-ad-1546353474406-0").addService(googletag.pubads());
+            googletag.defineSlot("/1090369/C2", [468, 60], "div-gpt-ad-1539008685004-0").addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;"></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;">
+            <script>
+                if (new Date() >= new Date(2018, 9, 13)) {
+                    googletag.cmd.push(function () { googletag.display("div-gpt-ad-1539008685004-0"); });
+                }
+            </script>
+        </div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div></div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script></div>
+			
+			<DIV id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</DIV>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 Supper_litt
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    <div id="page_end_html">
+        <div style="text-align: center">
+<span>欢迎访问我的 <a target="_blank" href="http://47.105.169.104/">个人站点</a></span>
+</div>
+    </div>
+</body>
+</html>

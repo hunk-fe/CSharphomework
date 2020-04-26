@@ -1,0 +1,431 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Python学习啊 - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/simplememory/bundle-simplememory.min.css?v=OL4qeo1LNGlN1rKIhv5UctANvt0M6Nx6kLzr_ffx3Xk" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/SimpleMemory/bundle-SimpleMemory-mobile.min.css" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/7758520lzy/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/7758520lzy/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/7758520lzy/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 564870;
+        var currentBlogApp = '7758520lzy';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'SimpleMemory';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/7758520lzy/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/7758520lzy/">Python学习啊</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/7758520lzy/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/Python%E5%AD%A6%E4%B9%A0%E5%95%8A">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/7758520lzy/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			
+			<span id="stats_post_count">随笔 - 
+270&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+15</span>
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<!--done-->
+
+
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/7758520lzy/archive/2020/04/25.html">2020年4月25日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/7758520lzy/p/12772922.html">
+    室友U盘内容丰富，被我利用Python几行代码就拷贝，他还不知道！
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：前言 标题就当故事就好了，咱们还是来学习的。简而言之就是利用Python编程去拷贝U盘内容，并且还要达到别人不知道的效果，最关键的是代码量少，零基础都看得懂。 准备 Python3.6.5 解释器 pycharm 编辑器 模块 os shutil time datetime 思路 当别人把U盘插进电            <a href="https://www.cnblogs.com/7758520lzy/p/12772922.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-25 14:19 Python学习啊 阅读 (0) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12772922" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+            <div class="postSeparator"></div>
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/7758520lzy/p/12772914.html">
+    《黑客帝国》中的代码雨让人身临其境！利用Python轻松实现！
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：前言 《黑客帝国》的一段代码雨片段让外行人感觉非常震撼，但其实利用咱们的Python来做出这个效果真的很简单！ 今天就带大家把这个代码雨放在自己的显示器上面，亲身体验一把黑客的感觉！ 环境 Windows 操作系统 Python 解释器 pycharm 编辑器 random 随机数模块 pygame            <a href="https://www.cnblogs.com/7758520lzy/p/12772914.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-25 14:16 Python学习啊 阅读 (0) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12772914" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/7758520lzy/archive/2020/04/23.html">2020年4月23日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/7758520lzy/p/12763169.html">
+    因为难看的签名尴尬？Python爬虫制作艺术签名软件！
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：前言 不管你是在校大学生，已经踏入社会的白领阶层，还是在商界赫赫有名的老总，总会时不时的会要求签名，您还在为你那难看的签名而尴尬吗？从现在起不必了，因为有了这篇文章，在这里有艺术家亲笔为您专门设计的艺术签名，保证可以让你在社交，商业洽谈中挥洒自如，赶紧来看看吧！ Python爬虫采集网站数据，制作一            <a href="https://www.cnblogs.com/7758520lzy/p/12763169.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-23 20:03 Python学习啊 阅读 (50) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12763169" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+            <div class="postSeparator"></div>
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/7758520lzy/p/12762038.html">
+    投机取巧，利用Python解决豆瓣验证码，实现模拟登陆！
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：前言： 可能大家对于豆瓣并不怎么了解，我给大家简单介绍一下。 豆瓣是一个社区网站，该网站以书影音起家，提供关于书籍、电影、音乐等作品的信息，无论描述还是评论都由用户提供（User-generated content，UGC），是Web 2.0网站中具有特色的一个网站。网站还提供书影音推荐、线下同城活            <a href="https://www.cnblogs.com/7758520lzy/p/12762038.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-23 17:01 Python学习啊 阅读 (47) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12762038" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+            <div class="postSeparator"></div>
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/7758520lzy/p/12761216.html">
+    你还在为看电影发愁？Python制作全网视频播放工具！
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：环境： python3.6.5 Windows 模块： re requests tkinter webbrowser 首先，我们可以随意在网络上找一个视频解析接口，我这里找的是： http://www.qmaile.com/ 你还在为看电影发愁？Python制作全网视频播放工具！ 进入该网站，我们可            <a href="https://www.cnblogs.com/7758520lzy/p/12761216.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-23 15:41 Python学习啊 阅读 (96) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12761216" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+            <div class="postSeparator"></div>
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/7758520lzy/p/12760248.html">
+    小哥哥你有98K吗？利用Python制作一款多功能变声器！
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：前言 好吧，关于这句小哥哥你有98K吗？出自别人口中经常说的玩笑话，我也略懂一些游戏嘛。不过不常玩，废话不多说，开始咱们今天的教程，非常简单！ 利用Python制作一款多功能变声器！ 咱们首先登陆百度智能云，为什么要登陆呢？ 因为它给咱们准备好了API阿，直接调用就好了。 点击产品 人工智能 然后就            <a href="https://www.cnblogs.com/7758520lzy/p/12760248.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-23 13:36 Python学习啊 阅读 (43) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12760248" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+            <div class="postSeparator"></div>
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/7758520lzy/p/12760190.html">
+    Python数据分析之画图力气pyecharts 制作3D图像！
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：Python 功能真的很强，强大到让人吃惊，它能做的事囊括爬虫、数据分析、数据可视化、游戏等等各方面，这些功能在实际的使用中应用广泛，开发程序讲究页面的美观与炫酷效果， 今天的文章将给各位读者朋友们带来不一样的视觉盛宴，感兴趣的朋友欢迎一起尝试。 写在前面的话：在之前的文章&#160;Python 图表利器             <a href="https://www.cnblogs.com/7758520lzy/p/12760190.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-23 13:25 Python学习啊 阅读 (52) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12760190" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/7758520lzy/archive/2020/04/22.html">2020年4月22日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/7758520lzy/p/12752241.html">
+    理解 Python 类的变量,方法与属性
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：熟悉了传统的 C++/Java&#160;类定义的风格，来感受一下 Python&#160;是如何定义类的。本篇是阅读 《The Quick Python Book》第二版关于类定义的笔记，由原书内容进一步引申，不过是依照本人的思考顺序来组织的。在理解&#160;Python&#160;类定义的同时头脑中应该闪现出&#160;JavaScript/            <a href="https://www.cnblogs.com/7758520lzy/p/12752241.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-22 15:14 Python学习啊 阅读 (37) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12752241" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+            <div class="postSeparator"></div>
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/7758520lzy/p/12751621.html">
+    记录一次网盘资源不给提取码的经历！另类编程思维，Python破之！
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：前言： 记录一次网盘资源不给提取码的经历！另类编程思维，Python破之！可能这个标题的意思不是所有人都能够理解，简单说明一下，就是好不容易在网上找资源，然而那个分享网盘的朋友忘记给提取码了...... 思路： 当我说到这里的时候有人肯定在想，跑字典吗这是要。NO！ 跟大家说说我的思路，既然作者有过            <a href="https://www.cnblogs.com/7758520lzy/p/12751621.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-22 13:51 Python学习啊 阅读 (45) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12751621" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+            <div class="postSeparator"></div>
+        <div class="postTitle">
+            
+
+<a class="postTitle2" href="https://www.cnblogs.com/7758520lzy/p/12751558.html">
+    Python生成随机高斯模糊图片
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：Python可以使用opencv库很方便地生成模糊图像，如果没有安装opencv的，可以用pip安装： pip install python-opencv 想了解高斯模糊是什么的话，可以看wiki百科-高斯模糊。对于一般人，只要知道这个操作可以生成模糊图片就好了，一行代码即可搞定： import c            <a href="https://www.cnblogs.com/7758520lzy/p/12751558.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">
+
+posted @ 2020-04-22 13:41 Python学习啊 阅读 (31) 评论 (0)
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12751558" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+
+<div class="topicListFooter">
+    <div id="nav_next_page">
+        
+    <a href="https://www.cnblogs.com/7758520lzy/default.html?page=2">
+        下一页
+    </a>
+
+    </div>    
+</div>
+
+
+
+
+
+
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 Python学习啊
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

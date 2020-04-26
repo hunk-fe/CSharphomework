@@ -1,0 +1,410 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta property="og:description" content="谈到并行，我们可能最先想到的是线程，多个线程一起运行，来提高我们系统的整体处理速度；为什么使用多个线程就能提高处理速度，因为现在计算机普遍都是多核处理器，我们需要充分利用cpu资源；如果站的更高一点来" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>谈谈Java任务的并行处理 - 格子衫聊编程 - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/gertrude/bundle-gertrude-blue.min.css?v=Tzrf0qaASb7-tKap5B99wlsNnliK2jR2OA9K8nXKEMI" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/gertrude/bundle-gertrude-blue-mobile.min.css?v=ADiCwO2hOTdd5yYidcx7eob7ix2VJI4o_TXjEycTHjs" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/xmh199316/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/xmh199316/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/xmh199316/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 595931;
+        var currentBlogApp = 'xmh199316';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'gertrude-blue';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/xmh199316/">格子衫聊编程</a>
+</h1>
+<p id="tagline">
+
+</p>
+
+
+<div id="main">
+	<div id="post_detail">
+	<div class="post">
+		<h2>
+			
+<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/xmh199316/p/12772869.html">谈谈Java任务的并行处理</a>
+
+		</h2>
+		
+    <div id="cnblogs_post_description" style="display: none">
+        谈到并行，我们可能最先想到的是线程，多个线程一起运行，来提高我们系统的整体处理速度；为什么使用多个线程就能提高处理速度，因为现在计算机普遍都是多核处理器，我们需要充分利用cpu资源；如果站的更高一点来看，我们每台机器都可以是一个处理节点，多台机器并行处理；并行的处理方式可以说无处不在，本文主要来谈谈Java在并行处理方面的努力。
+    </div>
+<div id="cnblogs_post_body" class="blogpost-body ">
+    <p>最近有很多伙伴给我留言说想了解一下java的并行处理，那今天我们就来说一说这个问题。</p>
+<p>谈到并行，我们可能最先想到的是线程，多个线程一起运行，来提高我们系统的整体处理速度；为什么使用多个线程就能提高处理速度，因为现在计算机普遍都是多核处理器，我们需要充分利用cpu资源；如果站的更高一点来看，我们每台机器都可以是一个处理节点，多台机器并行处理；并行的处理方式可以说无处不在，本文主要来谈谈Java在并行处理方面的努力。</p>
+<h2 id="h2_2">无处不在的并行</h2>
+<p>Java的垃圾回收器，我们可以看到每一代版本的更新，伴随着GC更短的延迟，从serial到cms再到现在的G1，一直在摘掉Java慢的帽子；消息队列从早期的ActiveMQ到现在的kafka和RocketMQ，引入的分区的概念，提高了消息的并行性；数据库单表数据到一定量级之后，访问速度会很慢，我们会对表进行分表处理，引入数据库中间件；Redis你可能觉得本身处理是单线程的，但是Redis的集群方案中引入了slot(槽)的概念；更普遍的就是我们很多的业务系统，通常会部署多台，通过负载均衡器来进行分发；好了还有其他的一些例子，此处不在一一例举。</p>
+<h2 id="h2_3">如何并行</h2>
+<p>我觉得并行的核心在于"拆分"，把大任务变成小任务，然后利用多核CPU也好，还是多节点也好，同时并行的处理，Java历代版本的更新，都在为我们开发者提供更方便的并行处理，从开始的Thread，到线程池，再到fork/join框架，最后到流处理，下面使用简单的求和例子来看看各种方式是如何并行处理的；</p>
+<h3 id="h3_4">单线程处理</h3>
+<p>首先看一下最简单的单线程处理方式，直接使用主线程进行求和操作；</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:csharp;gutter:true;">public class SingleThread {
+ 
+    public static long[] numbers;
+ 
+    public static void main(String[] args) {
+        numbers = LongStream.rangeClosed(1, 10_000_000).toArray();
+        long sum = 0;
+        for (int i = 0; i &lt; numbers.length; i++) {
+            sum += numbers[i];
+        }
+        System.out.println("sum  = " + sum);
+    }
+ 
+}
+</pre>
+</div>
+<p>　　</p>
+<p>求和本身是一个计算密集型任务，但是现在已经是多核时代，只用单线程，相当于只使用了其中一个cpu，其他cpu被闲置，资源的浪费；</p>
+<h3 id="h3_5">Thread方式</h3>
+<p>我们把任务拆分成多个小任务，然后每个小任务分别启动一个线程，如下所示：</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:csharp;gutter:true;">public class ThreadTest {
+ 
+    public static final int THRESHOLD = 10_000;
+    public static long[] numbers;
+    private static long allSum;
+ 
+    public static void main(String[] args) throws Exception {
+        numbers = LongStream.rangeClosed(1, 10_000_000).toArray();
+        int taskSize = (int) (numbers.length / THRESHOLD);
+        for (int i = 1; i &lt;= taskSize; i++) {
+            final int key = i;
+            new Thread(new Runnable() {
+                public void run() {
+                    sumAll(sum((key - 1) * THRESHOLD, key * THRESHOLD));
+                }
+            }).start();
+        }
+        Thread.sleep(100);
+        System.out.println("allSum = " + getAllSum());
+    }
+ 
+    private static synchronized long sumAll(long threadSum) {
+        return allSum += threadSum;
+    }
+ 
+    public static synchronized long getAllSum() {
+        return allSum;
+    }
+ 
+    private static long sum(int start, int end) {
+        long sum = 0;
+        for (int i = start; i &lt; end; i++) {
+            sum += numbers[i];
+        }
+        return sum;
+    }
+}
+</pre>
+</div>
+<p>　　</p>
+<p>以上指定了一个拆分阀值，计算拆分多少个认为，同时启动多少线程；这种处理就是启动的线程数过多，而CPU数有限，更重要的是求和是一个计算密集型任务，启动过多的线程只会带来更多的线程上下文切换；同时线程处理完一个任务就终止了，也是对资源的浪费；另外可以看到主线程不知道何时子任务已经处理完了，需要做额外的处理；所有Java后续引入了线程池。</p>
+<h3 id="h3_6">线程池方式</h3>
+<p>jdk1.5引入了并发包，其中包括了ThreadPoolExecutor，相关代码如下：</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:csharp;gutter:true;">public class ExecutorServiceTest {
+ 
+    public static final int THRESHOLD = 10_000;
+    public static long[] numbers;
+ 
+    public static void main(String[] args) throws Exception {
+        numbers = LongStream.rangeClosed(1, 10_000_000).toArray();
+        ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);
+        CompletionService&lt;Long&gt; completionService = new ExecutorCompletionService&lt;Long&gt;(executor);
+        int taskSize = (int) (numbers.length / THRESHOLD);
+        for (int i = 1; i &lt;= taskSize; i++) {
+            final int key = i;
+            completionService.submit(new Callable&lt;Long&gt;() {
+ 
+                @Override
+                public Long call() throws Exception {
+                    return sum((key - 1) * THRESHOLD, key * THRESHOLD);
+                }
+            });
+        }
+        long sumValue = 0;
+        for (int i = 0; i &lt; taskSize; i++) {
+            sumValue += completionService.take().get();
+        }
+        // 所有任务已经完成,关闭线程池
+        System.out.println("sumValue = " + sumValue);
+        executor.shutdown();
+    }
+ 
+    private static long sum(int start, int end) {
+        long sum = 0;
+        for (int i = start; i &lt; end; i++) {
+            sum += numbers[i];
+        }
+        return sum;
+    }
+}
+</pre>
+</div>
+<p>　　</p>
+<p>上面已经分析了计算密集型并不是线程越多越好，这里创建了JDK默认的线程数:CPU数+1，这是一个经过大量测试以后给出的一个结果；线程池顾名思义，可以重复利用现有的线程；同时利用CompletionService来对子任务进行汇总；合理的使用线程池已经可以充分的并行处理任务，只是在写法上有点繁琐，此时JDK1.7中引入了fork/join框架；</p>
+<h3 id="h3_7">fork/join框架</h3>
+<p>分支/合并框架的目的是以递归的方式将可以并行的认为拆分成更小的任务，然后将每个子任务的结果合并起来生成整体结果；相关代码如下：</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:csharp;gutter:true;">public class ForkJoinTest extends java.util.concurrent.RecursiveTask&lt;Long&gt; {
+ 
+    private static final long serialVersionUID = 1L;
+    private final long[] numbers;
+    private final int start;
+    private final int end;
+    public static final long THRESHOLD = 10_000;
+ 
+    public ForkJoinTest(long[] numbers) {
+        this(numbers, 0, numbers.length);
+    }
+ 
+    private ForkJoinTest(long[] numbers, int start, int end) {
+        this.numbers = numbers;
+        this.start = start;
+        this.end = end;
+    }
+ 
+    @Override
+    protected Long compute() {
+        int length = end - start;
+        if (length &lt;= THRESHOLD) {
+            return computeSequentially();
+        }
+        ForkJoinTest leftTask = new ForkJoinTest(numbers, start, start + length / 2);
+        leftTask.fork();
+        ForkJoinTest rightTask = new ForkJoinTest(numbers, start + length / 2, end);
+        Long rightResult = rightTask.compute();
+        // 注：join方法会阻塞，因此有必要在两个子任务的计算都开始之后才执行join方法
+        Long leftResult = leftTask.join();
+        return leftResult + rightResult;
+    }
+ 
+    private long computeSequentially() {
+        long sum = 0;
+        for (int i = start; i &lt; end; i++) {
+            sum += numbers[i];
+        }
+        return sum;
+    }
+ 
+    public static void main(String[] args) {
+        System.out.println(forkJoinSum(10_000_000));
+    }
+ 
+    public static long forkJoinSum(long n) {
+        long[] numbers = LongStream.rangeClosed(1, n).toArray();
+        ForkJoinTask&lt;Long&gt; task = new ForkJoinTest(numbers);
+        return new ForkJoinPool().invoke(task);
+    }
+}
+</pre>
+</div>
+<p>　　</p>
+<p>ForkJoinPool是ExecutorService接口的一个实现，子认为分配给线程池中的工作线程；同时需要把任务提交到此线程池中，需要创建RecursiveTask&lt;R&gt;的一个子类；大体逻辑就是通过fork进行拆分，然后通过join进行结果的合并，JDK为我们提供了一个框架，我们只需要在里面填充即可，更加方便；有没有更简单的方式，连拆分都省了，自动拆分合并，jdk在1.8中引入了流的概念；</p>
+<h3 id="h3_8">流方式</h3>
+<p>Java8引入了stream的概念，可以让我们更好的利用并行，使用流代码如下：</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:csharp;gutter:true;">public class StreamTest {
+ 
+    public static void main(String[] args) {
+        System.out.println("sum = " + parallelRangedSum(10_000_000));
+    }
+ 
+    public static long parallelRangedSum(long n) {
+        return LongStream.rangeClosed(1, n).parallel().reduce(0L, Long::sum);
+    }
+}
+</pre>
+</div>
+<p>　　以上代码是不是非常简单，对于开发者来说完全不需要手动拆分，使用同步机制等方式，就可以让任务并行处理，只需要对流使用parallel()方法，系统自动会对任务进行拆分，当然前提是没有共享可变状态；其实并行流内部使用的也是fork/join框架；</p>
+<h2 id="h2_9">总结</h2>
+<p>本文使用一个求和的实例，来介绍了jdk为开发者提供并行处理的各种方式，可以看到Java一直在为提供更方便的并行处理而努力。更多的java知识添加我的扣峮前108中062后1881.</p>
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+		<p class="postfoot">
+			posted on 
+<span id="post-date">2020-04-25 14:04</span>&nbsp;
+<a href="https://www.cnblogs.com/xmh199316/">格子衫聊编程</a>&nbsp;
+阅读(<span id="post_view_count">...</span>)&nbsp;
+评论(<span id="post_comment_count">...</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12772869" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(12772869);return false;">收藏</a>
+		</p>
+	</div>
+	
+	
+	
+<script src="https://common.cnblogs.com/highlight/9.12.0/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 595931, cb_blogApp = 'xmh199316', cb_blogUserGuid = '34e0e69f-91b3-49d3-a52f-08d7d7b52bb0';
+    var cb_entryId = 12772869, cb_entryCreatedDate = '2020-04-25 14:04', cb_postType = 1; 
+    loadViewCount(cb_entryId);
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot("/1090369/C1", [300, 250], "div-gpt-ad-1546353474406-0").addService(googletag.pubads());
+            googletag.defineSlot("/1090369/C2", [468, 60], "div-gpt-ad-1539008685004-0").addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;"></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;">
+            <script>
+                if (new Date() >= new Date(2018, 9, 13)) {
+                    googletag.cmd.push(function () { googletag.display("div-gpt-ad-1539008685004-0"); });
+                }
+            </script>
+        </div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div></div>
+
+
+</div>
+<div id="rightmenu">
+	
+		<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>
+		
+<h3>导航</h3>
+<ul>
+			<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+			<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/xmh199316/">
+首页</a>
+</li>
+			<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+			<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E6%A0%BC%E5%AD%90%E8%A1%AB%E8%81%8A%E7%BC%96%E7%A8%8B">
+联系</a></li>
+			<li>
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/xmh199316/rss/">
+订阅</a>
+<a id="blog_nav_rss_image" href="https://www.cnblogs.com/xmh199316/rss/">
+    <img src="/skins/gertrude-blue/images/xml.gif" alt="订阅" />
+</a></li>
+			<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<h3>统计</h3>
+	<ul>
+		<li>随笔 - 
+17</li>
+		<li>文章 - 
+0</li>
+		<li>评论 - 
+0</li>
+		<li>引用 - 
+0</li>
+</ul>
+
+
+		
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+		<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+	
+</div>			
+<p id="footer">
+	Powered by: 
+	<br />
+	
+	
+<a href="https://www.cnblogs.com/" id="Footer1_Hyperlink3" style="font-size: 12px; font-family: Verdana">博客园</a>
+	<br />
+	Copyright &copy; 2020 格子衫聊编程
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+</p>
+
+
+	
+
+
+    
+</body>
+</html>

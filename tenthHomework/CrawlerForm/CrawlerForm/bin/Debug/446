@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta property="og:description" content="收藏功能 1.利用数据缓存进行对是否首次进入响应新闻页面进行判断 （1）查看API中关于数据缓存部分，了解如何获取、设置本地数据 （2）了解本地存储的收藏信息数据结构： （3）进行逻辑判断：是否为首次" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>（七）微信小程序：收藏功能 - ~快乐王子~ - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/coffee/bundle-coffee.min.css?v=pdMIVgsH8kXt-vOWnlL0N20TlHt3UyP9HzGgocfsP4s" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/coffee/bundle-coffee-mobile.min.css?v=na9bpAY4yh7uEWCcrXj3vfJM3VBse8YtU6-5fUUQPz0" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/happy-prince/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/happy-prince/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/happy-prince/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 597017;
+        var currentBlogApp = 'happy-prince';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'coffee';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a href="https://www.cnblogs.com/happy-prince/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/happy-prince/">~快乐王子~</a>
+</h1>
+<h2>
+你要悄悄拔尖~然后惊艳出现
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="navigator">
+			
+<ul id="navList">
+	<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+	<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/happy-prince/">
+首页</a>
+</li>
+	<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+	<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/~%E5%BF%AB%E4%B9%90%E7%8E%8B%E5%AD%90~">
+联系</a></li>
+	<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+	<li>
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/happy-prince/rss/">
+订阅</a>
+	
+<a id="blog_nav_rss_image" href="https://www.cnblogs.com/happy-prince/rss/">
+    <img src="/skins/coffee/images/xml.gif" alt="订阅" />
+</a></li>
+</ul>
+
+
+
+			<div class="blogStats">
+				
+				<!--done-->
+随笔- 
+11&nbsp;
+文章- 
+0&nbsp;
+评论- 
+0&nbsp;
+
+
+
+				
+			</div><!--end: blogStats -->
+		</div><!--end: navigator 博客导航栏 -->
+		<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class = "postTitle">
+			
+<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/happy-prince/p/12772314.html">（七）微信小程序：收藏功能</a>
+
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			
+<div id="cnblogs_post_body" class="blogpost-body ">
+    <h1>收藏功能</h1>
+<h2>　　1.利用数据缓存进行对是否首次进入响应新闻页面进行判断</h2>
+<p>　　　　　　（1）查看API中关于数据缓存部分，了解如何获取、设置本地数据</p>
+<p>　　　　　　　　　<img src="https://img2020.cnblogs.com/blog/2010596/202004/2010596-20200425110007730-2030188168.png" alt=""></p>
+<p>　　　　　　　（2）了解<strong>本地存储的收藏信息</strong>数据结构：</p>
+<p>　　　　　　　　　　　　<img src="https://img2020.cnblogs.com/blog/2010596/202004/2010596-20200425110706167-611742382.png" alt=""></p>
+<p>&nbsp;</p>
+<p>　　　　　　　（3）进行逻辑判断：是否为首次进入页面（在onLoad中进行判断）</p>
+<div class="cnblogs_code" onclick="cnblogs_code_show('c8fae17c-91dc-4152-9392-765d7831ad7b')"><img id="code_img_closed_c8fae17c-91dc-4152-9392-765d7831ad7b" class="code_img_closed" src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt=""><img id="code_img_opened_c8fae17c-91dc-4152-9392-765d7831ad7b" class="code_img_opened" style="display: none" src="https://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt="">
+<div id="cnblogs_code_open_c8fae17c-91dc-4152-9392-765d7831ad7b" class="cnblogs_code_hide">
+<pre><span style="color: #008000;">//</span><span style="color: #008000;"> pages/news/news-details/news-details.js</span>
+<span style="color: #0000ff;">var</span> data = require("../../../data/data.js"<span style="color: #000000;">);
+Page({
+
+  </span><span style="color: #008000;">/*</span><span style="color: #008000;">*
+   * 页面的初始数据
+   </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+  data: {
+      currentNews:{},
+      collected:</span><span style="color: #0000ff;">false</span>,  <span style="color: #008000;">//</span><span style="color: #008000;">标志着当前数据是否收藏</span>
+      newsid:0  <span style="color: #008000;">//</span><span style="color: #008000;">选中的id值</span>
+<span style="color: #000000;">  },
+
+  </span><span style="color: #008000;">/*</span><span style="color: #008000;">*
+   * 生命周期函数--监听页面加载
+   </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+  onLoad: </span><span style="color: #0000ff;">function</span><span style="color: #000000;"> (options) {
+      </span><span style="color: #0000ff;">this</span><span style="color: #000000;">.setData({
+        currentNews:data[options.id],
+        newsid:options.id
+      });
+
+      </span><span style="color: #008000;">//</span><span style="color: #008000;">进入页面的时候，需要判断当前页面是否已经本地存储</span>
+      <span style="color: #0000ff;">var</span> collections = wx.getStorageSync('collections'<span style="color: #000000;">);
+      </span><span style="color: #008000;">//</span><span style="color: #008000;">如果存在，则非第一次进入；如果不存在，则是第一次进入</span>
+      <span style="color: #0000ff;">if</span><span style="color: #000000;">(collections){
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">存在</span>
+        <span style="color: #0000ff;">this</span><span style="color: #000000;">.setData({
+          collected:collections[options.id]
+        });
+      }</span><span style="color: #0000ff;">else</span><span style="color: #000000;">{
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">不存在</span>
+        <span style="color: #0000ff;">var</span> collections =<span style="color: #000000;"> {};
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">把当前这条数据写到本地存储中</span>
+        collections[options.id] = <span style="color: #0000ff;">false</span><span style="color: #000000;">;
+        wx.setStorageSync(</span>'collections'<span style="color: #000000;">, collections);
+
+      }
+  }
+}）</span></pre>
+</div>
+<span class="cnblogs_code_collapse">View Code</span></div>
+<p>　　　　　　　　　　代码解析：1.collected 标志着是否被收藏，在决定是否更换收藏图片方面起着至关重要作用</p>
+<p>　　　　　　　　　　　　　　　2.流程为：从本地读取--&gt;判断--&gt;(不存在)：设置信息，然后存储至本地&nbsp; （存在）：赋值collected为true</p>
+<h2>　　　2.点击收藏，执行收藏操作</h2>
+<p>　　　　　　（1）news-details.wxml中对图片进行限制（添加响应函数）</p>
+<div class="cnblogs_code" onclick="cnblogs_code_show('01e88bca-aa86-4500-8422-5d4872ca88ca')"><img id="code_img_closed_01e88bca-aa86-4500-8422-5d4872ca88ca" class="code_img_closed" src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt=""><img id="code_img_opened_01e88bca-aa86-4500-8422-5d4872ca88ca" class="code_img_opened" style="display: none" src="https://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt="">
+<div id="cnblogs_code_open_01e88bca-aa86-4500-8422-5d4872ca88ca" class="cnblogs_code_hide">
+<pre><span style="color: #0000ff;">&lt;</span><span style="color: #800000;">view </span><span style="color: #ff0000;">class</span><span style="color: #0000ff;">="circle-img"</span><span style="color: #0000ff;">&gt;</span>
+      <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">image </span><span style="color: #ff0000;">src</span><span style="color: #0000ff;">="../../../image/sch.png"</span><span style="color: #ff0000;"> wx:if</span><span style="color: #0000ff;">="{{ collected }}"</span><span style="color: #ff0000;"> bindtap</span><span style="color: #0000ff;">="collectHandler"</span><span style="color: #0000ff;">&gt;&lt;/</span><span style="color: #800000;">image</span><span style="color: #0000ff;">&gt;</span> 
+      <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">image </span><span style="color: #ff0000;">src</span><span style="color: #0000ff;">="../../../image/sc.png"</span><span style="color: #ff0000;"> wx:else bindtap</span><span style="color: #0000ff;">="collectHandler"</span><span style="color: #0000ff;">&gt;&lt;/</span><span style="color: #800000;">image</span><span style="color: #0000ff;">&gt;</span> 
+      <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">image </span><span style="color: #ff0000;">class</span><span style="color: #0000ff;">="share-img"</span><span style="color: #ff0000;"> src</span><span style="color: #0000ff;">="../../../image/fx.png"</span><span style="color: #0000ff;">&gt;&lt;/</span><span style="color: #800000;">image</span><span style="color: #0000ff;">&gt;</span>
+ <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">view</span><span style="color: #0000ff;">&gt;</span></pre>
+</div>
+<span class="cnblogs_code_collapse">View Code</span></div>
+<p>　　　　　　　　由代码可以发现，利用API中的条件渲染选取呈现出的图片</p>
+<p>　　　　　　　　&nbsp;<img src="https://img2020.cnblogs.com/blog/2010596/202004/2010596-20200425113847778-2076133205.png" alt=""></p>
+<p>&nbsp;</p>
+<p>　　　　　　　　（2）news-details.js中对于响应函数collectHandler定义</p>
+<div class="cnblogs_code" onclick="cnblogs_code_show('ad3bb519-8771-401c-8f72-28f2bed6b553')"><img id="code_img_closed_ad3bb519-8771-401c-8f72-28f2bed6b553" class="code_img_closed" src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt=""><img id="code_img_opened_ad3bb519-8771-401c-8f72-28f2bed6b553" class="code_img_opened" style="display: none" src="https://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt="">
+<div id="cnblogs_code_open_ad3bb519-8771-401c-8f72-28f2bed6b553" class="cnblogs_code_hide">
+<pre><span style="color: #000000;">collectHandler(event){
+    </span><span style="color: #008000;">//</span><span style="color: #008000;">读取本地存储信息</span>
+    <span style="color: #0000ff;">var</span> collections = wx.getStorageSync('collections'<span style="color: #000000;">);
+    </span><span style="color: #0000ff;">var</span> collection = collections[<span style="color: #0000ff;">this</span><span style="color: #000000;">.data.newsid];
+    </span><span style="color: #008000;">//</span><span style="color: #008000;">取反操作</span>
+    collection = !<span style="color: #000000;">collection;
+    </span><span style="color: #008000;">//</span><span style="color: #008000;">重新写到集合中</span>
+    collections[<span style="color: #0000ff;">this</span>.data.newsid] =<span style="color: #000000;"> collection;
+    </span><span style="color: #008000;">//</span><span style="color: #008000;">写入到本地存储中</span>
+    wx.setStorageSync('collections'<span style="color: #000000;">, collections);
+    </span><span style="color: #008000;">//</span><span style="color: #008000;">修改视图</span>
+    <span style="color: #0000ff;">this</span><span style="color: #000000;">.setData({
+      collected:collection
+    });
+  }</span></pre>
+</div>
+<span class="cnblogs_code_collapse">View Code</span></div>
+<p>　　　　　　　　　　代码解析：1.流程：从本地读取--》相应id位置的数据取反--》存储至集合中--》存储到本地--》<strong>修改视图</strong></p>
+<h1>&nbsp;此节完成了新闻收藏功能，下一节<span style="color: #0000ff;">开启tabBar运用~</span></h1>
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+		</div>
+		<div class="postDesc">posted @ 
+<span id="post-date">2020-04-25 12:07</span>&nbsp;
+<a href="https://www.cnblogs.com/happy-prince/">~快乐王子~</a>&nbsp;
+阅读(<span id="post_view_count">...</span>)&nbsp;
+评论(<span id="post_comment_count">...</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12772314" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(12772314);return false;">收藏</a></div>
+	</div>
+	
+	
+</div><!--end: topics 文章、评论容器-->
+<script src="https://common.cnblogs.com/highlight/9.12.0/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 597017, cb_blogApp = 'happy-prince', cb_blogUserGuid = 'a26ad6b0-9915-453a-ad18-08d7d7b52bb0';
+    var cb_entryId = 12772314, cb_entryCreatedDate = '2020-04-25 12:07', cb_postType = 1; 
+    loadViewCount(cb_entryId);
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot("/1090369/C1", [300, 250], "div-gpt-ad-1546353474406-0").addService(googletag.pubads());
+            googletag.defineSlot("/1090369/C2", [468, 60], "div-gpt-ad-1539008685004-0").addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;"></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;">
+            <script>
+                if (new Date() >= new Date(2018, 9, 13)) {
+                    googletag.cmd.push(function () { googletag.display("div-gpt-ad-1539008685004-0"); });
+                }
+            </script>
+        </div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div></div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script></div>
+			
+			<DIV id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</DIV>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 ~快乐王子~
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

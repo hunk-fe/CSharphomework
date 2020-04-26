@@ -1,0 +1,797 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta property="og:description" content="项目需求 ~~~python 角色: 学校、学员、课程、讲师、管理员 要求: 1. 创建北京、上海 2 所学校 管理员创建学校 2. 创建linux , python , go 3个课程 ， linu" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>选课系统-面向对象-三层架构 - the3times - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/custom/bundle-custom.min.css?v=1ssrnY3Il79Ok472qeVrpxlSprSXcHhYPgZC5S3wtVM" />
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/the3times/custom.css?v=Pkje3lKd0SdcFCqzqloMEH/vF0w=" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/custom/bundle-custom-mobile.min.css?v=-Yh290MhQyDeXLmvKTSses9H6-49lqbpXFh55zvS0w8" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/the3times/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/the3times/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/the3times/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 580039;
+        var currentBlogApp = 'the3times';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'Custom';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/the3times/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/the3times/">the3times</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/the3times/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/the3times">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/the3times/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			
+			<span id="stats_post_count">随笔 - 
+87&nbsp; </span>
+<span id="stats_article_count">文章 - 
+31&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+2</span>
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/the3times/p/12772631.html">选课系统-面向对象-三层架构</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+    <h2 id="项目需求">项目需求</h2>
+<pre><code class="language-python">角色: 学校、学员、课程、讲师、管理员
+要求:
+1. 创建北京、上海 2 所学校  ---&gt; 管理员创建学校
+2. 创建linux , python , go 3个课程 ， linux\py 在北京开， go 在上海开
+3. 课程包含，周期，价格，通过学校创建课程
+4. 创建讲师
+5. 创建学员时，选择学校，关联班级
+5. 创建讲师
+6. 提供两个角色接口
+6.1 学员视图， 直接登录，选择课程（等同于选择班级）
+6.2 讲师视图， 讲师可管理自己的课程， 上课时选择班级，
+ 查看班级学员列表 ， 修改所管理的学员的成绩
+
+6.3 管理视图，创建讲师， 创建班级，创建课程等
+7. 上面的操作产生的数据都通过pickle序列化保存到文件里
+    - pickle 可以帮我们保存对象
+</code></pre>
+<h2 id="需求分析">需求分析</h2>
+<pre><code class="language-python">角色设计：管理员、学校、老师、学生、课程等
+需求分析 （课程与班级合为一体）
+    - 管理员视图
+        - 1.注册
+        - 2.登录
+        - 3.创建学校
+        - 4.创建课程(先选择学校)
+        - 5.创建讲师(默认设置初始密码)
+        - 6.创建学生(先选择学校，默认设置初始密码)
+        - 7.修改密码
+        - 8.重置老师、学生密码
+
+    - 学员视图
+        - 1.登录功能
+        - 2.选择课程
+        - 3.已选课程查看
+        - 5.查看分数
+        - 6.修改密码
+
+    - 讲师视图
+        - 1.登录
+        - 2.查看课程
+        - 3.选择课程
+        - 4.我的学生(按课程分类查看)
+        - 5.修改学生分数(找到课程再找学生)
+        - 6.修改密码
+</code></pre>
+<h2 id="三层架构设计">三层架构设计</h2>
+<p><strong>实现思路</strong>：</p>
+<ul>
+<li>
+<p><strong>项目采用三层架构设计，基于面向对象封装角色数据和功能。面向过程和面向对象搭配使用</strong>。</p>
+</li>
+<li>
+<p>程序开始，用户选择角色，进入不同的视图层，展示每个角色的功能，供用户选择。</p>
+</li>
+<li>
+<p>进入具体角色视图后，调用功能，对接逻辑接口层获取数据并展示给用户视图层。</p>
+</li>
+<li>
+<p>逻辑接口层需要调用数据处理层的类，获取类实例化对象，进而实现数据的增删改查。</p>
+</li>
+</ul>
+<p><img src="https://img2020.cnblogs.com/blog/1950650/202004/1950650-20200425101349062-358734909.png" alt=""></p>
+<pre><code class="language-python"># 用户视图层
+- 提供用户数据交互和展示的功能
+# 逻辑接口层
+- 提供核心逻辑判断，处理用户的请求，调用数据处理层获取数据并将结果返回给用户视图层
+# 数据处理层
+- 提供数据支撑，使用面向对象的数据管理，将数据和部分功能封装在类中，将对象保存在数据库
+</code></pre>
+<p><strong>程序结构</strong>：</p>
+<pre><code class="language-python">CSS/ # Course Selection System
+|-- conf
+|	|-- setting.py				# 项目配置文件
+|-- core
+|	|-- admin.py				# 管理员视图层函数
+|	|-- current_user.py			# 记录当前登录用户信息
+|	|-- teacher.py				# 老师视图层函数
+|	|-- student.py				# 学生视图层函数
+|	|-- css.py					# 主程序（做视图分发）
+|-- db
+|-- |-- models.py				# 存放类
+|	|-- db_handle.py			# 数据查询和保存函数
+|	|-- Admin					# 管理员用户对象文件夹
+|	|-- Course					# 课程对象文件夹
+|	|-- School					# 学校对象文件夹
+| 	|-- Student					# 学生对象文件夹
+| 	|-- Teacher					# 老师对象文件夹
+|-- interface					# 逻辑接口
+|	|-- admin_interface.py			# 管理员逻辑接口
+|	|-- common_interface.py			# 公共功能逻辑接口
+|	|-- student_interface.py		# 学生功能逻辑接口
+|	|-- teacher_interface.py		# 老师功能逻辑接口
+|-- lib						
+|	|-- tools.py		# 公用函数：加密|登录装饰器权限校验等
+|-- readme.md
+|-- run.py				# 项目启动文件
+</code></pre>
+<p><strong>版本</strong>：</p>
+<p>版本1：采用上述的逻辑架构，视图层采层面向过程的方式，即函数组织。</p>
+<p>版本2：用户视图层采用面向对象的封装加反射，实现用户功能函数的自动添加（但个人感觉不如面向过程的简洁清晰）。</p>
+<h2 id="项目源码">项目源码</h2>
+<p>项目源码在github个人仓库，感兴趣的园友可以参考，欢迎交流分享。<strong><a href="https://github.com/the3times/CSS">点击一下连接到仓库地址</a></strong></p>
+<p>下面默认总结版本1的要点，总结版本2的要点时会明显指出（即用类封装视图层的两个关键点：装饰器，Mixins）。</p>
+<h2 id="运行环境">运行环境</h2>
+<pre><code class="language-python">- windows10, 64位
+- python3.8
+- pycharm2019.3
+</code></pre>
+<h2 id="角色类的设计">角色类的设计</h2>
+<pre><code class="language-python">import sys
+from conf import settings
+from db import db_handle
+
+
+class FileMixin:
+
+    @classmethod
+    def get_obj(cls, name):
+        return db_handle.get_obj(cls, name)
+
+    def save_obj(self):
+        db_handle.save_obj(self)
+
+
+class Human:
+    def __init__(self, name, age, sex):
+        self.name = name
+        self.age = age
+        self.sex = sex
+        self.__pwd = settings.INIT_PWD
+        self.role = self.__class__.__name__
+
+    @property
+    def pwd(self):
+        return self.__pwd
+
+    @pwd.setter
+    def pwd(self, new_pwd):
+        self.__pwd = new_pwd
+
+
+class Admin(FileMixin, Human):
+
+    def __init__(self, name, age, sex):
+        super().__init__(name, age, sex)
+        self.save_obj()
+
+    @staticmethod
+    def create_school(school_name, school_addr):
+        School(school_name, school_addr)
+
+    @staticmethod
+    def create_course(school_name, course_name, course_period, course_price):
+        Course(course_name, course_period, course_price, school_name)
+
+    @staticmethod
+    def create_teacher(teacher_name, teacher_age, teacher_sex, teacher_level):
+        Teacher(teacher_name, teacher_age, teacher_sex, teacher_level)
+
+    @staticmethod
+    def create_student(stu_name, stu_age, stu_sex, school_name, homeland):
+        Student(stu_name, stu_age, stu_sex, school_name, homeland)
+
+    @staticmethod
+    def reset_user_pwd(name, role):
+        obj = getattr(sys.modules[__name__], role).get_obj(name)
+        obj.pwd = settings.INIT_PWD
+        obj.save_obj()
+
+
+class School(FileMixin):
+    def __init__(self, name, addr):
+        self.name = name
+        self.addr = addr
+        self.course_list = []
+        self.save_obj()
+
+    def relate_course(self, course_name):
+        self.course_list.append(course_name)
+        self.save_obj()
+
+
+class Course(FileMixin):
+    def __init__(self, name, period, price, school_name):
+        self.name = name
+        self.period = period
+        self.price = price
+        self.school = school_name
+        self.teacher = None
+        self.student_list = []
+        self.save_obj()
+
+    def relate_teacher(self, teacher_name):
+        self.teacher = teacher_name
+        self.save_obj()
+
+    def relate_student(self, stu_name):
+        self.student_list.append(stu_name)
+        self.save_obj()
+
+
+class Teacher(FileMixin, Human):
+    def __init__(self, name, age, sex, level):
+        super().__init__(name, age, sex)
+        self.level = level
+        self.course_list = []
+        self.save_obj()
+
+    def select_course(self, course_name):
+        self.course_list.append(course_name)
+        self.save_obj()
+        course_obj = Course.get_obj(course_name)
+        course_obj.relate_teacher(self.name)
+
+    def check_my_courses(self):
+        return self.course_list
+
+    @staticmethod
+    def check_my_student(course_name):
+        course_obj = Course.get_obj(course_name)
+        return course_obj.student_list
+
+    @staticmethod
+    def set_score(stu_name, course_name, score):
+        stu_obj = Student.get_obj(stu_name)
+        stu_obj.score_dict[course_name] = int(score)
+        stu_obj.save_obj()
+
+
+class Student(FileMixin, Human):
+    def __init__(self, name, age, sex, school_name, homeland):
+        super().__init__(name, age, sex)
+        self.school = school_name
+        self.homeland = homeland
+        self.course_list = []
+        self.score_dict = {}
+        self.save_obj()
+
+    def select_course(self, course_name):
+        self.course_list.append(course_name)
+        self.score_dict[course_name] = None
+        self.save_obj()
+        course_obj = Course.get_obj(course_name)
+        course_obj.relate_student(self.name)
+
+    def check_my_course(self):
+        return self.course_list
+
+    def check_my_score(self):
+        return self.score_dict
+</code></pre>
+<ul>
+<li>
+<p>从管理员、学生、老师角色中抽象出<code>Human</code>类，有用户基本数据属性和密码相关的公共属性</p>
+</li>
+<li>
+<p>为了角色数据的读取和保存，定义了一个接口类<code>FileMixin</code>，用于对象数据的读取和保存。</p>
+</li>
+<li>
+<p><code>FileMixin</code>中设置一个绑定类的方法，这样每个继承<code>FileMixin</code>的类都可以通过对象名判断这个对象的存在与否。</p>
+</li>
+<li>
+<p>注意，多继承时遵循<code>Mixins</code>规范。</p>
+</li>
+<li>
+<p>对象初始化后立即保存数据，每个功能操作后，也跟一个<code>save_obj</code>方法，这样类的使用者就很方便。</p>
+</li>
+<li>
+<p>在用户类中设置角色的方法属性，这样直接在逻辑接口层中在获取对象后，直接调用对象的方法即可。这样做是为了保证面向对象的完整性，每个对象都对应其现实意义。</p>
+</li>
+</ul>
+<h2 id="登录功能分析">登录功能分析</h2>
+<ul>
+<li>
+<p>每个角色都有登录需求，因此这里打算做一个公用的登录逻辑接口层。</p>
+</li>
+<li>
+<p>不过因为数据存放格式的限制，这里妥协一下。每个登录视图层还是直接调用各自的登录逻辑接口，然后从各自的逻辑接口层中调用公用逻辑接口层的核心登录逻辑判断。</p>
+</li>
+<li>
+<p>这里在角色的登录接口中做一个中转的目的是为了给登录用户设置一个登录角色；</p>
+</li>
+<li>
+<p>并且这个角色的字符串名字和类的名字保持一致，为了方便在公共登录接口中使用反射判断。</p>
+</li>
+</ul>
+<p>admin_interface.py</p>
+<pre><code class="language-python">def login_interface(name, pwd):
+    &quot;&quot;&quot;
+    登录接口
+    :param name:
+    :param pwd: 密码，密文
+    :return:
+    &quot;&quot;&quot;
+    from interface import common_interface
+    role = 'Admin'
+    flag, msg = common_interface.common_login_interface(name, pwd, role)
+    return flag, msg
+</code></pre>
+<p>common_interface.py</p>
+<pre><code class="language-python">def common_login_interface(name, pwd, role):
+    &quot;&quot;&quot;
+    登录接口
+    :param name:
+    :param pwd: 密码，密文
+    :param role: 角色，如，Admin|Teacher|Student
+    :return:
+    &quot;&quot;&quot;
+    if hasattr(models, role):
+        obj = getattr(models, role).get_obj(name)
+        if not obj:
+            return False, f'用户名[{name}]不存在'
+        if pwd != obj.pwd:
+            return False, '用户名或密码错误'
+        return True, '登录成功'
+    else:
+        return False, '您没有权限登录'
+</code></pre>
+<h2 id="时刻想着封装">时刻想着封装</h2>
+<p>这个项目按照三层架构的模式，只要实现了一个角色，其他角色的功能在编写的时候，会存在大量重复的代码。</p>
+<p>所以，尽可能地提取公共的逻辑接口和工具函数，减轻程序组织结构臃肿，提高代码复用率。</p>
+<p><strong>场景一：视图层中，功能函数的展示和选择</strong></p>
+<p>这个场景主要用在视图分发和视图内用户功能函数的选择。</p>
+<p>如果视图层采用面向对象的方式，封装成一个视图类，使用装饰器和反射就可以避免功能字典的使用。</p>
+<p>lib/tools.py</p>
+<pre><code class="language-python">def menu_display(menu_dict):
+    &quot;&quot;&quot;
+    展示功能字典，然用户选择使用
+    :param menu_dict:
+    :return:
+    &quot;&quot;&quot;
+    while 1:
+        for k, v in menu_dict.items():
+            print(f'({k}) {v[0]}', end='\t')
+
+        func_choice = input('\n请输入选择的功能编号(Q退出)：').strip().lower()
+        if func_choice == 'q':
+            break
+        if func_choice not in menu_dict:
+            continue
+        func = menu_dict.get(func_choice)[1]
+        func()
+</code></pre>
+<p><strong>场景二：展示数据并返回用户选择的数据</strong></p>
+<p>这个场景是用户在选择一个需求时，先将选项展示给用户看，供用户输入选择编号。</p>
+<p>这个过程就涉及到用户的退出选择和输入编号的合法性验证。返回用户的选择结果或者错误信息提示。</p>
+<p>前提：调用该函数之前判断<code>info_list</code>为空的情况；在该函数内也可以判断，不同这样的话就降低了其通用程度。</p>
+<p>lib/tools.py</p>
+<pre><code>def select_item(info_list):
+    &quot;&quot;&quot;
+    枚举展示数据列表，并支持用户数据编号返回编号对应的数据，支持编号合法校验
+    :param info_list:
+    :return:
+    &quot;&quot;&quot;
+    while 1:
+        for index, school in enumerate(info_list, 1):
+            print(index, school)
+        choice = input('请输入选择的编号(Q退出)：').strip().lower()
+        if choice == 'q':
+            return False, '返回'
+        if not choice.isdigit() or int(choice) not in range(1, len(info_list) + 1):
+            print('您输入的编号不存在')
+            continue
+        else:
+            return True, info_list[int(choice) - 1]
+</code></pre>
+<p>这样的需求或者说场景还有很多，不做列举。</p>
+<h2 id="数据存放格式">数据存放格式</h2>
+<p>将一个类实例化对象按照类型保存在不同的文件夹中，文件夹名与类名相同，文件名为对象的name属性的名字。</p>
+<p>这样做的好处是方便对象数据的读取和保存，并且对象间没有使用组合的方式，避免数据的重复保存。</p>
+<p>但是这样做的缺点很明显：每个类下面的对象不能重名。这个问题需要重新组织数据管理方式，让其更实际化。</p>
+<h2 id="视图层封装成视图类">视图层封装成视图类</h2>
+<p><strong>之所以想要将视图层封装成视图类，主要是为了简化代码和避免手动编写用户的功能函数字典。</strong></p>
+<p>采用视图类之后，可以将功能函数做成视图类的对象的绑定方法，采用反射，可以自动获取并调用。</p>
+<p>但这里需要做一个处理：用户选择角色后，如何获取并显示这个角色的功能函数函数列表？</p>
+<p>这里需要在视图类里面做一个显示功能的方法<code>start</code>，这个方法要在用户选择先显示所有的功能，</p>
+<p>在此之前，还需要一个收集角色功能的方法<code>auto_get_func_menu</code>，这个函数必须在对象使用时就立即工作，</p>
+<p>最后，还要配合一个装饰器<code>my_func</code>，让收集函数知道搜集那些功能，保存下来<code>func_list</code>，让显示函数获取。</p>
+<p>上述这个过程涉及的方法是每个视图类都要有的，因此抽象出来一个基础视图类<code>BaseViewer</code>。</p>
+<p>最后，视图类需要用到一些公用工具(lib/tool.py)，将它封装成一个<code>ToolsMixin</code>类，视图类继承之，方便传参。</p>
+<p><strong>关键点：</strong></p>
+<ul>
+<li>使用有参装饰器，自动获取角色功能方法并保存，给显示方法获取功能，显示之供用户选择并调用。</li>
+<li>因此并没有使用反射（本来喜爱那个是用反射的，可惜没用上）。</li>
+<li>装饰器这里面有两个，一个是登录验证的，一个是自动获取角色功能的。</li>
+<li>这两个装饰器都使用定义成静态方法，方便继承的子类调用；但总觉得很不舒服。</li>
+</ul>
+<p>core/baseview.py</p>
+<pre><code class="language-python">from functools import wraps
+
+
+class BaseViewer:
+
+    name = None
+    role = None
+    func_list = []		# 存放角色功能方法
+
+    def __init__(self):
+        self.auto_get_func_menu()	# 初始化就启动，搜集角色功能方法
+
+    def auto_get_func_menu(self):
+        &quot;&quot;&quot;
+        自动调用功能函数触发装饰器的执行，将功能函数添加到类属性 func_list中
+        :return:
+        &quot;&quot;&quot;
+        not_this = ['auto_get_func_menu', 'my_func', 'start']
+        all_funcs = {k: v for k, v in self.__class__.__dict__.items()
+                     if callable(v) and not k.startswith('__') and k not in not_this}
+        for func in all_funcs.values():
+            func()
+
+    def start(self):
+        &quot;&quot;&quot;
+        开始函数，功能菜单显示，供管理员选择
+        :return:
+        &quot;&quot;&quot;
+        while 1:
+            for index, func_name in enumerate(self.func_list, 1):
+                print('\t\t\t\t\t\t', index, func_name[0], sep='\t')
+
+            choice = input('&gt;&gt;&gt;(Q退出)：').strip().lower()
+            if choice == 'q':
+                self.func_list.clear()
+                break
+            if not choice.isdigit() or int(choice) not in range(1, len(self.func_list) +1):
+                print('编号不存在， 请重新输入')
+                continue
+            func = self.func_list[int(choice) - 1][1]
+            func(self)
+
+    @staticmethod
+    def my_func(desc):
+        &quot;&quot;&quot;
+        装饰器，实现功能函数自动添加到类的func_list中
+        :return:
+        &quot;&quot;&quot;
+        def wrapper(func):
+            @wraps(func)
+            def inner(*args, **kwargs):
+                BaseViewer.func_list.append((desc, func))
+            return inner
+        return wrapper
+
+    @staticmethod
+    def auth(role):
+        &quot;&quot;&quot;
+        装饰器，登录校验
+        :return:
+        &quot;&quot;&quot;
+        def wrapper(func):
+            @wraps(func)
+            def inner(*args, **kwargs):
+                if BaseViewer.name and BaseViewer.role == role:
+                    res = func(*args, **kwargs)
+                    return res
+                else:
+                    print('您未登录或没有该功能的使用权限')
+            return inner
+        return wrapper
+
+    def login(self, role_interface):
+        while 1:
+            print('登录页面'.center(50, '-'))
+            name = input('请输入用户名(Q退出)：').strip().lower()
+            if name == 'q':
+                break
+            pwd = input('请输入密码：').strip()
+            if self.is_none(name, pwd):
+                print('用户名或密码不能为空')
+                continue
+            flag, msg = role_interface.login_interface(name, self.hash_md5(pwd))
+            print(msg)
+            if flag:
+                BaseViewer.name = name
+                break
+</code></pre>
+<p>学生视图类：core/student.py</p>
+<pre><code class="language-python">from core.baseview import BaseViewer as Base
+from lib.tools import ToolsMixin
+from interface import student_interface, common_interface
+
+
+class StudentViewer(ToolsMixin, Base):
+
+    @Base.my_func('登录')
+    def login(self):
+        Base.role = 'Student'
+        super().login(student_interface)
+
+
+    @Base.my_func('选择课程')
+    @Base.auth('Student')
+    def select_course(self):
+        while 1:
+            school_name = student_interface.get_my_school_interface(self.name)
+            flag, course_list = common_interface.get_course_list_from_school(school_name)
+            if not flag:
+                print(course_list)
+                break
+            print('待选课程列表'.center(30, '-'))
+            flag2, course_name = self.select_item(course_list)
+            if not flag2:
+                break
+            flag3, msg = student_interface.select_course_interface(course_name, self.name)
+            print(msg)
+
+
+    @Base.my_func('我的课程')
+    @Base.auth('Student')
+    def check_my_course(self):
+        flag, course_list = student_interface.check_my_course_interface(self.name)
+        if not flag:
+            print(course_list)
+            return
+        print('我的课程：'.center(30, '-'))
+        for index, course_name in enumerate(course_list, 1):
+            print(index, course_name)
+
+
+    @Base.my_func('我的分数')
+    @Base.auth('Student')
+    def check_my_score(self):
+        flag, score_dict = student_interface.check_score_interface(self.name)
+        if not flag:
+            print(score_dict)
+        else:
+            print('课程分数列表')
+            for index, course_name in enumerate(score_dict, 1):
+                score = score_dict[course_name]
+                print(index, course_name, score)
+
+
+    @Base.my_func('修改密码')
+    @Base.auth('Student')
+    def edit_my_pwd(self):
+        self.edit_pwd(common_interface.edit_pwd_interface)
+</code></pre>
+<h2 id="总结">总结</h2>
+<ul>
+<li>
+<p>一定要先分析需求，再构思设计，最后开始编码。</p>
+</li>
+<li>
+<p>角色设计时，需要考虑角色之间的关系，抽象继承，多继承遵循<code>Mixins</code>规范。</p>
+</li>
+<li>
+<p>使用property，遵循鸭子类型，方便接口设计。</p>
+</li>
+<li>
+<p>基于反射可以做很多动态判断，避免使用<code>if-elif-else</code>多级判断。</p>
+</li>
+<li>
+<p>面向过程和面向对象搭配使用。</p>
+</li>
+<li>
+<p>三层架构，明确每层职责，分别使用面向对象和面向过程编码。</p>
+</li>
+<li>
+<p>尽可能封装成工具：函数或者类</p>
+</li>
+</ul>
+
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-04-25 12:57</span>&nbsp;
+<a href="https://www.cnblogs.com/the3times/">the3times</a>&nbsp;
+阅读(<span id="post_view_count">...</span>)&nbsp;
+评论(<span id="post_comment_count">...</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12772631" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(12772631);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/9.12.0/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 580039, cb_blogApp = 'the3times', cb_blogUserGuid = '1acc1466-4bb5-4f6f-fee4-08d7b8a06452';
+    var cb_entryId = 12772631, cb_entryCreatedDate = '2020-04-25 12:57', cb_postType = 1; 
+    loadViewCount(cb_entryId);
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot("/1090369/C1", [300, 250], "div-gpt-ad-1546353474406-0").addService(googletag.pubads());
+            googletag.defineSlot("/1090369/C2", [468, 60], "div-gpt-ad-1539008685004-0").addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;"></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;">
+            <script>
+                if (new Date() >= new Date(2018, 9, 13)) {
+                    googletag.cmd.push(function () { googletag.display("div-gpt-ad-1539008685004-0"); });
+                }
+            </script>
+        </div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div>
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 the3times
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

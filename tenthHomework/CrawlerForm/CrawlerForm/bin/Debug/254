@@ -1,0 +1,296 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="never" />
+    <meta property="og:description" content="由于昨天要写的文章没有写完，于是今天早上我四点半就“自然醒”了，心里面有事，睡觉也不安稳。洗漱完毕后，我打开电脑，正襟危坐，摆出一副要干架的态势，不能再拖了。 要写的文章中涉及到一串代码，关于 Und" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>IDEA惊天bug：进程已结束,退出代码-1073741819 (0xC0000005) - 沉默王二 - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/codinglife/bundle-codinglife.min.css?v=hlpQ1CJDwwJXDxv2HNauUmW3NjyWzoMaw1uER19SLT0" />
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/qing-gee/custom.css?v=8D/T8cvIJyyUgSw2yXasfJQow54=" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/codinglife/bundle-codinglife-mobile.min.css?v=XjHfryC9ctsatIZz1dHn7TsRIqmwz9c3aj_6SCfHSDM" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/qing-gee/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/qing-gee/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/qing-gee/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 336754;
+        var currentBlogApp = 'qing-gee';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'CodingLife';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/qing-gee/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/qing-gee/">沉默王二</a>
+</h1>
+<h2>
+一枚有趣的程序员，公号：沉默王二
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/qing-gee/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E6%B2%89%E9%BB%98%E7%8E%8B%E4%BA%8C">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/qing-gee/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			
+			<span id="stats_post_count">随笔 - 
+183&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+1758</span>
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/qing-gee/p/12771440.html">IDEA惊天bug：进程已结束,退出代码-1073741819 (0xC0000005)</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body ">
+    <div class="output_wrapper" id="output_wrapper_id" style="font-size: 16px; color: rgb(62, 62, 62); line-height: 1.8; word-spacing: 1px; letter-spacing: 1px; font-family: -apple-system-font, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei UI', 'Microsoft YaHei', Arial, sans-serif;"><p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">由于昨天要写的文章没有写完，于是今天早上我四点半就“自然醒”了，心里面有事，睡觉也不安稳。洗漱完毕后，我打开电脑，正襟危坐，摆出一副要干架的态势，不能再拖了。</p>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">要写的文章中涉及到一串代码，关于 Undertow 的一个入门示例，贴出来大家看一下。</p>
+<pre style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px;"><code class="java language-java hljs" style="overflow-wrap: break-word; margin: 0px 2px; line-height: 18px; font-size: 14px; font-weight: normal; word-spacing: 0px; letter-spacing: 0px; margin-bottom: 20px; margin-left: 9px; margin-right: 9px; font-family: Consolas, Inconsolata, Courier, monospace; border-radius: 0px; overflow-x: auto; padding: 0.5em; color: rgb(51, 51, 51); background: rgb(248, 248, 248); white-space: pre !important; word-wrap: normal !important; word-break: normal !important; overflow: auto !important; display: -webkit-box !important;"><span class="hljs-keyword" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">public</span>&nbsp;<span class="hljs-class" style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px; word-wrap: inherit !important; word-break: inherit !important;"><span class="hljs-keyword" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">class</span>&nbsp;<span class="hljs-title" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(68, 85, 136); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">UndertowTest</span>&nbsp;</span>{<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-function" style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px; word-wrap: inherit !important; word-break: inherit !important;"><span class="hljs-keyword" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">public</span>&nbsp;<span class="hljs-keyword" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">static</span>&nbsp;<span class="hljs-keyword" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">void</span>&nbsp;<span class="hljs-title" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(153, 0, 0); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">main</span><span class="hljs-params" style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px; word-wrap: inherit !important; word-break: inherit !important;">(<span class="hljs-keyword" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">final</span>&nbsp;String[]&nbsp;args)</span>&nbsp;</span>{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Undertow&nbsp;server&nbsp;=&nbsp;Undertow.builder()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.addHttpListener(<span class="hljs-number" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(0, 128, 128); word-wrap: inherit !important; word-break: inherit !important;">8080</span>,&nbsp;<span class="hljs-string" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(221, 17, 68); word-wrap: inherit !important; word-break: inherit !important;">"localhost"</span>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.setHandler(<span class="hljs-keyword" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">new</span>&nbsp;HttpHandler()&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-meta" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(153, 153, 153); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">@Override</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-function" style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px; word-wrap: inherit !important; word-break: inherit !important;"><span class="hljs-keyword" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">public</span>&nbsp;<span class="hljs-keyword" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">void</span>&nbsp;<span class="hljs-title" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(153, 0, 0); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">handleRequest</span><span class="hljs-params" style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px; word-wrap: inherit !important; word-break: inherit !important;">(<span class="hljs-keyword" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">final</span>&nbsp;HttpServerExchange&nbsp;exchange)</span>&nbsp;<span class="hljs-keyword" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">throws</span>&nbsp;Exception&nbsp;</span>{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exchange.getResponseHeaders().put(Headers.CONTENT_TYPE,&nbsp;<span class="hljs-string" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(221, 17, 68); word-wrap: inherit !important; word-break: inherit !important;">"text/plain"</span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exchange.getResponseSender().send(<span class="hljs-string" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(221, 17, 68); word-wrap: inherit !important; word-break: inherit !important;">"Hello&nbsp;World"</span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}).build();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;server.start();<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}<br></code></pre>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">Undertow 是大名鼎鼎的 Red Hat（红帽子）公司开发的一款基于 NIO 的高性能 Web 服务器软件，不需要单独安装软件，只需要几行代码就可以在 Java 应用程序中启动一个 Web 服务，就像上面那段代码。</p>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">前提条件是你已经在 pom.xml 文件中引入了 Undertow 的依赖。</p>
+<pre style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px;"><code class="hljs xml" style="overflow-wrap: break-word; margin: 0px 2px; line-height: 18px; font-size: 14px; font-weight: normal; word-spacing: 0px; letter-spacing: 0px; margin-bottom: 20px; margin-left: 9px; margin-right: 9px; font-family: Consolas, Inconsolata, Courier, monospace; border-radius: 0px; overflow-x: auto; padding: 0.5em; color: rgb(51, 51, 51); background: rgb(248, 248, 248); white-space: pre !important; word-wrap: normal !important; word-break: normal !important; overflow: auto !important; display: -webkit-box !important;"><span class="hljs-tag" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(0, 0, 128); font-weight: normal; word-wrap: inherit !important; word-break: inherit !important;">&lt;<span class="hljs-name" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(0, 0, 128); font-weight: normal; word-wrap: inherit !important; word-break: inherit !important;">dependency</span>&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-tag" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(0, 0, 128); font-weight: normal; word-wrap: inherit !important; word-break: inherit !important;">&lt;<span class="hljs-name" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(0, 0, 128); font-weight: normal; word-wrap: inherit !important; word-break: inherit !important;">groupId</span>&gt;</span>io.undertow<span class="hljs-tag" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(0, 0, 128); font-weight: normal; word-wrap: inherit !important; word-break: inherit !important;">&lt;/<span class="hljs-name" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(0, 0, 128); font-weight: normal; word-wrap: inherit !important; word-break: inherit !important;">groupId</span>&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-tag" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(0, 0, 128); font-weight: normal; word-wrap: inherit !important; word-break: inherit !important;">&lt;<span class="hljs-name" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(0, 0, 128); font-weight: normal; word-wrap: inherit !important; word-break: inherit !important;">artifactId</span>&gt;</span>undertow-core<span class="hljs-tag" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(0, 0, 128); font-weight: normal; word-wrap: inherit !important; word-break: inherit !important;">&lt;/<span class="hljs-name" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(0, 0, 128); font-weight: normal; word-wrap: inherit !important; word-break: inherit !important;">artifactId</span>&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-tag" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(0, 0, 128); font-weight: normal; word-wrap: inherit !important; word-break: inherit !important;">&lt;<span class="hljs-name" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(0, 0, 128); font-weight: normal; word-wrap: inherit !important; word-break: inherit !important;">version</span>&gt;</span>2.0.28.Final<span class="hljs-tag" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(0, 0, 128); font-weight: normal; word-wrap: inherit !important; word-break: inherit !important;">&lt;/<span class="hljs-name" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(0, 0, 128); font-weight: normal; word-wrap: inherit !important; word-break: inherit !important;">version</span>&gt;</span><br><span class="hljs-tag" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(0, 0, 128); font-weight: normal; word-wrap: inherit !important; word-break: inherit !important;">&lt;/<span class="hljs-name" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(0, 0, 128); font-weight: normal; word-wrap: inherit !important; word-break: inherit !important;">dependency</span>&gt;</span><br></code></pre>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">没想到，代码在 IDEA 中运行后，竟然非正常退出了！</p>
+<figure style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px;"><img src="http://www.itwanger.com/assets/images/2020/04/java-idea-bug-01.png" alt="" title="" style="font-size: inherit; color: inherit; line-height: inherit; padding: 0; display: block; margin: 0 auto 20px; max-width: 100%"><figcaption style="line-height: inherit; margin: 0px; padding: 0px; margin-top: 10px; text-align: center; color: rgb(153, 153, 153); font-size: 0.7em;"></figcaption></figure>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">没有任何错误提示，真的是郁闷。主机名 localhost 没有问题，端口 8080 也没有被占用，但 main 方法在没有任何外力的因素下直接结束了。在浏览器地址栏中输入 <code style="line-height: inherit; overflow-wrap: break-word; word-break: break-all; padding: 2px 4px; border-radius: 4px; margin: 0px 2px; color: rgb(248, 35, 117); background: rgb(248, 248, 248); font-size: 14px;">http://localhost:8080</code> 自然也无法显示“Hello World”。</p>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">回看 Run 面板中的输出信息，唯一让我感到疑惑的就是下面这行：</p>
+<blockquote style="line-height: inherit; display: block; padding: 15px 15px 15px 1rem; font-size: 0.9em; margin: 1em 16px; color: rgb(0, 0, 0); border-left: 5px solid rgb(239, 112, 96); background: rgb(239, 235, 233); overflow: auto; overflow-wrap: normal; word-break: normal;">
+  <p style="font-size: inherit; color: inherit; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em; margin: 0px;">进程已结束,退出代码-1073741819 (0xC0000005)</p>
+</blockquote>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">正常来说，程序执行的输出结果如下所示：</p>
+<blockquote style="line-height: inherit; display: block; padding: 15px 15px 15px 1rem; font-size: 0.9em; margin: 1em 16px; color: rgb(0, 0, 0); border-left: 5px solid rgb(239, 112, 96); background: rgb(239, 235, 233); overflow: auto; overflow-wrap: normal; word-break: normal;">
+  <p style="font-size: inherit; color: inherit; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em; margin: 0px;">进程已结束,退出代码0</p>
+</blockquote>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">退出代码是 0，表示程序正常结束；退出代码是 1073741819，它代表什么意思呢？</p>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">肯定是非正常呗。我第一时间想到的原因是，会不会是我代码写错了？于是查看了 Undertow 的官网，一个单词一个单词的检查，甚至上了 beyond compare 进行比较，也没有找到任何可疑之处。</p>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">折腾得够呛，于是不得不上了谷歌大法：</p>
+<figure style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px;"><img src="http://www.itwanger.com/assets/images/2020/04/java-idea-bug-02.png" alt="" title="" style="font-size: inherit; color: inherit; line-height: inherit; padding: 0; display: block; margin: 0 auto 20px; max-width: 100%"><figcaption style="line-height: inherit; margin: 0px; padding: 0px; margin-top: 10px; text-align: center; color: rgb(153, 153, 153); font-size: 0.7em;"></figcaption></figure>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">换了各种关键词，查阅了各种文章，没有找到可行的解决办法。谷歌无果，我想那就试试某度吧，结果搜到了游戏，天地良心啊。</p>
+<figure style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px;"><img src="http://www.itwanger.com/assets/images/2020/04/java-idea-bug-03.png" alt="" title="" style="font-size: inherit; color: inherit; line-height: inherit; padding: 0; display: block; margin: 0 auto 20px; max-width: 100%"><figcaption style="line-height: inherit; margin: 0px; padding: 0px; margin-top: 10px; text-align: center; color: rgb(153, 153, 153); font-size: 0.7em;"></figcaption></figure>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">搜索引擎靠不住，那就只能靠自己了。于是我写下了这段代码：</p>
+<pre style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px;"><code class="java language-java hljs" style="overflow-wrap: break-word; margin: 0px 2px; line-height: 18px; font-size: 14px; font-weight: normal; word-spacing: 0px; letter-spacing: 0px; margin-bottom: 20px; margin-left: 9px; margin-right: 9px; font-family: Consolas, Inconsolata, Courier, monospace; border-radius: 0px; overflow-x: auto; padding: 0.5em; color: rgb(51, 51, 51); background: rgb(248, 248, 248); white-space: pre !important; word-wrap: normal !important; word-break: normal !important; overflow: auto !important; display: -webkit-box !important;"><span class="hljs-keyword" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">public</span>&nbsp;<span class="hljs-class" style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px; word-wrap: inherit !important; word-break: inherit !important;"><span class="hljs-keyword" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">class</span>&nbsp;<span class="hljs-title" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(68, 85, 136); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">TestClose</span>&nbsp;</span>{<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-function" style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px; word-wrap: inherit !important; word-break: inherit !important;"><span class="hljs-keyword" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">public</span>&nbsp;<span class="hljs-keyword" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">static</span>&nbsp;<span class="hljs-keyword" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">void</span>&nbsp;<span class="hljs-title" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(153, 0, 0); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">main</span><span class="hljs-params" style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px; word-wrap: inherit !important; word-break: inherit !important;">(String[]&nbsp;args)</span>&nbsp;</span>{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">try</span>&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thread.sleep(<span class="hljs-number" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(0, 128, 128); word-wrap: inherit !important; word-break: inherit !important;">10000000</span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span class="hljs-keyword" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-weight: bold; word-wrap: inherit !important; word-break: inherit !important;">catch</span>&nbsp;(InterruptedException&nbsp;e)&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}<br></code></pre>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">运行结果大吃一惊。我揉了好几次眼睛，甚至上了倍清亮眼药水，结果也是非正常退出，错误代码和之前的 Undertow 一致。</p>
+<figure style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px;"><img src="http://www.itwanger.com/assets/images/2020/04/java-idea-bug-04.png" alt="" title="" style="font-size: inherit; color: inherit; line-height: inherit; padding: 0; display: block; margin: 0 auto 20px; max-width: 100%"><figcaption style="line-height: inherit; margin: 0px; padding: 0px; margin-top: 10px; text-align: center; color: rgb(153, 153, 153); font-size: 0.7em;"></figcaption></figure>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">搞什么嘛，这可是 <code style="line-height: inherit; overflow-wrap: break-word; word-break: break-all; padding: 2px 4px; border-radius: 4px; margin: 0px 2px; color: rgb(248, 35, 117); background: rgb(248, 248, 248); font-size: 14px;">Thread.sleep(10000000)</code> 休眠大法啊，也能在一秒内结束，那一定不是 Undertow 的代码示例写错了，而是 IDEA 在作妖。</p>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">事到如今，我想起了被打入冷宫的 Eclipse。同样的代码，进程没有立即结束掉。</p>
+<figure style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px;"><img src="http://www.itwanger.com/assets/images/2020/04/java-idea-bug-05.png" alt="" title="" style="font-size: inherit; color: inherit; line-height: inherit; padding: 0; display: block; margin: 0 auto 20px; max-width: 100%"><figcaption style="line-height: inherit; margin: 0px; padding: 0px; margin-top: 10px; text-align: center; color: rgb(153, 153, 153); font-size: 0.7em;"></figcaption></figure>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">Undertow 的代码示例也没有问题，程序没有立即结束。</p>
+<figure style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px;"><img src="http://www.itwanger.com/assets/images/2020/04/java-idea-bug-06.png" alt="" title="" style="font-size: inherit; color: inherit; line-height: inherit; padding: 0; display: block; margin: 0 auto 20px; max-width: 100%"><figcaption style="line-height: inherit; margin: 0px; padding: 0px; margin-top: 10px; text-align: center; color: rgb(153, 153, 153); font-size: 0.7em;"></figcaption></figure>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">在浏览器中输入 <code style="line-height: inherit; overflow-wrap: break-word; word-break: break-all; padding: 2px 4px; border-radius: 4px; margin: 0px 2px; color: rgb(248, 35, 117); background: rgb(248, 248, 248); font-size: 14px;">http://localhost:8080</code> 也能正常访问。</p>
+<figure style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px;"><img src="http://www.itwanger.com/assets/images/2020/04/java-idea-bug-07.png" alt="" title="" style="font-size: inherit; color: inherit; line-height: inherit; padding: 0; display: block; margin: 0 auto 20px; max-width: 100%"><figcaption style="line-height: inherit; margin: 0px; padding: 0px; margin-top: 10px; text-align: center; color: rgb(153, 153, 153); font-size: 0.7em;"></figcaption></figure>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">对比之后，问题就很确定了，出在 IDEA 身上，一定是它哪根神经错乱了。于是换了一下谷歌搜索的关键词，结果如下所示。</p>
+<figure style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px;"><img src="http://www.itwanger.com/assets/images/2020/04/java-idea-bug-08.png" alt="" title="" style="font-size: inherit; color: inherit; line-height: inherit; padding: 0; display: block; margin: 0 auto 20px; max-width: 100%"><figcaption style="line-height: inherit; margin: 0px; padding: 0px; margin-top: 10px; text-align: center; color: rgb(153, 153, 153); font-size: 0.7em;"></figcaption></figure>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">果然也有同行遇到了类似的问题，但文章中提到的原因竟然是金山词霸的划词翻译，这有点太扯了吧？</p>
+<figure style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px;"><img src="http://www.itwanger.com/assets/images/2020/04/java-idea-bug-09.png" alt="" title="" style="font-size: inherit; color: inherit; line-height: inherit; padding: 0; display: block; margin: 0 auto 20px; max-width: 100%"><figcaption style="line-height: inherit; margin: 0px; padding: 0px; margin-top: 10px; text-align: center; color: rgb(153, 153, 153); font-size: 0.7em;"></figcaption></figure>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">虽然有点扯，但的确值得试一试，毕竟山穷水尽了啊，况且我的电脑上真的安装了金山词霸，并且是打开状态。</p>
+<figure style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px;"><img src="http://www.itwanger.com/assets/images/2020/04/java-idea-bug-10.png" alt="" title="" style="font-size: inherit; color: inherit; line-height: inherit; padding: 0; display: block; margin: 0 auto 20px; max-width: 100%"><figcaption style="line-height: inherit; margin: 0px; padding: 0px; margin-top: 10px; text-align: center; color: rgb(153, 153, 153); font-size: 0.7em;"></figcaption></figure>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">那就退出试试呗，结果。。。。。。。。。。真的有用啊。</p>
+<figure style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px;"><img src="http://www.itwanger.com/assets/images/2020/04/java-idea-bug-11.png" alt="" title="" style="font-size: inherit; color: inherit; line-height: inherit; padding: 0; display: block; margin: 0 auto 20px; max-width: 100%"><figcaption style="line-height: inherit; margin: 0px; padding: 0px; margin-top: 10px; text-align: center; color: rgb(153, 153, 153); font-size: 0.7em;"></figcaption></figure>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">这次，进程没有主动结束，这是什么神奇的操作啊？人生第一次开始怀疑科学了！</p>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">既然和金山词霸有关系，那么我就脑洞打开了，是不是因为我装了汉化插件的关系？于是我把 IDEA 的汉化插件禁用，并且在重启之前打开了金山词霸。</p>
+<figure style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px;"><img src="http://www.itwanger.com/assets/images/2020/04/java-idea-bug-12.png" alt="" title="" style="font-size: inherit; color: inherit; line-height: inherit; padding: 0; display: block; margin: 0 auto 20px; max-width: 100%"><figcaption style="line-height: inherit; margin: 0px; padding: 0px; margin-top: 10px; text-align: center; color: rgb(153, 153, 153); font-size: 0.7em;"></figcaption></figure>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">结果证明没关系，进程主动结束了。</p>
+<figure style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px;"><img src="http://www.itwanger.com/assets/images/2020/04/java-idea-bug-13.png" alt="" title="" style="font-size: inherit; color: inherit; line-height: inherit; padding: 0; display: block; margin: 0 auto 20px; max-width: 100%"><figcaption style="line-height: inherit; margin: 0px; padding: 0px; margin-top: 10px; text-align: center; color: rgb(153, 153, 153); font-size: 0.7em;"></figcaption></figure>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">于是只好再次退出金山词霸。没想到，当我点击 Run 的小图标再次运行程序时，IDEA 竟然闪退了。看来它们之间的确有着不可告人的秘密，具体原因未知。</p>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">不管怎么说，这个莫名其妙的 bug 是解决了，有必要总结一波经验心得了，希望能够给小伙伴们在开发中一些启发。因为作为程序员，面对不会说话的计算机，有时候，真的会遇到一些难以名状的错误，把我们折腾得够呛。</p>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">经验一：保持冷静，切勿暴躁，心态失衡时容易捶鼠标，捶键盘，捶坏了，还得买新的。</p>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">经验二：先从自身代码找原因，复制粘贴有时候也会出现偏差，这时候，最好就和源头对比一下。如果肉眼发现不了，上比较工具，靠谱。</p>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">经验三：问谷歌，不要问某度。这年头，经常听到一些小伙伴们抱怨说，公司不允许上网，遇到问题时真的无从下手，我只能说这样的公司真的是闭关锁国啊。</p>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">经验四：换个环境试一试。同样的代码，环境不同，运行后的解决真有可能不同。IDEA 中出错，放 Eclipse 中试试；Windows 下出错，放 Linux 下试试；自己的环境有问题，放同事的环境下试试。</p>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">经验五：搜索的时候换一下关键词，真的是“柳暗花明又一村”啊。</p>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">经验六：重复以上。</p>
+<h3 id="h" style="line-height: inherit; padding: 0px; margin: 1.6em 0px; font-weight: bold; font-size: 17px; color: rgb(255, 127, 36); margin-left: 16px; margin-right: 16px;"><span style="font-size: inherit; color: inherit; line-height: inherit; margin: 0px; padding: 0px;">鸣谢</span></h3>
+<p style="font-size: inherit; color: inherit; margin: 0px; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em;">好了，我亲爱的读者朋友，以上就是本文的全部内容了。看完之后，再遇到面试官问 Java 到底是值传递还是引用传递时，就不用担心被刁难了。我是沉默王二，一枚有趣的程序员。<strong style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(233, 105, 0);">原创不易，莫要白票，请你为本文点赞个吧</strong>，这将是我写作更多优质文章的最强动力。</p>
+<blockquote style="line-height: inherit; display: block; padding: 15px 15px 15px 1rem; font-size: 0.9em; margin: 1em 16px; color: rgb(0, 0, 0); border-left: 5px solid rgb(239, 112, 96); background: rgb(239, 235, 233); overflow: auto; overflow-wrap: normal; word-break: normal;">
+  <p style="font-size: inherit; color: inherit; padding: 0px; box-sizing: border-box; display: block; margin-left: 16px; margin-right: 16px; margin-bottom: 20px; line-height: 1.75em; margin: 0px;">如果觉得文章对你有点帮助，请微信搜索「 <strong style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(233, 105, 0);">沉默王二</strong> 」第一时间阅读，回复【<strong style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; color: rgb(233, 105, 0);">666</strong>】更有我为你精心准备的 500G 高清教学视频（已分门别类）。本文 <a href="https://github.com/qinggee/itwanger.github.io" style="font-size: inherit; line-height: inherit; margin: 0px; padding: 0px; text-decoration: none; color: rgb(30, 107, 184); overflow-wrap: break-word;">GitHub</a> 已经收录，有大厂面试完整考点，欢迎 Star。</p>
+</blockquote></div>
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-04-25 08:14</span>&nbsp;
+<a href="https://www.cnblogs.com/qing-gee/">沉默王二</a>&nbsp;
+阅读(<span id="post_view_count">...</span>)&nbsp;
+评论(<span id="post_comment_count">...</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12771440" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(12771440);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/9.12.0/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 336754, cb_blogApp = 'qing-gee', cb_blogUserGuid = 'c7856396-a3ff-e611-845c-ac853d9f53ac';
+    var cb_entryId = 12771440, cb_entryCreatedDate = '2020-04-25 08:14', cb_postType = 1; 
+    loadViewCount(cb_entryId);
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot("/1090369/C1", [300, 250], "div-gpt-ad-1546353474406-0").addService(googletag.pubads());
+            googletag.defineSlot("/1090369/C2", [468, 60], "div-gpt-ad-1539008685004-0").addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;"></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;">
+            <script>
+                if (new Date() >= new Date(2018, 9, 13)) {
+                    googletag.cmd.push(function () { googletag.display("div-gpt-ad-1539008685004-0"); });
+                }
+            </script>
+        </div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div>
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 沉默王二
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    <div id="page_end_html">
+        <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278154521'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/z_stat.php%3Fid%3D1278154521' type='text/javascript'%3E%3C/script%3E"));</script>
+    </div>
+</body>
+</html>

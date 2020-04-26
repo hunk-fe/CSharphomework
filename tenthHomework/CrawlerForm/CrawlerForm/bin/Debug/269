@@ -1,0 +1,446 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta property="og:description" content="前文我们聊了下haproxy的global配置段中的常用参数的说明以及使用，回顾请参考https://www.cnblogs.com/qiuhom-1874/p/12763245.html；今天我们来" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>负载均衡服务之HAProxy基础配置（二） - Linux-1874 - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/simplememory/bundle-simplememory.min.css?v=OL4qeo1LNGlN1rKIhv5UctANvt0M6Nx6kLzr_ffx3Xk" />
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/qiuhom-1874/custom.css?v=CoRh7Stuy07fr4ApovuwMIdke9Y=" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/SimpleMemory/bundle-SimpleMemory-mobile.min.css" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/qiuhom-1874/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/qiuhom-1874/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/qiuhom-1874/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 465299;
+        var currentBlogApp = 'qiuhom-1874';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'SimpleMemory';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    <div id="page_begin_html">
+        <!-- 鼠标点击小星星 -->
+<script type="text/javascript" src="https://blog-static.cnblogs.com/files/qiuhom-1874/xiaoxinxin.js" defer></script>
+
+<!-- 背景动画 -->
+<!--<canvas id="c_n9" width="1920" height="990"  style="position: fixed; top: 0px; left: 0px; z-index: -2; opacity: 0.1;"></canvas>-->
+<!--<script src="https://blog-static.cnblogs.com/files/qiuhom-1874/canvas-nest.js" defer></script>-->
+
+<!-- tctip 支付赞赏/打赏 -->
+<script>
+window.tctipConfig = {
+        imagePrefix: "https://files-cdn.cnblogs.com/files/qiuhom-1874/",
+        cssPrefix:     "https://files-cdn.cnblogs.com/files/qiuhom-1874/",
+        buttonImageId:  4,
+        buttonTip:  "dashang",
+        list:{
+            alipay: {qrimg: "https://files-cdn.cnblogs.com/files/qiuhom-1874/ZFB.bmp"},
+            weixin:{qrimg: "https://files-cdn.cnblogs.com/files/qiuhom-1874/WX.bmp"},
+        }
+};
+</script>
+<script src="https://blog-static.cnblogs.com/files/qiuhom-1874/tctip.min.js" defer></script>
+
+<!--回到顶部小火箭 -->
+<link href="https://blog-static.cnblogs.com/files/qiuhom-1874/scroller.css" type="text/css" rel="stylesheet">
+ <script src="https://blog-static.cnblogs.com/files/qiuhom-1874/scrollspy.js" type="text/javascript" defer></script>
+ <script src="https://blog-static.cnblogs.com/files/qiuhom-1874/stickUp.min.js" type="text/javascript" defer></script>
+<style>
+#back-top {
+     position: fixed;
+     bottom: 10px;
+     right: 5px;
+     z-index: 99;
+}
+#back-top span {
+     width: 50px;
+     height: 64px;
+     display: block;
+     background:url(https://images.cnblogs.com/cnblogs_com/qiuhom-1874/1640280/o_200201115539hj.png) no-repeat center center;
+}
+#back-top a{outline:none}
+</style>
+<script type="text/javascript">
+$(function() {
+    // hide #back-top first
+    $("#back-top").hide();
+    // fade in #back-top
+    $(window).scroll(function() {
+        if ($(this).scrollTop() > 500) {
+            $('#back-top').fadeIn();
+        } else {
+            $('#back-top').fadeOut();
+        }
+    });
+    // scroll body to 0px on click
+    $('#back-top a').click(function() {
+        $('body,html').animate({
+            scrollTop: 0
+        }, 800);
+        return false;
+    });
+});
+</script>
+<p id="back-top" style="display:none"><a href="#top"><span></span></a></p>
+
+<!--网站图标 -->
+<script type="text/javascript" language="javascript">
+　　//Setting ico for cnblogs
+　　var linkObject = document.createElement('link');
+　　linkObject.rel = "shortcut icon";
+　　linkObject.href = "https://blog-static.cnblogs.com/files/qiuhom-1874/favicon.ico";
+　　document.getElementsByTagName("head")[0].appendChild(linkObject);
+</script>
+
+
+    </div>
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/qiuhom-1874/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/qiuhom-1874/">1874</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/qiuhom-1874/">
+首页</a>
+</li>
+<li>
+
+
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/Linux-1874">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/qiuhom-1874/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			
+			<span id="stats_post_count">随笔 - 
+84&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+9</span>
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/qiuhom-1874/p/12770930.html">负载均衡服务之HAProxy基础配置（二）</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+    <div id="cnblogs_post_description" style="display: none">
+        <img src="https://images.cnblogs.com/cnblogs_com/qiuhom-1874/1655970/o_200419164356haproxy.png" class="desc_img">
+roundrobin：动态轮询；支持权重的运行时调整，支持慢启动，每个后端中最多支持4095个server；什么意思呢？动态调整权重就是说不重启服务的情况下调整权重；慢启动说的是，前端的流量不会一下子全部给打进来，而是一部分一部分的打到后端服务器上；这样可以有效防止流量过大时一下子把后端服务器压垮的情况；后端最多支持4095个server表示在一个backend或listen中使用该算法最多只能定义4095个server；
+    </div>
+<div id="cnblogs_post_body" class="blogpost-body ">
+    <p>　　前文我们聊了下haproxy的global配置段中的常用参数的说明以及使用，回顾请参考<a href="https://www.cnblogs.com/qiuhom-1874/p/12763245.html" target="_blank">https://www.cnblogs.com/qiuhom-1874/p/12763245.html</a>；今天我们来说说haproxy的代理配置段中比较重要的参数配置的用法；</p>
+<p>　　代理配置段中分三段配置，第一段是defaults配置段，这一段我们在上一篇博客中也说过，主要用于定义一些默认参数配置；第二段是frontend配置段，该段主要用来定义haporxy面向客户端怎样提供服务的；比如监听在那个地址的那个端口啊，调度那个后端服务器组呀等等；第三段就是后端服务器的配置段，通常frontend和backend是联合使用，也就是说frontend必须调用一个已经定义好的backend这样才能够完全的把用户的请求调度到对应服务器或者服务器组上；而对于listen来讲，它更像一个代理的角色，它既可以定义前端对于用户端监听地址信息，同时它也能定义后端server的属性；简单讲listen指令融合了frontend和backend的功能；了解了如何定义前端监听地址以及后端被代理的server的方式后，接下来我们一一来看下代理配置段中的配置；</p>
+<p>　　defaults里的配置</p>
+<p>　　mode：该指令用于指定haporxy的工作类型的；http表示haproxy基于http协议代理后端服务器，这也是默认haproxy的工作类型；如果我们在后端backend或listen中没有配置haporxy的工作类型，默认就会继承defaults里的配置；tcp表示haproxy基于tcp协议代理后端服务器响应客户端请求；</p>
+<p>　　option redispatch ：当后端server宕机后，强制把请求定向到其他健康的服务器上；正是因为这个参数，就确保了用户端请求不会被调度到一个宕机的服务器上；</p>
+<p>　　示例：我们把option redispatch 这个配置注释掉，重启haproxy，然后把后端容器给停掉一台，看看haproxy会不会把对应的请求调度到停掉的server上呢？</p>
+<p><img src="https://img2020.cnblogs.com/blog/1503305/202004/1503305-20200424204227983-27827283.png" alt=""></p>
+<p>&nbsp;　　提示：我们只是注释了option redispatch 这段配置；对于后端服务器并没有人为手动的去修改；正常情况下，三台服务器如果都是正常的情况，是能够轮询的方式响应客户端请求的；现在我们把后端服务器停一台看看用户的请求会不会调度到停掉的那台服务器上呢？</p>
+<p><img src="https://img2020.cnblogs.com/blog/1503305/202004/1503305-20200424204647204-1970036165.png" alt=""></p>
+<p>&nbsp;　　提示：现在我们可以看到web2的状态是退出状态，不能够响应客户端的请求的；接下来我们用浏览器访问haproxy对外提服务的IP地址和端口；看看是否把用户请求调度到宕机的主机上</p>
+<p><img src="https://img2020.cnblogs.com/blog/1503305/202004/1503305-20200424205032653-1741483515.gif" alt=""></p>
+<p>&nbsp;　　提示：可以看到haproxy还是把用户端请求往宕机的主机上调度；我们把option&nbsp; redispatch 配置打开，然后重启haproxy，在看看会不会把用户请求调度到宕机的主机上</p>
+<p><img src="https://img2020.cnblogs.com/blog/1503305/202004/1503305-20200424205327860-1542704131.png" alt=""></p>
+<p>&nbsp;　　提示：我们打开option redispatch 配置，然后重启haproxy；对于web2现在还是宕机的状态，我们再用浏览器访问，看看这次会不会把用户请求调度到宕机的web2上呢</p>
+<p><img src="https://img2020.cnblogs.com/blog/1503305/202004/1503305-20200424205701351-306508942.gif" alt=""></p>
+<p>&nbsp;　　提示：我们把option redispatch 配置加上后，我们用浏览器访问haproxy的80端口，它不会把用户端请求调度到web2上去，原因就是因为检测web2没有通过，强制把请求调度到下一个服务器上去了；之所以我们看到中间有一段时间要等，是因为haproxy在对web2进行检测；</p>
+<p>　　option abortonclose：当服务器负载很高的时候，自动结束掉当前队列处理比较久的链接；</p>
+<p>　　option http-keep-alive 60：开启会话保持，并设置时长为60s</p>
+<p>　　option forwardfor：开启IP透传；这个参数的意思是把客户端的源ip信息通过X-Forwarded-For首部传给后端server，后端server可通过扑捉haproxy发来的请求报文，把对应X-Forwarded-For首部的值记录下来；通常需要后端服务器更改日志格式，把对应首部的值加入到日志中显示；</p>
+<p>　　示例：配置后端server记录haproxy发来的请求报文中X-Forwarded-For首部的值；</p>
+<p><img src="https://img2020.cnblogs.com/blog/1503305/202004/1503305-20200424212659478-1684403628.png" alt=""></p>
+<p>&nbsp;　　提示：我们在web1上修改了httpd的日志格式，让第一个字段记录X-Forwarded-For首部的值；然后让httpd重读配置文件；接下来我们就可以用浏览器访问haproxy，看看web1是否能够把客户端的源ip记录下来</p>
+<p><img src="https://img2020.cnblogs.com/blog/1503305/202004/1503305-20200424213314500-2123980933.gif" alt=""></p>
+<p>　　提示：可以看到当haproxy把我们的请求调度到web1上时，对应web1的日志就会把X-Forwarded-For的值记录下来；这个首部的值就是记录客户端的源ip地址的；这样一来我们后端server上的日志就不再只有haproxy代理的的地址了；</p>
+<p>　　timeout connect 60s：转发客户端请求到后端server的最长连接时间；这个时间是定义代理连接后端服务器的超时时长；</p>
+<p>　　timeout server 600s ：转发客户端请求到后端服务端的超时超时时长；这个时间是服务端响应代理的超时时长；</p>
+<p>　　timeout client 600s ：与客户端的最长空闲时间；</p>
+<p>　　timeout http-keep-alive 120s：session 会话保持超时时间，范围内会转发到相同的后端服务器；</p>
+<p>　　timeout check 5s：对后端服务器的检测超时时间；</p>
+<p>　　retries 3：定义重试次数；</p>
+<p>　　maxconn&nbsp; 3000：server的最大连接数（通常这个会配置在各server后面，用来指定该server的最大连接数）</p>
+<p>　　以上就是haproxy defaults配置段的常用配置说明和使用；接下来我们来说一下frontend 配置段和backend配置段</p>
+<p>　　frontend配置段里的指令配置</p>
+<p>　　bind:该指令用于指定绑定IP和端口的，通常用于frontend配置段中或listen配置段中；用法是bind [IP]:&lt;PORT&gt;,&hellip;&hellip;</p>
+<p>　　示例：</p>
+<p><img src="https://img2020.cnblogs.com/blog/1503305/202004/1503305-20200424214926341-1110395814.png" alt=""></p>
+<p>　　提示：以上配置表示前端监听80端口和8080端口，这两个端口都可以把用户端请求代理到后端指定的服务器组上进行响应；</p>
+<p>　　测试：重启haproxy 用浏览器访问192.168.0.22：8080端口，看看是否能够响应？</p>
+<p><img src="https://img2020.cnblogs.com/blog/1503305/202004/1503305-20200424215445679-2099107016.gif" alt=""></p>
+<p>　　提示：可以看到我们用浏览器访问8080也是能够正常响应的；</p>
+<p>　　除此以外，前端监听端口我们也可以不用bind参数指定 我们直接在frontend 或listen名字后面加要监听的地址和端口即可，如下所示</p>
+<p><img src="https://img2020.cnblogs.com/blog/1503305/202004/1503305-20200424215939795-831173341.png" alt=""></p>
+<p>　　提示：listen的配置也是支持以上两种的形式去监听端口的；通常不写IP地址表示监听本机所以ip地址对应的端口；</p>
+<p>　　balance：指定后端服务器组内的服务器调度算法；这个指令只能用于listen和backend或者defaults配置段中；</p>
+<p>　　　　roundrobin：动态轮询；支持权重的运行时调整，支持慢启动，每个后端中最多支持4095个server；什么意思呢？动态调整权重就是说不重启服务的情况下调整权重；慢启动说的是，前端的流量不会一下子全部给打进来，而是一部分一部分的打到后端服务器上；这样可以有效防止流量过大时一下子把后端服务器压垮的情况；后端最多支持4095个server表示在一个backend或listen中使用该算法最多只能定义4095个server；通常对于生产环境这个也是够用了；</p>
+<p>　　　　static-rr：静态轮询，不支持权重的运行时调整，不支持慢启动；这也是静态算法的确定；但这种算法对后端server没有限制；</p>
+<p>　　　　leastconn：最少连接算法；该算法本质上同static-rr没有太多的不同，通常情况下static-rr用于短连接场景中；而leastconn多用于长连接的场景中，如MySQL、LDAP等；</p>
+<p>　　　　first：根据服务器在列表中的位置，自上而下进行调度；前面服务器的连接数达到上限，新请求才会分配给下一台服务；</p>
+<p>　　　　source：源地址hash算法；类似LVS中的sh算法；hash类的算法动态与否取决于hash-type的值；如果我们定义hash-type的值为map-based（除权取余法）就表示该算法是静态算法，静态算法就不支持慢启动，动态调整权重；如果hash-type的值是consistent（一致性哈希）就表示该算法是动态算法，支持慢启动，动态权重调整；</p>
+<p>　　　　uri：对URI的左半部分做hash计算，并由服务器总权重相除以后派发至某挑出的服务器；这里说一下一个完整的rul的格式；&lt;scheme&gt;://[user:password@]&lt;host&gt;:&lt;port&gt;[/path][;params][?query][#frag]其中scheme，host，port这三项是必须有的，其他可有可无；这里说的uri就是指[/path][;params][?query][#frag]这一部分，而uri的左半部份指的是[/path][;params]；所以uri算法是对用户请求的资源路径+参数做hash计算；</p>
+<p>　　　　url_param：对用户请求的uri的&lt;params&gt;部分中的参数的值作hash计算，并由服务器总权重相除以后派发至某挑出的服务器；通常用于追踪用户，以确保来自同一个用户的请求始终发往同一个Backend Server；</p>
+<p>　　　　hdr(&lt;name&gt;)：对于每个http请求，此处由&lt;name&gt;指定的http首部将会被取出做hash计算； 并由服务器总权重相除以后派发至某挑出的服务器；没有有效值的会被轮询调度； 如hdr(Cookie)使用cookie首部做hash，把同一cookie的访问始终调度到某一台后端服务器上；</p>
+<p>　　示例：使用uri算法，并指定使用一致性hash算法</p>
+<p><img src="https://img2020.cnblogs.com/blog/1503305/202004/1503305-20200424224415147-456920093.png" alt=""></p>
+<p>　　提示：这样配置后，用户访问80端口的某一个uri始终会发往同一台服务器上；不管是那个用户去访问都会被调度到同一台服务器上进行响应</p>
+<p>　　我们在后端服务器上提供一些默认的页面，分别用不同的客户主机去访问相同的rul看看haproxy会怎么调度？</p>
+<p><img src="https://img2020.cnblogs.com/blog/1503305/202004/1503305-20200424224931669-223926859.png" alt=""></p>
+<p>&nbsp;　　提示：在三个容器内部分别新建了一个test.html的文件，其内容都是不相同的；接下来我们用浏览器访问/test.html看看会怎么调度</p>
+<p><img src="https://img2020.cnblogs.com/blog/1503305/202004/1503305-20200424225336640-1031818999.gif" alt=""></p>
+<p>　　提示：可以看到我们不管是用windows上的浏览器访问还是用Linux中的curl访问 都是被调度到web1上去了；其他算法我这里就不过多去测试了，有兴趣的小伙伴可自己动手去试试，看看效果；</p>
+<p>　　default_backend &lt;backend&gt;：设定默认的backend，用于frontend中；</p>
+<p>　　use_backend &lt;backend&gt;：调用对应的backend，用于frontend中；</p>
+<p>　　示例：</p>
+<p><img src="https://img2020.cnblogs.com/blog/1503305/202004/1503305-20200424230058892-1209768316.png" alt=""></p>
+<p>　　提示：以上配置表示用户访问80端口或8081端口，都会被调度到webservs这个后端服务器组上进行响应；</p>
+<p>　　server &lt;name&gt; &lt;address&gt;[:[port]] [param*]：定义后端主机的各服务器及其选项；name表示服务器在haproxy上的内部名称；出现在日志及警告信息中；address表示服务器地址，支持使用主机名；port：端口映射；省略时，表示同bind中绑定的端口；param表示参数；常用的参数有如下几个：</p>
+<p>　　maxconn &lt;maxconn&gt;：当前server的最大并发连接数；</p>
+<p>　　backlog &lt;backlog&gt;：当前server的连接数达到上限后的后援队列长度；</p>
+<p>　　backup：设定当前server为备用服务器；和nginx里的sorry server 是一样的；</p>
+<p>　　cookie &lt;value&gt;：为当前server指定其cookie值，用于实现基于cookie的会话黏性；</p>
+<p>　　disabled：标记为不可用；相当于nginx里的down;</p>
+<p>　　redir &lt;prefix&gt;：将发往此server的所有GET和HEAD类的请求重定向至指定的URL；</p>
+<p>　　weight &lt;weight&gt;：权重，默认为1;&nbsp;</p>
+<p>　　on-error &lt;mode&gt;：后端服务故障时采取的行动策略；策略有如下几种：</p>
+<p>　　　　fastinter：表示缩短健康状态检测间的时长；</p>
+<p>　　　　fail-check：表示即健康状态检测失败，也要检测；这是默认策略；</p>
+<p>　　　　sudden-death:模拟一个致命前的失败的健康检查，一个失败的检查将标记服务器关闭，强制fastinter</p>
+<p>　　　　mark-down：立即标记服务器不可用，并强制fastinter；</p>
+<p>　　check：对当前server做健康状态检测；<br />								　　　　addr ：检测时使用的IP地址；<br />								　　　　port ：针对此端口进行检测；<br />								　　　　inter &lt;delay&gt;：连续两次检测之间的时间间隔，默认为2000ms; <br />								　　　　rise &lt;count&gt;：连续多少次检测结果为&ldquo;成功&rdquo;才标记服务器为可用；默认为2；<br />								　　　　fall &lt;count&gt;：连续多少次检测结果为&ldquo;失败&rdquo;才标记服务器为不可用；默认为3；</p>
+<p>　　示例：</p>
+<p>&nbsp;<img src="https://img2020.cnblogs.com/blog/1503305/202004/1503305-20200424234406772-1800193906.png" alt=""></p>
+<p>　　提示：以上配置表示对web1进行健康状态检测 每隔3000毫秒检测一次，检测2次失败就立刻标记为不可用，并强制缩短检测间隔时长；权重为2，意思是该服务器被调度两次，其他服务器调度一次；最大连接为1000；web2配置为backup角色，只有当web1和web3宕机后，web2才被调度；访问web3的请求直接重定向到http://nginx.org上响应；接下来我们如果访问haproxy的80或8081端口，应该是可以访问到web1和web3；如果web1和web3宕机后，web2就会被调度；</p>
+<p>　　测试：在web1和web3都正常的情况下，看看web2是否被调度？</p>
+<p><img src="https://img2020.cnblogs.com/blog/1503305/202004/1503305-20200424235336696-284261483.gif" alt=""></p>
+<p>　　提示：可以看到web2是没有被调度的，web1被调度两次后，直接跳过web2，调度web3去了；</p>
+<p>　　测试：把web1和web3停了，看看web2是否被调度？</p>
+<p><img src="https://img2020.cnblogs.com/blog/1503305/202004/1503305-20200425002245622-674021112.gif" alt=""></p>
+<p>　　提示：我们把web1和web3给停了，用浏览器访问，它还是跳转了；这说明redir不关心所在server是否存活；要想backup被激活必须让haproxy知道对应后端服务器组里是否有活跃的服务器，如果有，它就不会激活backup，如果没有就会激活；但现在haproxy不知道，原因是web3压根没有做健康状态检测；所以要想激活backup，我们需要在web3上配置一个check即可；但是这样一来，跳转就失效了；如下</p>
+<p><img src="https://img2020.cnblogs.com/blog/1503305/202004/1503305-20200425012437149-1390036504.png" alt=""></p>
+<p>　　提示：我们在web3上加入健康状态检测后服务能够正常起来；用浏览器访问backup是被激活了，但是web3上线后，对应跳转就失效了；如下</p>
+<p><img src="https://img2020.cnblogs.com/blog/1503305/202004/1503305-20200425012838011-1878553900.png" alt=""></p>
+<p>　　总结一点：redir和check不能同时使用，同时使用redir优先级小于check；</p>
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-04-25 01:43</span>&nbsp;
+<a href="https://www.cnblogs.com/qiuhom-1874/">Linux-1874</a>&nbsp;
+阅读(<span id="post_view_count">...</span>)&nbsp;
+评论(<span id="post_comment_count">...</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12770930" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(12770930);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/9.12.0/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 465299, cb_blogApp = 'qiuhom-1874', cb_blogUserGuid = 'c59550a8-b7e6-4fd5-7bec-08d6284f5a10';
+    var cb_entryId = 12770930, cb_entryCreatedDate = '2020-04-25 01:43', cb_postType = 1; 
+    loadViewCount(cb_entryId);
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot("/1090369/C1", [300, 250], "div-gpt-ad-1546353474406-0").addService(googletag.pubads());
+            googletag.defineSlot("/1090369/C2", [468, 60], "div-gpt-ad-1539008685004-0").addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;"></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;">
+            <script>
+                if (new Date() >= new Date(2018, 9, 13)) {
+                    googletag.cmd.push(function () { googletag.display("div-gpt-ad-1539008685004-0"); });
+                }
+            </script>
+        </div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div>
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 Linux-1874
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    <div id="page_end_html">
+        <!-- lightbox的样式 -->
+<link href="https://blog-static.cnblogs.com/files/qiuhom-1874/lightbox.css" rel="stylesheet">
+
+<!-- lightbox.js核心代码 -->
+<script src="https://blog-static.cnblogs.com/files/qiuhom-1874/lightbox-plus-jquery.js"></script>
+<script type='text/javascript'>$('#cnblogs_post_body img').wrap(function(){return "<a href='"+$(this).attr("src")+"' data-lightbox='example-set'></a>"});</script>
+<script type='text/javascript'>$(".code_img_closed").unwrap();</script>
+<script type='text/javascript'>$(".code_img_opened").unwrap();</script>
+
+
+<!--评论带头像 -->
+<script type="text/javascript" src="https://blog-static.cnblogs.com/files/qiuhom-1874/Comments.js"></script>
+
+
+<!--评论像微信样式 -->
+<link  type="text/css" rel="stylesheet" href="https://blog-static.cnblogs.com/files/qiuhom-1874/comment.css">
+<script type="text/javascript">
+$(function(){
+    $('#blogTitle h1').addClass('bounceInLeft animated');
+    $('#blogTitle h2').addClass('bounceInRight animated');
+    // 删除反对按钮    $('.buryit').remove();
+    initCommentData();
+});
+function initCommentData() {
+    $('.feedbackItem').each(function() {
+        var text = $(this).find('.feedbackListSubtitle .layer').text();
+        // 将楼层信息放到data里面
+        // $(this).find('.blog_comment_body').attr('data-louceng', text.replace(/^#/g, ''));
+        if($(this).find('.feedbackListSubtitle .louzhu').length>0) $(this).addClass('myself');
+        var avatar = $(this).find('> .feedbackCon > span').html() || 'http://pic.cnitblog.com/face/sample_face.gif';
+        $(this).find('> .feedbackCon > .blog_comment_body').append('<img class="user-avatar" src="'+avatar+'"/>')
+    });
+}
+$(document).ajaxComplete(function(event, xhr, settings) {
+  // 监听获取评论ajax事件
+  if(settings.url.indexOf('/mvc/blog/GetComments.aspx') >= 0) {
+    initCommentData();
+  }
+});
+</script>
+
+
+    </div>
+</body>
+</html>

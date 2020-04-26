@@ -1,0 +1,389 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta property="og:description" content="目录 1. The Gist 1.1 为什么要学它(Motivation) 1.2 High level idea 1.3 4个例子 2. Big-Oh Notation 2.1 文本定义 2.2 图" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>【斯坦福算法分析和设计02】渐进分析 - sigua心底的小声音 - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/simplememory/bundle-simplememory.min.css?v=OL4qeo1LNGlN1rKIhv5UctANvt0M6Nx6kLzr_ffx3Xk" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/SimpleMemory/bundle-SimpleMemory-mobile.min.css" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/siguamatrix/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/siguamatrix/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/siguamatrix/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 549464;
+        var currentBlogApp = 'siguamatrix';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'SimpleMemory';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/siguamatrix/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/siguamatrix/">sigua心底的小声音</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/siguamatrix/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/sigua%E5%BF%83%E5%BA%95%E7%9A%84%E5%B0%8F%E5%A3%B0%E9%9F%B3">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/siguamatrix/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			
+			<span id="stats_post_count">随笔 - 
+11&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+9</span>
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/siguamatrix/p/12771779.html">【斯坦福算法分析和设计02】渐进分析</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body ">
+    <p>目录</p>
+<ul>
+<li>1. The Gist</li>
+<ul>
+<li>1.1 为什么要学它(Motivation)</li>
+<li>1.2 High level idea</li>
+<li>1.3 4个例子</li>
+</ul>
+<li>2. Big-Oh Notation</li>
+<ul>
+<li>2.1 文本定义</li>
+<li>2.2 图形定义</li>
+<li>2.3 数学定义</li>
+</ul>
+<li>3. 2个例子</li>
+<ul>
+<li>3.1 k阶多项式是O(n^k)</li>
+<li>3.2 k阶多项式不是O(n^(k-1))</li>
+</ul>
+<li>4. Big Omega and Theta</li>
+<ul>
+<li>4.1 Big-Omega表示法</li>
+<li>4.2 Big-theta表示法</li>
+<li>4.3 Little-O表示法</li>
+<li>4.4 渐进性表示法的来源</li>
+</ul>
+<li>5. 几个额外的例子【可选】</li>
+<ul>
+<li>5.1 在指数中添加一个常数</li>
+<li>5.2 指数乘以一个常数</li>
+<li>5.2 最大值和求和</li>
+</ul>
+</ul>
+<p class="ztext-empty-paragraph">&nbsp;</p>
+<p>1. The Gist</p>
+<h3>1.1 为什么要学它(Motivation)</h3>
+<p>我们的目的是寻找一种对算法进行衡量的最有效力度，我们希望忽略不重要的细节，例如常数因子和低阶项，把注意力集中在算法的运行时间是怎样随着输入长度的增长而增长的，这些任务是通过大O表示法(包括它的近亲表示法)的形式完成的，每个程序员都应该掌握这个概念。</p>
+<p><img class="content_image lazy" src="https://pic3.zhimg.com/80/v2-ab2490784ac883672661de0ebf486d9e_1440w.jpg" alt="" width="419" data-caption="" data-size="normal" data-rawwidth="419" data-rawheight="200" data-actualsrc="https://pic3.zhimg.com/v2-ab2490784ac883672661de0ebf486d9e_b.jpg" data-lazy-status="ok"></p>
+<p>它是行业术语渐进性表示法提供了讨论算法设计与分析的基本术语，当我们听到某个程序员谈论他的某段代码以"n的大O时间运行"，而另一段代码，以"n平方的大O时间运行"时，我们需要知道其中的意思。它是区别不同算法的"sweet spot"它有粗放和精细的两个特征。粗放:忽略了所以我们想要忽略的细节，比如说计算机体系结构，具体选择的编程语言以及编译器等方面的细节。精细:可以在不同层次对解决这个问题不同算法进行比较，尤其在巨大输入情况下，输入的规模越大，就越需要精妙的算法。</p>
+<h3>1.2 High level idea</h3>
+<p>一句话概括渐进性表示法的话，就是忽略常数因子和它的低阶项。</p>
+<p class="ztext-empty-paragraph">&nbsp;</p>
+<p><img class="origin_image zh-lightbox-thumb lazy" src="https://pic2.zhimg.com/80/v2-4e501841e5f984cd56069fe63d0981e5_1440w.jpg" alt="" width="452" data-caption="" data-size="normal" data-rawwidth="452" data-rawheight="107" data-original="https://pic2.zhimg.com/v2-4e501841e5f984cd56069fe63d0981e5_r.jpg" data-actualsrc="https://pic2.zhimg.com/v2-4e501841e5f984cd56069fe63d0981e5_b.jpg" data-lazy-status="ok"></p>
+<p class="ztext-empty-paragraph">&nbsp;</p>
+<p>为什么我们要忽略常数因子和它的低阶项？根据定义，我们把注意力放在大规模的输入时低阶项的作用就几乎可以忽略了，而大规模的输入才是需要精妙算法的时候，同时常数因子一般高度依赖于环境的细节，如果我们分析算法时并不想固定于某种特定语言计算机体系结构和编译器，那么使用不在意的常数因子就会非常合理。不是说忽略的就不重要，什么时候它重要？忽略的意思并不是说常数因子是完全无关紧要的，只不过当我们想要对解决同一个问题的一些不同方法进行比较的时候，渐进性表示法往往是正确的工具，它能帮助我们理解哪种算法的性能最佳，尤其是当输入规模非常大时，但我们确定了某个问题的最佳高级算法后，可能还想进一步优化常数因子和低阶项。</p>
+<h3>1.3 4个例子</h3>
+<p>这里有4个比较简单的例子，如果是第一次接触这个概念的朋友可以自己试着做一下，求每个例子的渐进性运行时间。后台回复【渐进性表示法】查看答案。Algorithm 1数组A中包含整数t吗？</p>
+<div class="highlight">
+<div class="cnblogs_Highlighter">
+<pre class="brush:python;gutter:true;">1: for i = 1 to n do  
+2:   if A[i] == t then  
+3:       Return TRUE  
+4: Return FALSE</pre>
+</div>
+<pre><span style="font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px;">Algorithm 2给定数组A，B和整数t，A或B中包含t吗？<br /></span></pre>
+<div class="cnblogs_Highlighter">
+<pre class="brush:python;gutter:true;">1:  for i = 1 to n do
+2:     if A[i] == t then
+3:         Return TRUE
+4:  for i = 1 to n do
+5:     if B[i] == t then
+6:         Return TRUE
+7:  Return FALSE</pre>
+</div>
+</div>
+<div class="highlight">
+<pre><span style="font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px;">Algorithm 3数组A，B有相同的元素吗？<br /><br /></span></pre>
+<div class="cnblogs_Highlighter">
+<pre class="brush:python;gutter:true;">1: for i = 1 to n do
+2:    for j = 1 to n do
+3:       if A[i] == B[j] then
+4:           Return TRUE
+5: Return FALSE
+</pre>
+</div>
+<p><span style="font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px;">Algorithm 4数组A中有重复的元素吗？</span></p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:python;gutter:true;">1: for i = 1 to n do
+2:    for j = i+1 to n do
+3:       if A[i] == A [j] then
+4:           Return TRUE
+5: Return FALSE
+</pre>
+</div>
+<p>　　</p>
+</div>
+<div class="highlight">
+<pre><span style="font-size: 1.5em; font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, sans-serif;">2. Big-Oh Notation</span></pre>
+</div>
+<h3>2.1 文本定义</h3>
+<p>大O表示法关注的是定义在正整数n = 1,2,3..上的函数T(n)，T(n)总是表示某个算法的最坏情况运行时间的上界，那么当我们说T(n)=O(f(n))的时候表示什么意思呢？</p>
+<p><img class="origin_image zh-lightbox-thumb lazy" src="https://pic4.zhimg.com/80/v2-8248b601d47ccd0877e270fd05b3f12b_1440w.jpg" alt="" width="452" data-caption="" data-size="normal" data-rawwidth="452" data-rawheight="107" data-original="https://pic4.zhimg.com/v2-8248b601d47ccd0877e270fd05b3f12b_r.jpg" data-actualsrc="https://pic4.zhimg.com/v2-8248b601d47ccd0877e270fd05b3f12b_b.jpg" data-lazy-status="ok"></p>
+<p>T(n)=O(f(n))当且仅当T(n)的最终上界是f(n)的一个常数积。</p>
+<h3>2.2 图形定义</h3>
+<p>由下图我们看到T(n)的上界并不是由f(n)决定的，是由f(n)乘以3所形成的上面那个虚线决定的，当n的值足够大时超过n0这个分界点，之后它的值就会大于T(n)，所以T(n)实际上最终是由f(n)的常数积确定上界，我们就可以说T(n)=O(f(n))。</p>
+<p><img class="content_image lazy" src="https://pic3.zhimg.com/80/v2-4d2018cb6c97e87e289eead70aa937b2_1440w.jpg" alt="" width="346" data-caption="" data-size="normal" data-rawwidth="346" data-rawheight="274" data-actualsrc="https://pic3.zhimg.com/v2-4d2018cb6c97e87e289eead70aa937b2_b.jpg" data-lazy-status="ok"></p>
+<p>这里的常数c满足f(n)的常数倍，常数n0满足最终。</p>
+<h3>2.3 数学定义</h3>
+<p><img class="origin_image zh-lightbox-thumb lazy" src="https://pic2.zhimg.com/80/v2-23084d836f9547796c85de34e06dca3d_1440w.jpg" alt="" width="458" data-caption="" data-size="normal" data-rawwidth="458" data-rawheight="177" data-original="https://pic2.zhimg.com/v2-23084d836f9547796c85de34e06dca3d_r.jpg" data-actualsrc="https://pic2.zhimg.com/v2-23084d836f9547796c85de34e06dca3d_b.jpg" data-lazy-status="ok"></p>
+<p>T(n)=O(f(n))表示当且仅当存在正常数c和n0，对所有的，不等式都成立。这个数学公式实际上是对文本定义的直接翻译。&ldquo;对所有的n大于等于n0&rdquo;表示这个不等式只需要当n足够大的时候(n0确定了具体的大小)最终能够成立，而在图中常数c对应的是3，n0对应的是函数T(n)和cf(n)之间的分界值.warning:一个警告，当我们说c和n0是常数，意思是它并不依赖于n，比如说图中的c和n0是固定的数字，像是300，1000，如果我们在证明中看到n0=n，或者c=log(n)这样的说法，它就是与n有关的，就不是常数值了。</p>
+<h2>3. 2个例子</h2>
+<h3>3.1 k阶多项式是O(n^k)</h3>
+<p><img class="origin_image zh-lightbox-thumb lazy" src="https://pic4.zhimg.com/80/v2-147849b7c34fa29ce0b9ef64cfe8fa2b_1440w.jpg" alt="" width="488" data-caption="" data-size="normal" data-rawwidth="488" data-rawheight="125" data-original="https://pic4.zhimg.com/v2-147849b7c34fa29ce0b9ef64cfe8fa2b_r.jpg" data-actualsrc="https://pic4.zhimg.com/v2-147849b7c34fa29ce0b9ef64cfe8fa2b_b.jpg" data-lazy-status="ok"></p>
+<p>这个命题表示在多项式的大O表示法中，我们需要关注的是出现在多项式的最高阶。因此大O表示法确实忽略了常数因子和低阶项。简化版的证明过程如下</p>
+<p><img class="origin_image zh-lightbox-thumb lazy" src="https://pic3.zhimg.com/80/v2-2e7b5aa7d695f0eccb68ba37f394f5c2_1440w.jpg" alt="" width="587" height="345" data-caption="" data-size="normal" data-rawwidth="823" data-rawheight="484" data-original="https://pic3.zhimg.com/v2-2e7b5aa7d695f0eccb68ba37f394f5c2_r.jpg" data-actualsrc="https://pic3.zhimg.com/v2-2e7b5aa7d695f0eccb68ba37f394f5c2_b.jpg" data-lazy-status="ok"></p>
+<p>以下是详细版本的解释。根据大O表示法的数学定义，我们需要的是找到一对正整数c和n0，我们先假设这两个常量的值: n0=1,c等于所有系数的绝对值之和：。这两个数都与n无关，现在我们需要证明选择的这两个常量满足不等式，即对所有，都有。首先我们看看T(n)的定义:如果我们在右边取每个系数的绝对值，这个表达式只会变得更大。(只会比更大，由于是正数，只会比更大)，于是:既然系数是非负数，我们也可以用类似的技巧让n的不同乘方转换成n的公共乘方。由于，对于每个，只会比更大，由于是非负正数，所以只会比更大。就意味着:对于每个，这个不等式是成立的，这就是我们想要的证明结果。</p>
+<h3>3.2 k阶多项式不是O(n^k-1)</h3>
+<p><img class="origin_image zh-lightbox-thumb lazy" src="https://pic1.zhimg.com/80/v2-080f5ce1e8bcba6a365895c8f92293dc_1440w.png" alt="" width="495" data-caption="" data-size="normal" data-rawwidth="495" data-rawheight="57" data-original="https://pic1.zhimg.com/v2-080f5ce1e8bcba6a365895c8f92293dc_r.jpg" data-actualsrc="https://pic1.zhimg.com/v2-080f5ce1e8bcba6a365895c8f92293dc_b.png" data-lazy-status="ok"></p>
+<p>它表示不同阶的多项式的大O表示法是不同的。我们可以用反证法，假设结论的相反结论是对的，并在这个假设上进行一系列的逻辑正确的步骤，最后推导出出错。简单的证明过程如下</p>
+<p><img class="origin_image zh-lightbox-thumb lazy" src="https://pic3.zhimg.com/80/v2-bc0b2d1b30699455fe822304a82e03be_1440w.jpg" alt="" width="499" height="305" data-caption="" data-size="normal" data-rawwidth="810" data-rawheight="495" data-original="https://pic3.zhimg.com/v2-bc0b2d1b30699455fe822304a82e03be_r.jpg" data-actualsrc="https://pic3.zhimg.com/v2-bc0b2d1b30699455fe822304a82e03be_b.jpg" data-lazy-status="ok"></p>
+<p>以下是详细的文字解释。因此假设=，那么它意味着什么呢？的最终上界是的一个常数积确定的。也就是说，存在常数c和，对于所有的，都存在由于n是正数，我们可以从两边消去，于是对于所有的，都存在。相当于说c比每个正整数都要大，这是明显错误的（可以取n的值是c+1向上取最接近的整数），这就说明原来的假设是错误的。</p>
+<h2>4. Big Omega and Theta</h2>
+<h3>4.1 Big-Omega表示法</h3>
+<p>文字表示法就是，当且仅当T(n)的下界是由f(n)的一个常数积所确定，那么T(n)就是另一个函数f(n)的大。数学定义如下:</p>
+<p><img class="origin_image zh-lightbox-thumb lazy" src="https://pic3.zhimg.com/80/v2-c7f9a7b03d39fabe806ae53b2e86ed6e_1440w.jpg" alt="" width="456" data-caption="" data-size="normal" data-rawwidth="456" data-rawheight="176" data-original="https://pic3.zhimg.com/v2-c7f9a7b03d39fabe806ae53b2e86ed6e_r.jpg" data-actualsrc="https://pic3.zhimg.com/v2-c7f9a7b03d39fabe806ae53b2e86ed6e_b.jpg" data-lazy-status="ok"></p>
+<p>当且仅当存在正常数c和，使得对于每一个，都有。对应的图形式如下:</p>
+<p><img class="content_image lazy" src="https://pic3.zhimg.com/80/v2-45255bad9fedcbc3323b3785a05776ea_1440w.jpg" alt="" width="308" data-caption="" data-size="normal" data-rawwidth="308" data-rawheight="229" data-actualsrc="https://pic3.zhimg.com/v2-45255bad9fedcbc3323b3785a05776ea_b.jpg" data-lazy-status="ok"></p>
+<p>f(n)并没有确定T(n)的下界，但是如果把它乘以常数，那么就是在临界点的右边确定了T(n)的下界。</p>
+<h3>4.2 Big-theta表示法</h3>
+<p>它可以类比于&ldquo;等于&rdquo;，相当于同时满足和，相当于T(n)被夹在f(n)的两个不同的常数积之间。数学定义如下:</p>
+<p><img class="origin_image zh-lightbox-thumb lazy" src="https://pic3.zhimg.com/80/v2-ad3f99afa2570c945fc2142a32fcb48e_1440w.jpg" alt="" width="456" data-caption="" data-size="normal" data-rawwidth="456" data-rawheight="161" data-original="https://pic3.zhimg.com/v2-ad3f99afa2570c945fc2142a32fcb48e_r.jpg" data-actualsrc="https://pic3.zhimg.com/v2-ad3f99afa2570c945fc2142a32fcb48e_b.jpg" data-lazy-status="ok"></p>
+<p>当且仅当存在正常数，使得当的时候，有。</p>
+<p><br />4.3 Little-O表示法</p>
+<p>
+<img class="origin_image zh-lightbox-thumb lazy" src="https://pic1.zhimg.com/80/v2-3cd314844158e88b17ac73f9d0472b24_1440w.jpg" alt="" width="451" data-caption="" data-size="normal" data-rawwidth="451" data-rawheight="171" data-original="https://pic1.zhimg.com/v2-3cd314844158e88b17ac73f9d0472b24_r.jpg" data-actualsrc="https://pic1.zhimg.com/v2-3cd314844158e88b17ac73f9d0472b24_b.jpg" data-lazy-status="ok"></p>
+<p>T(n)=o(f(n))表示当且仅当对所有c&gt;0的常数，存在常数n0，对所有的，不等式都成立。</p>
+<h3>4.4 渐进性表示法的来源</h3>
+<p>渐进表示法不是由计算机科学家发明的，是开始于数论。</p>
+<p>
+<img class="origin_image zh-lightbox-thumb lazy" src="https://pic3.zhimg.com/80/v2-4fead39e927baf7d99953ba37fd4824e_1440w.jpg" alt="" width="428" data-caption="" data-size="normal" data-rawwidth="428" data-rawheight="110" data-original="https://pic3.zhimg.com/v2-4fead39e927baf7d99953ba37fd4824e_r.jpg" data-actualsrc="https://pic3.zhimg.com/v2-4fead39e927baf7d99953ba37fd4824e_b.jpg" data-lazy-status="ok"></p>
+<h2>5. 几个额外的例子【可选】</h2>
+<h3>5.1 在指数中添加一个常数</h3>
+<p>
+<img class="origin_image zh-lightbox-thumb lazy" src="https://pic4.zhimg.com/80/v2-0f54df5c6241e8bf958a5be9e2862c9b_1440w.jpg" alt="" width="489" data-caption="" data-size="normal" data-rawwidth="489" data-rawheight="85" data-original="https://pic4.zhimg.com/v2-0f54df5c6241e8bf958a5be9e2862c9b_r.jpg" data-actualsrc="https://pic4.zhimg.com/v2-0f54df5c6241e8bf958a5be9e2862c9b_b.jpg" data-lazy-status="ok"></p>
+<p>这个例子是说，一个函数的指数与一个常数相加，并不会改变这个函数的渐进性时间增长率。简化的证明过程:</p>
+<p>
+<img class="origin_image zh-lightbox-thumb lazy" src="https://pic3.zhimg.com/80/v2-2be5cdcdb042ca8169304af17a1287aa_1440w.jpg" alt="" width="461" height="275" data-caption="" data-size="normal" data-rawwidth="776" data-rawheight="463" data-original="https://pic3.zhimg.com/v2-2be5cdcdb042ca8169304af17a1287aa_r.jpg" data-actualsrc="https://pic3.zhimg.com/v2-2be5cdcdb042ca8169304af17a1287aa_b.jpg" data-lazy-status="ok"></p>
+<p>更详细的解释:要证明这个，我们需要找到合适的正常数c和，使得对于所有的，T(n)的最大值是，我们来对它进行反向工程。</p>
+<p>我们在寻找一个推导方式，不断的放大T(n)使得它是的常数倍，我们看到T(n)的指数里有个10，很自然的想着把它分出去:我们发现右边就是的常数倍，这就提醒我们c取1024。假设选择这个c，那么对于所有的都有，因此我们取，那么就证明出来了。</p>
+<h3>5.2 指数乘以一个常数</h3>
+<p>
+<img class="origin_image zh-lightbox-thumb lazy" src="https://pic1.zhimg.com/80/v2-458c3a5a6587ec465f4b1b9f07cd499c_1440w.jpg" alt="" width="481" data-caption="" data-size="normal" data-rawwidth="481" data-rawheight="84" data-original="https://pic1.zhimg.com/v2-458c3a5a6587ec465f4b1b9f07cd499c_r.jpg" data-actualsrc="https://pic1.zhimg.com/v2-458c3a5a6587ec465f4b1b9f07cd499c_b.jpg" data-lazy-status="ok"></p>
+<p>这个命题的意思是，把一个指数函数的指数和一个常数相乘改变了它的渐进性增长率。简化的证明过程:</p>
+<p>
+<img class="origin_image zh-lightbox-thumb lazy" src="https://pic3.zhimg.com/80/v2-23cd4677f6d51a32bfd806cec30f227a_1440w.jpg" alt="" width="541" height="313" data-caption="" data-size="normal" data-rawwidth="854" data-rawheight="494" data-original="https://pic3.zhimg.com/v2-23cd4677f6d51a32bfd806cec30f227a_r.jpg" data-actualsrc="https://pic3.zhimg.com/v2-23cd4677f6d51a32bfd806cec30f227a_b.jpg" data-lazy-status="ok"></p>
+<p class="ztext-empty-paragraph">&nbsp;</p>
+<p>更详细的文字:这个用反证法来证明，它的相反结论是对的，就是。根据大O的定义，存在正常数c和，对于所有的，都有，因为是个正数，所以我们可以两边去掉，就得，这个是错误的，因为右边是个固定的数，而左边是随着n增加而无限增加的，说明我们的假设是错误的，这就证明得了原问题。</p>
+<h3>5.2 最大值和求和</h3>
+<p>
+<img class="origin_image zh-lightbox-thumb lazy" src="https://pic2.zhimg.com/80/v2-1b38ce6c80b860e287b9116bcd7a4afd_1440w.jpg" alt="" width="493" data-caption="" data-size="normal" data-rawwidth="493" data-rawheight="120" data-original="https://pic2.zhimg.com/v2-1b38ce6c80b860e287b9116bcd7a4afd_r.jpg" data-actualsrc="https://pic2.zhimg.com/v2-1b38ce6c80b860e287b9116bcd7a4afd_b.jpg" data-lazy-status="ok"></p>
+<p>这个例子表示从渐进性的角度，取两个非负数的逐点最大值和取她们的和没有什么差别。简化的证明过程:</p>
+<p>
+<img class="origin_image zh-lightbox-thumb lazy" src="https://pic1.zhimg.com/80/v2-b9e9cbb21ccc7c99362a399957770850_1440w.jpg" alt="" width="537" height="290" data-caption="" data-size="normal" data-rawwidth="898" data-rawheight="485" data-original="https://pic1.zhimg.com/v2-b9e9cbb21ccc7c99362a399957770850_r.jpg" data-actualsrc="https://pic1.zhimg.com/v2-b9e9cbb21ccc7c99362a399957770850_b.jpg" data-lazy-status="ok"></p>
+<p>的含义表示T(n)最终位于f(n)的两个不同常数倍之间。我们需要三个常数:，，，后面两个对应较大倍数和较小倍数。我们对几个数进行反向工程。任何一个正整数都存在以下关系:因为不等式的右边就是左边的数加上另一个非负数(f(n)和g(n)中较小的那个数)。类似的因为不等式的左边是f(n)和g(n)中较大那个的两倍，把两个不等式合在一起就是，对每个，都有确实位于两个不同倍数之间，相当于今日互动</p>
+<p>欢迎在评论区留下不懂的~</p>
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-04-25 10:19</span>&nbsp;
+<a href="https://www.cnblogs.com/siguamatrix/">sigua心底的小声音</a>&nbsp;
+阅读(<span id="post_view_count">...</span>)&nbsp;
+评论(<span id="post_comment_count">...</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12771779" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(12771779);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/9.12.0/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 549464, cb_blogApp = 'siguamatrix', cb_blogUserGuid = '68b1abec-1aba-4b5c-b9d2-08d74319cd87';
+    var cb_entryId = 12771779, cb_entryCreatedDate = '2020-04-25 10:19', cb_postType = 1; 
+    loadViewCount(cb_entryId);
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot("/1090369/C1", [300, 250], "div-gpt-ad-1546353474406-0").addService(googletag.pubads());
+            googletag.defineSlot("/1090369/C2", [468, 60], "div-gpt-ad-1539008685004-0").addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;"></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;">
+            <script>
+                if (new Date() >= new Date(2018, 9, 13)) {
+                    googletag.cmd.push(function () { googletag.display("div-gpt-ad-1539008685004-0"); });
+                }
+            </script>
+        </div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div>
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 sigua心底的小声音
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

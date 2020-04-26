@@ -1,0 +1,426 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="never" />
+    <meta property="og:description" content="本文是 GitHub Action 的入门教程，如您已有相关使用经验可以直接关掉。 GitHub Action 是 GitHub 于 2018 年 10 月推出的一个 CI\CD 服务。 之前一直都是" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>你知道什么是 GitHub Action 么？ - 极客挖掘机 - 博客园</title>
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=-oFz8B4m7JhHaZzdTkzPza2oLZNDRR8obnCz6w7OHbU" />
+    <link id="MainCss" rel="stylesheet" href="/skins/simplememory/bundle-simplememory.min.css?v=OL4qeo1LNGlN1rKIhv5UctANvt0M6Nx6kLzr_ffx3Xk" />
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/babycomeon/custom.css?v=U1O5CRU9t/iVLoUCVHLTE38GFDE=" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/SimpleMemory/bundle-SimpleMemory-mobile.min.css" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/babycomeon/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/babycomeon/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/babycomeon/wlwmanifest.xml" />
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=z6JkvKQ7L_bGD-nwJExYzsoFf5qnluqZJru6RsfoZuM"></script>
+    <script>
+        var currentBlogId = 271437;
+        var currentBlogApp = 'babycomeon';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'SimpleMemory';
+    </script>
+    
+    
+    
+</head>
+<body>
+    <a name="top"></a>
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/babycomeon/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/babycomeon/">极客挖掘机</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/babycomeon/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E6%9E%81%E5%AE%A2%E6%8C%96%E6%8E%98%E6%9C%BA">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/babycomeon/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			
+			<span id="stats_post_count">随笔 - 
+189&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+142</span>
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/babycomeon/p/12771624.html">你知道什么是 GitHub Action 么？</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+    <p><img src="https://cdn.geekdigging.com/technique-sharing/20200419/github_action.png" alt=""></p>
+<blockquote>
+<p>本文是 GitHub Action 的入门教程，如您已有相关使用经验可以直接关掉。</p>
+</blockquote>
+<p>GitHub Action 是 GitHub 于 2018 年 10 月推出的一个 CI\CD 服务。</p>
+<p>之前一直都是 Beta 版本，正式版于 2019 年 11 月正式推出。</p>
+<p>首先还是先放几个官方的链接：</p>
+<p>GitHub Action ： <a href="https://github.com/features/actions">https://github.com/features/actions</a></p>
+<p>GitHub Action 官方市场： <a href="https://github.com/marketplace?type=actions">https://github.com/marketplace?type=actions</a></p>
+<h2 id="cicd">CI\CD</h2>
+<p>CI\CD 其实说的是三件事情：「持续集成（Continuous Integration）」、「持续交付（Continuous Delivery）」、「持续部署（Continuous Deployment）」。</p>
+<p>因为「持续交付」和「持续部署」的英文缩写是一样的，所以这三件事情缩写成了 CI\CD 。</p>
+<h3 id="持续集成">持续集成</h3>
+<p>那么什么是「持续集成」？借用一幅图：</p>
+<p><img src="https://cdn.geekdigging.com/technique-sharing/20200419/20181126230558790.png" alt=""></p>
+<p>从这幅图上可以很清楚的看到「持续集成」的流程：</p>
+<ul>
+<li>开发人员提交代码到 Source Repository （源代码仓库），并通过 git hook 等</li>
+<li>触发 CI Server（持续集成服务器）的相关功能。执行 编译 -&gt; 测试 -&gt; 输出结果 的流程</li>
+<li>向开发人员反馈结果的 report</li>
+</ul>
+<p>我们在日常开发中经常使用到的集成方式是「阶段集成」（完成一个阶段的开发后执行代码的集成），相比较而言，「持续集成」能给我们带来的好处有哪些？</p>
+<ul>
+<li><strong>易于定位错误</strong>：每一次的代码集成都需要执行相关的测试工作，持续集成频繁的集成次数天然的*将复杂的代码逻辑切割为了小块，也就使得每一次测试中遇到的错误能够更加容易的被定位；</li>
+<li><strong>易于控制开发流程</strong>：更为细致的工作提交也就意味着更容易判断当前的工作进度，这对于管理者规划开发流程而言提供了一个有效的参考，同时也为开发人员省下了汇报工作的时间；</li>
+<li><strong>易于 CodeReview</strong>：对于大块工作的切分自然也有助于做 CodeReview；</li>
+<li><strong>易于减少不必要的工作</strong>：build 以及 test 过程的自动化可以为你节约一大票的时间，从而投入到有价值的工作中去。</li>
+</ul>
+<h3 id="持续交付">持续交付</h3>
+<p>什么是持续交付呢？</p>
+<p><img src="https://cdn.geekdigging.com/technique-sharing/20200419/20181127000508753.png" alt=""></p>
+<p>「持续交付」 指的是：一种能够使得软件在较短的循环中可靠的发布的软件工程方法。</p>
+<p>与「持续集成」相比，持续交付的侧重点在于 <strong>交付</strong> ，其核心对象不在于代码，而在于可交付的产物。</p>
+<p>「持续集成」仅仅针对于新旧代码的集成过程执行了一定的测试，其变动到持续交付后还需要一些额外的流程。</p>
+<p>从上面这张图可以看到，与「持续集成」相比较，持续交付 添加了 Test -&gt; Staging -&gt; Production 的流程，也就是为新增的代码添加了一个保证：确保新增的代码在生产环境中是可用的。</p>
+<p>在这一增加的流程中，Test 环节不仅仅包含基本的单元测试，还需要延伸到更为复杂的功能测试以及集成测试等。</p>
+<p>在这里，Staging 指的是 <strong>类生产环境</strong> ，其尽可能的对真实的网络拓扑、数据库数据以及硬件设备等资源进行模拟，从而为测试人员反馈代码在生成环境中的可能表现。</p>
+<p>流程中每一个环节的执行结果都会对开发人员进行反馈，每一个出现的错误都会导致版本的回滚。</p>
+<p>当测试完毕确认无误之后，将由相关人员对其进行 <strong>手动</strong> 部署到生产环境。</p>
+<h3 id="持续部署">持续部署</h3>
+<p>「持续部署」意味着：通过自动化部署的手段将软件功能频繁的进行交付。</p>
+<p>与「持续交付」以及「持续集成」相比，「持续部署」强调了通过 automated deployment 的手段，对新的软件功能进行集成。</p>
+<p><img src="https://cdn.geekdigging.com/technique-sharing/20200419/20181127115239969.png" alt=""></p>
+<p>通过和「持续交付」的图对比，区别主要体现在对 Production 的自动化。</p>
+<p>从开发人员提交代码到编译、测试、部署的全流程不需要人工的干预，完全通过自动化的方式执行。</p>
+<p>这一策略加快了代码提交到功能上线的速度，保证新的功能能够第一时间部署到生产环境并被使用。</p>
+<p>从前面这些介绍可以看到，CI/CD 是由很多操作组成，比如抓取代码、运行测试、登录远程服务器，发布到第三方服务等等。GitHub 把这些操作就称为 actions。</p>
+<p>很多操作在不同项目里面是类似的，完全可以共享。GitHub 注意到了这一点，想出了一个很妙的点子，允许开发者把每个操作写成独立的脚本文件，存放到代码仓库，使得其他开发者可以引用。</p>
+<p>如果你需要某个 action，不必自己写复杂的脚本，直接引用他人写好的 action 即可，整个持续集成过程，就变成了一个 actions 的组合。这就是 GitHub Actions 最特别的地方。</p>
+<p>GitHub 做了一个官方市场，可以搜索到他人提交的 actions。</p>
+<p>链接：<a href="https://github.com/marketplace?type=actions">https://github.com/marketplace?type=actions</a></p>
+<p><img src="https://cdn.geekdigging.com/technique-sharing/20200419/action_market_place.png" alt=""></p>
+<p>在很长一段时间里， GitHub 我都是当做代码仓库或者版本管理工具来用，有时候还用作文件管理工具（速度属实有点慢，文件管理工具更多的是使用国内的 Gitee）。</p>
+<p>有了 GitHub Action 以后， GitHub 除了上面这些功能以外，能做的事情就更多了，比如我在 master 分支上提交了一段代码， GitHub Action 可以自动的帮我部署到我自己的服务器上去，或者它还可以帮我把代码打成镜像，将镜像自动提交到镜像仓库里。</p>
+<p>虽然这些事情自己手动也能做，但是，能让机器自己做的事情就让自己自己做嘛，毕竟懒惰是程序员的第一生产力。</p>
+<p><img src="https://cdn.geekdigging.com/technique-sharing/20200419/nidongde.gif" alt=""></p>
+<h2 id="github-action-基本概念">GitHub Action 基本概念</h2>
+<p>GitHub Actions 有一些自己的术语。</p>
+<ol>
+<li>
+<p>workflow （工作流程）：持续集成一次运行的过程，就是一个 workflow。</p>
+</li>
+<li>
+<p>job （任务）：一个 workflow 由一个或多个 jobs 构成，含义是一次持续集成的运行，可以完成多个任务。</p>
+</li>
+<li>
+<p>step（步骤）：每个 job 由多个 step 构成，一步步完成。</p>
+</li>
+<li>
+<p>action （动作）：每个 step 可以依次执行一个或多个命令（action）。</p>
+</li>
+</ol>
+<h2 id="react-项目发布至-github-page">React 项目发布至 GitHub Page</h2>
+<p>React 是由 FaceBook 开源的一个前端框架，有相关经验的同学应该都清楚， React 项目是需要打包编译的，我这次就用 React 尝试下使用 GitHub Action 编译、打包以及部署。</p>
+<p>源码仓库：<a href="https://github.com/meteor1993/github-actions-demo/settings">https://github.com/meteor1993/github-actions-demo/settings</a></p>
+<p>GitHub Page：<a href="https://meteor1993.github.io/github-actions-demo/">https://meteor1993.github.io/github-actions-demo/</a></p>
+<p>第一件事情是我们需要先创建一个 GitHub 密钥，因为我们需要将示例部署至 Github Page ，需要写权限，创建完成后将这个秘钥保存在当前仓库的 <code>Settings/Secrets</code> 里面。</p>
+<p>创建秘钥可以参考官方文档：<a href="https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line">https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line</a> 。</p>
+<p>点击自己头像，选择 <code>Settings</code> ：</p>
+<p><img src="https://cdn.geekdigging.com/technique-sharing/20200419/step1.png" alt=""></p>
+<p>在左边栏选择 <code>Developer settings</code> ：</p>
+<p><img src="https://cdn.geekdigging.com/technique-sharing/20200419/step2.png" alt=""></p>
+<p>然后在左边栏选择 <code>Personal access tokens</code> 点击头上的 <code>Generate new token</code> 创建一个新的 Token ：</p>
+<p><img src="https://cdn.geekdigging.com/technique-sharing/20200419/step3.png" alt=""></p>
+<p><strong>注意：</strong> 创建完成后需要保存好这个 Token ，它只会出现这一次。</p>
+<p>接下来，创建一个项目，我这里创建的名字叫做 <code>github-actions-demo</code> ，然后点击项目中的 <code>Settings</code> ，在 <code>Secrets</code> 的栏目中将刚才创建的 Token 填写进去：</p>
+<p><img src="https://cdn.geekdigging.com/technique-sharing/20200419/step4.png" alt=""></p>
+<p>这里的名称随便填写，但是要记住，后面我们会用到。</p>
+<p>接下来是创建一个标准的 React 应用：</p>
+<pre><code class="language-npm">npx create-react-app github-actions-demo
+</code></pre>
+<p>等待进度条走完，然后打开项目中的 <code>package.json</code> 文件，添加一个 <code>homepage</code> 字段，如下：</p>
+<pre><code class="language-shell">&quot;homepage&quot;: &quot;https://[username].github.io/github-actions-demo&quot;,
+</code></pre>
+<p>将 <code>[username]</code> 替换成你自己的 GitHub 用户名，</p>
+<p>我这边完整的 <code>package.json</code> 文件内容如下，供参考：</p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;github-actions-demo&quot;,
+  &quot;version&quot;: &quot;0.1.0&quot;,
+  &quot;private&quot;: true,
+  &quot;dependencies&quot;: {
+    &quot;@testing-library/jest-dom&quot;: &quot;^4.2.4&quot;,
+    &quot;@testing-library/react&quot;: &quot;^9.5.0&quot;,
+    &quot;@testing-library/user-event&quot;: &quot;^7.2.1&quot;,
+    &quot;react&quot;: &quot;^16.13.1&quot;,
+    &quot;react-dom&quot;: &quot;^16.13.1&quot;,
+    &quot;react-scripts&quot;: &quot;3.4.1&quot;
+  },
+  &quot;homepage&quot;: &quot;https://meteor1993.github.io/github-actions-demo&quot;,
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;react-scripts start&quot;,
+    &quot;build&quot;: &quot;react-scripts build&quot;,
+    &quot;test&quot;: &quot;react-scripts test&quot;,
+    &quot;eject&quot;: &quot;react-scripts eject&quot;
+  },
+  &quot;eslintConfig&quot;: {
+    &quot;extends&quot;: &quot;react-app&quot;
+  },
+  &quot;browserslist&quot;: {
+    &quot;production&quot;: [
+      &quot;&gt;0.2%&quot;,
+      &quot;not dead&quot;,
+      &quot;not op_mini all&quot;
+    ],
+    &quot;development&quot;: [
+      &quot;last 1 chrome version&quot;,
+      &quot;last 1 firefox version&quot;,
+      &quot;last 1 safari version&quot;
+    ]
+  }
+}
+</code></pre>
+<p>接下来是在这个项目中，在 <code>.github/workflows</code> 的目录中生成一个 workflow 文件，名字可以随便取，这个我这里的名称是 <code>ci.yml</code> 。</p>
+<p>下面是 <code>ci.yml</code> 中的内容：</p>
+<pre><code class="language-yml">name: GitHub Actions Build and Deploy Demo
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
+      with:
+        persist-credentials: false
+    - name: Install and Build
+      run: |
+        npm install
+        npm run-script build
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with: 
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: build
+        BUILD_SCRIPT: npm install &amp;&amp; npm run build
+</code></pre>
+<p>这里使用了一个别人已经写好的 Action ： JamesIves/github-pages-deploy-action ， Github Action 市场的地址为：<a href="https://github.com/marketplace/actions/deploy-to-github-pages">https://github.com/marketplace/actions/deploy-to-github-pages</a> 。</p>
+<p>大致讲下上面这个配置文件做了什么：</p>
+<ol>
+<li>workflow 命名</li>
+<li>说明了整个流程在 master 分支发生 push 的时候触发</li>
+<li>然后获取源码，使用的 action 是 actions/checkout</li>
+<li>然后是构建和部署，使用的 action 是 JamesIves/github-pages-deploy-action</li>
+<li>然后是配置环境变量，这里的 ACCESS_TOKEN 就是我们刚才申请的 Token ，因为我的命名是 ACCESS_TOKEN ，所以这里这么写，如果有其他命名请自行更换， BRANCH 是配置部署的分支，我这里是部署到了 <code>gh-pages</code> 分支。</li>
+</ol>
+<p>workflow 文件的配置字段非常多，详情可以参考官方文档：<a href="https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions">https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions</a> ，悄悄说一句，有中文版的哦~</p>
+<p>接下来最后一步就是将这个项目提交到 Github 的 master 分支，然后我们在 Github 上点击 Action ，就可以看到当前的构建了：</p>
+<p><img src="https://cdn.geekdigging.com/technique-sharing/20200419/step5.png" alt=""></p>
+<p>然后点击进入 Action 以后，可以看到当前的实时日志：</p>
+<p><img src="https://cdn.geekdigging.com/technique-sharing/20200419/step6.png" alt=""></p>
+<p>日志默认保存 30 天。</p>
+<p>等到项目部署成功后，访问我们之前的链接：<a href="https://meteor1993.github.io/github-actions-demo/">https://meteor1993.github.io/github-actions-demo/</a> ，就可以看到效果了：</p>
+<p><img src="https://cdn.geekdigging.com/technique-sharing/20200419/step7.png" alt=""></p>
+<p>然后每次推送到 mater 分支，Github Action 都会自动运行，将构建产物发布至 Github Page ，感觉这个东西很适合做静态博客网站有木有，比如 Hexo 啥的。</p>
+<h2 id="参考">参考</h2>
+<p><a href="http://www.ruanyifeng.com/blog/2019/09/getting-started-with-github-actions.html">http://www.ruanyifeng.com/blog/2019/09/getting-started-with-github-actions.html</a></p>
+<p><a href="https://blog.csdn.net/qq_35368183/article/details/84558134">https://blog.csdn.net/qq_35368183/article/details/84558134</a></p>
+
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-04-25 09:35</span>&nbsp;
+<a href="https://www.cnblogs.com/babycomeon/">极客挖掘机</a>&nbsp;
+阅读(<span id="post_view_count">...</span>)&nbsp;
+评论(<span id="post_comment_count">...</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12771624" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(12771624);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/9.12.0/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 271437, cb_blogApp = 'babycomeon', cb_blogUserGuid = '3e50558f-07e5-e511-9fc1-ac853d9f53cc';
+    var cb_entryId = 12771624, cb_entryCreatedDate = '2020-04-25 09:35', cb_postType = 1; 
+    loadViewCount(cb_entryId);
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot("/1090369/C1", [300, 250], "div-gpt-ad-1546353474406-0").addService(googletag.pubads());
+            googletag.defineSlot("/1090369/C2", [468, 60], "div-gpt-ad-1539008685004-0").addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;"></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;">
+            <script>
+                if (new Date() >= new Date(2018, 9, 13)) {
+                    googletag.cmd.push(function () { googletag.display("div-gpt-ad-1539008685004-0"); });
+                }
+            </script>
+        </div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div>
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 极客挖掘机
+<br /><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    <div id="page_end_html">
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0b8457e2520fe3afff6f4df6c82109c9";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script type="text/javascript" src="https://s5.cnzz.com/z_stat.php?id=1277837552&web_id=1277837552"></script>
+    </div>
+</body>
+</html>
